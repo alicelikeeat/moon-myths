@@ -73,7 +73,7 @@ struct HomeView: View {
                         Text("Pure")
                             .font(.system(size: 44, weight: .semibold, design: .serif))
                             .foregroundStyle(Color.primary)
-                        Text("\(library.count) 位哲学家 · \(library.flatMap(\.books).count) 本书 · v\(appVersion)")
+                        Text("\(thinkers.count) 位哲学家 · \(thinkers.map { booksFor($0).count }.reduce(0, +)) 本书 · v\(appVersion)")
                             .font(.subheadline).foregroundStyle(Color.primary.opacity(0.6))
                             .padding(.bottom, 6)
                         NavigationLink {
@@ -98,8 +98,14 @@ struct HomeView: View {
                             .glassEffect(Glass.regular.interactive(), in: .rect(cornerRadius: 24))
                         }
                         .buttonStyle(.plain)
-                        ForEach(library) { p in
-                            PhilosopherSection(philosopher: p)
+                        ForEach(Region.allCases, id: \.self) { region in
+                            Text(region.title)
+                                .font(.system(size: 30, weight: .semibold, design: .serif))
+                                .foregroundStyle(Color.primary)
+                                .padding(.top, 22)
+                            ForEach(thinkers.filter { $0.region == region }.sorted { $0.born < $1.born }) { t in
+                                ThinkerSection(thinker: t)
+                            }
                         }
                     }
                     .padding(20)
@@ -156,7 +162,7 @@ private struct BookRow: View {
                 .glassEffect(Glass.regular.tint(Color.primary.opacity(0.12)), in: .circle)
             VStack(alignment: .leading, spacing: 3) {
                 Text("《\(book.title)》").font(.body.weight(.semibold)).foregroundStyle(Color.primary)
-                Text("\(book.year) · \(book.chapters.count) 章").font(.caption).foregroundStyle(Color.primary.opacity(0.55))
+                Text(book.chapters.isEmpty ? "\(book.year) · 全文" : "\(book.year) · \(book.chapters.count) 章").font(.caption).foregroundStyle(Color.primary.opacity(0.55))
                 Text(book.summary).font(.caption).foregroundStyle(Color.primary.opacity(0.7)).lineLimit(2)
             }
             Spacer(minLength: 0)
@@ -346,6 +352,49 @@ struct ChapterView: View {
             }
         case .interactive(let view):
             view
+        }
+    }
+}
+
+
+/// 某位哲学家名下的全部书：有章节动画的书 + 只有全文的著作
+func booksFor(_ t: Thinker) -> [Book] {
+    let deep = t.libraryId.flatMap { id in library.first { $0.id == id }?.books } ?? []
+    return deep + (thinkerWorks[t.id] ?? [])
+}
+
+private struct ThinkerSection: View {
+    let thinker: Thinker
+
+    var body: some View {
+        let books = booksFor(thinker)
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(alignment: .firstTextBaseline, spacing: 10) {
+                Text(thinker.name)
+                    .font(.system(size: 24, weight: .semibold, design: .serif))
+                    .foregroundStyle(Color.primary)
+                Text("\(thinker.approx ? "约" : "")\(yearText(thinker.born))–\(yearText(thinker.died))")
+                    .font(.footnote.monospacedDigit()).foregroundStyle(Color.primary.opacity(0.5))
+            }
+            .padding(.top, 12)
+            Text(thinker.thesis).font(.subheadline).foregroundStyle(Color.primary.opacity(0.7))
+            if books.isEmpty {
+                Text("暂缺可用的公有领域全文，章节动画将逐步加入。")
+                    .font(.caption).foregroundStyle(Color.primary.opacity(0.45))
+            } else {
+                GlassEffectContainer(spacing: 10) {
+                    VStack(spacing: 10) {
+                        ForEach(books) { b in
+                            NavigationLink {
+                                BookView(book: b)
+                            } label: {
+                                BookRow(book: b)
+                            }
+                            .buttonStyle(.plain)
+                        }
+                    }
+                }
+            }
         }
     }
 }
