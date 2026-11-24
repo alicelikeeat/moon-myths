@@ -72,9 +72,9 @@ struct HomeView: View {
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Pure")
                             .font(.system(size: 44, weight: .semibold, design: .serif))
-                            .foregroundStyle(.white)
+                            .foregroundStyle(Color.primary)
                         Text("\(library.count) 位哲学家 · \(library.flatMap(\.books).count) 本书 · v\(appVersion)")
-                            .font(.subheadline).foregroundStyle(.white.opacity(0.6))
+                            .font(.subheadline).foregroundStyle(Color.primary.opacity(0.6))
                             .padding(.bottom, 6)
                         ForEach(library) { p in
                             PhilosopherSection(philosopher: p)
@@ -101,12 +101,12 @@ private struct PhilosopherSection: View {
             HStack(alignment: .firstTextBaseline, spacing: 10) {
                 Text(philosopher.name)
                     .font(.system(size: 26, weight: .semibold, design: .serif))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(Color.primary)
                 Text(philosopher.dates)
-                    .font(.footnote.monospacedDigit()).foregroundStyle(.white.opacity(0.5))
+                    .font(.footnote.monospacedDigit()).foregroundStyle(Color.primary.opacity(0.5))
             }
             .padding(.top, 14)
-            Text(philosopher.line).font(.subheadline).foregroundStyle(.white.opacity(0.7))
+            Text(philosopher.line).font(.subheadline).foregroundStyle(Color.primary.opacity(0.7))
             GlassEffectContainer(spacing: 10) {
                 VStack(spacing: 10) {
                     ForEach(philosopher.books) { b in
@@ -129,13 +129,13 @@ private struct BookRow: View {
         HStack(spacing: 14) {
             Image(systemName: "book.closed")
                 .font(.title3)
-                .foregroundStyle(.white.opacity(0.9))
+                .foregroundStyle(Color.primary.opacity(0.9))
                 .frame(width: 46, height: 46)
-                .glassEffect(Glass.regular.tint(.white.opacity(0.12)), in: .circle)
+                .glassEffect(Glass.regular.tint(Color.primary.opacity(0.12)), in: .circle)
             VStack(alignment: .leading, spacing: 3) {
-                Text("《\(book.title)》").font(.body.weight(.semibold)).foregroundStyle(.white)
-                Text("\(book.year) · \(book.chapters.count) 章").font(.caption).foregroundStyle(.white.opacity(0.55))
-                Text(book.summary).font(.caption).foregroundStyle(.white.opacity(0.7)).lineLimit(2)
+                Text("《\(book.title)》").font(.body.weight(.semibold)).foregroundStyle(Color.primary)
+                Text("\(book.year) · \(book.chapters.count) 章").font(.caption).foregroundStyle(Color.primary.opacity(0.55))
+                Text(book.summary).font(.caption).foregroundStyle(Color.primary.opacity(0.7)).lineLimit(2)
             }
             Spacer(minLength: 0)
             Image(systemName: "chevron.right").font(.caption).foregroundStyle(Moon.dim)
@@ -158,15 +158,15 @@ struct BookView: View {
                 LazyVStack(alignment: .leading, spacing: 10) {
                     Text("《\(book.title)》")
                         .font(.system(size: 34, weight: .semibold, design: .serif))
-                        .foregroundStyle(.white)
+                        .foregroundStyle(Color.primary)
                     Text("\(book.original) · \(book.year)")
-                        .font(.footnote).foregroundStyle(.white.opacity(0.55))
+                        .font(.footnote).foregroundStyle(Color.primary.opacity(0.55))
                     Text(book.summary)
-                        .font(.subheadline).foregroundStyle(.white.opacity(0.8))
+                        .font(.subheadline).foregroundStyle(Color.primary.opacity(0.8))
                         .padding(.bottom, 6)
                     ForEach(book.parts, id: \.self) { part in
                         Text(part)
-                            .font(.footnote.weight(.semibold)).foregroundStyle(.white.opacity(0.6))
+                            .font(.footnote.weight(.semibold)).foregroundStyle(Color.primary.opacity(0.6))
                             .padding(.top, 12)
                         GlassEffectContainer(spacing: 10) {
                             VStack(spacing: 10) {
@@ -196,12 +196,12 @@ private struct ChapterRow: View {
         HStack(alignment: .top, spacing: 12) {
             Text(String(format: "%02d", number))
                 .font(.system(.callout, design: .monospaced).weight(.semibold))
-                .foregroundStyle(.white.opacity(0.9))
+                .foregroundStyle(Color.primary.opacity(0.9))
                 .frame(width: 40, height: 40)
-                .glassEffect(Glass.regular.tint(.white.opacity(0.12)), in: .circle)
+                .glassEffect(Glass.regular.tint(Color.primary.opacity(0.12)), in: .circle)
             VStack(alignment: .leading, spacing: 4) {
-                Text(chapter.title).font(.body.weight(.semibold)).foregroundStyle(.white)
-                Text(chapter.thesis).font(.caption).foregroundStyle(.white.opacity(0.6)).lineLimit(2)
+                Text(chapter.title).font(.body.weight(.semibold)).foregroundStyle(Color.primary)
+                Text(chapter.thesis).font(.caption).foregroundStyle(Color.primary.opacity(0.6)).lineLimit(2)
             }
             Spacer(minLength: 0)
             Image(systemName: "chevron.right").font(.caption).foregroundStyle(Moon.dim)
@@ -217,6 +217,7 @@ private struct ChapterRow: View {
 struct ChapterView: View {
     let book: Book
     @State var index: Int
+    @AppStorage("chapterMode") private var mode = 0   // 0 解读  1 原文
 
     var body: some View {
         let c = book.chapters[index]
@@ -226,19 +227,31 @@ struct ChapterView: View {
                 VStack(alignment: .leading, spacing: 18) {
                     Text("《\(book.title)》 · 第 \(index + 1) / \(book.chapters.count) 章 · \(c.part)")
                         .font(.caption).foregroundStyle(Moon.silver)
+                    Picker("内容", selection: $mode) {
+                        Text("解读").tag(0)
+                        Text("原文").tag(1)
+                    }
+                    .pickerStyle(.segmented)
+                    if mode == 1 {
+                        Text(c.title)
+                            .font(.system(size: 30, weight: .semibold, design: .serif))
+                            .foregroundStyle(Color.primary)
+                        PassagesView(items: passages["\(book.id):\(index)"] ?? [])
+                    } else {
                     content(c)
                     VStack(alignment: .leading, spacing: 10) {
-                        Text("要点").font(.headline).foregroundStyle(.white)
+                        Text("要点").font(.headline).foregroundStyle(Color.primary)
                         ForEach(c.points, id: \.self) { pt in
                             HStack(alignment: .top, spacing: 8) {
-                                Circle().fill(.white.opacity(0.8)).frame(width: 5, height: 5).padding(.top, 7)
-                                Text(pt).font(.subheadline).foregroundStyle(.white.opacity(0.85))
+                                Circle().fill(Color.primary.opacity(0.8)).frame(width: 5, height: 5).padding(.top, 7)
+                                Text(pt).font(.subheadline).foregroundStyle(Color.primary.opacity(0.85))
                             }
                         }
                     }
                     .padding(18)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .glassEffect(.regular, in: .rect(cornerRadius: 24))
+                    }
                     GlassEffectContainer(spacing: 12) {
                         HStack {
                             Button { withAnimation(.spring(duration: 0.5)) { index -= 1 } } label: {
@@ -255,7 +268,7 @@ struct ChapterView: View {
                         }
                     }
                     .font(.callout.weight(.semibold))
-                    .tint(.white.opacity(0.25))
+                    .tint(Color.primary.opacity(0.25))
                 }
                 .padding(20)
                 .id(index)

@@ -46,7 +46,7 @@ struct PipelineView: View {
             let s = Double(i)
             let x = hash01(s + 9) * w + sin(t * 0.3 + s) * 20
             let y = hash01(s + 19) * ySigma * 0.8 + 10
-            blob(&fog, x, y, 18 + hash01(s) * 20, .white.opacity(0.05))
+            blob(&fog, x, y, 18 + hash01(s) * 20, Color.primary.opacity(0.05))
         }
         label(&ctx, "物自体 X（不可知）", 70, 16)
 
@@ -90,7 +90,7 @@ struct PipelineView: View {
             let rawX = hash01(s * 3.7) * w
             var x = rawX + sin(t * 2 + s) * 14
             var y = p * h
-            var color = Color.white.opacity(0.35)
+            var color = Color.primary.opacity(0.35)
             var r = 2.2
 
             if !sensibility {

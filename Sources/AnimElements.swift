@@ -55,7 +55,7 @@ func drawJudgments(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
         headline(&ctx, "综合：P ∉ C(S)，需要“第三者”（直观）", size, Moon.gold)
     }
     dot(&ctx, px, py, 8, ph == 0 ? Moon.silver : Moon.gold)
-    label(&ctx, "P", px, py - 16, .white)
+    label(&ctx, "P", px, py - 16, Color.primary)
 
     // 2×2 矩阵
     let gx = w * 0.2, gy = h * 0.52, cw = w * 0.34, ch = 52.0
@@ -66,8 +66,8 @@ func drawJudgments(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
         let x = gx + Double(c) * cw, y = gy + Double(r) * ch
         let core = (r == 0 && c == 1)
         let glow = core ? 0.15 + 0.15 * sin(t * 3) : 0.03
-        box(&ctx, x + 3, y + 3, cw - 6, ch - 6, core ? Moon.gold : Moon.dim, fill: (core ? Moon.gold : Color.white).opacity(glow))
-        label(&ctx, s, x + cw / 2, y + ch / 2, core ? Moon.gold : .white.opacity(0.75))
+        box(&ctx, x + 3, y + 3, cw - 6, ch - 6, core ? Moon.gold : Moon.dim, fill: (core ? Moon.gold : Color.primary).opacity(glow))
+        label(&ctx, s, x + cw / 2, y + ch / 2, core ? Moon.gold : Color.primary.opacity(0.75))
     }
     caption(&ctx, "全书只问一件事：先天综合判断如何可能？", size)
 }
@@ -93,7 +93,7 @@ func drawSpace(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     box(&ctx, rx, h * 0.55, 100, 70, Moon.gold.opacity(0.8))
     label(&ctx, "区域 = 对唯一空间的限制", rx + 50, h * 0.55 + 84, Moon.gold, size: 11)
 
-    headline(&ctx, ph == 0 ? "物体在空间之中" : "物体可以被抽掉，空间仍在", size, ph == 0 ? .white : Moon.gold)
+    headline(&ctx, ph == 0 ? "物体在空间之中" : "物体可以被抽掉，空间仍在", size, ph == 0 ? Color.primary : Moon.gold)
     caption(&ctx, "空间：外感官的先天形式，不是物的属性", size)
 }
 
@@ -135,7 +135,7 @@ func drawMetaphysicalDeduction(_ ctx: inout GraphicsContext, _ size: CGSize, _ t
         label(&ctx, categoryGroups[g].0, 26, gy + Double(g) * ch + ch / 2, Moon.silver, size: 13)
         for j in 0..<3 {
             let x = gx + Double(j) * cw, y = gy + Double(g) * ch
-            box(&ctx, x + 3, y + 3, cw - 6, ch - 6, Color.white.opacity(0.15), fill: Moon.gold.opacity(0.08 * k))
+            box(&ctx, x + 3, y + 3, cw - 6, ch - 6, Color.primary.opacity(0.15), fill: Moon.gold.opacity(0.08 * k))
             label(&ctx, judgmentForms[g][j], x + cw / 2, y + ch / 2, Moon.silver.opacity(1 - k), size: 14)
             label(&ctx, categoryGroups[g].1[j].name, x + cw / 2, y + ch / 2, Moon.gold.opacity(k), size: 14)
         }
@@ -188,7 +188,7 @@ func drawAxioms(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let side = 26.0, ox = w / 2 - side * 3, oy = h * 0.42
     for i in 0..<36 {
         let x = ox + Double(i % 6) * side, y = oy + Double(i / 6) * side
-        box(&ctx, x + 1, y + 1, side - 2, side - 2, Color.white.opacity(0.12),
+        box(&ctx, x + 1, y + 1, side - 2, side - 2, Color.primary.opacity(0.12),
             fill: i < cells ? Moon.gold.opacity(0.55) : nil)
     }
     headline(&ctx, "广延量：部分的表象先于整体", size)
@@ -202,7 +202,7 @@ func drawAnticipations(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double
     let cx = w / 2, cy = h * 0.33
     for i in 0..<5 { dot(&ctx, cx, cy, 20 + Double(i) * 12, Moon.gold.opacity(v * 0.12)) }
     dot(&ctx, cx, cy, 20, Moon.gold.opacity(0.15 + 0.85 * v))
-    label(&ctx, String(format: "度 = %.3f", v), cx, cy + 80, .white, size: 14)
+    label(&ctx, String(format: "度 = %.3f", v), cx, cy + 80, Color.primary, size: 14)
 
     let by = h * 0.68, bx = 30.0, bw = w - 60
     box(&ctx, bx, by, bw, 14, Moon.dim)

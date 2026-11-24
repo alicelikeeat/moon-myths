@@ -70,6 +70,17 @@ jobs:
           xcrun simctl launch "$UDID" com.alicelikeeat.pure -backdropStyle aurora
           sleep 7
           xcrun simctl io "$UDID" screenshot shots/aurora-list.png
+          run_shot() { name=$1; shift
+            xcrun simctl terminate "$UDID" com.alicelikeeat.pure || true
+            xcrun simctl launch "$UDID" com.alicelikeeat.pure "$@"
+            sleep 7
+            xcrun simctl io "$UDID" screenshot "shots/$name.png"; }
+          run_shot light-home -appearance light
+          run_shot light-kant-0 -appearance light -startChapter 0
+          run_shot light-hegel-logic-0 -appearance light -book hegel-logic -startChapter 0
+          run_shot passages-kant-0 -startChapter 0 -openPassages
+          run_shot passages-light-hegel-phen-0 -appearance light -book hegel-phen -startChapter 0 -openPassages
+          run_shot passages-russell-pm-2 -book russell-pm -startChapter 2 -openPassages -backdropStyle aurora
           mkdir -p shots/crash
           cp ~/Library/Logs/DiagnosticReports/Pure* shots/crash/ 2>/dev/null || true
           xcrun simctl spawn "$UDID" log show --last 15m --predicate 'process == "Pure"' --style compact 2>/dev/null | grep -iE "fatal|crash|error|precondition" | tail -40 > shots/crash/log.txt || true

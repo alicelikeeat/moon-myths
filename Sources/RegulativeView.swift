@@ -24,12 +24,12 @@ struct RegulativeView: View {
         HStack {
             Text(assent).font(.system(size: 34, weight: .bold, design: .serif))
             Spacer()
-            Text(example).font(.footnote).foregroundStyle(.white.opacity(0.7))
+            Text(example).font(.footnote).foregroundStyle(Color.primary.opacity(0.7))
                 .multilineTextAlignment(.trailing)
         }
         .padding(18)
-        .foregroundStyle(.white)
-        .glassEffect(Glass.regular.tint(.white.opacity(0.18)), in: .rect(cornerRadius: 24))
+        .foregroundStyle(Color.primary)
+        .glassEffect(Glass.regular.tint(Color.primary.opacity(0.18)), in: .rect(cornerRadius: 24))
     }
 
     private var assent: String {
@@ -80,12 +80,12 @@ private func drawAscent(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Doubl
     let u = unity(x)
     let grad = exp(-x)
     dot(&ctx, px(x), py(u), 14, Moon.violet.opacity(0.25))
-    dot(&ctx, px(x), py(u), 6, .white)
+    dot(&ctx, px(x), py(u), 6, Color.primary)
     var arrow = Path()
     arrow.move(to: CGPoint(x: px(x), y: py(u)))
     arrow.addLine(to: CGPoint(x: px(x) + 40, y: py(u) - 40 * grad * (bottom - top) / (right - left) * maxX))
     ctx.stroke(arrow, with: .color(Moon.violet), lineWidth: 2)
 
-    label(&ctx, String(format: "统一度 %.4f  ·  距理念 %.4f", u, 1 - u), w / 2, bottom + 18, .white)
+    label(&ctx, String(format: "统一度 %.4f  ·  距理念 %.4f", u, 1 - u), w / 2, bottom + 18, Color.primary)
     label(&ctx, "经验知识 →", left + 40, bottom - 10)
 }

@@ -106,7 +106,7 @@ func drawBudFlowerFruit(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Doubl
         let r = active ? 24 + 10 * smooth(p / 0.4) : (past ? 14 : 10)
         let c: Color = i == 0 ? Moon.silver : (i == 1 ? Moon.violet : Moon.gold)
         dot(&ctx, xs[i], y, r, c.opacity(past ? 0.35 : 1))
-        label(&ctx, names[i], xs[i], y + 52, active ? .white : Moon.dim, size: 14)
+        label(&ctx, names[i], xs[i], y + 52, active ? Color.primary : Moon.dim, size: 14)
         if past { label(&ctx, "被扬弃", xs[i], y - 40, Moon.dim, size: 11) }
     }
     headline(&ctx, "后一形态否定前一形态，却保存了它", size)
@@ -123,12 +123,12 @@ func drawSenseCertainty(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Doubl
                           Color(red: 0.1 + 0.5 * day, green: 0.1 + 0.45 * day, blue: 0.25 + 0.4 * day)]),
         startPoint: CGPoint(x: 0, y: 44), endPoint: CGPoint(x: 0, y: 44 + h * 0.4)))
     dot(&ctx, w * 0.75, 44 + h * 0.15, day > 0.5 ? 22 : 14, day > 0.5 ? Moon.gold : Moon.silver)
-    label(&ctx, day > 0.5 ? "中午" : "夜晚", w * 0.25, 44 + h * 0.2, .white, size: 18)
+    label(&ctx, day > 0.5 ? "中午" : "夜晚", w * 0.25, 44 + h * 0.2, Color.primary, size: 18)
 
     let cy = h * 0.68
     box(&ctx, w * 0.12, cy, w * 0.76, 44, Moon.silver)
     label(&ctx, ph == 0 ? "写下：“这时是夜晚”" : (ph == 1 ? "“这时是夜晚”……已经不真了" : "留下来的是“这时”：普遍者"),
-          w / 2, cy + 22, ph == 2 ? Moon.gold : .white, size: 14)
+          w / 2, cy + 22, ph == 2 ? Moon.gold : Color.primary, size: 14)
     caption(&ctx, "最丰富的确定性，说出来只是最抽象的普遍", size)
 }
 
@@ -139,10 +139,10 @@ func drawForce(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let k = 0.5 - 0.5 * cos(t * 1.6)
     dot(&ctx, a, y, 22 + 6 * (1 - k), Moon.silver)
     dot(&ctx, b, y, 22 + 6 * k, Moon.violet)
-    blob(&ctx, lerp(a, b, k), y - 30 * sin(Double.pi * k), 4, .white)
+    blob(&ctx, lerp(a, b, k), y - 30 * sin(Double.pi * k), 4, Color.primary)
     label(&ctx, "力", a, y + 44, Moon.silver, size: 14)
     label(&ctx, "力的表现", b, y + 44, Moon.violet, size: 14)
-    label(&ctx, "现象：力的游戏", w / 2, 34, .white, size: 14)
+    label(&ctx, "现象：力的游戏", w / 2, 34, Color.primary, size: 14)
     let ly = h * 0.74
     line(&ctx, 30, ly, w - 30, ly, Moon.gold.opacity(0.6), 1, dash: [5, 5])
     label(&ctx, "超感官世界 = 规律的静止王国", w / 2, ly + 20, Moon.gold, size: 13)
@@ -168,7 +168,7 @@ func drawMasterSlave(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) 
         let side = lerp(30, 60, k)
         let rough = (1 - k) * 12
         box(&ctx, w * 0.62 - side / 2 + rough, h * 0.75 - side / 4, side - rough, side / 2, Moon.gold)
-        label(&ctx, "物", w * 0.62, h * 0.75, .white, size: 12)
+        label(&ctx, "物", w * 0.62, h * 0.75, Color.primary, size: 12)
     default:
         by = lerp(h * 0.62, h * 0.32, k); bR = lerp(15, 24, k)
         ay = lerp(h * 0.42, h * 0.55, k); aR = lerp(20, 13, k)
@@ -187,7 +187,7 @@ func drawUnhappy(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let far = w * 0.78
     let reach = 0.5 + 0.5 * sin(t * 1.2)
     let x = lerp(w * 0.22, w * 0.5, reach)
-    line(&ctx, w * 0.6, 50, w * 0.6, h - 50, .white.opacity(0.25), 1, dash: [4, 6])
+    line(&ctx, w * 0.6, 50, w * 0.6, h - 50, Color.primary.opacity(0.25), 1, dash: [4, 6])
     dot(&ctx, far, y, 26, Moon.gold)
     dot(&ctx, x, y, 18, Moon.violet)
     label(&ctx, "可变的我（此岸）", x, y + 42, Moon.violet, size: 13)
@@ -208,7 +208,7 @@ func drawSpiralOfSpirit(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Doubl
         let pt = CGPoint(x: cx + cos(a) * r, y: cy + sin(a) * r)
         if i == 0 { path.move(to: pt) } else { path.addLine(to: pt) }
     }
-    ctx.stroke(path, with: .color(.white.opacity(0.25)), lineWidth: 1.5)
+    ctx.stroke(path, with: .color(Color.primary.opacity(0.25)), lineWidth: 1.5)
     let p = fract(t / 12)
     for (i, n) in names.enumerated() {
         let u = Double(i) / Double(names.count - 1)
@@ -217,11 +217,11 @@ func drawSpiralOfSpirit(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Doubl
         let x = cx + cos(a) * r, y = cy + sin(a) * r
         let reached = p >= u
         dot(&ctx, x, y, reached ? 12 : 7, i == names.count - 1 ? Moon.gold : Moon.silver)
-        label(&ctx, n, x, y + 22, reached ? .white : Moon.dim, size: 12)
+        label(&ctx, n, x, y + 22, reached ? Color.primary : Moon.dim, size: 12)
     }
     let a = p * 2 * Double.pi - Double.pi / 2
     let r = 40 + p * min(w, h) * 0.32
-    blob(&ctx, cx + cos(a) * r, cy + sin(a) * r, 4, .white)
+    blob(&ctx, cx + cos(a) * r, cy + sin(a) * r, 4, Color.primary)
     caption(&ctx, "终点回到起点，却已是自觉的全体", size)
 }
 
@@ -237,7 +237,7 @@ func drawBeingNothing(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double)
         label(&ctx, "有", ax, cy + 44, Moon.gold, size: 16)
         label(&ctx, "无", bx, cy + 44, Moon.violet, size: 16)
     } else {
-        label(&ctx, "变", cx, cy + 50, .white, size: 18)
+        label(&ctx, "变", cx, cy + 50, Color.primary, size: 18)
     }
     headline(&ctx, "有消失于无，无消失于有", size)
     caption(&ctx, "这种消失本身就是“变”", size)
@@ -257,20 +257,20 @@ func drawMeasure(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
         line(&ctx, x, by - 8, x, by + 20, Moon.gold, 2)
         label(&ctx, name, x, by + 32, Moon.gold, size: 11)
     }
-    label(&ctx, String(format: "%.0f °C", temp), w / 2, by - 22, .white, size: 14)
+    label(&ctx, String(format: "%.0f °C", temp), w / 2, by - 22, Color.primary, size: 14)
     let cx = w / 2, cy = h * 0.4
     if temp < 0 {
         box(&ctx, cx - 40, cy - 40, 80, 80, Moon.silver)
-        label(&ctx, "冰", cx, cy, .white, size: 20)
+        label(&ctx, "冰", cx, cy, Color.primary, size: 20)
     } else if temp < 100 {
         dot(&ctx, cx, cy, 42, Moon.silver)
-        label(&ctx, "水", cx, cy, .white, size: 20)
+        label(&ctx, "水", cx, cy, Color.primary, size: 20)
     } else {
         for i in 0..<7 {
             let s = Double(i)
             dot(&ctx, cx + sin(s * 2.1) * 50, cy + 30 - fract(t * 0.4 + s * 0.14) * 110, 8, Moon.silver)
         }
-        label(&ctx, "汽", cx, cy + 60, .white, size: 20)
+        label(&ctx, "汽", cx, cy + 60, Color.primary, size: 20)
     }
     headline(&ctx, "温度一点点升高，状态却突然改变", size)
     caption(&ctx, "度：量与质的统一", size)
@@ -280,7 +280,7 @@ func drawEssence(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let w = Double(size.width), h = Double(size.height)
     let cx = w / 2, cy = h / 2
     let R = min(w, h) * 0.36
-    ring(&ctx, cx, cy, R, .white.opacity(0.3), 1, dash: [4, 5])
+    ring(&ctx, cx, cy, R, Color.primary.opacity(0.3), 1, dash: [4, 5])
     for i in 0..<8 {
         let a = Double(i) / 8 * 2 * Double.pi + t * 0.15
         let f = fract(t * 0.5 + Double(i) * 0.125)
@@ -289,7 +289,7 @@ func drawEssence(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
         dot(&ctx, cx + cos(a) * R, cy + sin(a) * R, 9, Moon.silver)
     }
     dot(&ctx, cx, cy, 26, Moon.gold)
-    label(&ctx, "本质", cx, cy, .white, size: 14)
+    label(&ctx, "本质", cx, cy, Color.primary, size: 14)
     label(&ctx, "现象", cx, cy - R - 22, Moon.silver, size: 13)
     caption(&ctx, "本质在显现中才是本质", size)
 }
@@ -301,12 +301,12 @@ func drawSyllogism(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     ]
     for i in 0..<3 {
         let a = pts[i], b = pts[(i + 1) % 3]
-        line(&ctx, a.0, a.1, b.0, b.1, .white.opacity(0.3), 1.5)
+        line(&ctx, a.0, a.1, b.0, b.1, Color.primary.opacity(0.3), 1.5)
     }
     let f = fract(t / 6) * 3
     let i = Int(f), k = f - Double(i)
     let a = pts[i % 3], b = pts[(i + 1) % 3]
-    blob(&ctx, lerp(a.0, b.0, k), lerp(a.1, b.1, k), 5, .white)
+    blob(&ctx, lerp(a.0, b.0, k), lerp(a.1, b.1, k), 5, Color.primary)
     for p in pts {
         dot(&ctx, p.0, p.1, 22, p.3)
         label(&ctx, p.2, p.0, p.1 + 40, p.3, size: 13)
@@ -324,17 +324,17 @@ func drawSublation(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
         let y = h * 0.85 - u * h * 0.68
         if i == 0 { path.move(to: CGPoint(x: x, y: y)) } else { path.addLine(to: CGPoint(x: x, y: y)) }
     }
-    ctx.stroke(path, with: .color(.white.opacity(0.25)), lineWidth: 1.5)
+    ctx.stroke(path, with: .color(Color.primary.opacity(0.25)), lineWidth: 1.5)
     let p = fract(t / 9)
     for (i, n) in names.enumerated() {
         let u = Double(i) / 2
         let x = w / 2 + sin(u * 2 * Double.pi * 1.5) * w * 0.3
         let y = h * 0.85 - u * h * 0.68
         dot(&ctx, x, y, p >= u ? 16 : 9, i == 2 ? Moon.gold : Moon.silver)
-        label(&ctx, n, x, y + 30, p >= u ? .white : Moon.dim, size: 13)
+        label(&ctx, n, x, y + 30, p >= u ? Color.primary : Moon.dim, size: 13)
     }
     let x = w / 2 + sin(p * 2 * Double.pi * 1.5) * w * 0.3
-    blob(&ctx, x, h * 0.85 - p * h * 0.68, 4, .white)
+    blob(&ctx, x, h * 0.85 - p * h * 0.68, 4, Color.primary)
     headline(&ctx, "回到起点，却在更高处", size)
     caption(&ctx, "取消 · 保存 · 提升", size)
 }

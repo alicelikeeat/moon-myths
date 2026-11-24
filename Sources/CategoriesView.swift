@@ -50,7 +50,7 @@ struct CategoriesView: View {
                     HStack(spacing: 8) {
                         Text(group.0)
                             .font(.headline)
-                            .foregroundStyle(.white.opacity(0.75))
+                            .foregroundStyle(Color.primary.opacity(0.75))
                             .frame(width: 38)
                         ForEach(group.1) { c in
                             Button {
@@ -60,10 +60,10 @@ struct CategoriesView: View {
                                     Text(c.name).font(.subheadline.weight(.semibold))
                                     Text(c.math).font(.caption2.monospaced()).opacity(0.7)
                                 }
-                                .foregroundStyle(.white)
+                                .foregroundStyle(Color.primary)
                                 .frame(maxWidth: .infinity, minHeight: 56)
                                 .glassEffect(selected == c
-                                             ? Glass.regular.tint(.white.opacity(0.35)).interactive()
+                                             ? Glass.regular.tint(Moon.selection).interactive()
                                              : Glass.regular.interactive(),
                                              in: .rect(cornerRadius: 18))
                             }
@@ -103,7 +103,7 @@ func drawSchema(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double, _ c: 
         for k in 0..<count {
             let x = 30 + Double(k) * span / 10
             dot(&ctx, x, axisY - 30, 9, Moon.gold)
-            label(&ctx, "\(k + 1)", x, axisY - 30, .black, size: 10)
+            label(&ctx, "\(k + 1)", x, axisY - 30, Color.primary, size: 10)
         }
         label(&ctx, "n ↦ n + 1", w / 2, h * 0.32, Moon.gold)
 
@@ -148,7 +148,7 @@ func drawSchema(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double, _ c: 
         var arrow = Path()
         arrow.move(to: CGPoint(x: ax + 16, y: y))
         arrow.addLine(to: CGPoint(x: max(ax + 16, head - 14), y: y))
-        ctx.stroke(arrow, with: .color(.white.opacity(0.8)), lineWidth: 2)
+        ctx.stroke(arrow, with: .color(Color.primary.opacity(0.8)), lineWidth: 2)
         label(&ctx, "不可逆：t₁ < t₂", w / 2, h * 0.3)
 
     case .simultaneity:
@@ -160,12 +160,12 @@ func drawSchema(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double, _ c: 
         var link = Path()
         link.move(to: CGPoint(x: x, y: y1 + 12))
         link.addLine(to: CGPoint(x: x, y: y2 - 12))
-        ctx.stroke(link, with: .color(.white.opacity(0.7)), style: StrokeStyle(lineWidth: 2, dash: [4, 3]))
+        ctx.stroke(link, with: .color(Color.primary.opacity(0.7)), style: StrokeStyle(lineWidth: 2, dash: [4, 3]))
         var tick = Path()
         tick.move(to: CGPoint(x: x, y: axisY - 6))
         tick.addLine(to: CGPoint(x: x, y: axisY + 6))
         ctx.stroke(tick, with: .color(Moon.silver), lineWidth: 2)
-        label(&ctx, "A ↔ B", x + 34, (y1 + y2) / 2, .white)
+        label(&ctx, "A ↔ B", x + 34, (y1 + y2) / 2, Color.primary)
 
     case .modality:
         let rows: [(String, Double)] = [("∃t", axisY - 120), ("t = t₀", axisY - 75), ("∀t", axisY - 30)]

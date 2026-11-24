@@ -51,6 +51,6 @@ func caption(_ ctx: inout GraphicsContext, _ s: String, _ size: CGSize) {
     label(&ctx, s, Double(size.width) / 2, Double(size.height) - 18, Moon.gold, size: 13)
 }
 
-func headline(_ ctx: inout GraphicsContext, _ s: String, _ size: CGSize, _ color: Color = .white) {
+func headline(_ ctx: inout GraphicsContext, _ s: String, _ size: CGSize, _ color: Color = Color.primary) {
     label(&ctx, s, Double(size.width) / 2, 22, color, size: 14)
 }

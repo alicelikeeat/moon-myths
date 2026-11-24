@@ -15,6 +15,25 @@ struct PureApp: App {
         return (book, n)
     }()
 
+    @AppStorage("appearance") private var appearance = "dark"
+
+    init() {
+        // 截图用：`-openPassages` 直接显示原文页
+        if ProcessInfo.processInfo.arguments.contains("-openPassages") {
+            UserDefaults.standard.set(1, forKey: "chapterMode")
+        } else if ProcessInfo.processInfo.arguments.contains("-startChapter") {
+            UserDefaults.standard.set(0, forKey: "chapterMode")
+        }
+    }
+
+    private var scheme: ColorScheme? {
+        switch appearance {
+        case "light": return .light
+        case "system": return nil
+        default: return .dark
+        }
+    }
+
     var body: some Scene {
         WindowGroup {
             Group {
@@ -25,7 +44,7 @@ struct PureApp: App {
                 }
             }
             .tint(Color(red: 0.56, green: 0.64, blue: 0.80))
-            .preferredColorScheme(.dark)
+            .preferredColorScheme(scheme)
         }
     }
 }

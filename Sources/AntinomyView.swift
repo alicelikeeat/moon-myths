@@ -53,9 +53,9 @@ struct AntinomyView: View {
                 Text(title).font(.caption.weight(.bold)).foregroundStyle(Moon.silver)
                 Spacer()
                 Image(systemName: ok ? "checkmark.circle.fill" : "xmark.circle.fill")
-                    .foregroundStyle(ok ? Color.white : Color.white.opacity(0.35))
+                    .foregroundStyle(ok ? Color.primary : Color.primary.opacity(0.35))
             }
-            Text(text).font(.subheadline).foregroundStyle(.white)
+            Text(text).font(.subheadline).foregroundStyle(Color.primary)
         }
         .padding(14)
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -98,7 +98,7 @@ private func drawRegress(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Doub
     }
     dot(&ctx, cx, cy, 6, Moon.gold)
     label(&ctx, "此刻", cx, cy + 18, Moon.gold)
-    label(&ctx, "已回溯 \(steps) 步", cx, h - 44, .white, size: 14)
+    label(&ctx, "已回溯 \(steps) 步", cx, h - 44, Color.primary, size: 14)
     label(&ctx, "|W| = ？ 序列不收敛到任何值", cx, h - 22, Moon.silver, size: 12)
 }
 
@@ -110,7 +110,7 @@ private func drawTwoDomains(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: D
     var divider = Path()
     divider.move(to: CGPoint(x: 16, y: mid))
     divider.addLine(to: CGPoint(x: w - 16, y: mid))
-    ctx.stroke(divider, with: .color(.white.opacity(0.3)), style: StrokeStyle(lineWidth: 1, dash: [6, 5]))
+    ctx.stroke(divider, with: .color(Color.primary.opacity(0.3)), style: StrokeStyle(lineWidth: 1, dash: [6, 5]))
     label(&ctx, "现象：一切都被决定（反题 ✓）", w / 2, 20, Moon.silver)
     label(&ctx, "本体：可以设想自由（正题 ✓）", w / 2, mid + 22, Moon.gold)
 

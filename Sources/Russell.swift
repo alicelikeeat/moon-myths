@@ -82,7 +82,7 @@ func drawFrenchKing(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
         let x = 20 + Double(i) * (bw + 10)
         let failed = ph == 1 && i == 0 && p > 0.55
         box(&ctx, x, 50, bw, 44, failed ? .red : Moon.silver, fill: failed ? Color.red.opacity(0.25) : nil)
-        label(&ctx, c, x + bw / 2, 72, failed ? .red : .white, size: 14)
+        label(&ctx, c, x + bw / 2, 72, failed ? .red : Color.primary, size: 14)
     }
     label(&ctx, "存在 ∧ 唯一 ∧ 秃", w / 2, 116, Moon.dim, size: 12)
     let people = ["总统", "教师", "画家", "厨师", "学生", "诗人"]
@@ -110,11 +110,11 @@ func drawWaverley(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     dot(&ctx, cx, cy, 26, Moon.gold)
     label(&ctx, "同一个人", cx, cy + 46, Moon.gold, size: 12)
     let lx = lerp(w * 0.18, cx - 60, k), rx = lerp(w * 0.82, cx + 60, k)
-    label(&ctx, "司各特", lx, cy - 60, .white, size: 15)
+    label(&ctx, "司各特", lx, cy - 60, Color.primary, size: 15)
     label(&ctx, "《威弗利》的作者", rx, cy - 90, Moon.silver, size: 15)
-    line(&ctx, lx, cy - 48, cx, cy - 28, .white.opacity(0.4), 1)
+    line(&ctx, lx, cy - 48, cx, cy - 28, Color.primary.opacity(0.4), 1)
     line(&ctx, rx, cy - 78, cx, cy - 28, Moon.silver.opacity(0.4), 1, dash: [4, 4])
-    label(&ctx, "名字：直接指称", w * 0.25, h * 0.8, .white.opacity(0.7), size: 12)
+    label(&ctx, "名字：直接指称", w * 0.25, h * 0.8, Color.primary.opacity(0.7), size: 12)
     label(&ctx, "摹状词：∃x(Wx ∧ 唯一 …)", w * 0.68, h * 0.8, Moon.silver, size: 12)
     caption(&ctx, "所以这句话告诉了我们新东西", size)
 }
@@ -126,7 +126,7 @@ func drawRussellParadox(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Doubl
     let inside = sin(t * speed * 2) > 0
     let k = 0.5 + 0.5 * sin(t * speed * 2)
     dot(&ctx, cx, cy, 70, Moon.violet)
-    label(&ctx, "R", cx - 50, cy - 50, .white, size: 18)
+    label(&ctx, "R", cx - 50, cy - 50, Color.primary, size: 18)
     let tx = lerp(cx + 120, cx, k)
     dot(&ctx, min(tx, w - 30), cy, 14, Moon.gold)
     label(&ctx, "R 自己", min(tx, w - 30), cy + 30, Moon.gold, size: 12)
@@ -142,7 +142,7 @@ func drawTypes(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     for i in 0..<4 {
         let y = h - 50 - Double(i + 1) * lh
         box(&ctx, 20, y + 6, w - 40, lh - 12, Moon.silver)
-        label(&ctx, names[i], 90, y + 20, .white.opacity(0.8), size: 11)
+        label(&ctx, names[i], 90, y + 20, Color.primary.opacity(0.8), size: 11)
         for j in 0..<3 {
             let x = w * 0.45 + Double(j) * 50
             blob(&ctx, x, y + lh / 2 + 6, 5, i == 0 ? Moon.silver : Moon.gold)
@@ -153,8 +153,8 @@ func drawTypes(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let k = f - Double(lvl)
     let y0 = h - 50 - Double(lvl + 1) * lh + lh / 2 + 6
     let y1 = y0 - lh
-    blob(&ctx, w * 0.45 + 50, lerp(y0, y1, k), 4, .white)
-    line(&ctx, w * 0.45 + 50, y0, w * 0.45 + 50, y1, .white.opacity(0.4), 1)
+    blob(&ctx, w * 0.45 + 50, lerp(y0, y1, k), 4, Color.primary)
+    line(&ctx, w * 0.45 + 50, y0, w * 0.45 + 50, y1, Color.primary.opacity(0.4), 1)
     label(&ctx, "∈ 只能向上一层", w * 0.82, y0 - lh / 2, Moon.gold, size: 11)
     label(&ctx, "x ∈ x  ✗", w * 0.82, h - 50 - lh / 2 + 6, .red.opacity(0.8), size: 12)
     caption(&ctx, "同层之间无法谈论“属于”", size)
@@ -168,12 +168,12 @@ func drawOnePlusOne(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let ax = lerp(w * 0.25, w / 2 - 20, k), bx = lerp(w * 0.75, w / 2 + 20, k)
     dot(&ctx, ax, cy, 36, Moon.silver)
     dot(&ctx, bx, cy, 36, Moon.violet)
-    blob(&ctx, ax, cy, 5, .white)
-    blob(&ctx, bx, cy, 5, .white)
+    blob(&ctx, ax, cy, 5, Color.primary)
+    blob(&ctx, bx, cy, 5, Color.primary)
     if k < 0.6 {
         label(&ctx, "α ∈ 1", ax, cy + 56, Moon.silver, size: 13)
         label(&ctx, "β ∈ 1", bx, cy + 56, Moon.violet, size: 13)
-        label(&ctx, "α ∩ β = ∅", w / 2, cy - 70, .white.opacity(0.8), size: 13)
+        label(&ctx, "α ∩ β = ∅", w / 2, cy - 70, Color.primary.opacity(0.8), size: 13)
     } else {
         label(&ctx, "α ∪ β ∈ 2", w / 2, cy + 62, Moon.gold, size: 15)
     }
@@ -188,10 +188,10 @@ func drawTable(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let tw = w * 0.36, th = h * 0.2
     let rect = Path(roundedRect: CGRect(x: w / 2 - tw / 2, y: h * 0.5 - th / 2, width: tw, height: th), cornerRadius: 10)
     ctx.fill(rect, with: .color(Color(red: 0.35 + 0.45 * light, green: 0.22 + 0.3 * light, blue: 0.12 + 0.2 * light)))
-    line(&ctx, ex, ey, w / 2, h * 0.5, .white.opacity(0.3), 1, dash: [4, 4])
+    line(&ctx, ex, ey, w / 2, h * 0.5, Color.primary.opacity(0.3), 1, dash: [4, 4])
     dot(&ctx, ex, ey, 14, Moon.silver)
     label(&ctx, "眼睛", ex, ey + 26, Moon.silver, size: 11)
-    label(&ctx, light > 0.66 ? "看起来：发亮" : (light > 0.33 ? "看起来：棕色" : "看起来：暗"), w / 2, h * 0.5 + th / 2 + 22, .white, size: 13)
+    label(&ctx, light > 0.66 ? "看起来：发亮" : (light > 0.33 ? "看起来：棕色" : "看起来：暗"), w / 2, h * 0.5 + th / 2 + 22, Color.primary, size: 13)
     headline(&ctx, "同一张桌子，每个角度颜色都不同", size)
     caption(&ctx, "哪一个才是“真正的”颜色？", size)
 }
@@ -214,7 +214,7 @@ func drawAcquaintance(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double)
     }
     dot(&ctx, cx, cy, r, Moon.gold)
     for (i, n) in inner.enumerated() {
-        label(&ctx, n, cx, cy - 18 + Double(i) * 18, .white, size: 11)
+        label(&ctx, n, cx, cy - 18 + Double(i) * 18, Color.primary, size: 11)
     }
     label(&ctx, "亲知", cx, cy - r - 14, Moon.gold, size: 13)
     label(&ctx, "描述", cx, cy - R - 12, Moon.violet, size: 13)
@@ -231,14 +231,14 @@ func drawInduction(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
         let x = 30 + cw * (Double(i % cols) + 0.5)
         let y = 70 + Double(i / cols) * 52
         dot(&ctx, x, y, 14, Moon.silver)
-        label(&ctx, "✓", x, y, .white, size: 12)
+        label(&ctx, "✓", x, y, Color.primary, size: 12)
     }
     if n >= total {
         let i = total - 1
         let x = 30 + cw * (Double(i % cols) + 0.5)
         let y = 70 + Double(i / cols) * 52
         dot(&ctx, x, y, 14, Moon.gold)
-        label(&ctx, "?", x, y, .white, size: 14)
+        label(&ctx, "?", x, y, Color.primary, size: 14)
     }
     headline(&ctx, "第 \(min(n, total)) 天：今天也被喂食了", size)
     caption(&ctx, "养鸡人每天都来……直到有一天不是来喂食的", size)

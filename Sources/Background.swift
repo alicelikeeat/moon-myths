@@ -9,7 +9,7 @@ enum BackdropStyle: String, CaseIterable, Identifiable {
         case .glow: return "柔光"
         case .aurora: return "极光"
         case .dusk: return "暮色"
-        case .black: return "纯黑"
+        case .black: return "纯色"
         case .photo: return "我的照片"
         }
     }
@@ -71,11 +71,11 @@ struct Backdrop: View {
                         .id(photoVersion)
                 }
             case .black:
-                Color.black
+                Moon.bg
             default:
                 DriftingLights(colors: style.lights, intensity: style.intensity)
             }
-            Color.black.opacity(dim)
+            Moon.bg.opacity(dim)
         }
         .ignoresSafeArea()
     }
@@ -112,12 +112,21 @@ struct BackdropSettings: View {
     @AppStorage("backdropStyle") private var styleRaw = BackdropStyle.glow.rawValue
     @AppStorage("backdropDim") private var dim = 0.35
     @AppStorage("backdropPhotoVersion") private var photoVersion = 0
+    @AppStorage("appearance") private var appearance = "dark"
     @State private var pick: PhotosPickerItem?
     @State private var failed = false
 
     var body: some View {
         NavigationStack {
             Form {
+                Section("模式") {
+                    Picker("模式", selection: $appearance) {
+                        Text("深色").tag("dark")
+                        Text("白底黑字").tag("light")
+                        Text("跟随系统").tag("system")
+                    }
+                    .pickerStyle(.segmented)
+                }
                 Section("背景") {
                     Picker("样式", selection: $styleRaw) {
                         ForEach(BackdropStyle.allCases) { s in

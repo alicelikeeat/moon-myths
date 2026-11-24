@@ -38,10 +38,10 @@ struct BoundaryView: View {
             Text(picked.knowable ? "可知" : "可思而不可知")
                 .font(.headline)
             Spacer()
-            Text(picked.note).font(.footnote).foregroundStyle(.white.opacity(0.75))
+            Text(picked.note).font(.footnote).foregroundStyle(Color.primary.opacity(0.75))
         }
         .padding(16)
-        .foregroundStyle(.white)
+        .foregroundStyle(Color.primary)
         .glassEffect(Glass.regular.tint((picked.knowable ? Moon.gold : Moon.violet).opacity(0.2)),
                      in: .rect(cornerRadius: 22))
     }
@@ -60,9 +60,9 @@ private struct FlowButtons: View {
                         .font(.footnote.weight(.semibold))
                         .padding(.vertical, 9)
                         .frame(maxWidth: .infinity)
-                        .foregroundStyle(.white)
+                        .foregroundStyle(Color.primary)
                         .glassEffect(picked == th
-                                     ? Glass.regular.tint(.white.opacity(0.35)).interactive()
+                                     ? Glass.regular.tint(Moon.selection).interactive()
                                      : Glass.regular.interactive(),
                                      in: .capsule)
                 }
@@ -101,7 +101,7 @@ private func drawRings(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double
         let isPicked = th == picked
         let color = th.knowable ? Moon.gold : Moon.violet
         if isPicked { dot(&ctx, x, y, 16 + 3 * sin(t * 4), color.opacity(0.25)) }
-        dot(&ctx, x, y, isPicked ? 7 : 4, isPicked ? .white : color)
-        if isPicked { label(&ctx, th.name, x, y - 20, .white, size: 13) }
+        dot(&ctx, x, y, isPicked ? 7 : 4, isPicked ? Color.primary : color)
+        if isPicked { label(&ctx, th.name, x, y - 20, Color.primary, size: 13) }
     }
 }

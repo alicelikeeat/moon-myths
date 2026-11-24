@@ -1,12 +1,23 @@
 import SwiftUI
 
 /// 纯净调色：几乎全白，只保留极淡的冷暖色差来区分含义
+/// 深色模式用 dark，白底模式用 light
+private func adaptive(_ dark: (Double, Double, Double), _ light: (Double, Double, Double), alpha: (Double, Double) = (1, 1)) -> Color {
+    Color(UIColor { trait in
+        let c = trait.userInterfaceStyle == .light ? light : dark
+        let a = trait.userInterfaceStyle == .light ? alpha.1 : alpha.0
+        return UIColor(red: c.0, green: c.1, blue: c.2, alpha: a)
+    })
+}
+
 enum Moon {
-    static let bg = Color(red: 0.035, green: 0.04, blue: 0.06)
-    static let gold = Color(red: 1.0, green: 0.96, blue: 0.88)      // 暖白：知性 / 对象 / 强调
-    static let silver = Color(red: 0.82, green: 0.90, blue: 1.0)    // 冰白：感性 / 现象
-    static let violet = Color(red: 0.88, green: 0.85, blue: 1.0)    // 淡紫白：理念 / 本体
-    static let dim = Color.white.opacity(0.4)
+    static let bg = adaptive((0.035, 0.04, 0.06), (0.975, 0.975, 0.98))
+    static let gold = adaptive((1.0, 0.96, 0.88), (0.52, 0.36, 0.06))      // 知性 / 对象 / 强调
+    static let silver = adaptive((0.82, 0.90, 1.0), (0.16, 0.30, 0.54))    // 感性 / 现象
+    static let violet = adaptive((0.88, 0.85, 1.0), (0.38, 0.25, 0.66))    // 理念 / 本体
+    static let dim = Color.primary.opacity(0.4)
+    /// 选中态玻璃的着色
+    static let selection = adaptive((1, 1, 1), (0, 0, 0), alpha: (0.35, 0.1))
 }
 
 func fract(_ v: Double) -> Double { v - floor(v) }
@@ -77,16 +88,16 @@ struct Header: View {
         VStack(alignment: .leading, spacing: 10) {
             Text(title)
                 .font(.system(size: 30, weight: .semibold, design: .serif))
-                .foregroundStyle(.white)
+                .foregroundStyle(Color.primary)
             Text(formula)
                 .font(.system(.footnote, design: .monospaced))
-                .foregroundStyle(.white.opacity(0.9))
+                .foregroundStyle(Color.primary.opacity(0.9))
                 .padding(.horizontal, 14)
                 .padding(.vertical, 8)
                 .glassEffect(.regular, in: .capsule)
             Text(subtitle)
                 .font(.subheadline)
-                .foregroundStyle(.white.opacity(0.7))
+                .foregroundStyle(Color.primary.opacity(0.7))
         }
     }
 }

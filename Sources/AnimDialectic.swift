@@ -23,7 +23,7 @@ func drawIllusion(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
              with: .radialGradient(Gradient(colors: [Moon.gold.opacity(0.28), Moon.gold.opacity(0)]),
                                    center: CGPoint(x: mx, y: my), startRadius: seen * 0.9, endRadius: halo))
     ctx.fill(Path(ellipseIn: CGRect(x: mx - seen, y: my - seen, width: seen * 2, height: seen * 2)),
-             with: .radialGradient(Gradient(colors: [.white, Moon.gold, Moon.gold.opacity(0.85)]),
+             with: .radialGradient(Gradient(colors: [Color.primary, Moon.gold, Moon.gold.opacity(0.85)]),
                                    center: CGPoint(x: mx - seen * 0.3, y: my - seen * 0.3),
                                    startRadius: 0, endRadius: seen * 1.3))
     ctx.fill(hills, with: .color(Color(red: 0.05, green: 0.05, blue: 0.12)))
@@ -59,9 +59,9 @@ func drawParalogism(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let w = Double(size.width), h = Double(size.height)
     let (ph, _) = phase(t, period: 9, count: 3)
     let ys = [h * 0.22, h * 0.42, h * 0.64]
-    label(&ctx, "大前提：只能作为【主体】者 = 实体", w / 2, ys[0], .white, size: 14)
-    label(&ctx, "小前提：我（思维者）只能作为【主体】", w / 2, ys[1], .white, size: 14)
-    label(&ctx, "结论：所以我是实体", w / 2, ys[2], ph == 2 ? Color.red.opacity(0.8) : .white, size: 15)
+    label(&ctx, "大前提：只能作为【主体】者 = 实体", w / 2, ys[0], Color.primary, size: 14)
+    label(&ctx, "小前提：我（思维者）只能作为【主体】", w / 2, ys[1], Color.primary, size: 14)
+    label(&ctx, "结论：所以我是实体", w / 2, ys[2], ph == 2 ? Color.red.opacity(0.8) : Color.primary, size: 15)
 
     let ax = w * 0.62, bx = w * 0.66
     switch ph {
@@ -90,11 +90,11 @@ func drawIdeal(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
                 ctx.fill(Path(ellipseIn: rect), with: .color(Moon.gold.opacity(0.85)))
                 ctx.stroke(Path(ellipseIn: rect), with: .color(Color.black.opacity(0.3)), lineWidth: 1)
             }
-            label(&ctx, title, x, h * 0.7 + 28, .white, size: 12)
+            label(&ctx, title, x, h * 0.7 + 28, Color.primary, size: 12)
         }
         let ty = lerp(50, h * 0.7 - 120, smooth(p / 0.5))
         box(&ctx, w * 0.7 - 34, ty, 68, 24, Moon.violet, fill: Moon.violet.opacity(0.3))
-        label(&ctx, "+ 存在", w * 0.7, ty + 12, .white, size: 12)
+        label(&ctx, "+ 存在", w * 0.7, ty + 12, Color.primary, size: 12)
         if p > 0.55 { label(&ctx, "概念内容：完全相同", w / 2, h * 0.3, Moon.gold, size: 14) }
         caption(&ctx, "“存在”不是实在谓词：不给概念增加任何东西", size)
     } else {
@@ -106,7 +106,7 @@ func drawIdeal(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
             let isRoot = i == 2
             let col: Color = isRoot && crack ? .red : Moon.silver
             box(&ctx, w / 2 - 80, y, 160, 40, col.opacity(1 - fall * 0.7), fill: col.opacity(0.12))
-            label(&ctx, names[i], w / 2, y + 20, .white.opacity(1 - fall * 0.7), size: 13)
+            label(&ctx, names[i], w / 2, y + 20, Color.primary.opacity(1 - fall * 0.7), size: 13)
             if i < 2 { line(&ctx, w / 2, y + 42, w / 2, y + 74, Moon.dim, 1, dash: [3, 3]) }
         }
         if crack { label(&ctx, "✗", w / 2 + 96, h * 0.18 + 172, .red, size: 20) }
