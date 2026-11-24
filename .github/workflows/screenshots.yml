@@ -86,6 +86,11 @@ jobs:
           run_shot reader-hegel-light -appearance light -openReader hegel-phen -autoDownload
           sleep 5; xcrun simctl io "$UDID" screenshot shots/reader-hegel-light-2.png
           run_shot book-kant -openBook kant-cpr
+          run_shot timeline -openTimeline
+          run_shot timeline-light -openTimeline -appearance light
+          run_shot paused-kant-6 -startChapter 6 -pausePlayback
+          run_shot live-hegel-logic-1 -book hegel-logic -startChapter 1
+          run_shot home-v17
           mkdir -p shots/crash
           cp ~/Library/Logs/DiagnosticReports/Pure* shots/crash/ 2>/dev/null || true
           xcrun simctl spawn "$UDID" log show --last 15m --predicate 'process == "Pure"' --style compact 2>/dev/null | grep -iE "fatal|crash|error|precondition" | tail -40 > shots/crash/log.txt || true

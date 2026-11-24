@@ -53,7 +53,9 @@ struct PureApp: App {
     var body: some Scene {
         WindowGroup {
             Group {
-                if let b = bookLaunch {
+                if ProcessInfo.processInfo.arguments.contains("-openTimeline") {
+                    NavigationStack { HistoryTimelineView() }
+                } else if let b = bookLaunch {
                     NavigationStack { BookView(book: b) }
                 } else if let r = readerLaunch {
                     NavigationStack { BookReaderView(book: r.book, query: r.query) }

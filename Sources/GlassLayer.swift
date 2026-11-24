@@ -1,4 +1,5 @@
 import SwiftUI
+import Observation
 
 /// 动画里用原生 Liquid Glass 呈现的元素
 struct GlassNode {
@@ -29,14 +30,54 @@ final class GlassBuffer {
 /// 丢弃型缓冲：绘制线条时屏蔽玻璃元素与文字（它们由叠加层负责）
 private let discard = GlassBuffer()
 
+/// 共享时钟：播放 / 暂停 / 拖动时间
+@Observable
+final class PlaybackClock {
+    static let window = 20.0          // 暂停后可前后拖动的时间范围（秒）
+    var playing = true
+    var scrub = 0.0                    // 0…1，对应暂停时刻之后的 window 秒
+    private var frozen = 0.0
+    private var offset = 0.0
+
+    init() {
+        // 截图用：`-pausePlayback` 以暂停状态启动
+        if ProcessInfo.processInfo.arguments.contains("-pausePlayback") {
+            playing = false
+            frozen = Date().timeIntervalSinceReferenceDate
+            scrub = 0.4
+        }
+    }
+
+    func time(_ now: Double) -> Double { playing ? now - offset : frozen + scrub * Self.window }
+
+    func toggle() {
+        let now = Date().timeIntervalSinceReferenceDate
+        if playing {
+            frozen = now - offset
+            scrub = 0
+            playing = false
+        } else {
+            offset = now - (frozen + scrub * Self.window)
+            playing = true
+        }
+    }
+}
+
 /// 动画画布：线条、粒子用 Canvas；圆、方框用原生玻璃；文字在最上层
 struct LiveCanvas: View {
+    var clock: PlaybackClock? = nil
     let draw: (inout GraphicsContext, CGSize, Double) -> Void
     @State private var buffer = GlassBuffer()
 
+    init(clock: PlaybackClock? = nil, draw: @escaping (inout GraphicsContext, CGSize, Double) -> Void) {
+        self.clock = clock
+        self.draw = draw
+    }
+
     var body: some View {
         TimelineView(.animation) { tl in
-            let t = tl.date.timeIntervalSinceReferenceDate
+            let now = tl.date.timeIntervalSinceReferenceDate
+            let t = clock?.time(now) ?? now
             // 叠加层显示上一批记录；画布按那一批的时刻画线条，二者严格同步
             let shownTime = buffer.time
             let shownNodes = buffer.nodes

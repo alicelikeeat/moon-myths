@@ -76,6 +76,28 @@ struct HomeView: View {
                         Text("\(library.count) 位哲学家 · \(library.flatMap(\.books).count) 本书 · v\(appVersion)")
                             .font(.subheadline).foregroundStyle(Color.primary.opacity(0.6))
                             .padding(.bottom, 6)
+                        NavigationLink {
+                            HistoryTimelineView()
+                        } label: {
+                            HStack(spacing: 14) {
+                                Image(systemName: "timeline.selection")
+                                    .font(.title3)
+                                    .frame(width: 46, height: 46)
+                                    .glassEffect(Glass.regular.tint(Moon.gold.opacity(0.2)), in: .circle)
+                                VStack(alignment: .leading, spacing: 3) {
+                                    Text("哲学时间轴").font(.body.weight(.semibold))
+                                    Text("中国与西方 · \(thinkers.count) 位哲学家 · 从春秋与古希腊到 20 世纪")
+                                        .font(.caption).foregroundStyle(Color.primary.opacity(0.6))
+                                }
+                                Spacer(minLength: 0)
+                                Image(systemName: "chevron.right").font(.caption).foregroundStyle(Moon.dim)
+                            }
+                            .foregroundStyle(Color.primary)
+                            .padding(16)
+                            .contentShape(.rect(cornerRadius: 24))
+                            .glassEffect(Glass.regular.interactive(), in: .rect(cornerRadius: 24))
+                        }
+                        .buttonStyle(.plain)
                         ForEach(library) { p in
                             PhilosopherSection(philosopher: p)
                         }
@@ -231,6 +253,7 @@ struct ChapterView: View {
     let book: Book
     @State var index: Int
     @AppStorage("chapterMode") private var mode = 0   // 0 解读  1 原文
+    @State private var clock = PlaybackClock()
 
     var body: some View {
         let c = book.chapters[index]
@@ -294,12 +317,19 @@ struct ChapterView: View {
     private func content(_ c: Chapter) -> some View {
         switch c.body {
         case .canvas(let draw):
-            Header(title: c.title, formula: c.formula, subtitle: c.thesis)
+            if let live = liveFormulas["\(book.id):\(index)"] {
+                TimelineView(.periodic(from: .now, by: 0.1)) { tl in
+                    Header(title: c.title, formula: live(clock.time(tl.date.timeIntervalSinceReferenceDate)), subtitle: c.thesis)
+                }
+            } else {
+                Header(title: c.title, formula: c.formula, subtitle: c.thesis)
+            }
             Stage(height: 380) {
-                LiveCanvas { ctx, size, t in
+                LiveCanvas(clock: clock) { ctx, size, t in
                     draw(&ctx, size, t)
                 }
             }
+            .playbackControls(clock)
         case .interactive(let view):
             view
         }
