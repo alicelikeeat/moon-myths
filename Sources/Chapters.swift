@@ -232,8 +232,8 @@ private struct ChapterRow: View {
             Text(String(format: "%02d", number))
                 .font(.system(.callout, design: .monospaced).weight(.semibold))
                 .foregroundStyle(.white.opacity(0.9))
-                .frame(width: 36, height: 36)
-                .glassEffect(.regular, in: .circle)
+                .frame(width: 40, height: 40)
+                .glassEffect(Glass.regular.tint(.white.opacity(0.12)), in: .circle)
             VStack(alignment: .leading, spacing: 4) {
                 Text(chapter.title).font(.body.weight(.semibold)).foregroundStyle(.white)
                 Text(chapter.thesis).font(.caption).foregroundStyle(.white.opacity(0.6)).lineLimit(2)
