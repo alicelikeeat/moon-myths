@@ -25,7 +25,7 @@ func drawCopernicus(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
         }
         dot(&ctx, ox, oy, 8, Moon.silver.opacity(0.9))
     }
-    dot(&ctx, mx, my, 22 + 3 * sin(t * 3), Moon.gold.opacity(0.2))
+    blob(&ctx, mx, my, 24 + 3 * sin(t * 3), Moon.gold.opacity(0.12))
     dot(&ctx, mx, my, 11, Moon.gold)
     label(&ctx, "认识", mx, my + 26, Moon.gold)
 
@@ -164,7 +164,7 @@ func drawDeduction(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
             dot(&ctx, x, y, 3, .gray.opacity(0.6))
         }
     }
-    dot(&ctx, cx, cy, 26 + 4 * sin(t * 2), Moon.gold.opacity(0.18))
+    blob(&ctx, cx, cy, 28 + 4 * sin(t * 2), Moon.gold.opacity(0.12))
     dot(&ctx, cx, cy, 14, Moon.gold)
     label(&ctx, "我思", cx, cy + 28, Moon.gold, size: 13)
     headline(&ctx, "已被统觉统一的表象 \(conn) / \(n)", size)
@@ -264,7 +264,6 @@ func drawAmphiboly(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let y = h * 0.45
     for x in [lerp(w * 0.28, w / 2, k), lerp(w * 0.72, w / 2, k)] {
         dot(&ctx, x, y, 30, Moon.violet.opacity(0.45))
-        dot(&ctx, x - 9, y - 9, 7, .white.opacity(0.6))
     }
     if ph == 1 {
         line(&ctx, w * 0.28, y + 50, w * 0.72, y + 50, Moon.silver.opacity(0.6), 1, dash: [4, 4])
