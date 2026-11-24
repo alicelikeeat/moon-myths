@@ -56,13 +56,13 @@ struct AntinomyView: View {
                 Text(title).font(.caption.weight(.bold)).foregroundStyle(Moon.silver)
                 Spacer()
                 Image(systemName: ok ? "checkmark.circle.fill" : "xmark.circle.fill")
-                    .foregroundStyle(ok ? Color.green : Color.red.opacity(0.8))
+                    .foregroundStyle(ok ? Color.white : Color.white.opacity(0.35))
             }
             Text(text).font(.subheadline).foregroundStyle(.white)
         }
-        .padding(12)
+        .padding(14)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(RoundedRectangle(cornerRadius: 14).fill(.white.opacity(0.07)))
+        .glassEffect(.regular, in: .rect(cornerRadius: 20))
     }
 }
 

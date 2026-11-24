@@ -2,7 +2,7 @@ name: Pure
 options:
   bundleIdPrefix: com.alicelikeeat
   deploymentTarget:
-    iOS: "17.0"
+    iOS: "26.0"
 targets:
   Pure:
     type: application
@@ -23,3 +23,4 @@ targets:
         SWIFT_VERSION: "5.0"
         TARGETED_DEVICE_FAMILY: "1"
         CODE_SIGNING_ALLOWED: "NO"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon

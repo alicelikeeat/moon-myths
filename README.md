@@ -17,4 +17,4 @@
 
 每次推送到 `main`，GitHub Actions 会在 macOS 上用 XcodeGen 生成工程、无签名编译，并在 Releases 发布 `Pure-v1.0-unsigned.ipa`。需要自行签名后安装（TrollStore、AltStore、Sideloadly 等）。
 
-最低 iOS 17。
+最低 iOS 26。界面全部使用 Liquid Glass（`glassEffect`、`GlassEffectContainer`、`.glass` 按钮），动画也用玻璃质感绘制；图标为纯白玻璃设计。

@@ -186,26 +186,34 @@ struct ChapterListView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                StarField()
+                Backdrop()
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 10) {
+                        Text("Pure")
+                            .font(.system(size: 44, weight: .semibold, design: .serif))
+                            .foregroundStyle(.white)
                         Text("纯粹理性批判")
-                            .font(.system(size: 34, weight: .bold, design: .serif))
-                            .foregroundStyle(Moon.gold)
+                            .font(.title3.weight(.medium))
+                            .foregroundStyle(.white.opacity(0.85))
                         Text("\(chapters.count) 章 · 每章一个核心观点和一段动画")
                             .font(.subheadline).foregroundStyle(.white.opacity(0.6))
                             .padding(.bottom, 8)
                         ForEach(bookParts, id: \.self) { part in
                             Text(part)
-                                .font(.headline).foregroundStyle(Moon.silver)
+                                .font(.footnote.weight(.semibold)).foregroundStyle(.white.opacity(0.6))
+                                .textCase(.uppercase)
                                 .padding(.top, 12)
-                            ForEach(Array(chapters.enumerated()).filter { $0.element.part == part }, id: \.offset) { item in
-                                NavigationLink {
-                                    ChapterView(index: item.offset)
-                                } label: {
-                                    ChapterRow(number: item.offset + 1, chapter: item.element)
+                            GlassEffectContainer(spacing: 10) {
+                                VStack(spacing: 10) {
+                                    ForEach(Array(chapters.enumerated()).filter { $0.element.part == part }, id: \.offset) { item in
+                                        NavigationLink {
+                                            ChapterView(index: item.offset)
+                                        } label: {
+                                            ChapterRow(number: item.offset + 1, chapter: item.element)
+                                        }
+                                        .buttonStyle(.plain)
+                                    }
                                 }
-                                .buttonStyle(.plain)
                             }
                         }
                     }
@@ -222,8 +230,10 @@ private struct ChapterRow: View {
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
             Text(String(format: "%02d", number))
-                .font(.system(.callout, design: .monospaced).weight(.bold))
-                .foregroundStyle(Moon.gold)
+                .font(.system(.callout, design: .monospaced).weight(.semibold))
+                .foregroundStyle(.white.opacity(0.9))
+                .frame(width: 36, height: 36)
+                .glassEffect(.regular, in: .circle)
             VStack(alignment: .leading, spacing: 4) {
                 Text(chapter.title).font(.body.weight(.semibold)).foregroundStyle(.white)
                 Text(chapter.thesis).font(.caption).foregroundStyle(.white.opacity(0.6)).lineLimit(2)
@@ -231,8 +241,9 @@ private struct ChapterRow: View {
             Spacer(minLength: 0)
             Image(systemName: "chevron.right").font(.caption).foregroundStyle(Moon.dim)
         }
-        .padding(14)
-        .background(RoundedRectangle(cornerRadius: 16).fill(.white.opacity(0.06)))
+        .padding(16)
+        .contentShape(.rect(cornerRadius: 22))
+        .glassEffect(Glass.regular.interactive(), in: .rect(cornerRadius: 22))
     }
 }
 
@@ -243,37 +254,41 @@ struct ChapterView: View {
     var body: some View {
         let c = chapters[index]
         ZStack {
-            StarField()
+            Backdrop()
             ScrollView {
                 VStack(alignment: .leading, spacing: 18) {
                     Text("第 \(index + 1) / \(chapters.count) 章 · \(c.part)")
                         .font(.caption).foregroundStyle(Moon.silver)
                     content(c)
                     VStack(alignment: .leading, spacing: 10) {
-                        Text("要点").font(.headline).foregroundStyle(Moon.gold)
+                        Text("要点").font(.headline).foregroundStyle(.white)
                         ForEach(c.points, id: \.self) { pt in
                             HStack(alignment: .top, spacing: 8) {
-                                Circle().fill(Moon.gold).frame(width: 5, height: 5).padding(.top, 7)
+                                Circle().fill(.white.opacity(0.8)).frame(width: 5, height: 5).padding(.top, 7)
                                 Text(pt).font(.subheadline).foregroundStyle(.white.opacity(0.85))
                             }
                         }
                     }
-                    .padding(16)
+                    .padding(18)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(RoundedRectangle(cornerRadius: 16).fill(.white.opacity(0.06)))
-                    HStack {
-                        Button { withAnimation { index -= 1 } } label: {
-                            Label("上一章", systemImage: "chevron.left")
+                    .glassEffect(.regular, in: .rect(cornerRadius: 24))
+                    GlassEffectContainer(spacing: 12) {
+                        HStack {
+                            Button { withAnimation(.spring(duration: 0.5)) { index -= 1 } } label: {
+                                Label("上一章", systemImage: "chevron.left").padding(.vertical, 4)
+                            }
+                            .buttonStyle(.glass)
+                            .disabled(index == 0)
+                            Spacer()
+                            Button { withAnimation(.spring(duration: 0.5)) { index += 1 } } label: {
+                                Label("下一章", systemImage: "chevron.right").padding(.vertical, 4)
+                            }
+                            .buttonStyle(.glassProminent)
+                            .disabled(index == chapters.count - 1)
                         }
-                        .disabled(index == 0)
-                        Spacer()
-                        Button { withAnimation { index += 1 } } label: {
-                            Label("下一章", systemImage: "chevron.right")
-                        }
-                        .disabled(index == chapters.count - 1)
                     }
                     .font(.callout.weight(.semibold))
-                    .tint(Moon.gold)
+                    .tint(.white.opacity(0.25))
                 }
                 .padding(20)
                 .id(index)

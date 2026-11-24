@@ -44,26 +44,32 @@ struct CategoriesView: View {
                formula: "范畴 = 4 组 × 3 ，第三项 = 前两项的综合",
                subtitle: "点一个范畴，看它在“时间”上如何被实现（图型）。")
 
-        ForEach(categoryGroups, id: \.0) { group in
-            HStack(spacing: 8) {
-                Text(group.0)
-                    .font(.headline)
-                    .foregroundStyle(Moon.silver)
-                    .frame(width: 38)
-                ForEach(group.1) { c in
-                    Button {
-                        withAnimation(.spring(duration: 0.4)) { selected = c }
-                    } label: {
-                        VStack(spacing: 2) {
-                            Text(c.name).font(.subheadline.weight(.semibold))
-                            Text(c.math).font(.caption2.monospaced()).opacity(0.7)
+        GlassEffectContainer(spacing: 8) {
+            VStack(spacing: 8) {
+                ForEach(categoryGroups, id: \.0) { group in
+                    HStack(spacing: 8) {
+                        Text(group.0)
+                            .font(.headline)
+                            .foregroundStyle(.white.opacity(0.75))
+                            .frame(width: 38)
+                        ForEach(group.1) { c in
+                            Button {
+                                withAnimation(.spring(duration: 0.45, bounce: 0.25)) { selected = c }
+                            } label: {
+                                VStack(spacing: 2) {
+                                    Text(c.name).font(.subheadline.weight(.semibold))
+                                    Text(c.math).font(.caption2.monospaced()).opacity(0.7)
+                                }
+                                .foregroundStyle(.white)
+                                .frame(maxWidth: .infinity, minHeight: 56)
+                                .glassEffect(selected == c
+                                             ? Glass.regular.tint(.white.opacity(0.35)).interactive()
+                                             : Glass.regular.interactive(),
+                                             in: .rect(cornerRadius: 18))
+                            }
+                            .buttonStyle(.plain)
                         }
-                        .frame(maxWidth: .infinity, minHeight: 54)
-                        .foregroundStyle(selected == c ? Color.black : Color.white)
-                        .background(RoundedRectangle(cornerRadius: 14)
-                            .fill(selected == c ? Moon.gold : Color.white.opacity(0.07)))
                     }
-                    .buttonStyle(.plain)
                 }
             }
         }

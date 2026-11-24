@@ -46,7 +46,7 @@ struct PipelineView: View {
             let s = Double(i)
             let x = hash01(s + 9) * w + sin(t * 0.3 + s) * 20
             let y = hash01(s + 19) * ySigma * 0.8 + 10
-            dot(&ctx, x, y, 18 + hash01(s) * 20, .white.opacity(0.025))
+            blob(&ctx, x, y, 18 + hash01(s) * 20, .white.opacity(0.025))
         }
         label(&ctx, "物自体 X（不可知）", 70, 16)
 

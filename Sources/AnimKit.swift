@@ -18,9 +18,14 @@ func ring(_ ctx: inout GraphicsContext, _ x: Double, _ y: Double, _ r: Double,
 
 func box(_ ctx: inout GraphicsContext, _ x: Double, _ y: Double, _ w: Double, _ h: Double,
          _ color: Color, fill: Color? = nil) {
-    let path = Path(roundedRect: CGRect(x: x, y: y, width: w, height: h), cornerRadius: 8)
+    let path = Path(roundedRect: CGRect(x: x, y: y, width: w, height: h), cornerRadius: min(12, h / 2))
+    ctx.fill(path, with: .linearGradient(
+        Gradient(colors: [Color.white.opacity(0.10), Color.white.opacity(0.03)]),
+        startPoint: CGPoint(x: x, y: y), endPoint: CGPoint(x: x, y: y + h)))
     if let fill = fill { ctx.fill(path, with: .color(fill)) }
-    ctx.stroke(path, with: .color(color), lineWidth: 1)
+    ctx.stroke(path, with: .linearGradient(
+        Gradient(colors: [Color.white.opacity(0.7), color.opacity(0.25), Color.white.opacity(0.35)]),
+        startPoint: CGPoint(x: x, y: y), endPoint: CGPoint(x: x + w, y: y + h)), lineWidth: 1)
 }
 
 func smooth(_ x: Double) -> Double {

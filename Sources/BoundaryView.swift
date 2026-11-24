@@ -42,15 +42,17 @@ struct BoundaryView: View {
             Spacer()
             Text(picked.note).font(.footnote).foregroundStyle(.white.opacity(0.75))
         }
-        .padding(14)
-        .foregroundStyle(picked.knowable ? Moon.gold : Moon.violet)
-        .background(RoundedRectangle(cornerRadius: 14).fill(.white.opacity(0.07)))
+        .padding(16)
+        .foregroundStyle(.white)
+        .glassEffect(Glass.regular.tint((picked.knowable ? Moon.gold : Moon.violet).opacity(0.2)),
+                     in: .rect(cornerRadius: 22))
     }
 }
 
 private struct FlowButtons: View {
     @Binding var picked: Thought
     var body: some View {
+        GlassEffectContainer(spacing: 8) {
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 104), spacing: 8)], spacing: 8) {
             ForEach(thoughts) { th in
                 Button {
@@ -60,13 +62,15 @@ private struct FlowButtons: View {
                         .font(.footnote.weight(.semibold))
                         .padding(.vertical, 9)
                         .frame(maxWidth: .infinity)
-                        .foregroundStyle(picked == th ? Color.black : Color.white)
-                        .background(Capsule().fill(picked == th
-                            ? (th.knowable ? Moon.gold : Moon.violet)
-                            : Color.white.opacity(0.08)))
+                        .foregroundStyle(.white)
+                        .glassEffect(picked == th
+                                     ? Glass.regular.tint(.white.opacity(0.35)).interactive()
+                                     : Glass.regular.interactive(),
+                                     in: .capsule)
                 }
                 .buttonStyle(.plain)
             }
+        }
         }
     }
 }

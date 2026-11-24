@@ -29,9 +29,9 @@ struct RegulativeView: View {
             Text(example).font(.footnote).foregroundStyle(.white.opacity(0.7))
                 .multilineTextAlignment(.trailing)
         }
-        .padding(16)
-        .background(RoundedRectangle(cornerRadius: 16).fill(Moon.gold.opacity(0.12)))
-        .foregroundStyle(Moon.gold)
+        .padding(18)
+        .foregroundStyle(.white)
+        .glassEffect(Glass.regular.tint(.white.opacity(0.18)), in: .rect(cornerRadius: 24))
     }
 
     private var assent: String {

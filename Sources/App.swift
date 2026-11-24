@@ -5,7 +5,7 @@ struct PureApp: App {
     var body: some Scene {
         WindowGroup {
             ChapterListView()
-                .tint(Moon.gold)
+                .tint(.white)
                 .preferredColorScheme(.dark)
         }
     }
