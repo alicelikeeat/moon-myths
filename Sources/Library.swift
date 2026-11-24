@@ -254,6 +254,7 @@ struct ChapterView: View {
     @State var index: Int
     @AppStorage("chapterMode") private var mode = 0   // 0 解读  1 原文
     @State private var clock = PlaybackClock()
+    @State private var show3D = ProcessInfo.processInfo.arguments.contains("-show3D")
 
     var body: some View {
         let c = book.chapters[index]
@@ -324,12 +325,25 @@ struct ChapterView: View {
             } else {
                 Header(title: c.title, formula: c.formula, subtitle: c.thesis)
             }
-            Stage(height: 380) {
-                LiveCanvas(clock: clock) { ctx, size, t in
-                    draw(&ctx, size, t)
+            if let scene = threeDScenes["\(book.id):\(index)"] {
+                Picker("视图", selection: $show3D) {
+                    Text("2D").tag(false)
+                    Text("3D").tag(true)
+                }
+                .pickerStyle(.segmented)
+                if show3D {
+                    Stage(height: 420) { scene(clock) }
+                        .playbackControls(clock)
                 }
             }
-            .playbackControls(clock)
+            if !show3D || threeDScenes["\(book.id):\(index)"] == nil {
+                Stage(height: 380) {
+                    LiveCanvas(clock: clock) { ctx, size, t in
+                        draw(&ctx, size, t)
+                    }
+                }
+                .playbackControls(clock)
+            }
         case .interactive(let view):
             view
         }

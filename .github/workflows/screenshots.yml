@@ -91,6 +91,8 @@ jobs:
           run_shot paused-kant-6 -startChapter 6 -pausePlayback
           run_shot live-hegel-logic-1 -book hegel-logic -startChapter 1
           run_shot home-v17
+          run_shot copernicus-3d -startChapter 0 -show3D -backdropStyle aurora
+          run_shot copernicus-3d-light -startChapter 0 -show3D -appearance light
           mkdir -p shots/crash
           cp ~/Library/Logs/DiagnosticReports/Pure* shots/crash/ 2>/dev/null || true
           xcrun simctl spawn "$UDID" log show --last 15m --predicate 'process == "Pure"' --style compact 2>/dev/null | grep -iE "fatal|crash|error|precondition" | tail -40 > shots/crash/log.txt || true
