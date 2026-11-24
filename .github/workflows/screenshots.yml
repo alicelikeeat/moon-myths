@@ -53,6 +53,16 @@ jobs:
             sleep 7
             xcrun simctl io "$UDID" screenshot "shots/ch-$(printf %02d $i).png"
           done
+          for i in 0 5 13; do
+            xcrun simctl terminate "$UDID" com.alicelikeeat.pure || true
+            xcrun simctl launch "$UDID" com.alicelikeeat.pure -startChapter $i -backdropStyle aurora
+            sleep 7
+            xcrun simctl io "$UDID" screenshot "shots/aurora-ch-$(printf %02d $i).png"
+          done
+          xcrun simctl terminate "$UDID" com.alicelikeeat.pure || true
+          xcrun simctl launch "$UDID" com.alicelikeeat.pure -backdropStyle aurora
+          sleep 7
+          xcrun simctl io "$UDID" screenshot shots/aurora-list.png
           mkdir -p shots/crash
           cp ~/Library/Logs/DiagnosticReports/Pure* shots/crash/ 2>/dev/null || true
           xcrun simctl spawn "$UDID" log show --last 15m --predicate 'process == "Pure"' --style compact 2>/dev/null | grep -iE "fatal|crash|error|precondition" | tail -40 > shots/crash/log.txt || true

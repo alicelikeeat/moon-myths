@@ -26,10 +26,8 @@ struct BoundaryView: View {
                subtitle: "形而上学的错误，就是把外环里的东西当作内圈里的东西。点下面的命题，看它落在哪里。")
 
         Stage(height: 340) {
-            TimelineView(.animation) { tl in
-                Canvas { ctx, size in
-                    drawRings(&ctx, size, tl.date.timeIntervalSinceReferenceDate, picked)
-                }
+            LiveCanvas { ctx, size, t in
+                    drawRings(&ctx, size, t, picked)
             }
         }
 

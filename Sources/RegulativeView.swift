@@ -10,10 +10,8 @@ struct RegulativeView: View {
                subtitle: "理念不给对象，只给方向：知识沿“系统统一性”的梯度不断上升，却永远到不了那条虚线。")
 
         Stage(height: 300) {
-            TimelineView(.animation) { tl in
-                Canvas { ctx, size in
-                    drawAscent(&ctx, size, tl.date.timeIntervalSinceReferenceDate)
-                }
+            LiveCanvas { ctx, size, t in
+                    drawAscent(&ctx, size, t)
             }
         }
 

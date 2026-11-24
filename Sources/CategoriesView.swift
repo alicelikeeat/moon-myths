@@ -79,10 +79,8 @@ struct CategoriesView: View {
             .foregroundStyle(Moon.gold)
 
         Stage(height: 240) {
-            TimelineView(.animation) { tl in
-                Canvas { ctx, size in
-                    drawSchema(&ctx, size, tl.date.timeIntervalSinceReferenceDate, selected)
-                }
+            LiveCanvas { ctx, size, t in
+                    drawSchema(&ctx, size, t, selected)
             }
         }
     }

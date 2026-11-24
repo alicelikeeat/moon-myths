@@ -37,15 +37,12 @@ struct AntinomyView: View {
         }
 
         Stage(height: 360) {
-            TimelineView(.animation) { tl in
-                Canvas { ctx, size in
-                    let t = tl.date.timeIntervalSinceReferenceDate
+            LiveCanvas { ctx, size, t in
                     if a.mathematical {
                         drawRegress(&ctx, size, t, divide: a.id == 1)
                     } else {
                         drawTwoDomains(&ctx, size, t)
-                    }
-                }
+            }
             }
         }
     }

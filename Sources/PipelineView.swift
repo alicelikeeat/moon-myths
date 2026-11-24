@@ -11,10 +11,8 @@ struct PipelineView: View {
                subtitle: "刺激先被时空“坐标化”，再被范畴统一，才成为对象。关掉任意一层试试。")
 
         Stage(height: 440) {
-            TimelineView(.animation) { tl in
-                Canvas { ctx, size in
-                    draw(&ctx, size, tl.date.timeIntervalSinceReferenceDate)
-                }
+            LiveCanvas { ctx, size, t in
+                    draw(&ctx, size, t)
             }
         }
 

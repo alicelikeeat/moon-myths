@@ -21,6 +21,10 @@ func blob(_ ctx: inout GraphicsContext, _ x: Double, _ y: Double, _ r: Double, _
 
 /// Liquid Glass 风格的圆：半透明体、渐变边缘、顶部高光
 func dot(_ ctx: inout GraphicsContext, _ x: Double, _ y: Double, _ r: Double, _ color: Color) {
+    if r >= 4.5, let buf = GlassBuffer.current {
+        buf.nodes.append(GlassNode(kind: .circle, x: x, y: y, w: r * 2, h: r * 2, color: color))
+        return
+    }
     let rect = CGRect(x: x - r, y: y - r, width: r * 2, height: r * 2)
     let circle = Path(ellipseIn: rect)
     if r < 4.5 {
@@ -44,33 +48,12 @@ func dot(_ ctx: inout GraphicsContext, _ x: Double, _ y: Double, _ r: Double, _ 
 
 func label(_ ctx: inout GraphicsContext, _ s: String, _ x: Double, _ y: Double,
            _ color: Color = Moon.dim, size: Double = 12) {
+    if let buf = GlassBuffer.current {
+        buf.texts.append(GlassText(text: s, x: x, y: y, color: color, size: size))
+        return
+    }
     ctx.draw(Text(s).font(.system(size: size, weight: .medium, design: .rounded)).foregroundColor(color),
              at: CGPoint(x: x, y: y))
-}
-
-/// 背景：缓慢漂移的柔光，给玻璃提供可折射的内容
-struct Backdrop: View {
-    var body: some View {
-        TimelineView(.animation(minimumInterval: 1.0 / 20.0)) { tl in
-            Canvas { ctx, size in
-                let t = tl.date.timeIntervalSinceReferenceDate
-                let w = Double(size.width), h = Double(size.height)
-                let lights: [(Double, Double, Double, Color)] = [
-                    (0.25, 0.2, 0.0, Moon.silver), (0.8, 0.45, 2.1, Moon.violet), (0.4, 0.8, 4.2, Moon.gold),
-                ]
-                for (bx, by, ph, c) in lights {
-                    let x = w * bx + sin(t * 0.13 + ph) * w * 0.15
-                    let y = h * by + cos(t * 0.11 + ph) * h * 0.08
-                    let r = w * 0.7
-                    ctx.fill(Path(ellipseIn: CGRect(x: x - r, y: y - r, width: r * 2, height: r * 2)),
-                             with: .radialGradient(Gradient(colors: [c.opacity(0.17), c.opacity(0)]),
-                                                   center: CGPoint(x: x, y: y), startRadius: 0, endRadius: r))
-                }
-            }
-        }
-        .background(Moon.bg)
-        .ignoresSafeArea()
-    }
 }
 
 struct Page<Content: View>: View {

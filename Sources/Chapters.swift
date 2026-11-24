@@ -183,6 +183,8 @@ let chapters: [Chapter] = [
 
 // MARK: - 目录
 struct ChapterListView: View {
+    @State private var showSettings = false
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -220,6 +222,12 @@ struct ChapterListView: View {
                     .padding(20)
                 }
             }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("外观", systemImage: "paintpalette") { showSettings = true }
+                }
+            }
+            .sheet(isPresented: $showSettings) { BackdropSettings() }
         }
     }
 }
@@ -303,10 +311,8 @@ struct ChapterView: View {
         case .canvas(let draw):
             Header(title: c.title, formula: c.formula, subtitle: c.thesis)
             Stage(height: 380) {
-                TimelineView(.animation) { tl in
-                    Canvas { ctx, size in
-                        draw(&ctx, size, tl.date.timeIntervalSinceReferenceDate)
-                    }
+                LiveCanvas { ctx, size, t in
+                        draw(&ctx, size, t)
                 }
             }
         case .interactive(let view):
