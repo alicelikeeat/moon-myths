@@ -318,7 +318,7 @@ struct ChapterView: View {
         switch c.body {
         case .canvas(let draw):
             if let live = liveFormulas["\(book.id):\(index)"] {
-                TimelineView(.periodic(from: .now, by: 0.1)) { tl in
+                TimelineView(.animation(minimumInterval: 0.05)) { tl in
                     Header(title: c.title, formula: live(clock.time(tl.date.timeIntervalSinceReferenceDate)), subtitle: c.thesis)
                 }
             } else {

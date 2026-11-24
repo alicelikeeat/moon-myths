@@ -131,39 +131,52 @@ private struct Placed {
     let x: Double, y: Double, w: Double
 }
 
-private func layout(scale: Double) -> [Placed] {
-    var out: [Placed] = []
-    for (li, region) in Region.allCases.enumerated() {
-        let laneTop = 70.0 + Double(li) * 230
+private struct Layout {
+    var placed: [Placed] = []
+    var tops: [Region: Double] = [:]
+    var heights: [Region: Double] = [:]
+    var total = 0.0
+}
+
+/// 每条泳道按需要的行数自动加高，人物胶囊互不重叠
+private func layout(scale: Double) -> Layout {
+    var L = Layout()
+    var top = 70.0
+    for region in Region.allCases {
         var rowEnds: [Double] = []
         for t in thinkers.filter({ $0.region == region }).sorted(by: { $0.born < $1.born }) {
             let x = Double(t.born - minYear) * scale
             let w = max(Double(t.died - t.born) * scale, 78)
-            var row = rowEnds.firstIndex { $0 + 8 <= x } ?? rowEnds.count
-            if row >= 4 { row = 3 }
-            if row == rowEnds.count { rowEnds.append(x + w) } else { rowEnds[row] = max(rowEnds[row], x + w) }
-            out.append(Placed(thinker: t, x: x, y: laneTop + 40 + Double(row) * 44, w: w))
+            let row = rowEnds.firstIndex { $0 + 8 <= x } ?? rowEnds.count
+            if row == rowEnds.count { rowEnds.append(x + w) } else { rowEnds[row] = x + w }
+            L.placed.append(Placed(thinker: t, x: x, y: top + 44 + Double(row) * 44, w: w))
         }
+        let h = 60 + Double(rowEnds.count) * 44 + 24
+        L.tops[region] = top
+        L.heights[region] = h
+        top += h + 20
     }
-    return out
+    L.total = top + 10
+    return L
 }
 
 // MARK: - 视图
 
 struct HistoryTimelineView: View {
-    @State private var scale = 0.42          // 每年多少点
+    @State private var scale = 0.8           // 每年多少点
     @GestureState private var pinch = 1.0
     @State private var selected: Thinker?
 
     var body: some View {
         let s = min(4, max(0.12, scale * pinch))
-        let placed = layout(scale: s)
+        let L = layout(scale: s)
+        let placed = L.placed
         let width = Double(maxYear - minYear) * s + 60
         ZStack {
             Backdrop()
             ScrollView(.horizontal) {
                 ZStack(alignment: .topLeading) {
-                    lanes(s)
+                    lanes(s, L)
                     links(placed)
                     ForEach(placed, id: \.thinker.id) { p in
                         Button { selected = p.thinker } label: {
@@ -173,7 +186,7 @@ struct HistoryTimelineView: View {
                         .position(x: p.x + p.w / 2 + 30, y: p.y)
                     }
                 }
-                .frame(width: width, height: 560, alignment: .topLeading)
+                .frame(width: width, height: L.total, alignment: .topLeading)
             }
             .scrollIndicators(.hidden)
             .simultaneousGesture(
@@ -194,21 +207,22 @@ struct HistoryTimelineView: View {
         .sheet(item: $selected) { t in ThinkerSheet(thinker: t) }
     }
 
-    private func lanes(_ s: Double) -> some View {
+    private func lanes(_ s: Double, _ L: Layout) -> some View {
         Canvas { ctx, size in
-            for (li, region) in Region.allCases.enumerated() {
-                let top = 70.0 + Double(li) * 230
-                let lane = Path(roundedRect: CGRect(x: 10, y: top, width: Double(size.width) - 20, height: 210), cornerRadius: 24)
+            for region in Region.allCases {
+                let top = L.tops[region] ?? 0
+                let height = L.heights[region] ?? 200
+                let lane = Path(roundedRect: CGRect(x: 10, y: top, width: Double(size.width) - 20, height: height), cornerRadius: 24)
                 ctx.fill(lane, with: .color(Color.primary.opacity(0.04)))
                 ctx.draw(Text(region.title).font(.system(size: 13, weight: .semibold)).foregroundColor(Moon.silver),
                          at: CGPoint(x: 40, y: top + 14))
                 for (ei, e) in eras.filter({ $0.region == region }).enumerated() {
                     let x0 = Double(e.start - minYear) * s + 30, x1 = Double(e.end - minYear) * s + 30
-                    let r = CGRect(x: x0, y: top + 24, width: max(1, x1 - x0), height: 180)
+                    let r = CGRect(x: x0, y: top + 24, width: max(1, x1 - x0), height: height - 30)
                     ctx.fill(Path(r), with: .color((ei % 2 == 0 ? Moon.violet : Moon.silver).opacity(0.06)))
                     if x1 - x0 > 30 {
                         ctx.draw(Text(e.name).font(.system(size: 11)).foregroundColor(Color.primary.opacity(0.45)),
-                                 at: CGPoint(x: (x0 + x1) / 2, y: top + 196))
+                                 at: CGPoint(x: (x0 + x1) / 2, y: top + height - 14))
                     }
                 }
             }

@@ -92,7 +92,7 @@ struct Header: View {
             Text(formula)
                 .font(.system(.footnote, design: .monospaced))
                 .contentTransition(.numericText())
-                .animation(.spring(duration: 0.45), value: formula)
+                .animation(.spring(duration: 0.25), value: formula)
                 .foregroundStyle(Color.primary.opacity(0.9))
                 .padding(.horizontal, 14)
                 .padding(.vertical, 8)
