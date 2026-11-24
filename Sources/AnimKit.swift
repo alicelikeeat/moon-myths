@@ -40,6 +40,19 @@ func smooth(_ x: Double) -> Double {
 
 func lerp(_ a: Double, _ b: Double, _ k: Double) -> Double { a + (b - a) * k }
 
+/// 节拍：动画按若干节拍依次播放，最后一拍结束后停留 hold 秒再从头开始。
+/// 返回当前节拍序号与拍内进度 [0,1]；停留期间保持在最后一拍的终点。
+func beats(_ t: Double, _ durations: [Double], hold: Double = 2.5) -> (Int, Double) {
+    let total = durations.reduce(0, +) + hold
+    var u = fract(t / total) * total
+    GlassBuffer.current?.beat = BeatInfo(durations: durations, hold: hold, cycleStart: t - u)
+    for (i, d) in durations.enumerated() {
+        if u < d { return (i, u / d) }
+        u -= d
+    }
+    return (durations.count - 1, 1)
+}
+
 /// 把时间切成 count 段循环：返回当前段号和段内进度 [0,1)
 func phase(_ t: Double, period: Double, count: Int) -> (Int, Double) {
     let p = fract(t / period) * Double(count)

@@ -67,11 +67,11 @@ struct AntinomyView: View {
 private func drawRegress(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double, divide: Bool) {
     let w = Double(size.width), h = Double(size.height)
     let cx = w / 2, cy = h / 2 - 10
-    let steps = Int(t * 2.5) % 100000
+    let steps = Int(t * 1.2) % 100000
 
     if divide {
         // 可分性：线段被一次次二分，永远分不到“单纯部分”
-        let depth = 1 + (steps % 9)
+        let depth = 1 + Int(fract(t / 18) * 9)
         let len = w - 60
         for d in 0..<depth {
             let pieces = 1 << d
@@ -85,7 +85,7 @@ private func drawRegress(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Doub
                 ctx.stroke(seg, with: .color(Moon.gold.opacity(1 - Double(d) * 0.09)), lineWidth: 3)
             }
         }
-        label(&ctx, "已二分 \(steps) 次 · 单纯部分从未出现", cx, h - 26, Moon.gold, size: 13)
+        label(&ctx, "已二分 \(depth - 1) 次 · 单纯部分从未出现", cx, h - 26, Moon.gold, size: 13)
         return
     }
 
@@ -119,7 +119,7 @@ private func drawTwoDomains(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: D
     let y = mid * 0.55
     for k in 0..<n {
         let x = 30 + Double(k) * (w - 60) / Double(n - 1)
-        let active = Int(t * 3) % n == k
+        let active = Int(t * 1.2) % n == k
         dot(&ctx, x, y, active ? 11 : 7, active ? Moon.silver : Moon.silver.opacity(0.35))
         if k < n - 1 {
             var l = Path()
@@ -132,7 +132,7 @@ private func drawTwoDomains(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: D
     // 自由：自发的、不在链条上的光源
     let gy = mid + (h - mid) * 0.58
     for ring in 0..<4 {
-        let r = 12 + Double(ring) * 14 + 6 * sin(t * 2 + Double(ring))
+        let r = 12 + Double(ring) * 14 + 6 * sin(t * 1 + Double(ring))
         dot(&ctx, w / 2, gy, r, Moon.gold.opacity(0.18 - Double(ring) * 0.035))
     }
     dot(&ctx, w / 2, gy, 8, Moon.gold)

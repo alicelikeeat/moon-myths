@@ -99,7 +99,7 @@ func drawSchema(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double, _ c: 
     let span = w - 60
     switch c.kind {
     case .number:
-        let count = Int(fract(t * 0.2) * 10) + 1
+        let count = min(10, Int(fract(t / 22) * 11) + 1)
         for k in 0..<count {
             let x = 30 + Double(k) * span / 10
             dot(&ctx, x, axisY - 30, 9, Moon.gold)
@@ -112,7 +112,7 @@ func drawSchema(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double, _ c: 
         p.move(to: CGPoint(x: 30, y: axisY))
         for i in 0...100 {
             let x = 30 + Double(i) / 100 * span
-            var f = 0.5 + 0.5 * sin(Double(i) * 0.12 - t * 2)
+            var f = 0.5 + 0.5 * sin(Double(i) * 0.12 - t * 0.6)
             if c.name == "否定性" { f = 0 }
             if c.name == "限制性" && (i < 25 || i > 75) { f = 0 }
             p.addLine(to: CGPoint(x: x, y: axisY - f * h * 0.45))
@@ -138,7 +138,7 @@ func drawSchema(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double, _ c: 
         label(&ctx, "偶性在变，实体不变", w / 2, axisY - 95)
 
     case .succession:
-        let phase = fract(t * 0.35)
+        let phase = fract(t / 8)
         let ax = 60.0, bx = w - 80, y = axisY - 50
         dot(&ctx, ax, y, phase < 0.4 ? 14 : 9, Moon.gold.opacity(phase < 0.4 ? 1 : 0.4))
         dot(&ctx, bx, y, phase > 0.6 ? 14 : 9, Moon.violet.opacity(phase > 0.6 ? 1 : 0.4))
@@ -152,9 +152,9 @@ func drawSchema(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double, _ c: 
         label(&ctx, "不可逆：t₁ < t₂", w / 2, h * 0.3)
 
     case .simultaneity:
-        let x = w / 2 + sin(t * 0.8) * span * 0.35
+        let x = w / 2 + sin(t * 0.35) * span * 0.35
         let y1 = axisY - 110, y2 = axisY - 40
-        let r = 10 + 3 * sin(t * 5)
+        let r = 10 + 3 * sin(t * 1.5)
         dot(&ctx, x, y1, r, Moon.gold)
         dot(&ctx, x, y2, r, Moon.violet)
         var link = Path()
@@ -175,7 +175,7 @@ func drawSchema(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double, _ c: 
             label(&ctx, name, 36, y, col)
             switch name {
             case "∃t":
-                let x = 70 + hash01(floor(t * 0.7)) * (span - 50)
+                let x = 70 + hash01(floor(t / 3)) * (span - 50)
                 dot(&ctx, x, y, 6, col)
             case "t = t₀":
                 dot(&ctx, 70 + (span - 50) * 0.55, y, 6, col)

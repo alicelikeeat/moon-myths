@@ -19,9 +19,22 @@ struct GlassText {
 }
 
 /// Canvas 绘制时收集玻璃节点与文字；叠加层用原生 glassEffect 渲染（延迟 ≤ 1 帧，肉眼不可见）
+struct BeatInfo {
+    let durations: [Double]
+    let hold: Double
+    let cycleStart: Double
+    func index(at t: Double) -> Int {
+        var u = t - cycleStart
+        for (i, d) in durations.enumerated() { if u < d { return i }; u -= d }
+        return durations.count - 1
+    }
+    func start(of i: Int) -> Double { cycleStart + durations.prefix(i).reduce(0, +) }
+}
+
 final class GlassBuffer {
     var nodes: [GlassNode] = []
     var texts: [GlassText] = []
+    var beat: BeatInfo?
     /// 这批节点对应的时刻；画布按同一时刻绘制线条，保证玻璃与线条对齐
     var time: Double = Date().timeIntervalSinceReferenceDate
     static var current: GlassBuffer?
@@ -45,13 +58,13 @@ final class PlaybackClock {
     init() {
         let now = Date().timeIntervalSinceReferenceDate
         anchorNow = now
-        anchorT = now
+        anchorT = 0          // 每次打开章节都从第一拍开始
         let saved = UserDefaults.standard.double(forKey: "animSpeed")
         speed = saved > 0 ? saved : 1
         // 截图用：`-pausePlayback` 以暂停状态启动
         if ProcessInfo.processInfo.arguments.contains("-pausePlayback") {
             playing = false
-            frozen = now
+            frozen = 0
             scrub = 0.4
         }
     }
@@ -70,6 +83,17 @@ final class PlaybackClock {
             anchorT = frozen + scrub * Self.window
             anchorNow = now
             playing = true
+        }
+    }
+
+    /// 跳到指定时刻（用于“下一拍”）
+    func jump(to target: Double) {
+        if playing {
+            anchorT = target
+            anchorNow = Date().timeIntervalSinceReferenceDate
+        } else {
+            frozen = target
+            scrub = 0
         }
     }
 
@@ -110,18 +134,28 @@ struct LiveCanvas: View {
                     draw(&ctx, size, shownTime)
                     discard.nodes.removeAll(keepingCapacity: true)
                     discard.texts.removeAll(keepingCapacity: true)
+                    discard.beat = nil
                     // 2. 记录下一帧的玻璃与文字（不可见地跑一遍）
                     var scratch = ctx
                     scratch.opacity = 0
                     buffer.nodes.removeAll(keepingCapacity: true)
                     buffer.texts.removeAll(keepingCapacity: true)
                     buffer.time = t
+                    buffer.beat = nil
                     GlassBuffer.current = buffer
                     draw(&scratch, size, t)
                     GlassBuffer.current = nil
                 }
                 GlassNodesView(nodes: shownNodes)
                 GlassTextsView(texts: shownTexts)
+            }
+            .overlay(alignment: .topLeading) {
+                if let clock, let beat = buffer.beat, beat.durations.count > 1 {
+                    BeatDots(beat: beat, current: beat.index(at: t)) { i in
+                        clock.jump(to: beat.start(of: i))
+                    }
+                    .padding(12)
+                }
             }
         }
     }
@@ -174,5 +208,34 @@ private struct GlassTextsView: View {
             }
         }
         .allowsHitTesting(false)
+    }
+}
+
+/// 节拍进度点：当前拍高亮；点任意一个点跳到该拍，点箭头跳到下一拍
+private struct BeatDots: View {
+    let beat: BeatInfo
+    let current: Int
+    let go: (Int) -> Void
+
+    var body: some View {
+        HStack(spacing: 6) {
+            ForEach(0..<beat.durations.count, id: \.self) { i in
+                Capsule()
+                    .fill(Color.primary.opacity(i == current ? 0.9 : 0.25))
+                    .frame(width: i == current ? 18 : 7, height: 7)
+                    .contentShape(.rect)
+                    .onTapGesture { go(i) }
+            }
+            Button {
+                go((current + 1) % beat.durations.count)
+            } label: {
+                Image(systemName: "forward.end.fill").font(.system(size: 11, weight: .semibold))
+            }
+            .buttonStyle(.plain)
+            .padding(.leading, 2)
+        }
+        .padding(.horizontal, 12).padding(.vertical, 9)
+        .glassEffect(Glass.regular.interactive(), in: .capsule)
+        .animation(.spring(duration: 0.3), value: current)
     }
 }

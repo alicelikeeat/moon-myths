@@ -23,7 +23,7 @@ struct Copernicus3D: View {
     var body: some View {
         TimelineView(.animation) { tl in
             let t = clock.time(tl.date.timeIntervalSinceReferenceDate)
-            let (ph, p) = phase(t, period: 12, count: 2)
+            let (ph, p) = beats(t, [7, 7])
             let k = ph == 0 ? 1 - smooth(p / 0.25) : smooth(p / 0.25)   // 0 = 旧, 1 = 新
             ZStack(alignment: .top) {
                 RealityView { content in

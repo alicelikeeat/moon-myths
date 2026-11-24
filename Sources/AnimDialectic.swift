@@ -14,7 +14,7 @@ func drawIllusion(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     hills.addLine(to: CGPoint(x: 0, y: h))
     hills.closeSubpath()
 
-    let p = smooth(fract(t / 10) * 1.2)
+    let p = smooth(min(1, fract(t / 14) * 1.3))
     let my = lerp(horizon - 40, h * 0.2, p)
     let mx = lerp(w * 0.35, w * 0.55, p)
     let seen = lerp(52, 24, p)
@@ -57,7 +57,7 @@ func drawIdeas(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
 // MARK: - 谬误推理
 func drawParalogism(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let w = Double(size.width), h = Double(size.height)
-    let (ph, _) = phase(t, period: 9, count: 3)
+    let (ph, _) = beats(t, [6, 6, 7])
     let ys = [h * 0.22, h * 0.42, h * 0.64]
     label(&ctx, "大前提：只能作为【主体】者 = 实体", w / 2, ys[0], Color.primary, size: 14)
     label(&ctx, "小前提：我（思维者）只能作为【主体】", w / 2, ys[1], Color.primary, size: 14)
@@ -81,7 +81,7 @@ func drawParalogism(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
 // MARK: - 纯粹理性的理想
 func drawIdeal(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let w = Double(size.width), h = Double(size.height)
-    let (ph, p) = phase(t, period: 12, count: 2)
+    let (ph, p) = beats(t, [7, 8])
     if ph == 0 {
         for (x, title) in [(w * 0.3, "可能的 100 塔勒"), (w * 0.7, "现实的 100 塔勒")] {
             for i in 0..<10 {
@@ -117,7 +117,7 @@ func drawIdeal(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
 // MARK: - 方法论：训练
 func drawDiscipline(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let w = Double(size.width), h = Double(size.height)
-    let p = fract(t / 7)
+    let p = fract(t / 10)
     let k = smooth(p / 0.6)
     line(&ctx, w / 2, 50, w / 2, h - 50, Moon.dim, 1, dash: [4, 4])
 
@@ -166,7 +166,7 @@ func drawCanon(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
 // MARK: - 建筑术
 func drawArchitectonic(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let w = Double(size.width), h = Double(size.height)
-    let (ph, p) = phase(t, period: 9, count: 2)
+    let (ph, p) = beats(t, [6, 6])
     let k = ph == 0 ? smooth(p / 0.4) : 1 - smooth(p / 0.4)
     var tree: [(Double, Double)] = [(w / 2, 60)]
     for i in 0..<3 { tree.append((w * (0.2 + 0.3 * Double(i)), h * 0.4)) }
@@ -189,7 +189,7 @@ func drawArchitectonic(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double
 // MARK: - 历史
 func drawHistory(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let w = Double(size.width), h = Double(size.height)
-    let p = fract(t / 10)
+    let p = fract(t / 16)
     let angle = 0.9 * exp(-3 * p) * cos(2 * Double.pi * 3 * p)
     let px = w / 2, py = 40.0, len = h * 0.6
     let bx = px + sin(angle) * len, by = py + cos(angle) * len

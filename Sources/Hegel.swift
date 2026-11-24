@@ -95,7 +95,7 @@ let hegelLogicChapters: [Chapter] = [
 
 func drawBudFlowerFruit(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let w = Double(size.width), h = Double(size.height)
-    let (ph, p) = phase(t, period: 9, count: 3)
+    let (ph, p) = beats(t, [5, 5, 6])
     let names = ["花蕾", "花朵", "果实"]
     let xs = [w * 0.2, w * 0.5, w * 0.8]
     let y = h * 0.48
@@ -115,7 +115,7 @@ func drawBudFlowerFruit(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Doubl
 
 func drawSenseCertainty(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let w = Double(size.width), h = Double(size.height)
-    let (ph, p) = phase(t, period: 10, count: 3)
+    let (ph, p) = beats(t, [6, 7, 7])
     let day = ph == 0 ? 0 : (ph == 1 ? smooth(p / 0.5) : 1)
     let sky = Path(roundedRect: CGRect(x: 20, y: 44, width: w - 40, height: h * 0.4), cornerRadius: 18)
     ctx.fill(sky, with: .linearGradient(
@@ -151,7 +151,7 @@ func drawForce(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
 
 func drawMasterSlave(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let w = Double(size.width), h = Double(size.height)
-    let (ph, p) = phase(t, period: 16, count: 4)
+    let (ph, p) = beats(t, [6, 6, 7, 7])
     let k = smooth(p / 0.5)
     var ax = w * 0.3, ay = h * 0.42, bx = w * 0.7, by = h * 0.42
     var bR = 20.0
@@ -161,7 +161,7 @@ func drawMasterSlave(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) 
     case 0:
         ax = lerp(w * 0.2, w * 0.32, k); bx = lerp(w * 0.8, w * 0.68, k)
     case 1:
-        ax = w * 0.38 + 4 * sin(t * 20) * (1 - k); bx = w * 0.62
+        ax = w * 0.38 + 3 * sin(t * 6) * (1 - k); bx = w * 0.62
         by = lerp(h * 0.42, h * 0.62, k); bR = lerp(20, 15, k)
     case 2:
         by = h * 0.62; bR = 15
@@ -245,7 +245,7 @@ func drawBeingNothing(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double)
 
 func drawMeasure(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let w = Double(size.width), h = Double(size.height)
-    let temp = -20 + fract(t / 12) * 140
+    let temp = measureTemp(t)
     let bx = 40.0, bw = w - 80, by = h * 0.78
     box(&ctx, bx, by, bw, 12, Moon.dim)
     let fill = (temp + 20) / 140
@@ -337,4 +337,16 @@ func drawSublation(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     blob(&ctx, x, h * 0.85 - p * h * 0.68, 4, Color.primary)
     headline(&ctx, "回到起点，却在更高处", size)
     caption(&ctx, "取消 · 保存 · 提升", size)
+}
+
+/// 度：温度随时间变化，在 0 °C 和 100 °C 两个关节点各停留 2.5 秒
+func measureTemp(_ t: Double) -> Double {
+    // (起点, 终点, 时长)
+    let segs: [(Double, Double, Double)] = [(-20, 0, 4), (0, 0, 2.5), (0, 100, 9), (100, 100, 2.5), (100, 120, 3), (120, 120, 2)]
+    var u = fract(t / segs.reduce(0) { $0 + $1.2 }) * segs.reduce(0) { $0 + $1.2 }
+    for s in segs {
+        if u < s.2 { return lerp(s.0, s.1, u / s.2) }
+        u -= s.2
+    }
+    return 120
 }

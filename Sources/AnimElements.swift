@@ -4,7 +4,7 @@ import SwiftUI
 func drawCopernicus(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let w = Double(size.width), h = Double(size.height)
     let cx = w / 2, cy = h / 2
-    let (ph, p) = phase(t, period: 12, count: 2)
+    let (ph, p) = beats(t, [7, 7])
     let k = ph == 0 ? 1 - smooth(p / 0.25) : smooth(p / 0.25)   // 0 = 旧, 1 = 新
     let r = min(w, h) * 0.34
 
@@ -37,7 +37,7 @@ func drawCopernicus(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
 // MARK: - 导论：先天综合判断
 func drawJudgments(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let w = Double(size.width), h = Double(size.height)
-    let (ph, p) = phase(t, period: 8, count: 2)
+    let (ph, p) = beats(t, [7, 7])
     let sx = w * 0.32, sy = h * 0.27, sr = 52.0
     ring(&ctx, sx, sy, sr, Moon.silver)
     label(&ctx, "C(S)", sx, sy - sr - 12, Moon.silver)
@@ -81,7 +81,7 @@ func drawSpace(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     var y = 40.0
     while y < h - 40 { line(&ctx, 0, y, w, y, Moon.silver.opacity(0.12), 1); y += step }
 
-    let (ph, p) = phase(t, period: 8, count: 2)
+    let (ph, p) = beats(t, [6, 6])
     let a = ph == 0 ? smooth(p / 0.2) : 1 - smooth(p / 0.2)
     for i in 0..<6 {
         let s = Double(i)
@@ -174,7 +174,7 @@ func drawDeduction(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
 // MARK: - 直观的公理
 func drawAxioms(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let w = Double(size.width), h = Double(size.height)
-    let p = fract(t / 7)
+    let p = min(1, fract(t / 16) * 1.25)
     let segs = Int(p * 14)
     let unit = (w - 60) / 12
     for i in 0..<min(segs, 12) {
@@ -198,7 +198,7 @@ func drawAxioms(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
 // MARK: - 知觉的预测
 func drawAnticipations(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let w = Double(size.width), h = Double(size.height)
-    let v = 0.5 - 0.5 * cos(t * 0.8)
+    let v = 0.5 - 0.5 * cos(t * 0.4)
     let cx = w / 2, cy = h * 0.33
     for i in 0..<5 { dot(&ctx, cx, cy, 20 + Double(i) * 12, Moon.gold.opacity(v * 0.12)) }
     dot(&ctx, cx, cy, 20, Moon.gold.opacity(0.15 + 0.85 * v))
@@ -207,7 +207,7 @@ func drawAnticipations(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double
     let by = h * 0.68, bx = 30.0, bw = w - 60
     box(&ctx, bx, by, bw, 14, Moon.dim)
     ctx.fill(Path(roundedRect: CGRect(x: bx, y: by, width: bw * v, height: 14), cornerRadius: 7), with: .color(Moon.gold))
-    let depth = 1 + Int(fract(t / 9) * 7)
+    let depth = 1 + Int(fract(t / 21) * 7)
     let parts = 1 << depth
     for k in 0...parts {
         let x = bx + bw * Double(k) / Double(parts)
@@ -220,7 +220,7 @@ func drawAnticipations(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double
 
 // MARK: - 经验的类比
 func drawAnalogies(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
-    let (ph, _) = phase(t, period: 15, count: 3)
+    let (ph, _) = beats(t, [8, 8, 8])
     drawSchema(&ctx, size, t, categoryGroups[2].1[ph])
     let names = ["第一类比：实体持存", "第二类比：因果相继", "第三类比：交互协同"]
     label(&ctx, names[ph], Double(size.width) / 2, 46, Moon.gold, size: 14)
@@ -229,7 +229,7 @@ func drawAnalogies(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
 // MARK: - 公设与驳斥唯心论
 func drawRefutation(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let w = Double(size.width), h = Double(size.height)
-    let (ph, p) = phase(t, period: 10, count: 2)
+    let (ph, p) = beats(t, [8, 8])
     let sx = w * 0.82, sy = h * 0.26
     let starA = ph == 0 ? 1.0 : 1 - smooth(p / 0.2)
     dot(&ctx, sx, sy, 20, Moon.silver.opacity(0.2 * starA))
@@ -243,8 +243,8 @@ func drawRefutation(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
         var x = 40 + s * (w - 100) / 6
         var y = ay - 20
         if ph == 1 {
-            x = 40 + hash01(s + floor(t * 2)) * (w - 80)
-            y = ay - 20 - hash01(s + 3 + floor(t * 2)) * 80
+            x = 40 + hash01(s) * (w - 80) + sin(t * 0.5 + s) * 24
+            y = ay - 20 - hash01(s + 3) * 80 + cos(t * 0.4 + s) * 10
         } else {
             line(&ctx, x, y, sx, sy, Moon.silver.opacity(0.18), 1)
         }
@@ -259,7 +259,7 @@ func drawRefutation(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
 // MARK: - 反思概念的歧义
 func drawAmphiboly(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let w = Double(size.width), h = Double(size.height)
-    let (ph, p) = phase(t, period: 8, count: 2)
+    let (ph, p) = beats(t, [6, 6])
     let k = ph == 0 ? smooth(p / 0.3) : 1 - smooth(p / 0.3)   // 1 = 合一
     let y = h * 0.45
     for x in [lerp(w * 0.28, w / 2, k), lerp(w * 0.72, w / 2, k)] {

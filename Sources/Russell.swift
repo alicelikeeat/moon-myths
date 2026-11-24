@@ -75,12 +75,12 @@ let russellProblemsChapters: [Chapter] = [
 
 func drawFrenchKing(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let w = Double(size.width), h = Double(size.height)
-    let (ph, p) = phase(t, period: 12, count: 2)
+    let (ph, p) = beats(t, [6, 9])
     let clauses = ["∃x Kx", "唯一", "Bx 秃"]
     let bw = (w - 60) / 3
     for (i, c) in clauses.enumerated() {
         let x = 20 + Double(i) * (bw + 10)
-        let failed = ph == 1 && i == 0 && p > 0.55
+        let failed = ph == 1 && i == 0 && p > 0.75
         box(&ctx, x, 50, bw, 44, failed ? .red : Moon.silver, fill: failed ? Color.red.opacity(0.25) : nil)
         label(&ctx, c, x + bw / 2, 72, failed ? .red : Color.primary, size: 14)
     }
@@ -93,14 +93,14 @@ func drawFrenchKing(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
         label(&ctx, name, x, y + 30, Moon.dim, size: 11)
     }
     if ph == 1 {
-        let scan = min(1, p / 0.5) * 6
+        let scan = min(1, p / 0.7) * 6
         let i = min(5, Int(scan))
         let x = 40 + Double(i % 3) * (w - 80) / 2
         let y = h * 0.48 + Double(i / 3) * 80
         ring(&ctx, x, y, 24, Moon.gold, 2)
         label(&ctx, "是法国国王？否", x, y - 30, Moon.gold, size: 11)
     }
-    caption(&ctx, ph == 0 ? "把句子改写为量化式" : (p > 0.55 ? "找不到满足 K 的 x：整句为假" : "在论域里逐一寻找……"), size)
+    caption(&ctx, ph == 0 ? "把句子改写为量化式" : (p > 0.75 ? "找不到满足 K 的 x：整句为假" : "在论域里逐一寻找……"), size)
 }
 
 func drawWaverley(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
@@ -122,7 +122,7 @@ func drawWaverley(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
 func drawRussellParadox(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let w = Double(size.width), h = Double(size.height)
     let cx = w / 2, cy = h * 0.48
-    let speed = 0.6 + fract(t / 10) * 3
+    let speed = 0.4
     let inside = sin(t * speed * 2) > 0
     let k = 0.5 + 0.5 * sin(t * speed * 2)
     dot(&ctx, cx, cy, 70, Moon.violet)
@@ -162,7 +162,7 @@ func drawTypes(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
 
 func drawOnePlusOne(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let w = Double(size.width), h = Double(size.height)
-    let (ph, p) = phase(t, period: 8, count: 2)
+    let (ph, p) = beats(t, [6, 5])
     let k = ph == 0 ? smooth(p / 0.7) : 1 - smooth(p / 0.3)
     let cy = h * 0.45
     let ax = lerp(w * 0.25, w / 2 - 20, k), bx = lerp(w * 0.75, w / 2 + 20, k)
@@ -224,7 +224,7 @@ func drawAcquaintance(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double)
 func drawInduction(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let w = Double(size.width), h = Double(size.height)
     let total = 20
-    let n = min(total, Int(fract(t / 12) * Double(total + 4)))
+    let n = min(total, Int(fract(t / 28) * Double(total + 6)))
     let cols = 5
     let cw = (w - 60) / Double(cols)
     for i in 0..<min(n, total - 1) {
