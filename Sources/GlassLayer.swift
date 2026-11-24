@@ -51,6 +51,8 @@ final class PlaybackClock {
     var playing = true
     var scrub = 0.0                    // 0…1，对应暂停时刻之后的 window 秒
     private(set) var speed: Double
+    /// 当前动画的节拍信息（由画布每帧写入，不触发界面刷新）
+    @ObservationIgnored var beat: BeatInfo?
     private var frozen = 0.0
     private var anchorNow: Double
     private var anchorT: Double
@@ -145,17 +147,10 @@ struct LiveCanvas: View {
                     GlassBuffer.current = buffer
                     draw(&scratch, size, t)
                     GlassBuffer.current = nil
+                    clock?.beat = buffer.beat
                 }
                 GlassNodesView(nodes: shownNodes)
                 GlassTextsView(texts: shownTexts)
-            }
-            .overlay(alignment: .topLeading) {
-                if let clock, let beat = buffer.beat, beat.durations.count > 1 {
-                    BeatDots(beat: beat, current: beat.index(at: t)) { i in
-                        clock.jump(to: beat.start(of: i))
-                    }
-                    .padding(12)
-                }
             }
         }
     }
@@ -212,7 +207,7 @@ private struct GlassTextsView: View {
 }
 
 /// 节拍进度点：当前拍高亮；点任意一个点跳到该拍，点箭头跳到下一拍
-private struct BeatDots: View {
+struct BeatDots: View {
     let beat: BeatInfo
     let current: Int
     let go: (Int) -> Void

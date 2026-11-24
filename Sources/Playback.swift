@@ -1,46 +1,88 @@
 import SwiftUI
 
-/// 动画舞台上的播放控件：右上角播放/暂停，暂停时底部出现时间滑块
+/// 动画舞台上的播放控件：右上角一个小玻璃按钮，点开后展开节拍、倍速、播放/暂停
 struct PlaybackControls: ViewModifier {
     @Bindable var clock: PlaybackClock
+    @State private var expanded = false
+    @State private var lastTouch = Date()
+    @Namespace private var ns
 
     func body(content: Content) -> some View {
         content
             .overlay(alignment: .topTrailing) {
-                GlassEffectContainer(spacing: 8) {
-                    HStack(spacing: 8) {
-                        Menu {
-                            ForEach(PlaybackClock.speeds, id: \.self) { s in
-                                Button {
-                                    clock.setSpeed(s)
-                                } label: {
-                                    if s == clock.speed { Label(speedText(s), systemImage: "checkmark") } else { Text(speedText(s)) }
+                GlassEffectContainer(spacing: 6) {
+                    HStack(spacing: 6) {
+                        if expanded {
+                            TimelineView(.periodic(from: .now, by: 0.25)) { tl in
+                                if let beat = clock.beat, beat.durations.count > 1 {
+                                    BeatDots(beat: beat, current: beat.index(at: clock.time(tl.date.timeIntervalSinceReferenceDate))) { i in
+                                        touch()
+                                        clock.jump(to: beat.start(of: i))
+                                    }
                                 }
                             }
-                        } label: {
-                            Text(speedText(clock.speed))
-                                .font(.system(size: 13, weight: .semibold).monospacedDigit())
-                                .frame(minWidth: 44, minHeight: 36)
+                            .glassEffectID("beats", in: ns)
+
+                            Menu {
+                                ForEach(PlaybackClock.speeds, id: \.self) { s in
+                                    Button {
+                                        touch()
+                                        clock.setSpeed(s)
+                                    } label: {
+                                        if s == clock.speed { Label(speedText(s), systemImage: "checkmark") } else { Text(speedText(s)) }
+                                    }
+                                }
+                            } label: {
+                                Text(speedText(clock.speed))
+                                    .font(.system(size: 12, weight: .semibold).monospacedDigit())
+                                    .foregroundStyle(Color.primary)
+                                    .frame(minWidth: 40, minHeight: 32)
+                                    .glassEffect(Glass.regular.interactive(), in: .capsule)
+                            }
+                            .glassEffectID("speed", in: ns)
+
+                            Button {
+                                touch()
+                                withAnimation(.spring(duration: 0.35)) { clock.toggle() }
+                            } label: {
+                                Image(systemName: clock.playing ? "pause.fill" : "play.fill")
+                                    .font(.system(size: 12, weight: .semibold))
+                                    .foregroundStyle(Color.primary)
+                                    .frame(width: 32, height: 32)
+                                    .glassEffect(Glass.regular.interactive(), in: .circle)
+                            }
+                            .buttonStyle(.plain)
+                            .glassEffectID("play", in: ns)
                         }
-                        .buttonStyle(.glass)
+
                         Button {
-                            withAnimation(.spring(duration: 0.35)) { clock.toggle() }
+                            touch()
+                            withAnimation(.spring(duration: 0.4, bounce: 0.2)) { expanded.toggle() }
                         } label: {
-                            Image(systemName: clock.playing ? "pause.fill" : "play.fill")
-                                .font(.system(size: 14, weight: .semibold))
-                                .frame(width: 36, height: 36)
+                            Image(systemName: expanded ? "chevron.right" : (clock.playing ? "slider.horizontal.3" : "pause.fill"))
+                                .font(.system(size: 11, weight: .semibold))
+                                .foregroundStyle(Color.primary.opacity(expanded ? 0.8 : 0.6))
+                                .frame(width: 30, height: 30)
+                                .glassEffect(Glass.regular.interactive(), in: .circle)
                         }
-                        .buttonStyle(.glass)
-                        .buttonBorderShape(.circle)
+                        .buttonStyle(.plain)
+                        .glassEffectID("toggle", in: ns)
                     }
                 }
-                .padding(10)
+                .padding(8)
+            }
+            .task(id: lastTouch) {
+                // 播放中 5 秒无操作自动收起；暂停时保持展开，方便拖动
+                try? await Task.sleep(for: .seconds(5))
+                if clock.playing && expanded {
+                    withAnimation(.spring(duration: 0.4)) { expanded = false }
+                }
             }
             .overlay(alignment: .bottom) {
                 if !clock.playing {
                     HStack(spacing: 10) {
                         Image(systemName: "backward.fill").font(.caption2).opacity(0.6)
-                        Slider(value: $clock.scrub, in: 0...1)
+                        Slider(value: $clock.scrub, in: 0...1, onEditingChanged: { editing in if editing { touch() } })
                         Image(systemName: "forward.fill").font(.caption2).opacity(0.6)
                     }
                     .padding(.horizontal, 16).padding(.vertical, 10)
@@ -50,6 +92,8 @@ struct PlaybackControls: ViewModifier {
                 }
             }
     }
+
+    private func touch() { lastTouch = Date() }
 }
 
 private func speedText(_ s: Double) -> String {
