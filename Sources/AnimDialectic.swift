@@ -18,7 +18,10 @@ func drawIllusion(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let my = lerp(horizon - 40, h * 0.2, p)
     let mx = lerp(w * 0.35, w * 0.55, p)
     let seen = lerp(52, 24, p)
-    for k in 0..<4 { blob(&ctx, mx, my, seen * (1.3 + Double(k) * 0.35), Moon.gold.opacity(0.07)) }
+    let halo = seen * 2.6
+    ctx.fill(Path(ellipseIn: CGRect(x: mx - halo, y: my - halo, width: halo * 2, height: halo * 2)),
+             with: .radialGradient(Gradient(colors: [Moon.gold.opacity(0.28), Moon.gold.opacity(0)]),
+                                   center: CGPoint(x: mx, y: my), startRadius: seen * 0.9, endRadius: halo))
     ctx.fill(Path(ellipseIn: CGRect(x: mx - seen, y: my - seen, width: seen * 2, height: seen * 2)),
              with: .radialGradient(Gradient(colors: [.white, Moon.gold, Moon.gold.opacity(0.85)]),
                                    center: CGPoint(x: mx - seen * 0.3, y: my - seen * 0.3),

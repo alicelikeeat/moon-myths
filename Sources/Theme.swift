@@ -34,8 +34,10 @@ func dot(_ ctx: inout GraphicsContext, _ x: Double, _ y: Double, _ r: Double, _ 
         Gradient(colors: [Color.white.opacity(0.85), Color.white.opacity(0.08), Color.white.opacity(0.45)]),
         startPoint: CGPoint(x: x - r, y: y - r), endPoint: CGPoint(x: x + r, y: y + r)),
         lineWidth: max(0.8, r * 0.07))
-    let hl = CGRect(x: x - r * 0.55, y: y - r * 0.78, width: r * 1.1, height: r * 0.5)
-    ctx.fill(Path(ellipseIn: hl), with: .linearGradient(
+    let hl = CGRect(x: x - r * 0.62, y: y - r * 0.9, width: r * 1.24, height: r * 0.62)
+    var inner = ctx
+    inner.clip(to: circle)
+    inner.fill(Path(ellipseIn: hl), with: .linearGradient(
         Gradient(colors: [Color.white.opacity(0.8), Color.white.opacity(0)]),
         startPoint: CGPoint(x: x, y: hl.minY), endPoint: CGPoint(x: x, y: hl.maxY)))
 }
@@ -49,20 +51,20 @@ func label(_ ctx: inout GraphicsContext, _ s: String, _ x: Double, _ y: Double,
 /// 背景：缓慢漂移的柔光，给玻璃提供可折射的内容
 struct Backdrop: View {
     var body: some View {
-        TimelineView(.animation(minimumInterval: 1.0 / 30.0)) { tl in
+        TimelineView(.animation(minimumInterval: 1.0 / 20.0)) { tl in
             Canvas { ctx, size in
                 let t = tl.date.timeIntervalSinceReferenceDate
                 let w = Double(size.width), h = Double(size.height)
-                ctx.addFilter(.blur(radius: 70))
                 let lights: [(Double, Double, Double, Color)] = [
                     (0.25, 0.2, 0.0, Moon.silver), (0.8, 0.45, 2.1, Moon.violet), (0.4, 0.8, 4.2, Moon.gold),
                 ]
                 for (bx, by, ph, c) in lights {
                     let x = w * bx + sin(t * 0.13 + ph) * w * 0.15
                     let y = h * by + cos(t * 0.11 + ph) * h * 0.08
-                    let r = w * 0.45
+                    let r = w * 0.7
                     ctx.fill(Path(ellipseIn: CGRect(x: x - r, y: y - r, width: r * 2, height: r * 2)),
-                             with: .color(c.opacity(0.16)))
+                             with: .radialGradient(Gradient(colors: [c.opacity(0.17), c.opacity(0)]),
+                                                   center: CGPoint(x: x, y: y), startRadius: 0, endRadius: r))
                 }
             }
         }
