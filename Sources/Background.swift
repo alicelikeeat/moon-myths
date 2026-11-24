@@ -157,6 +157,17 @@ struct BackdropSettings: View {
                 } footer: {
                     Text("背景越亮、越有色彩，玻璃的折射越明显；调暗可以让文字更清楚。")
                 }
+                Section {
+                    ForEach(library.flatMap(\.books)) { b in
+                        ForEach(fullTexts[b.id] ?? []) { ft in
+                            OfflineRow(title: "《\(b.title)》\(ft.label)", id: ft.id)
+                        }
+                    }
+                } header: {
+                    Text("离线全文")
+                } footer: {
+                    Text("全文第一次打开时下载，之后可离线阅读。")
+                }
             }
             .scrollContentBackground(.hidden)
             .navigationTitle("外观")
@@ -183,5 +194,29 @@ struct BackdropSettings: View {
                 }
             }
         }
+    }
+}
+
+
+private struct OfflineRow: View {
+    let title: String
+    let id: String
+    @State private var downloaded = false
+
+    var body: some View {
+        HStack {
+            Text(title)
+            Spacer()
+            if downloaded {
+                Button("删除", role: .destructive) {
+                    TextStore.shared.delete(id)
+                    downloaded = false
+                }
+                .buttonStyle(.glass)
+            } else {
+                Text("未下载").foregroundStyle(.secondary)
+            }
+        }
+        .onAppear { downloaded = TextStore.shared.isDownloaded(id) }
     }
 }

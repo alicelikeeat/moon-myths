@@ -235,6 +235,8 @@ enum PassageLang: String, CaseIterable, Identifiable {
 
 struct PassagesView: View {
     let items: [Passage]
+    let book: Book
+    let key: String
     @AppStorage("passageLang") private var langRaw = PassageLang.all.rawValue
 
     var body: some View {
@@ -266,6 +268,15 @@ struct PassagesView: View {
                     }
                     if lang == .all || lang == .chinese {
                         block(tag: "中文 · 本应用译", text: p.chinese, serif: false)
+                    }
+                    if let tid = textId(forPassage: key, book: book.id) {
+                        NavigationLink {
+                            BookReaderView(book: book, initialText: tid, query: anchor(from: p.original))
+                        } label: {
+                            Label("在全文中查看", systemImage: "text.magnifyingglass")
+                                .font(.footnote.weight(.semibold))
+                        }
+                        .buttonStyle(.glass)
                     }
                 }
                 .padding(18)

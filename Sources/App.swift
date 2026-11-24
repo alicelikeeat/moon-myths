@@ -17,6 +17,22 @@ struct PureApp: App {
 
     @AppStorage("appearance") private var appearance = "dark"
 
+    /// 截图用：`-openBook <bookId>` 直接打开书籍页
+    private let bookLaunch: Book? = {
+        let args = ProcessInfo.processInfo.arguments
+        guard let i = args.firstIndex(of: "-openBook"), i + 1 < args.count else { return nil }
+        return findBook(args[i + 1])
+    }()
+
+    /// 截图用：`-openReader <bookId>`（可加 `-readerQuery <文本>`）直接打开全文
+    private let readerLaunch: (book: Book, query: String?)? = {
+        let args = ProcessInfo.processInfo.arguments
+        guard let i = args.firstIndex(of: "-openReader"), i + 1 < args.count, let b = findBook(args[i + 1]) else { return nil }
+        var q: String? = nil
+        if let j = args.firstIndex(of: "-readerQuery"), j + 1 < args.count { q = args[j + 1] }
+        return (b, q)
+    }()
+
     init() {
         // 截图用：`-openPassages` 直接显示原文页
         if ProcessInfo.processInfo.arguments.contains("-openPassages") {
@@ -37,7 +53,11 @@ struct PureApp: App {
     var body: some Scene {
         WindowGroup {
             Group {
-                if let l = launch {
+                if let b = bookLaunch {
+                    NavigationStack { BookView(book: b) }
+                } else if let r = readerLaunch {
+                    NavigationStack { BookReaderView(book: r.book, query: r.query) }
+                } else if let l = launch {
                     NavigationStack { ChapterView(book: l.book, index: l.index) }
                 } else {
                     HomeView()

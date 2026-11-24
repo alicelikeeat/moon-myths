@@ -164,6 +164,19 @@ struct BookView: View {
                     Text(book.summary)
                         .font(.subheadline).foregroundStyle(Color.primary.opacity(0.8))
                         .padding(.bottom, 6)
+                    if fullTexts[book.id] != nil {
+                        NavigationLink {
+                            BookReaderView(book: book)
+                        } label: {
+                            Label("阅读全文", systemImage: "text.book.closed")
+                                .font(.callout.weight(.semibold))
+                                .padding(.horizontal, 6).padding(.vertical, 4)
+                        }
+                        .buttonStyle(.glassProminent)
+                    } else {
+                        Text("该书在部分地区仍受版权保护，本应用只提供节选。")
+                            .font(.caption).foregroundStyle(Color.primary.opacity(0.5))
+                    }
                     ForEach(book.parts, id: \.self) { part in
                         Text(part)
                             .font(.footnote.weight(.semibold)).foregroundStyle(Color.primary.opacity(0.6))
@@ -236,7 +249,7 @@ struct ChapterView: View {
                         Text(c.title)
                             .font(.system(size: 30, weight: .semibold, design: .serif))
                             .foregroundStyle(Color.primary)
-                        PassagesView(items: passages["\(book.id):\(index)"] ?? [])
+                        PassagesView(items: passages["\(book.id):\(index)"] ?? [], book: book, key: "\(book.id):\(index)")
                     } else {
                     content(c)
                     VStack(alignment: .leading, spacing: 10) {

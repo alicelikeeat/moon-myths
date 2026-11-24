@@ -81,6 +81,11 @@ jobs:
           run_shot passages-kant-0 -startChapter 0 -openPassages
           run_shot passages-light-hegel-phen-0 -appearance light -book hegel-phen -startChapter 0 -openPassages
           run_shot passages-russell-pm-2 -book russell-pm -startChapter 2 -openPassages -backdropStyle aurora
+          run_shot reader-kant -openReader kant-cpr -autoDownload -readerQuery "Gedanken ohne Inhalt"
+          sleep 5; xcrun simctl io "$UDID" screenshot shots/reader-kant-2.png
+          run_shot reader-hegel-light -appearance light -openReader hegel-phen -autoDownload
+          sleep 5; xcrun simctl io "$UDID" screenshot shots/reader-hegel-light-2.png
+          run_shot book-kant -openBook kant-cpr
           mkdir -p shots/crash
           cp ~/Library/Logs/DiagnosticReports/Pure* shots/crash/ 2>/dev/null || true
           xcrun simctl spawn "$UDID" log show --last 15m --predicate 'process == "Pure"' --style compact 2>/dev/null | grep -iE "fatal|crash|error|precondition" | tail -40 > shots/crash/log.txt || true
