@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct MoonMythsApp: App {
+struct PureApp: App {
     var body: some Scene {
         WindowGroup {
             ChapterListView()

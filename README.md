@@ -1,4 +1,4 @@
-# Moon Myths
+# Pure v1.0
 
 用 SwiftUI 动画把《纯粹理性批判》的模型可视化的 iOS App。
 
@@ -15,6 +15,6 @@
 
 ## 构建
 
-每次推送到 `main`，GitHub Actions 会在 macOS 上用 XcodeGen 生成工程、无签名编译，并在 Releases 发布 `MoonMyths-unsigned.ipa`。需要自行签名后安装（TrollStore、AltStore、Sideloadly 等）。
+每次推送到 `main`，GitHub Actions 会在 macOS 上用 XcodeGen 生成工程、无签名编译，并在 Releases 发布 `Pure-v1.0-unsigned.ipa`。需要自行签名后安装（TrollStore、AltStore、Sideloadly 等）。
 
 最低 iOS 17。

@@ -1,17 +1,17 @@
-name: MoonMyths
+name: Pure
 options:
   bundleIdPrefix: com.alicelikeeat
   deploymentTarget:
     iOS: "17.0"
 targets:
-  MoonMyths:
+  Pure:
     type: application
     platform: iOS
     sources: [Sources]
     info:
       path: Sources/Info.plist
       properties:
-        CFBundleDisplayName: Moon Myths
+        CFBundleDisplayName: Pure
         CFBundleShortVersionString: "1.0"
         CFBundleVersion: "1"
         UILaunchScreen: {}
@@ -19,7 +19,7 @@ targets:
         UIUserInterfaceStyle: Dark
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.alicelikeeat.moonmyths
+        PRODUCT_BUNDLE_IDENTIFIER: com.alicelikeeat.pure
         SWIFT_VERSION: "5.0"
         TARGETED_DEVICE_FAMILY: "1"
         CODE_SIGNING_ALLOWED: "NO"

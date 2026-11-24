@@ -1,4 +1,4 @@
-name: Build unsigned IPA
+name: Build Pure unsigned IPA
 
 on:
   push:
@@ -24,8 +24,8 @@ jobs:
         run: |
           set -o pipefail
           xcodebuild \
-            -project MoonMyths.xcodeproj \
-            -scheme MoonMyths \
+            -project Pure.xcodeproj \
+            -scheme Pure \
             -configuration Release \
             -sdk iphoneos \
             -destination 'generic/platform=iOS' \
@@ -34,24 +34,24 @@ jobs:
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGN_IDENTITY="" \
             build | tee xcodebuild.log | grep -E "error:|warning: unre|BUILD" || true
-          test -d build/Build/Products/Release-iphoneos/MoonMyths.app
+          test -d build/Build/Products/Release-iphoneos/Pure.app
 
       - name: Package IPA
         run: |
           mkdir Payload
-          cp -R build/Build/Products/Release-iphoneos/MoonMyths.app Payload/
-          zip -qry MoonMyths-unsigned.ipa Payload
-          ls -lh MoonMyths-unsigned.ipa
+          cp -R build/Build/Products/Release-iphoneos/Pure.app Payload/
+          zip -qry Pure-v1.0-unsigned.ipa Payload
+          ls -lh Pure-v1.0-unsigned.ipa
 
       - uses: actions/upload-artifact@v4
         with:
-          name: MoonMyths-unsigned
-          path: MoonMyths-unsigned.ipa
+          name: Pure-v1.0-unsigned
+          path: Pure-v1.0-unsigned.ipa
 
       - name: Publish release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: build-${{ github.run_number }}
-          name: Moon Myths build ${{ github.run_number }}
+          tag_name: v1.0-build-${{ github.run_number }}
+          name: Pure v1.0 (build ${{ github.run_number }})
           body: 未签名 IPA，用 TrollStore / AltStore / Sideloadly 等自行签名安装。
-          files: MoonMyths-unsigned.ipa
+          files: Pure-v1.0-unsigned.ipa
