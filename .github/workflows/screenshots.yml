@@ -93,6 +93,8 @@ jobs:
           run_shot home-v17
           run_shot copernicus-3d -startChapter 0 -show3D -backdropStyle aurora
           run_shot copernicus-3d-light -startChapter 0 -show3D -appearance light
+          run_shot thinker-reader-lunyu -openReader lunyu -autoDownload
+          run_shot thinker-reader-daodejing-light -appearance light -openReader daodejing -autoDownload
           mkdir -p shots/crash
           cp ~/Library/Logs/DiagnosticReports/Pure* shots/crash/ 2>/dev/null || true
           xcrun simctl spawn "$UDID" log show --last 15m --predicate 'process == "Pure"' --style compact 2>/dev/null | grep -iE "fatal|crash|error|precondition" | tail -40 > shots/crash/log.txt || true

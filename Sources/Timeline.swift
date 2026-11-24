@@ -317,8 +317,28 @@ private struct ThinkerSheet: View {
                                 }
                                 .buttonStyle(.plain)
                             }
-                        } else {
-                            Text("章节动画与原文将逐步加入。")
+                        }
+                        if let works = thinkerWorks[thinker.id] {
+                            Text("全文").font(.headline).foregroundStyle(Color.primary).padding(.top, 6)
+                            ForEach(works) { b in
+                                NavigationLink {
+                                    BookReaderView(book: b)
+                                } label: {
+                                    VStack(alignment: .leading, spacing: 3) {
+                                        Label("《\(b.title)》", systemImage: "text.book.closed").font(.body.weight(.semibold))
+                                        Text("\(b.year) · \(b.summary)").font(.caption).foregroundStyle(Color.primary.opacity(0.6))
+                                    }
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding(14)
+                                    .glassEffect(Glass.regular.interactive(), in: .rect(cornerRadius: 18))
+                                }
+                                .buttonStyle(.plain)
+                            }
+                        }
+                        if thinker.libraryId == nil {
+                            Text(thinkerWorks[thinker.id] == nil
+                                 ? "暂无可用的公有领域全文；章节动画将逐步加入。"
+                                 : "章节动画与三语原文将逐步加入。")
                                 .font(.footnote).foregroundStyle(Color.primary.opacity(0.5))
                         }
                     }
@@ -346,3 +366,50 @@ private struct ThinkerSheet: View {
         }
     }
 }
+
+// MARK: - 时间轴人物的著作全文（只收公有领域版本）
+
+private func work(_ id: String, _ title: String, _ original: String, _ year: String, _ summary: String) -> Book {
+    Book(id: id, title: title, original: original, year: year, summary: summary, parts: [], chapters: [])
+}
+
+let thinkerWorks: [String: [Book]] = [
+    "kongzi": [work("lunyu", "论语", "論語", "春秋末至战国初", "孔子及其弟子的言行录。原文 + 理雅各（Legge）英译。")],
+    "laozi": [work("daodejing", "道德经", "道德經", "约战国", "五千言，八十一章。原文 + 理雅各英译。")],
+    "zhuangzi": [work("zhuangzi", "庄子", "Chuang Tzu (tr. Giles)", "战国", "翟理斯（Giles）1889 年英译全文；中文原文暂缺。")],
+    "mozi": [work("mozi", "墨子", "墨子", "战国", "兼爱、非攻、尚贤、节用，以及墨辩。")],
+    "xunzi": [work("xunzi", "荀子集解", "荀子集解（王先謙）", "战国 / 清代集解", "《荀子》原文与王先谦集解（1891）。")],
+    "dongzhongshu": [work("chunqiufanlu", "春秋繁露", "春秋繁露", "西汉", "以阴阳五行解释《春秋》，提出天人感应。")],
+    "huineng": [work("tanjing", "六祖坛经", "六祖大師法寶壇經", "唐", "慧能说法，弟子法海集录。")],
+    "wangyangming": [work("chuanxilu", "传习录", "傳習錄", "明", "王阳明与弟子的问答语录。")],
+    "socrates": [work("apology", "申辩篇", "Apology (Plato, tr. Jowett)", "约前 399 年后", "柏拉图记述的苏格拉底受审答辩。乔伊特英译。")],
+    "plato": [work("republic", "理想国", "The Republic (tr. Jowett)", "约前 375 年", "正义、理念与洞穴之喻。乔伊特英译。")],
+    "augustine": [work("confessions", "忏悔录", "The Confessions (tr. Pusey)", "约 400 年", "包含著名的时间之问。蒲赛英译。")],
+    "descartes": [
+        work("discourse", "谈谈方法", "Discourse on the Method (tr. Veitch)", "1637", "“我思故我在”首次出现于此。维奇英译。"),
+        work("meditationes", "第一哲学沉思集", "Meditationes de prima philosophia", "1641", "拉丁文原文。"),
+    ],
+    "spinoza": [work("ethics", "伦理学", "Ethics (tr. Elwes)", "1677", "按几何学方式证明。埃尔维斯英译。")],
+    "hume": [work("enquiry", "人类理解研究", "An Enquiry Concerning Human Understanding", "1748", "因果、习惯与归纳问题。英文原著。")],
+    "nietzsche": [work("zarathustra", "查拉图斯特拉如是说", "Also sprach Zarathustra", "1883–1885", "德文原文 + 康芒（Common）英译。")],
+]
+
+/// 时间轴人物著作的全文版本
+let thinkerFullTexts: [String: [FullText]] = [
+    "lunyu": [FullText(id: "lunyu-zh", label: "原文"), FullText(id: "lunyu-en", label: "English")],
+    "daodejing": [FullText(id: "daodejing-zh", label: "原文"), FullText(id: "daodejing-en", label: "English")],
+    "zhuangzi": [FullText(id: "zhuangzi-en", label: "English")],
+    "mozi": [FullText(id: "mozi-zh", label: "原文")],
+    "xunzi": [FullText(id: "xunzi-zh", label: "原文")],
+    "chunqiufanlu": [FullText(id: "chunqiufanlu-zh", label: "原文")],
+    "tanjing": [FullText(id: "tanjing-zh", label: "原文")],
+    "chuanxilu": [FullText(id: "chuanxilu-zh", label: "原文")],
+    "apology": [FullText(id: "apology-en", label: "English")],
+    "republic": [FullText(id: "republic-en", label: "English")],
+    "confessions": [FullText(id: "confessions-en", label: "English")],
+    "discourse": [FullText(id: "discourse-en", label: "English")],
+    "meditationes": [FullText(id: "meditationes-la", label: "Latina")],
+    "ethics": [FullText(id: "ethics-en", label: "English")],
+    "enquiry": [FullText(id: "enquiry-en", label: "English")],
+    "zarathustra": [FullText(id: "zarathustra-de", label: "Deutsch"), FullText(id: "zarathustra-en", label: "English")],
+]

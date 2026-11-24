@@ -10,7 +10,9 @@ struct FullText: Identifiable {
 }
 
 /// 每本书可读的全文（只收公有领域版本）
-let fullTexts: [String: [FullText]] = [
+var fullTexts: [String: [FullText]] { coreFullTexts.merging(thinkerFullTexts) { a, _ in a } }
+
+private let coreFullTexts: [String: [FullText]] = [
     "kant-cpr": [FullText(id: "kant-cpr-de", label: "Deutsch"), FullText(id: "kant-cpr-en", label: "English")],
     "hegel-phen": [FullText(id: "hegel-phen-de", label: "Deutsch")],
     "hegel-logic": [FullText(id: "hegel-logic-1-de", label: "第一卷"), FullText(id: "hegel-logic-2-de", label: "第二卷")],
@@ -193,7 +195,7 @@ struct ReaderView: View {
         case .failed(let msg):
             downloadCard(message: msg)
         case .missing:
-            downloadCard(message: "全文约 1 MB，下载一次后可离线阅读。")
+            downloadCard(message: "下载一次后可离线阅读。")
         }
     }
 

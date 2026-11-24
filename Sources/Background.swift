@@ -158,7 +158,7 @@ struct BackdropSettings: View {
                     Text("背景越亮、越有色彩，玻璃的折射越明显；调暗可以让文字更清楚。")
                 }
                 Section {
-                    ForEach(library.flatMap(\.books)) { b in
+                    ForEach(library.flatMap(\.books) + thinkerWorks.values.flatMap { $0 }) { b in
                         ForEach(fullTexts[b.id] ?? []) { ft in
                             OfflineRow(title: "《\(b.title)》\(ft.label)", id: ft.id)
                         }

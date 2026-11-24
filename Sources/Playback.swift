@@ -7,15 +7,33 @@ struct PlaybackControls: ViewModifier {
     func body(content: Content) -> some View {
         content
             .overlay(alignment: .topTrailing) {
-                Button {
-                    withAnimation(.spring(duration: 0.35)) { clock.toggle() }
-                } label: {
-                    Image(systemName: clock.playing ? "pause.fill" : "play.fill")
-                        .font(.system(size: 14, weight: .semibold))
-                        .frame(width: 36, height: 36)
+                GlassEffectContainer(spacing: 8) {
+                    HStack(spacing: 8) {
+                        Menu {
+                            ForEach(PlaybackClock.speeds, id: \.self) { s in
+                                Button {
+                                    clock.setSpeed(s)
+                                } label: {
+                                    if s == clock.speed { Label(speedText(s), systemImage: "checkmark") } else { Text(speedText(s)) }
+                                }
+                            }
+                        } label: {
+                            Text(speedText(clock.speed))
+                                .font(.system(size: 13, weight: .semibold).monospacedDigit())
+                                .frame(minWidth: 44, minHeight: 36)
+                        }
+                        .buttonStyle(.glass)
+                        Button {
+                            withAnimation(.spring(duration: 0.35)) { clock.toggle() }
+                        } label: {
+                            Image(systemName: clock.playing ? "pause.fill" : "play.fill")
+                                .font(.system(size: 14, weight: .semibold))
+                                .frame(width: 36, height: 36)
+                        }
+                        .buttonStyle(.glass)
+                        .buttonBorderShape(.circle)
+                    }
                 }
-                .buttonStyle(.glass)
-                .buttonBorderShape(.circle)
                 .padding(10)
             }
             .overlay(alignment: .bottom) {
@@ -32,6 +50,10 @@ struct PlaybackControls: ViewModifier {
                 }
             }
     }
+}
+
+private func speedText(_ s: Double) -> String {
+    s == floor(s) ? "\(Int(s))×" : "\(s)×"
 }
 
 extension View {

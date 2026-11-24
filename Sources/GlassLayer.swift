@@ -30,36 +30,57 @@ final class GlassBuffer {
 /// 丢弃型缓冲：绘制线条时屏蔽玻璃元素与文字（它们由叠加层负责）
 private let discard = GlassBuffer()
 
-/// 共享时钟：播放 / 暂停 / 拖动时间
+/// 共享时钟：播放 / 暂停 / 拖动时间 / 调速
 @Observable
 final class PlaybackClock {
     static let window = 20.0          // 暂停后可前后拖动的时间范围（秒）
+    static let speeds: [Double] = [0.25, 0.5, 1, 1.5, 2]
     var playing = true
     var scrub = 0.0                    // 0…1，对应暂停时刻之后的 window 秒
+    private(set) var speed: Double
     private var frozen = 0.0
-    private var offset = 0.0
+    private var anchorNow: Double
+    private var anchorT: Double
 
     init() {
+        let now = Date().timeIntervalSinceReferenceDate
+        anchorNow = now
+        anchorT = now
+        let saved = UserDefaults.standard.double(forKey: "animSpeed")
+        speed = saved > 0 ? saved : 1
         // 截图用：`-pausePlayback` 以暂停状态启动
         if ProcessInfo.processInfo.arguments.contains("-pausePlayback") {
             playing = false
-            frozen = Date().timeIntervalSinceReferenceDate
+            frozen = now
             scrub = 0.4
         }
     }
 
-    func time(_ now: Double) -> Double { playing ? now - offset : frozen + scrub * Self.window }
+    func time(_ now: Double) -> Double {
+        playing ? anchorT + (now - anchorNow) * speed : frozen + scrub * Self.window
+    }
 
     func toggle() {
         let now = Date().timeIntervalSinceReferenceDate
         if playing {
-            frozen = now - offset
+            frozen = time(now)
             scrub = 0
             playing = false
         } else {
-            offset = now - (frozen + scrub * Self.window)
+            anchorT = frozen + scrub * Self.window
+            anchorNow = now
             playing = true
         }
+    }
+
+    func setSpeed(_ s: Double) {
+        let now = Date().timeIntervalSinceReferenceDate
+        if playing {
+            anchorT = time(now)
+            anchorNow = now
+        }
+        speed = s
+        UserDefaults.standard.set(s, forKey: "animSpeed")
     }
 }
 

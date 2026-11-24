@@ -52,7 +52,7 @@ let library: [Philosopher] = [
 ]
 
 func findBook(_ id: String) -> Book? {
-    library.flatMap(\.books).first { $0.id == id }
+    (library.flatMap(\.books) + thinkerWorks.values.flatMap { $0 }).first { $0.id == id }
 }
 
 private var appVersion: String {
