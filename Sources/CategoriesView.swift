@@ -82,7 +82,7 @@ struct CategoriesView: View {
     }
 }
 
-private func drawSchema(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double, _ c: KCategory) {
+func drawSchema(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double, _ c: KCategory) {
     let w = Double(size.width), h = Double(size.height)
     let axisY = h * 0.78
     var axis = Path()
