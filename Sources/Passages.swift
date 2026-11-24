@@ -272,7 +272,9 @@ struct PassagesView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .glassEffect(.regular, in: .rect(cornerRadius: 24))
             }
-            Text("德文原文与 Meiklejohn 英译来自公有领域版本（Project Gutenberg）；标注“本应用译”的译文由本应用提供。")
+            Text(items.contains { $0.english != nil }
+                 ? "德文原文与 Meiklejohn 英译来自公有领域版本（Project Gutenberg）；标注“本应用译”的译文由本应用提供。"
+                 : "原文为罗素的英文原著，出处见各段标注；中文由本应用翻译。")
                 .font(.caption2).foregroundStyle(Color.primary.opacity(0.45))
         }
     }
