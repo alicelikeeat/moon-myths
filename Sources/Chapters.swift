@@ -195,7 +195,7 @@ struct ChapterListView: View {
                         Text("纯粹理性批判")
                             .font(.title3.weight(.medium))
                             .foregroundStyle(.white.opacity(0.85))
-                        Text("\(chapters.count) 章 · 每章一个核心观点和一段动画")
+                        Text("\(chapters.count) 章 · v\(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "")")
                             .font(.subheadline).foregroundStyle(.white.opacity(0.6))
                             .padding(.bottom, 8)
                         ForEach(bookParts, id: \.self) { part in

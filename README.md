@@ -15,6 +15,6 @@
 
 ## 构建
 
-每次推送到 `main`，GitHub Actions 会在 macOS 上用 XcodeGen 生成工程、无签名编译，并在 Releases 发布 `Pure-v1.0-unsigned.ipa`。需要自行签名后安装（TrollStore、AltStore、Sideloadly 等）。
+App 代码有改动并推送到 `main` 时，GitHub Actions 自动编译并在 Releases 发布 `Pure-vX.Y-unsigned.ipa`。版本号每次发布自动加 0.1（从 v1.1 开始）；要跳大版本，把 `VERSION` 文件改成例如 `2.0`。需要自行签名后安装（TrollStore、AltStore、Sideloadly 等）。
 
 最低 iOS 26。界面全部使用 Liquid Glass（`glassEffect`、`GlassEffectContainer`、`.glass` 按钮），动画也用玻璃质感绘制；图标为纯白玻璃设计。

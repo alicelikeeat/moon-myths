@@ -3,7 +3,16 @@ name: Build Pure unsigned IPA
 on:
   push:
     branches: [main]
+    paths:
+      - "Sources/**"
+      - "project.yml"
+      - "VERSION"
+      - ".github/workflows/build-ipa.yml"
   workflow_dispatch:
+
+concurrency:
+  group: release
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -13,6 +22,23 @@ jobs:
     runs-on: macos-26
     steps:
       - uses: actions/checkout@v4
+
+      - name: Compute version (auto +0.1 per release)
+        run: |
+          LAST=$(git ls-remote --tags origin 'refs/tags/v*' | sed 's#.*refs/tags/##' \
+                 | grep -E '^v[0-9]+\.[0-9]+$' | sort -V | tail -1 || true)
+          BASE=$(tr -d '[:space:]' < VERSION)
+          if [ -z "$LAST" ]; then
+            VER="$BASE"
+          else
+            MAJ=${LAST#v}; MAJ=${MAJ%%.*}
+            MIN=${LAST##*.}
+            VER="$MAJ.$((MIN + 1))"
+            # VERSION 文件可手动调高（例如升到 2.0）
+            if [ "$(printf '%s\n%s\n' "$VER" "$BASE" | sort -V | tail -1)" = "$BASE" ] && [ "$BASE" != "$VER" ]; then VER="$BASE"; fi
+          fi
+          echo "VER=$VER" >> "$GITHUB_ENV"
+          echo "Releasing v$VER (build ${{ github.run_number }})"
 
       - name: Show Xcode
         run: xcodebuild -version
@@ -36,6 +62,8 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGN_IDENTITY="" \
+            MARKETING_VERSION="$VER" \
+            CURRENT_PROJECT_VERSION="${{ github.run_number }}" \
             build | tee xcodebuild.log | grep -E "error:|warning: unre|BUILD" || true
           test -d build/Build/Products/Release-iphoneos/Pure.app
 
@@ -43,18 +71,18 @@ jobs:
         run: |
           mkdir Payload
           cp -R build/Build/Products/Release-iphoneos/Pure.app Payload/
-          zip -qry Pure-v1.0-unsigned.ipa Payload
-          ls -lh Pure-v1.0-unsigned.ipa
+          zip -qry Pure-v${{ env.VER }}-unsigned.ipa Payload
+          ls -lh Pure-v${{ env.VER }}-unsigned.ipa
 
       - uses: actions/upload-artifact@v4
         with:
-          name: Pure-v1.0-unsigned
-          path: Pure-v1.0-unsigned.ipa
+          name: Pure-v${{ env.VER }}-unsigned
+          path: Pure-v${{ env.VER }}-unsigned.ipa
 
       - name: Publish release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.0-build-${{ github.run_number }}
-          name: Pure v1.0 (build ${{ github.run_number }})
+          tag_name: v${{ env.VER }}
+          name: Pure v${{ env.VER }}
           body: 未签名 IPA，用 TrollStore / AltStore / Sideloadly 等自行签名安装。
-          files: Pure-v1.0-unsigned.ipa
+          files: Pure-v${{ env.VER }}-unsigned.ipa
