@@ -28,7 +28,7 @@ func dot(_ ctx: inout GraphicsContext, _ x: Double, _ y: Double, _ r: Double, _ 
         return
     }
     ctx.fill(circle, with: .radialGradient(
-        Gradient(colors: [color.opacity(0.08), color.opacity(0.32)]),
+        Gradient(colors: [color.opacity(0.35), color.opacity(0.75)]),
         center: CGPoint(x: x, y: y + r * 0.2), startRadius: 0, endRadius: r))
     ctx.stroke(circle, with: .linearGradient(
         Gradient(colors: [Color.white.opacity(0.85), Color.white.opacity(0.08), Color.white.opacity(0.45)]),
@@ -36,7 +36,7 @@ func dot(_ ctx: inout GraphicsContext, _ x: Double, _ y: Double, _ r: Double, _ 
         lineWidth: max(0.8, r * 0.07))
     let hl = CGRect(x: x - r * 0.55, y: y - r * 0.78, width: r * 1.1, height: r * 0.5)
     ctx.fill(Path(ellipseIn: hl), with: .linearGradient(
-        Gradient(colors: [Color.white.opacity(0.55), Color.white.opacity(0)]),
+        Gradient(colors: [Color.white.opacity(0.8), Color.white.opacity(0)]),
         startPoint: CGPoint(x: x, y: hl.minY), endPoint: CGPoint(x: x, y: hl.maxY)))
 }
 

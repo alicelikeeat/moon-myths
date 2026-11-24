@@ -18,7 +18,7 @@ struct PureApp: App {
                     ChapterListView()
                 }
             }
-            .tint(.white)
+            .tint(Color(red: 0.56, green: 0.64, blue: 0.80))
             .preferredColorScheme(.dark)
         }
     }

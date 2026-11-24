@@ -294,7 +294,6 @@ struct ChapterView: View {
                 .id(index)
             }
         }
-        .navigationTitle(c.title)
         .navigationBarTitleDisplayMode(.inline)
     }
 
@@ -311,9 +310,6 @@ struct ChapterView: View {
                 }
             }
         case .interactive(let view):
-            Text(c.thesis)
-                .font(.callout.weight(.semibold))
-                .foregroundStyle(Moon.gold)
             view
         }
     }

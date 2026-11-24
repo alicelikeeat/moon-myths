@@ -18,8 +18,11 @@ func drawIllusion(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let my = lerp(horizon - 40, h * 0.2, p)
     let mx = lerp(w * 0.35, w * 0.55, p)
     let seen = lerp(52, 24, p)
-    dot(&ctx, mx, my, seen * 1.8, Moon.gold.opacity(0.08))
-    dot(&ctx, mx, my, seen, Moon.gold.opacity(0.95))
+    for k in 0..<4 { blob(&ctx, mx, my, seen * (1.3 + Double(k) * 0.35), Moon.gold.opacity(0.07)) }
+    ctx.fill(Path(ellipseIn: CGRect(x: mx - seen, y: my - seen, width: seen * 2, height: seen * 2)),
+             with: .radialGradient(Gradient(colors: [.white, Moon.gold, Moon.gold.opacity(0.85)]),
+                                   center: CGPoint(x: mx - seen * 0.3, y: my - seen * 0.3),
+                                   startRadius: 0, endRadius: seen * 1.3))
     ctx.fill(hills, with: .color(Color(red: 0.05, green: 0.05, blue: 0.12)))
 
     ring(&ctx, w * 0.84, h * 0.3, 24, Moon.silver, 1, dash: [3, 3])
