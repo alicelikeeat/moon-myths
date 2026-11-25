@@ -399,7 +399,9 @@ final class AnimStore {
 
     /// 先读缓存，再联网更新（每次启动每本书最多联网一次）
     func load(_ id: String) async -> AnimDoc? {
-        if docs[id] == nil, let data = try? Data(contentsOf: file(id)),
+        if docs[id] == nil,
+           let src = FileManager.default.fileExists(atPath: file(id).path) ? file(id) : TextStore.bundled("anims", id),
+           let data = try? Data(contentsOf: src),
            let doc = try? JSONDecoder().decode(AnimDoc.self, from: data) {
             docs[id] = doc
         }

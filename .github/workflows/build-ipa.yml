@@ -9,6 +9,11 @@ on:
       - "VERSION"
       - ".github/workflows/build-ipa.yml"
   workflow_dispatch:
+    inputs:
+      offline:
+        description: "离线版：把全部全文和动画打包进 App（不用下载）"
+        type: boolean
+        default: false
 
 concurrency:
   group: release
@@ -46,6 +51,14 @@ jobs:
       - name: Install XcodeGen
         run: brew install xcodegen
 
+      - name: Bundle texts for the offline edition
+        if: ${{ inputs.offline }}
+        run: |
+          mkdir -p Bundled
+          cp -R texts anims Bundled/
+          du -sh Bundled
+          echo "SUFFIX=-offline" >> "$GITHUB_ENV"
+
       - name: Generate Xcode project
         run: xcodegen generate
 
@@ -71,18 +84,18 @@ jobs:
         run: |
           mkdir Payload
           cp -R build/Build/Products/Release-iphoneos/Pure.app Payload/
-          zip -qry Pure-v${{ env.VER }}-unsigned.ipa Payload
-          ls -lh Pure-v${{ env.VER }}-unsigned.ipa
+          zip -qry Pure-v${{ env.VER }}${{ env.SUFFIX }}-unsigned.ipa Payload
+          ls -lh Pure-v${{ env.VER }}${{ env.SUFFIX }}-unsigned.ipa
 
       - uses: actions/upload-artifact@v4
         with:
-          name: Pure-v${{ env.VER }}-unsigned
-          path: Pure-v${{ env.VER }}-unsigned.ipa
+          name: Pure-v${{ env.VER }}${{ env.SUFFIX }}-unsigned
+          path: Pure-v${{ env.VER }}${{ env.SUFFIX }}-unsigned.ipa
 
       - name: Publish release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ env.VER }}
-          name: Pure v${{ env.VER }}
-          body: 未签名 IPA，用 TrollStore / AltStore / Sideloadly 等自行签名安装。
-          files: Pure-v${{ env.VER }}-unsigned.ipa
+          name: Pure v${{ env.VER }}${{ inputs.offline && '（离线版）' || '' }}
+          body: ${{ inputs.offline && '离线版：全部全文与动画已打包进 App，不用下载。未签名 IPA，用 TrollStore / AltStore / Sideloadly 等自行签名安装。' || '未签名 IPA，用 TrollStore / AltStore / Sideloadly 等自行签名安装。' }}
+          files: Pure-v${{ env.VER }}${{ env.SUFFIX }}-unsigned.ipa

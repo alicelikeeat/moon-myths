@@ -7,7 +7,11 @@ targets:
   Pure:
     type: application
     platform: iOS
-    sources: [Sources]
+    sources:
+      - path: Sources
+      - path: Bundled          # 离线版：构建时把全文和动画放进来；普通版没有这个文件夹
+        type: folder
+        optional: true
     info:
       path: Sources/Info.plist
       properties:

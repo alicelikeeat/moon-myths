@@ -65,11 +65,19 @@ final class TextStore {
 
     private func file(_ id: String) -> URL { dir.appendingPathComponent("\(id).json") }
 
+    /// 离线版随 App 附带的全文
+    static func bundled(_ folder: String, _ id: String) -> URL? {
+        guard let base = Bundle.main.url(forResource: "Bundled", withExtension: nil) else { return nil }
+        let u = base.appendingPathComponent(folder).appendingPathComponent("\(id).json")
+        return FileManager.default.fileExists(atPath: u.path) ? u : nil
+    }
+
     /// 读取已缓存的全文（在 .task 中调用，避免在绘制时修改状态）
     func loadCached(_ id: String) {
         if case .ready = states[id] { return }
         if case .downloading = states[id] { return }
-        if let data = try? Data(contentsOf: file(id)), let doc = try? JSONDecoder().decode(FullDoc.self, from: data) {
+        let src = FileManager.default.fileExists(atPath: file(id).path) ? file(id) : Self.bundled("texts", id)
+        if let src, let data = try? Data(contentsOf: src), let doc = try? JSONDecoder().decode(FullDoc.self, from: data) {
             states[id] = .ready(doc)
         } else {
             states[id] = .missing
@@ -77,7 +85,7 @@ final class TextStore {
     }
 
     func isDownloaded(_ id: String) -> Bool {
-        FileManager.default.fileExists(atPath: file(id).path)
+        FileManager.default.fileExists(atPath: file(id).path) || Self.bundled("texts", id) != nil
     }
 
     @MainActor
