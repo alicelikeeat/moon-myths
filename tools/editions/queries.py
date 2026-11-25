@@ -65,4 +65,5 @@ Q = {
  "archimedes": (['title:("geometrical solutions derived from mechanics")', 'title:(Archimedes) AND creator:(Heiberg) AND date:[1800-01-01 TO 1929-12-31]', 'title:("works of Archimedes")'], ["Archimedes Palimpsest", "Archimedes Method palimpsest", "Archimedis opera 1544"]),
  "zhoubi": (['title:(周髀算經)', 'title:(周髀算经)'], ["周髀算經", "Zhoubi Suanjing", "勾股圓方圖"]),
  "geometrie": (['title:("La géométrie") AND creator:(Descartes)', 'title:("Discours de la methode") AND date:[1637-01-01 TO 1637-12-31]', 'title:("Geometria") AND creator:(Cartesius)'], ["La Géométrie Descartes 1637", "Descartes Geometrie 1637 page", "Geometria Cartesius 1649"]),
+ "principia": (['title:("Philosophiae naturalis principia mathematica") AND date:[1687-01-01 TO 1929-12-31]', 'title:("mathematical principles of natural philosophy") AND date:[1729-01-01 TO 1929-12-31]'], ["Principia Mathematica 1687 title page", "Newton Principia first edition", "Prop I Principia 1687 figure"]),
 }
