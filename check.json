@@ -1,0 +1,86 @@
+{
+ "philosophiaenatu00newt_0": {
+  "pdf": "philosophiaenatu00newt_0.pdf",
+  "cover": [
+   200,
+   "image/jpeg; charset=UTF-8",
+   "ddf6778ff389d6aaf8117708f01c1e80",
+   7069
+  ],
+  "title": [
+   200,
+   "image/jpeg",
+   "d00550b4aa88f0abe338e099941e1114",
+   73025
+  ],
+  "n4": [
+   200,
+   "image/jpeg",
+   "0ff8c59552a4acfd0221834b2d589fe0",
+   25012
+  ]
+ },
+ "principiamathem00newtgoog": {
+  "pdf": "principiamathem00newtgoog.pdf",
+  "cover": [
+   200,
+   "image/jpeg; charset=UTF-8",
+   "0557bf72ed1ce0b2b890998bad97b8e4",
+   11713
+  ],
+  "title": [
+   200,
+   "image/jpeg",
+   "17f15dabb7e8eae54a4e157aac4c5aa2",
+   335486
+  ],
+  "n4": [
+   200,
+   "image/jpeg",
+   "52d58496ecd6acec6c6570908120f160",
+   25391
+  ]
+ },
+ "A297190": {
+  "pdf": "A297190.pdf",
+  "cover": [
+   200,
+   "image/jpeg; charset=UTF-8",
+   "51f0f35326e0ec48eabcb50b1d80c21e",
+   14600
+  ],
+  "title": [
+   200,
+   "image/jpeg",
+   "cec9603a9f374d6fe0b51eb420441b72",
+   31188
+  ],
+  "n4": [
+   200,
+   "image/jpeg",
+   "487f6636a0cb5aabb2ca2e16076f7e08",
+   20088
+  ]
+ },
+ "bub_gb_Tm0FAAAAQAAJ": {
+  "pdf": "bub_gb_Tm0FAAAAQAAJ.pdf",
+  "cover": [
+   200,
+   "image/jpeg; charset=UTF-8",
+   "9c46979365e2edca14f81623c60d9e20",
+   19325
+  ],
+  "title": [
+   200,
+   "image/jpeg",
+   "031dd369b09b91f44f20249cb09efbcf",
+   79619
+  ],
+  "n4": [
+   200,
+   "image/jpeg",
+   "979c3be09ba2bd2f9e3995edbe082198",
+   10468
+  ]
+ }
+}
