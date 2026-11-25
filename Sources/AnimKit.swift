@@ -19,8 +19,10 @@ func ring(_ ctx: inout GraphicsContext, _ x: Double, _ y: Double, _ r: Double,
 func box(_ ctx: inout GraphicsContext, _ x: Double, _ y: Double, _ w: Double, _ h: Double,
          _ color: Color, fill: Color? = nil) {
     if let buf = GlassBuffer.current {
+        let a = alphaOf(color)
+        guard a > 0.03 else { return }
         buf.nodes.append(GlassNode(kind: .rect(corner: min(12, h / 2)), x: x + w / 2, y: y + h / 2,
-                                   w: max(1, w), h: max(1, h), color: fill ?? color))
+                                   w: max(1, w), h: max(1, h), color: fill ?? color, alpha: min(1, a * 1.15)))
         return
     }
     let path = Path(roundedRect: CGRect(x: x, y: y, width: w, height: h), cornerRadius: min(12, h / 2))

@@ -8,6 +8,7 @@ struct GlassNode {
     let x: Double, y: Double      // 中心
     let w: Double, h: Double
     let color: Color
+    var alpha: Double = 1     // 颜色里的透明度：原生玻璃据此整体渐隐
 }
 
 /// 叠在玻璃之上的文字
@@ -164,7 +165,7 @@ private struct GlassNodesView: View {
             ZStack(alignment: .topLeading) {
                 Color.clear
                 ForEach(Array(nodes.enumerated()), id: \.offset) { _, n in
-                    node(n).position(x: n.x, y: n.y)
+                    node(n).opacity(n.alpha).position(x: n.x, y: n.y)
                 }
             }
         }

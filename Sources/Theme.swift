@@ -1,4 +1,8 @@
 import SwiftUI
+import UIKit
+
+/// 颜色的不透明度（0…1）
+func alphaOf(_ c: Color) -> Double { Double(UIColor(c).cgColor.alpha) }
 
 /// 纯净调色：几乎全白，只保留极淡的冷暖色差来区分含义
 /// 深色模式用 dark，白底模式用 light
@@ -33,7 +37,9 @@ func blob(_ ctx: inout GraphicsContext, _ x: Double, _ y: Double, _ r: Double, _
 /// Liquid Glass 风格的圆：半透明体、渐变边缘、顶部高光
 func dot(_ ctx: inout GraphicsContext, _ x: Double, _ y: Double, _ r: Double, _ color: Color) {
     if r >= 4.5, let buf = GlassBuffer.current {
-        buf.nodes.append(GlassNode(kind: .circle, x: x, y: y, w: r * 2, h: r * 2, color: color))
+        let a = alphaOf(color)
+        guard a > 0.03 else { return }
+        buf.nodes.append(GlassNode(kind: .circle, x: x, y: y, w: r * 2, h: r * 2, color: color, alpha: min(1, a * 1.15)))
         return
     }
     let rect = CGRect(x: x - r, y: y - r, width: r * 2, height: r * 2)
