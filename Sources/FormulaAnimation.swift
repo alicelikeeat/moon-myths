@@ -78,11 +78,14 @@ struct FormulaAnimationView: View {
     @State private var shown = 0            // 已登场的记号数
     @State private var focus: Int?          // 正在讲解的记号
     @State private var finished = false
+    @State private var step: Int?           // 分步讲解进行到第几段
     @State private var playing = true
     @State private var run = 0              // 重播计数（重启任务）
     @Namespace private var ns
 
     private var tokens: [String] { formulaTokens(formula) }
+    private var steps: [(String, String)] { formulaSteps[formula] ?? [] }
+    private var stepIndices: [[Int]] { steps.map { stepTokenRanges(tokens, $0.0) } }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -123,6 +126,30 @@ struct FormulaAnimationView: View {
                     .glassEffect(.regular.tint(Moon.gold.opacity(0.12)), in: .rect(cornerRadius: 18))
                     .transition(.asymmetric(insertion: .move(edge: .bottom).combined(with: .opacity), removal: .opacity))
                     .id(f)
+                } else if let k = step, steps.indices.contains(k) {
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack(spacing: 6) {
+                            ForEach(steps.indices, id: \.self) { j in
+                                Capsule().fill(j == k ? Moon.gold : Color.primary.opacity(0.18))
+                                    .frame(width: j == k ? 18 : 6, height: 6)
+                            }
+                            Spacer()
+                            Text("第 \(k + 1) / \(steps.count) 步").font(.caption2.monospacedDigit())
+                                .foregroundStyle(Color.primary.opacity(0.5))
+                        }
+                        Text(steps[k].0)
+                            .font(.system(size: 20, design: .serif))
+                            .foregroundStyle(Moon.gold)
+                        Text(steps[k].1)
+                            .font(.callout)
+                            .foregroundStyle(Color.primary.opacity(0.85))
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    .padding(14)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .glassEffect(.regular.tint(Moon.gold.opacity(0.10)), in: .rect(cornerRadius: 18))
+                    .transition(.asymmetric(insertion: .move(edge: .trailing).combined(with: .opacity), removal: .opacity))
+                    .id("step\(k)")
                 } else if finished, let note {
                     Text(note)
                         .font(.callout)
@@ -157,26 +184,37 @@ struct FormulaAnimationView: View {
     private func tokenView(_ i: Int, _ tok: String) -> some View {
         let isSym = glossaryEntry(tok) != nil
         let visible = i < shown
-        let focused = focus == i
+        let inStep = step.map { stepIndices.indices.contains($0) && stepIndices[$0].contains(i) } ?? false
+        let dimmed = step != nil && !inStep
+        let focused = focus == i || inStep
         Text(tok)
             .font(.system(size: tok == "∘" ? 30 : (isSym ? 24 : 19), weight: isSym ? .regular : .medium, design: .serif))
             .foregroundStyle(focused ? Moon.gold : (finished ? Color.primary : Color.primary.opacity(isSym ? 0.95 : 0.75)))
             .padding(.horizontal, isSym ? 6 : ("()[]{},;:".contains(tok) ? 0 : 3))
             .padding(.vertical, 3)
             .background {
-                if focused {
+                if focus == i {
                     Capsule().fill(Moon.gold.opacity(0.14))
                         .matchedGeometryEffect(id: "hl", in: ns)
+                } else if inStep {
+                    Capsule().fill(Moon.gold.opacity(0.10))
                 }
             }
-            .scaleEffect(visible ? (focused ? 1.18 : 1) : 0.4)
-            .opacity(visible ? 1 : 0)
+            .overlay(alignment: .bottom) {
+                if inStep {
+                    Capsule().fill(Moon.gold.opacity(0.8)).frame(height: 2).offset(y: 4)
+                        .transition(.scale(scale: 0.2, anchor: .leading).combined(with: .opacity))
+                }
+            }
+            .scaleEffect(visible ? (focus == i ? 1.18 : (inStep ? 1.06 : 1)) : 0.4)
+            .opacity(visible ? (dimmed ? 0.28 : 1) : 0)
             .blur(radius: visible ? 0 : 6)
             .offset(y: visible ? 0 : 10)
             .onTapGesture {
                 guard isSym else { return }
                 playing = false
                 withAnimation(.spring(duration: 0.45, bounce: 0.25)) {
+                    step = nil
                     shown = max(shown, i + 1)
                     focus = focus == i ? nil : i
                 }
@@ -184,7 +222,7 @@ struct FormulaAnimationView: View {
     }
 
     private func restart() {
-        withAnimation(.easeOut(duration: 0.3)) { shown = 0; focus = nil; finished = false }
+        withAnimation(.easeOut(duration: 0.3)) { shown = 0; focus = nil; finished = false; step = nil }
         playing = true
         run += 1
     }
@@ -208,9 +246,16 @@ struct FormulaAnimationView: View {
                 shown = i + 1
                 if isSym { focus = i }
             }
-            guard await wait(isSym ? 2.6 : 0.35) else { return }
+            guard await wait(isSym ? 2.2 : 0.3) else { return }
             if isSym { withAnimation(.easeInOut(duration: 0.35)) { focus = nil } }
         }
+        // 分步讲解：一段一段点亮
+        for k in steps.indices where !stepIndices[k].isEmpty {
+            guard await wait(0.4) else { return }
+            withAnimation(.spring(duration: 0.6, bounce: 0.2)) { step = k }
+            guard await wait(3.4) else { return }
+        }
+        withAnimation(.easeInOut(duration: 0.6)) { step = nil }
         withAnimation(.easeInOut(duration: 0.9)) { finished = true }
     }
 }

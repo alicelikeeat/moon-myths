@@ -58,7 +58,7 @@ jobs:
           if [ "${{ inputs.only }}" = "formula" ]; then
             xcrun simctl terminate "$UDID" com.alicelikeeat.purephilosophy || true
             xcrun simctl launch "$UDID" com.alicelikeeat.purephilosophy -formulaDemo -appearance light
-            for s in 3 6 10 16 30; do sleep 3; xcrun simctl io "$UDID" screenshot "shots/formula-$s.png"; done
+            for s in 3 6 10 16 30 40; do sleep 2; xcrun simctl io "$UDID" screenshot "shots/formula-$s.png"; done
             exit_early=1
           fi
           if [ -z "$exit_early" ]; then

@@ -128,7 +128,7 @@ struct FormulaExplainer: View {
     var body: some View {
         let note = formulaNotes[formula]
         let syms = symbolsUsed(in: formula)
-        if note != nil || !syms.isEmpty {
+        if note != nil || !syms.isEmpty || formulaSteps[formula] != nil {
             VStack(alignment: .leading, spacing: 8) {
                 Button {
                     withAnimation(.snappy(duration: 0.25)) { open.toggle() }
