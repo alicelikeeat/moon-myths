@@ -9,60 +9,64 @@ struct PlaybackControls: ViewModifier {
     func body(content: Content) -> some View {
         content
             .overlay(alignment: .topTrailing) {
-                GlassEffectContainer(spacing: 6) {
-                    HStack(spacing: 6) {
-                        if expanded {
-                            TimelineView(.periodic(from: .now, by: 0.25)) { tl in
-                                if let beat = clock.beat, beat.durations.count > 1 {
-                                    BeatDots(beat: beat, current: beat.index(at: clock.time(tl.date.timeIntervalSinceReferenceDate))) { i in
-                                        touch()
-                                        clock.jump(to: beat.start(of: i))
-                                    }
+                // 不用 GlassEffectContainer：容器的形变过渡在 iOS 26 上会让按钮收起后点不开
+                HStack(spacing: 6) {
+                    if expanded {
+                        TimelineView(.periodic(from: .now, by: 0.25)) { tl in
+                            if let beat = clock.beat, beat.durations.count > 1 {
+                                BeatDots(beat: beat, current: beat.index(at: clock.time(tl.date.timeIntervalSinceReferenceDate))) { i in
+                                    touch()
+                                    clock.jump(to: beat.start(of: i))
                                 }
                             }
-                            .transition(.scale(scale: 0.6).combined(with: .opacity))
-
-                            Menu {
-                                ForEach(PlaybackClock.speeds, id: \.self) { s in
-                                    Button {
-                                        touch()
-                                        clock.setSpeed(s)
-                                    } label: {
-                                        if s == clock.speed { Label(speedText(s), systemImage: "checkmark") } else { Text(speedText(s)) }
-                                    }
-                                }
-                            } label: {
-                                Text(speedText(clock.speed))
-                                    .font(.system(size: 12, weight: .semibold).monospacedDigit())
-                                    .frame(minWidth: 30, minHeight: 26)
-                            }
-                            .buttonStyle(.glass)
-                            .transition(.scale(scale: 0.6).combined(with: .opacity))
-
-                            Button {
-                                touch()
-                                withAnimation(.spring(duration: 0.35)) { clock.toggle() }
-                            } label: {
-                                Image(systemName: clock.playing ? "pause.fill" : "play.fill")
-                                    .font(.system(size: 12, weight: .semibold))
-                                    .frame(width: 26, height: 26)
-                            }
-                            .buttonStyle(.glass)
-                            .buttonBorderShape(.circle)
-                            .transition(.scale(scale: 0.6).combined(with: .opacity))
                         }
+                        .transition(.opacity)
+
+                        Menu {
+                            ForEach(PlaybackClock.speeds, id: \.self) { s in
+                                Button {
+                                    touch()
+                                    clock.setSpeed(s)
+                                } label: {
+                                    if s == clock.speed { Label(speedText(s), systemImage: "checkmark") } else { Text(speedText(s)) }
+                                }
+                            }
+                        } label: {
+                            Text(speedText(clock.speed))
+                                .font(.system(size: 12, weight: .semibold).monospacedDigit())
+                                .frame(minWidth: 30, minHeight: 28)
+                        }
+                        .buttonStyle(.glass)
+                        .accessibilityIdentifier("playback.speed")
+                        .transition(.opacity)
 
                         Button {
                             touch()
-                            withAnimation(.spring(duration: 0.4, bounce: 0.2)) { expanded.toggle() }
+                            withAnimation(.spring(duration: 0.35)) { clock.toggle() }
                         } label: {
-                            Image(systemName: expanded ? "chevron.right" : (clock.playing ? "slider.horizontal.3" : "pause.fill"))
-                                .font(.system(size: 11, weight: .semibold))
-                                .frame(width: 24, height: 24)
+                            Image(systemName: clock.playing ? "pause.fill" : "play.fill")
+                                .font(.system(size: 13, weight: .semibold))
+                                .frame(width: 28, height: 28)
+                                .contentShape(Circle())
                         }
                         .buttonStyle(.glass)
                         .buttonBorderShape(.circle)
+                        .accessibilityIdentifier("playback.play")
+                        .transition(.opacity)
                     }
+
+                    Button {
+                        touch()
+                        withAnimation(.snappy(duration: 0.25)) { expanded.toggle() }
+                    } label: {
+                        Image(systemName: expanded ? "chevron.right" : (clock.playing ? "slider.horizontal.3" : "pause.fill"))
+                            .font(.system(size: 13, weight: .semibold))
+                            .frame(width: 30, height: 30)
+                            .contentShape(Circle())
+                    }
+                    .buttonStyle(.glass)
+                    .buttonBorderShape(.circle)
+                    .accessibilityIdentifier("playback.toggle")
                 }
                 .padding(8)
             }
@@ -70,7 +74,7 @@ struct PlaybackControls: ViewModifier {
                 // 播放中 5 秒无操作自动收起；暂停时保持展开，方便拖动
                 try? await Task.sleep(for: .seconds(5))
                 if clock.playing && expanded {
-                    withAnimation(.spring(duration: 0.4)) { expanded = false }
+                    withAnimation(.snappy(duration: 0.25)) { expanded = false }
                 }
             }
             .overlay(alignment: .bottom) {
