@@ -23,7 +23,7 @@ targets:
         UIUserInterfaceStyle: Dark
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.alicelikeeat.pure
+        PRODUCT_BUNDLE_IDENTIFIER: com.alicelikeeat.purephilosophy
         SWIFT_VERSION: "5.0"
         MARKETING_VERSION: "1.1"
         CURRENT_PROJECT_VERSION: "1"
@@ -39,7 +39,7 @@ targets:
     settings:
       base:
         GENERATE_INFOPLIST_FILE: "YES"
-        PRODUCT_BUNDLE_IDENTIFIER: com.alicelikeeat.pure.uitests
+        PRODUCT_BUNDLE_IDENTIFIER: com.alicelikeeat.purephilosophy.uitests
         SWIFT_VERSION: "5.0"
         TARGETED_DEVICE_FAMILY: "1"
         TEST_TARGET_NAME: Pure

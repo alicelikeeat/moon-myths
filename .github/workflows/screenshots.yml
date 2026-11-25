@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       only:
-        description: "只截某一组（scripture），留空截全部"
+        description: "只截某一组（formula），留空截全部"
         required: false
         default: ""
 
@@ -47,26 +47,18 @@ jobs:
           xcrun simctl ui "$UDID" appearance dark
           xcrun simctl install "$UDID" build/Build/Products/Debug-iphonesimulator/Pure.app
           mkdir shots
-          xcrun simctl launch "$UDID" com.alicelikeeat.pure
+          xcrun simctl launch "$UDID" com.alicelikeeat.purephilosophy
           sleep 8
           xcrun simctl io "$UDID" screenshot shots/00-list.png
           run_shot() { name=$1; shift
-            xcrun simctl terminate "$UDID" com.alicelikeeat.pure || true
-            xcrun simctl launch "$UDID" com.alicelikeeat.pure "$@"
+            xcrun simctl terminate "$UDID" com.alicelikeeat.purephilosophy || true
+            xcrun simctl launch "$UDID" com.alicelikeeat.purephilosophy "$@"
             sleep 7
             xcrun simctl io "$UDID" screenshot "shots/$name.png"; }
           if [ "${{ inputs.only }}" = "formula" ]; then
-            xcrun simctl terminate "$UDID" com.alicelikeeat.pure || true
-            xcrun simctl launch "$UDID" com.alicelikeeat.pure -formulaDemo -appearance light
+            xcrun simctl terminate "$UDID" com.alicelikeeat.purephilosophy || true
+            xcrun simctl launch "$UDID" com.alicelikeeat.purephilosophy -formulaDemo -appearance light
             for s in 3 6 10 16 30; do sleep 3; xcrun simctl io "$UDID" screenshot "shots/formula-$s.png"; done
-            exit_early=1
-          fi
-          if [ "${{ inputs.only }}" = "scripture" ]; then
-            for b in 0 1 2; do run_shot "scripture-b$b" -scriptureShot -animBeat $b -appearance light; done
-            run_shot "scripture-dark-b1" -scriptureShot -animBeat 1 -appearance dark
-            run_shot "bible-reader" -openReader bible -autoDownload -readerLang original -appearance light
-            sleep 20
-            xcrun simctl io "$UDID" screenshot "shots/bible-reader-later.png"
             exit_early=1
           fi
           if [ -z "$exit_early" ]; then

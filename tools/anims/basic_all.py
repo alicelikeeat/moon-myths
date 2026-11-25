@@ -3,7 +3,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import anim
 
 # 宗教经典（含古兰经）：不打分、不评进阶，只有普通动画
-RELIGIOUS = ("quran", "bible", "dhammapada", "gita", "upanishad", "sutra", "jingang", "xinjing", "fahua", "weimo", "amituo", "faju")
+RELIGIOUS = ()   # 宗教经典已移除
 NO_ANIM = ()
 
 done = set()

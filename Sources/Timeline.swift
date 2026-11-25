@@ -3,14 +3,8 @@ import SwiftUI
 // MARK: - 数据
 
 enum Region: String, CaseIterable {
-    case china, west, scripture
-    var title: String {
-        switch self {
-        case .china: return "中国"
-        case .west: return "西方"
-        case .scripture: return "宗教经典"
-        }
-    }
+    case china, west
+    var title: String { self == .china ? "中国" : "西方" }
 }
 
 struct Thinker: Identifiable {
@@ -146,14 +140,6 @@ let thinkers: [Thinker] = [
             thesis: "用逻辑分析澄清语言、数学与知识。", libraryId: "russell"),
     Thinker(id: "wittgenstein", name: "维特根斯坦", region: .west, born: 1889, died: 1951, approx: false,
             thesis: "早期：语言的界限即世界的界限；后期：意义在于使用。"),
-    Thinker(id: "upanishads", name: "《奥义书》", region: .scripture, born: -800, died: -200, approx: true,
-            thesis: "梵我一如：宇宙的本原与自我的本质是同一的。"),
-    Thinker(id: "buddha", name: "佛陀（佛经）", region: .scripture, born: -563, died: -483, approx: true,
-            thesis: "诸行无常，诸法无我；以戒定慧离苦得乐。"),
-    Thinker(id: "bible", name: "《圣经》", region: .scripture, born: -1000, died: 100, approx: true,
-            thesis: "希伯来圣经与新约：犹太教与基督教的经典。"),
-    Thinker(id: "quran", name: "《古兰经》", region: .scripture, born: 610, died: 632, approx: false,
-            thesis: "伊斯兰教的经典，共 114 章。"),
     Thinker(id: "heidegger", name: "海德格尔", region: .west, born: 1889, died: 1976, approx: false,
             thesis: "追问存在的意义；此在是向死而在。"),
     Thinker(id: "sartre", name: "萨特", region: .west, born: 1905, died: 1980, approx: false,
@@ -499,15 +485,6 @@ let thinkerWorks: [String: [Book]] = [
     "ercheng": [work("ercheng", "二程遗书", "二程遺書（四庫本）", "北宋", "程颢、程颐语录。原文，无标点。")],
     "luxiangshan": [work("xiangshan", "象山集", "象山集（四部丛刊本）", "南宋", "原文，无标点。")],
     "guyanwu": [work("rizhilu", "日知录", "日知錄（四庫本）", "清初", "原文，无标点。")],
-    "upanishads": [work("upanishads", "奥义书", "The Upanishads (tr. Paramananda)", "约前 800–前 200", "帕拉马南达英译（选篇）。")],
-    "buddha": [work("xinjing", "心经", "般若波羅蜜多心經", "唐 · 玄奘译", "原文（大正藏）。"),
-               work("jingang", "金刚经", "金剛般若波羅蜜經", "姚秦 · 鸠摩罗什译", "原文（大正藏）。"),
-               work("fahua", "法华经", "妙法蓮華經", "姚秦 · 鸠摩罗什译", "原文（大正藏）。"),
-               work("weimo", "维摩诘经", "維摩詰所說經", "姚秦 · 鸠摩罗什译", "原文（大正藏）。"),
-               work("amituo", "阿弥陀经", "佛說阿彌陀經", "姚秦 · 鸠摩罗什译", "原文（大正藏）。"),
-               work("faju", "法句经", "法句經", "吴 · 维祇难等译", "原文（大正藏）。")],
-    "bible": [work("bible", "圣经（英王钦定本）", "The King James Bible", "1611", "英王钦定本全文。")],
-    "quran": [work("quran", "古兰经", "القرآن الكريم", "610–632", "阿拉伯文原文 + 罗德韦尔（Rodwell）英译（按年代排序）。")],
     "lucretius": [work("lucretius", "物性论", "De Rerum Natura (tr. Leonard)", "前 1 世纪", "用原子论解释世界。伦纳德英译。")],
     "epictetus": [work("enchiridion", "手册", "Enchiridion (tr. Higginson)", "约 125", "斯多葛派的人生手册。希金森英译。")],
     "marcusaurelius": [work("meditations", "沉思录", "Meditations (tr. Casaubon)", "约 170–180", "皇帝写给自己的笔记。卡索邦英译。")],
@@ -554,15 +531,6 @@ let thinkerFullTexts: [String: [FullText]] = [
     "monadologie": [FullText(id: "monadologie-fr", label: "Français")],
     "tractatus": [FullText(id: "tractatus-de", label: "Deutsch")],
     "lucretius": [FullText(id: "lucretius-en", label: "English")],
-    "upanishads": [FullText(id: "upanishads-en", label: "English")],
-    "xinjing": [FullText(id: "xinjing-zh", label: "原文")],
-    "jingang": [FullText(id: "jingang-zh", label: "原文")],
-    "fahua": [FullText(id: "fahua-zh", label: "原文")],
-    "weimo": [FullText(id: "weimo-zh", label: "原文")],
-    "amituo": [FullText(id: "amituo-zh", label: "原文")],
-    "faju": [FullText(id: "faju-zh", label: "原文")],
-    "bible": [FullText(id: "bible-kjv-en", label: "English")],
-    "quran": [FullText(id: "quran-ar", label: "العربية"), FullText(id: "quran-en", label: "English")],
     "zhouyi": [FullText(id: "zhouyi-zh", label: "原文")],
     "guanzi": [FullText(id: "guanzi-zh", label: "原文")],
     "sunzi": [FullText(id: "sunzi-zh", label: "原文")],
