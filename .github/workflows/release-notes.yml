@@ -1,0 +1,16 @@
+name: Backfill release notes
+# 手动运行：把 release-notes/ 里写好的说明补到 v2.0–v2.9 的发布页
+on: workflow_dispatch
+permissions: { contents: write }
+jobs:
+  notes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          for f in release-notes/v*.md; do
+            v=$(basename "$f" .md)
+            { echo "## 本次更新"; echo; cat "$f"; echo; echo "---"; echo "未签名 IPA，用 TrollStore / AltStore / Sideloadly 等自行签名安装。"; } > body.md
+            gh release edit "$v" --notes-file body.md && echo "updated $v" || echo "skip $v"
+          done
