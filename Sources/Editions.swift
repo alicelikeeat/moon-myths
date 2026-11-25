@@ -20,10 +20,14 @@ struct EditionScan: Codable, Hashable {
     let caption: String
     let title: String
     let publisher: String
+    let pdf: String?
 
     var coverURL: URL? { URL(string: "https://archive.org/services/img/\(ia)") }
     var detailsURL: URL? { URL(string: "https://archive.org/details/\(ia)") }
-    var pdfURL: URL? { URL(string: "https://archive.org/download/\(ia)/\(ia).pdf") }
+    var pdfURL: URL? {
+        guard let pdf, let name = pdf.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) else { return nil }
+        return URL(string: "https://archive.org/download/\(ia)/\(name)")
+    }
 }
 
 struct BookEditions: Codable {

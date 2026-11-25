@@ -13,13 +13,15 @@
     "ia": "bub_gb_gHk9AAAAcAAJ",
     "caption": "1791 年第四版，法兰克福",
     "title": "Kritik der reinen Vernunft",
-    "publisher": "Frankfurt u.a."
+    "publisher": "Frankfurt u.a.",
+    "pdf": "bub_gb_gHk9AAAAcAAJ.pdf"
    },
    {
     "ia": "immanuelkantscri01kant",
     "caption": "1881 年 Max Müller 英译本，伦敦麦克米伦",
     "title": "Immanuel Kant's Critique of pure reason",
-    "publisher": "London, Macmillan"
+    "publisher": "London, Macmillan",
+    "pdf": "immanuelkantscri01kant.pdf"
    }
   ]
  },
@@ -37,13 +39,15 @@
     "ia": "systemderwissen00hegegoog",
     "caption": "1807 年初版《科学体系·第一部：精神现象学》",
     "title": "System der Wissenschaft : erster Theil, Die Phänomenologie des Geistes",
-    "publisher": "Bamberg : J.A. Goebhardt"
+    "publisher": "Bamberg : J.A. Goebhardt",
+    "pdf": "systemderwissen00hegegoog.pdf"
    },
    {
     "ia": "phnomenologied00hege",
     "caption": "1907 年 Lasson 校订本，莱比锡",
     "title": "Phänomenologie des geistes",
-    "publisher": "Leipzig : Dürr'schen Buchlandlung"
+    "publisher": "Leipzig : Dürr'schen Buchlandlung",
+    "pdf": "phnomenologied00hege.pdf"
    }
   ]
  },
@@ -61,13 +65,15 @@
     "ia": "wissenschaftder03hegegoog",
     "caption": "1812 年初版，纽伦堡",
     "title": "Wissenschaft der Logik",
-    "publisher": "Nürnberg : Johann Leonhard Schrag"
+    "publisher": "Nürnberg : Johann Leonhard Schrag",
+    "pdf": "wissenschaftder03hegegoog.pdf"
    },
    {
     "ia": "bub_gb_XHGx2e_KLOYC",
     "caption": "1833 年《黑格尔全集》本，柏林：东克尔与洪堡",
     "title": "Georg Wilhelm Friedrich Hegels Werke vollstandige Ausgabe durch einen Verein von Freunden des Verewigten Ph. Marheineke ... et al. Georg Wil",
-    "publisher": "Duncker und Humblot"
+    "publisher": "Duncker und Humblot",
+    "pdf": "bub_gb_XHGx2e_KLOYC.pdf"
    }
   ]
  },
@@ -102,7 +108,8 @@
     "ia": "cu31924001575244",
     "caption": "1910 年初版第一卷，剑桥大学出版社",
     "title": "Principia mathematica",
-    "publisher": "Cambridge, University Press"
+    "publisher": "Cambridge, University Press",
+    "pdf": "cu31924001575244.pdf"
    }
   ]
  },
@@ -120,13 +127,15 @@
     "ia": "problemsofphilos00russuoft",
     "caption": "1912 年初版，伦敦：威廉斯与诺盖特",
     "title": "The problems of philosophy",
-    "publisher": "London : Williams & Norgate"
+    "publisher": "London : Williams & Norgate",
+    "pdf": "problemsofphilos00russuoft.pdf"
    },
    {
     "ia": "problemsofphilo00russuoft",
     "caption": "1912 年美国版，纽约：霍尔特",
     "title": "The problems of philosophy",
-    "publisher": "New York : H. Holt"
+    "publisher": "New York : H. Holt",
+    "pdf": "problemsofphilo00russuoft.pdf"
    }
   ]
  },
@@ -150,19 +159,22 @@
     "ia": "06081456.cn",
     "caption": "朱熹《四书章句集注·论语集注》卷一至卷六",
     "title": "四書集注章句·論語集注·卷一~卷六",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "06081456.cn.pdf"
    },
    {
     "ia": "06043734.cn",
     "caption": "皇侃《论语集解义疏》卷一至卷二",
     "title": "論語集解義疏·卷一~卷二",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "06043734.cn.pdf"
    },
    {
     "ia": "02075220.cn",
     "caption": "刘宝楠《论语正义》（一）",
     "title": "論語正義(一)",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "02075220.cn.pdf"
    }
   ]
  },
@@ -180,19 +192,15 @@
     "ia": "06049303.cn",
     "caption": "《老子道德经》上篇",
     "title": "老子道德經·上篇",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "06049303.cn.pdf"
    },
    {
     "ia": "06048948.cn",
     "caption": "《道德真经注》卷一至卷二",
     "title": "道德真經註·卷一~卷二",
-    "publisher": ""
-   },
-   {
-    "ia": "02092040.cn",
-    "caption": "严遵《道德真经指归》（一）",
-    "title": "道德真經指歸(一)",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "06048948.cn.pdf"
    }
   ]
  },
@@ -216,13 +224,15 @@
     "ia": "06048962.cn",
     "caption": "郭象《庄子注》卷一至卷二",
     "title": "莊子注·卷一~卷二",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "06048962.cn.pdf"
    },
    {
     "ia": "02092140.cn",
     "caption": "郭庆藩《庄子集释》（一）",
     "title": "莊子集釋(一)",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "02092140.cn.pdf"
    }
   ]
  },
@@ -246,19 +256,22 @@
     "ia": "06081458.cn",
     "caption": "朱熹《四书章句集注·孟子集注》卷一至卷二",
     "title": "四書集注章句·孟子集注·卷一~卷二",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "06081458.cn.pdf"
    },
    {
     "ia": "06072986.cn",
     "caption": "赵岐注、孙奭疏《孟子注疏》",
     "title": "孟子注疏·卷一上~卷一下",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "06072986.cn.pdf"
    },
    {
     "ia": "02075282.cn",
     "caption": "焦循《孟子正义》（一）",
     "title": "孟子正義(一)",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "02075282.cn.pdf"
    }
   ]
  },
@@ -269,13 +282,15 @@
     "ia": "06072346.cn",
     "caption": "《韩非子》卷一至卷四",
     "title": "韓非子·卷一~卷四",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "06072346.cn.pdf"
    },
    {
     "ia": "02092483.cn",
     "caption": "王先慎《韩非子集解》（一）",
     "title": "韓非子集解(一)",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "02092483.cn.pdf"
    }
   ]
  },
@@ -286,13 +301,15 @@
     "ia": "06049689.cn",
     "caption": "《朱子语类》卷一至卷二",
     "title": "朱子語類·卷一~卷二",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "06049689.cn.pdf"
    },
    {
     "ia": "06049690.cn",
     "caption": "《朱子语类》卷三至卷四",
     "title": "朱子語類·卷三~卷四",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "06049690.cn.pdf"
    }
   ]
  },
@@ -303,13 +320,15 @@
     "ia": "06076356.cn",
     "caption": "《墨子》卷一至卷四",
     "title": "墨子卷·卷一~卷四",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "06076356.cn.pdf"
    },
    {
     "ia": "02095513.cn",
     "caption": "孙诒让《墨子间诂》（一）",
     "title": "墨子聞詁(一)",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "02095513.cn.pdf"
    }
   ]
  },
@@ -320,13 +339,15 @@
     "ia": "02091525.cn",
     "caption": "王先谦《荀子集解》（一）",
     "title": "荀子集解(一)",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "02091525.cn.pdf"
    },
    {
     "ia": "02091526.cn",
     "caption": "王先谦《荀子集解》（二）",
     "title": "荀子集解(二)",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "02091526.cn.pdf"
    }
   ]
  },
@@ -337,13 +358,15 @@
     "ia": "06072286.cn",
     "caption": "《春秋繁露》卷一至卷六",
     "title": "春秋繁露·卷一~卷六",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "06072286.cn.pdf"
    },
    {
     "ia": "02075125.cn",
     "caption": "苏舆《春秋繁露义证》（一）",
     "title": "春秋繁露義證(一)",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "02075125.cn.pdf"
    }
   ]
  },
@@ -354,13 +377,15 @@
     "ia": "dialoguesplato05platgoog",
     "caption": "1876 年乔伊特（Jowett）译《柏拉图对话集》第一卷",
     "title": "The dialogues of Plato. Vol. 1, Euthyphro, Apology, Crito, Meno, Gorgias, Menexenus",
-    "publisher": "New Haven ; London : Yale University Press"
+    "publisher": "New Haven ; London : Yale University Press",
+    "pdf": "dialoguesplato05platgoog.pdf"
    },
    {
     "ia": "dialogueofplato00platuoft",
     "caption": "1900 年《柏拉图对话集》：含《申辩篇》《克里同》《斐多》",
     "title": "Dialogues of Plato : containing The apology of Socrates, Crito, Phaedo, and Protagoras",
-    "publisher": "London ; New York : Colonial Press"
+    "publisher": "London ; New York : Colonial Press",
+    "pdf": "dialogueofplato00platuoft.pdf"
    }
   ]
  },
@@ -384,7 +409,8 @@
     "ia": "a604578400platuoft",
     "caption": "1888 年乔伊特译本，牛津：克拉伦登出版社",
     "title": "The Republic of Plato",
-    "publisher": "Oxford : Clarendon Press"
+    "publisher": "Oxford : Clarendon Press",
+    "pdf": "a604578400platuoft.pdf"
    }
   ]
  },
@@ -402,13 +428,15 @@
     "ia": "phaedofoplato00platuoft",
     "caption": "1883 年《斐多》，伦敦：麦克米伦",
     "title": "The Phaedo of Plato;",
-    "publisher": "London, Macmillan"
+    "publisher": "London, Macmillan",
+    "pdf": "phaedofoplato00platuoft.pdf"
    },
    {
     "ia": "trialanddeathofs00platiala",
     "caption": "1895 年《苏格拉底的审判与死亡》（含《斐多》）",
     "title": "The trial and death of Socrates : being the Euthyphron, Apology, Crito, and Phaedo of Plato",
-    "publisher": "London : Macmillan ; New York : Macmillan"
+    "publisher": "London : Macmillan ; New York : Macmillan",
+    "pdf": "trialanddeathofs00platiala.pdf"
    }
   ]
  },
@@ -426,7 +454,8 @@
     "ia": "symposiumofplato01plat",
     "caption": "1909 年《会饮》，剑桥：赫弗父子",
     "title": "The Symposium of Plato,",
-    "publisher": "Cambridge, W. Heffer and sons; London, Sipkin, Marshall and co. ltd."
+    "publisher": "Cambridge, W. Heffer and sons; London, Sipkin, Marshall and co. ltd.",
+    "pdf": "symposiumofplato01plat.pdf"
    }
   ]
  },
@@ -450,7 +479,8 @@
     "ia": "confessionssaug00pusegoog",
     "caption": "1838 年蒲赛（Pusey）英译本，牛津",
     "title": "The Confessions of S. Augustine",
-    "publisher": "J.H. Parker ; J.G. and F . Rivington"
+    "publisher": "J.H. Parker ; J.G. and F . Rivington",
+    "pdf": "confessionssaug00pusegoog.pdf"
    }
   ]
  },
@@ -468,13 +498,15 @@
     "ia": "discoursdelamet00desca",
     "caption": "1637 年初版，莱顿",
     "title": "Discours de la methode : pour bien conduire sa raison, & chercher la verité dans les sciences. Plus La dioptrique. Les meteores. Et La geom",
-    "publisher": "A Leyde : De l'imprimerie de Ian Maire"
+    "publisher": "A Leyde : De l'imprimerie de Ian Maire",
+    "pdf": "discoursdelamet00desca.pdf"
    },
    {
     "ia": "discoursdelameth00desc",
     "caption": "1658 年巴黎版",
     "title": "Discours de la methode : pour bien conduire sa raison, & chercher la verité dans les sciences : Plus La dioptrique, et Les meteores. Qui son",
-    "publisher": "A Paris : Chez Henry Le Gras ..."
+    "publisher": "A Paris : Chez Henry Le Gras ...",
+    "pdf": "discoursdelameth00desc.pdf"
    }
   ]
  },
@@ -492,13 +524,15 @@
     "ia": "ned-kbn-all-00003573-001",
     "caption": "1642 年阿姆斯特丹第二版，埃尔泽维尔",
     "title": "Meditationes de prima philosophia ... Renatus Descartes his adjunctae sunt variae objectiones ... cum responsionibus authoris",
-    "publisher": "Elzevir, Louis"
+    "publisher": "Elzevir, Louis",
+    "pdf": "ned-kbn-all-00003573-001.pdf"
    },
    {
     "ia": "bub_gb_ZZibllqkgCQC",
     "caption": "1644 年阿姆斯特丹版，布劳",
     "title": "Renati DesCartes Meditationes de prima philosophia, in quibus Dei exsistentia, & animæ humanæ à corpore distinctio, demonstrantur",
-    "publisher": "apud Iohannem Blaeu"
+    "publisher": "apud Iohannem Blaeu",
+    "pdf": "bub_gb_ZZibllqkgCQC.pdf"
    }
   ]
  },
@@ -509,13 +543,15 @@
     "ia": "ned-kbn-all-00004303-001",
     "caption": "1677 年《遗著集》（Opera Posthuma）初版，《伦理学》首次刊行",
     "title": "Opera posthuma, quorum series post præfationem exhibetur",
-    "publisher": "Rieuwertsz, Jan"
+    "publisher": "Rieuwertsz, Jan",
+    "pdf": "ned-kbn-all-00004303-001.pdf"
    },
    {
     "ia": "ethica00unkngoog",
     "caption": "1905 年拉丁文本，海牙：奈霍夫",
     "title": "Ethica",
-    "publisher": "M. Nijhoff"
+    "publisher": "M. Nijhoff",
+    "pdf": "ethica00unkngoog.pdf"
    }
   ]
  },
@@ -526,7 +562,8 @@
     "ia": "enquiryconcernin01hume",
     "caption": "1900 年 Open Court 版，芝加哥",
     "title": "An enquiry concerning human understanding",
-    "publisher": "Chicago, The Open court publishing co.; [etc., etc.]"
+    "publisher": "Chicago, The Open court publishing co.; [etc., etc.]",
+    "pdf": "enquiryconcernin01hume.pdf"
    }
   ]
  },
@@ -537,13 +574,15 @@
     "ia": "cu31924028995914",
     "caption": "1847 年英译本，牛津",
     "title": "The Nicomachean ethics of Aristotle : a new translation, mainly from the text of Bekker. With explanatory notes. Designed for the assistance",
-    "publisher": "Oxford : William Graham"
+    "publisher": "Oxford : William Graham",
+    "pdf": "cu31924028995914.pdf"
    },
    {
     "ia": "petersethics00arisrich",
     "caption": "1886 年 Peters 英译本，伦敦",
     "title": "The Nicomachean ethics of Aristotle",
-    "publisher": "London, K. Paul, Trench & Co."
+    "publisher": "London, K. Paul, Trench & Co.",
+    "pdf": "petersethics00arisrich.pdf"
    }
   ]
  },
@@ -567,7 +606,8 @@
     "ia": "aristotlespolit00elligoog",
     "caption": "1895 年埃利斯（Ellis）英译本，伦敦：劳特利奇",
     "title": "Aristotle's Politics: A Treatise on Government",
-    "publisher": "G. Routledge"
+    "publisher": "G. Routledge",
+    "pdf": "aristotlespolit00elligoog.pdf"
    }
   ]
  },
@@ -585,7 +625,8 @@
     "ia": "summatheologi01thom",
     "caption": "1912 年英国多明我会英译本第一卷，伦敦",
     "title": "The \"Summa theologica\" of St. Thomas Aquinas",
-    "publisher": "London : Burns Oates & Washbourne"
+    "publisher": "London : Burns Oates & Washbourne",
+    "pdf": "summatheologi01thom.pdf"
    }
   ]
  },
@@ -603,13 +644,15 @@
     "ia": "monadologie00zimmgoog",
     "caption": "1847 年德译本，维也纳",
     "title": "Monadologie",
-    "publisher": "Braumüller und Seidel"
+    "publisher": "Braumüller und Seidel",
+    "pdf": "monadologie00zimmgoog.pdf"
    },
    {
     "ia": "la-monadologie-lachelier-1919",
     "caption": "1919 年 Lachelier 校订法文本",
     "title": "Leibniz, La Monadologie, ed. Henri Lachelier, 9th Ed., 1919",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "SD 1-629-630 - La Monadologie - Leibniz - Henri Lachelier 9th ed. 1919.pdf"
    }
   ]
  },
@@ -633,7 +676,8 @@
     "ia": "in.ernet.dli.2015.218527",
     "caption": "1922 年伦敦初版（印度数字图书馆扫描）",
     "title": "Tractatus Logico Philosophicus",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "2015.218527.Tractatus-Logico.pdf"
    }
   ]
  },
@@ -651,13 +695,15 @@
     "ia": "06070838.cn",
     "caption": "朱熹《原本周易本义》卷一至卷二",
     "title": "原本周易本義·卷一~卷二",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "06070838.cn.pdf"
    },
    {
     "ia": "06075217.cn",
     "caption": "《周易本义》卷首至卷一",
     "title": "周易本義·卷首~卷一",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "06075217.cn.pdf"
    }
   ]
  },
@@ -668,13 +714,15 @@
     "ia": "06081560.cn",
     "caption": "《管子》卷一至卷三",
     "title": "管子·卷一~卷三",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "06081560.cn.pdf"
    },
    {
     "ia": "02092471.cn",
     "caption": "戴望《管子校正》（一）",
     "title": "管子校正(一)",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "02092471.cn.pdf"
    }
   ]
  },
@@ -685,13 +733,15 @@
     "ia": "02092175.cn",
     "caption": "《十一家注孙子》（一）",
     "title": "十一家注孫子(一)",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "02092175.cn.pdf"
    },
    {
     "ia": "artofwaroldestmi00suntuoft",
     "caption": "1910 年翟林奈（Giles）英译本，伦敦",
     "title": "The art of war: the oldest military treatise in the world",
-    "publisher": "London Luzac"
+    "publisher": "London Luzac",
+    "pdf": "artofwaroldestmi00suntuoft.pdf"
    }
   ]
  },
@@ -702,7 +752,8 @@
     "ia": "06073258.cn",
     "caption": "《礼记注疏》卷三十七至卷三十八",
     "title": "禮記注疏·卷三十七~卷三十八",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "06073258.cn.pdf"
    }
   ]
  },
@@ -713,13 +764,15 @@
     "ia": "06076369.cn",
     "caption": "《列子》卷一至卷四",
     "title": "列子·卷一~卷四",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "06076369.cn.pdf"
    },
    {
     "ia": "02092156.cn",
     "caption": "《列子》（一）",
     "title": "列子(一)",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "02092156.cn.pdf"
    }
   ]
  },
@@ -730,7 +783,8 @@
     "ia": "06073461.cn",
     "caption": "《论衡》卷一至卷二",
     "title": "論衡·卷一~卷二",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "06073461.cn.pdf"
    }
   ]
  },
@@ -748,7 +802,8 @@
     "ia": "06053510.cn",
     "caption": "《周元公集》卷一至卷四",
     "title": "周元公集·卷一~卷四",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "06053510.cn.pdf"
    }
   ]
  },
@@ -759,7 +814,8 @@
     "ia": "06071413.cn",
     "caption": "《张子全书》卷一至卷二（含《西铭》《正蒙》）",
     "title": "張子全書·卷一~卷二",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "06071413.cn.pdf"
    }
   ]
  },
@@ -770,7 +826,8 @@
     "ia": "06071429.cn",
     "caption": "《二程遗书》卷一至卷二下",
     "title": "二程遺書·卷一~卷二下",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "06071429.cn.pdf"
    }
   ]
  },
@@ -781,7 +838,8 @@
     "ia": "06058125.cn",
     "caption": "《象山集》卷一至卷三",
     "title": "象山集·卷一～卷三",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "06058125.cn.pdf"
    }
   ]
  },
@@ -792,7 +850,8 @@
     "ia": "06061656.cn",
     "caption": "《日知录》卷一",
     "title": "日知錄·卷一",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "06061656.cn.pdf"
    }
   ]
  },
@@ -816,7 +875,8 @@
     "ia": "dererumnatura00lucr",
     "caption": "1889 年剑桥大学出版社版",
     "title": "De rerum natura",
-    "publisher": "Cambridge : The University Press"
+    "publisher": "Cambridge : The University Press",
+    "pdf": "dererumnatura00lucr.pdf"
    }
   ]
  },
@@ -840,7 +900,8 @@
     "ia": "allworksofepicte00epic",
     "caption": "1759 年《爱比克泰德全集》英译本，都柏林",
     "title": "All the works of Epictetus : which are now extant; consisting of his Discourses, preserved by Arrian, in four books, the Enchiridion, and fr",
-    "publisher": "Dublin : Printed for Hulton Bradley ..."
+    "publisher": "Dublin : Printed for Hulton Bradley ...",
+    "pdf": "allworksofepicte00epic.pdf"
    }
   ]
  },
@@ -851,13 +912,15 @@
     "ia": "meditationsofmar00marc",
     "caption": "1887 年英译本，伦敦",
     "title": "The meditations of Marcus Aurelius",
-    "publisher": "London : W. Scott"
+    "publisher": "London : W. Scott",
+    "pdf": "meditationsofmar00marc.pdf"
    },
    {
     "ia": "meditations00marcuoft",
     "caption": "1906 年 Everyman 版，伦敦：登特",
     "title": "Meditations",
-    "publisher": "London : Dent ; New York : E.P. Dutton"
+    "publisher": "London : Dent ; New York : E.P. Dutton",
+    "pdf": "meditations00marcuoft.pdf"
    }
   ]
  },
@@ -868,13 +931,15 @@
     "ia": "4R581INV679",
     "caption": "1532 年罗马初版，布拉多印行",
     "title": "Il Principe... La vita di Castruccio Castracani da Lucca... Il modo che tenne il duca Valentino per ammazar Vitellozo, Oliverotto da Fermo, ",
-    "publisher": "Antonio Blado d'Asola"
+    "publisher": "Antonio Blado d'Asola",
+    "pdf": "4R581.pdf"
    },
    {
     "ia": "8K4INV80RES_P2",
     "caption": "1535 年刊本",
     "title": "Il Principe... La vita di Castruccio Castracani... Il modo che tenne il duca Valentino per ammazare Vitellozo, Oliverotto da Fermo, il S. Pa",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "8K45INV800RES_P2.pdf"
    }
   ]
  },
@@ -885,13 +950,15 @@
     "ia": "leviathan00hobba",
     "caption": "1651 年伦敦初版，克鲁克印行",
     "title": "Leviathan; or, The matter, forme, & power of a common-wealth, ecclesiasticall and civill",
-    "publisher": "London, Printed for A. Crooke"
+    "publisher": "London, Printed for A. Crooke",
+    "pdf": "leviathan00hobba.pdf"
    },
    {
     "ia": "leviathansivedem00hobb",
     "caption": "1668 年阿姆斯特丹拉丁文版",
     "title": "Leviathan, sive, De materia, forma, & potestate civitatis ecclesiasticae et civilis",
-    "publisher": "[Amsterdam : Joan Blaeu]"
+    "publisher": "[Amsterdam : Joan Blaeu]",
+    "pdf": "leviathansivedem00hobb.pdf"
    }
   ]
  },
@@ -909,7 +976,8 @@
     "ia": "pensesdeblaise00pascuoft",
     "caption": "1896 年依手稿原貌校订本",
     "title": "Pensées de Blaise Pascal dans leur texte authentique et selon l'ordre voulu par l'auteur, précédées de documents sur sa vie et suivies de se",
-    "publisher": "[Brussels?] : Desclée, De Brouwer"
+    "publisher": "[Brussels?] : Desclée, De Brouwer",
+    "pdf": "pensesdeblaise00pascuoft.pdf"
    }
   ]
  },
@@ -927,13 +995,15 @@
     "ia": "twotreatisesofgo00lock_1",
     "caption": "1690 年伦敦初版",
     "title": "Two treatises of government: in the former, the false principles, and foundation of Sir Robert Filmer, and his followers, are detected and o",
-    "publisher": "London, A. Churchill"
+    "publisher": "London, A. Churchill",
+    "pdf": "twotreatisesofgo00lock_1.pdf"
    },
    {
     "ia": "twotreatisesofgo00lockuoft",
     "caption": "1772 年伦敦第七版",
     "title": "Two treatises of government",
-    "publisher": "London, Reprinted the 7th time by J. Whiston [and others"
+    "publisher": "London, Reprinted the 7th time by J. Whiston [and others",
+    "pdf": "twotreatisesofgo00lockuoft.pdf"
    }
   ]
  },
@@ -944,7 +1014,8 @@
     "ia": "treatiseconcerni00berk",
     "caption": "1904 年 Open Court 版，芝加哥",
     "title": "A treatise concerning the principles of human knowledge",
-    "publisher": "Chicago : Open court pub. co."
+    "publisher": "Chicago : Open court pub. co.",
+    "pdf": "treatiseconcerni00berk.pdf"
    }
   ]
  },
@@ -968,7 +1039,8 @@
     "ia": "discourssurlori00rous",
     "caption": "1755 年阿姆斯特丹初版",
     "title": "Discours sur l'origine, et les fondemens de l'inégalité parmi les hommes",
-    "publisher": "Amsterdam, M.-M. Rey"
+    "publisher": "Amsterdam, M.-M. Rey",
+    "pdf": "discourssurlori00rous.pdf"
    }
   ]
  },
@@ -986,7 +1058,8 @@
     "ia": "bub_gb_WuUOAAAAIAAJ",
     "caption": "1851 年初版，柏林：哈恩",
     "title": "Parerga und Paralipomena : kleine philosophische Schriften",
-    "publisher": "Berlin : A.W. Hahn"
+    "publisher": "Berlin : A.W. Hahn",
+    "pdf": "bub_gb_WuUOAAAAIAAJ.pdf"
    }
   ]
  },
@@ -1004,7 +1077,8 @@
     "ia": "onlibertyxero00milluoft",
     "caption": "1859 年伦敦初版，帕克",
     "title": "On liberty",
-    "publisher": "London, J.W. Parker"
+    "publisher": "London, J.W. Parker",
+    "pdf": "onlibertyxero00milluoft.pdf"
    }
   ]
  },
@@ -1022,7 +1096,8 @@
     "ia": "a592840000milluoft",
     "caption": "1863 年伦敦初版",
     "title": "Utilitarianism",
-    "publisher": "London : Parker, Son, and Bourn"
+    "publisher": "London : Parker, Son, and Bourn",
+    "pdf": "a592840000milluoft.pdf"
    }
   ]
  },
@@ -1033,13 +1108,15 @@
     "ia": "manifest-der-kommunistischen-partei_202204",
     "caption": "1848 年德文初版（扫描）",
     "title": "Manifest der Kommunistischen Partei",
-    "publisher": ""
+    "publisher": "",
+    "pdf": "Manifest der Kommunistischen Partei.pdf"
    },
    {
     "ia": "manifestoofcommu00marx_1",
     "caption": "1898 年英译本，纽约",
     "title": "Manifesto of the Communist party",
-    "publisher": "New York, The National executive committee of the Socialist labor party"
+    "publisher": "New York, The National executive committee of the Socialist labor party",
+    "pdf": "manifestoofcommu00marx_1.pdf"
    }
   ]
  },
@@ -1050,7 +1127,8 @@
     "ia": "pragmatismnewnam00jame",
     "caption": "1907 年初版，纽约：朗文",
     "title": "Pragmatism, a new name for some old ways of thinking; popular lectures on philosophy",
-    "publisher": "New York, [etc.] : Longmans, Green, and Co."
+    "publisher": "New York, [etc.] : Longmans, Green, and Co.",
+    "pdf": "pragmatismnewnam00jame.pdf"
    }
   ]
  },
@@ -1061,13 +1139,15 @@
     "ia": "grundlegungzurm00vorlgoog",
     "caption": "1785 年初版，里加：哈特克诺赫",
     "title": "Grundlegung zur Metaphysik der Sitten",
-    "publisher": "J. F. Hartknoch"
+    "publisher": "J. F. Hartknoch",
+    "pdf": "grundlegungzurm00vorlgoog.pdf"
    },
    {
     "ia": "grundlegungzurm01kantgoog",
     "caption": "1786 年第二版",
     "title": "Grundlegung zur Metaphysik der Sitten",
-    "publisher": "Riga : J. F. Hartknoch"
+    "publisher": "Riga : J. F. Hartknoch",
+    "pdf": "grundlegungzurm01kantgoog.pdf"
    }
   ]
  },
@@ -1078,13 +1158,15 @@
     "ia": "bub_gb_YIURAAAAYAAJ",
     "caption": "1886 年初版，莱比锡：瑙曼",
     "title": "Jenseits von Gut und Böse Vorspiel einer Philosophie der Zukunft",
-    "publisher": "C.G. Naumann"
+    "publisher": "C.G. Naumann",
+    "pdf": "bub_gb_YIURAAAAYAAJ.pdf"
    },
    {
     "ia": "beyondgoodevilpr1909niet",
     "caption": "1909 年齐默恩（Zimmern）英译本，爱丁堡",
     "title": "Beyond good and evil : prelude to a philosophy of the future",
-    "publisher": "Edinburgh : T. N. Foulis"
+    "publisher": "Edinburgh : T. N. Foulis",
+    "pdf": "beyondgoodevilpr1909niet.pdf"
    }
   ]
  },
@@ -1095,13 +1177,15 @@
     "ia": "alsosprachzarat00nietgoog",
     "caption": "1895 年版，莱比锡：瑙曼",
     "title": "Also sprach Zarathustra. Ein Buch für Alle und Keinen",
-    "publisher": "Leipzig, C.G. Naumann"
+    "publisher": "Leipzig, C.G. Naumann",
+    "pdf": "alsosprachzarat00nietgoog.pdf"
    },
    {
     "ia": "alsosprachzarath00niet_0",
     "caption": "1908 年岛屿出版社版",
     "title": "Also sprach Zarathustra : ein Buch für alle und keinen",
-    "publisher": "Leipzig : Insel-Verlag"
+    "publisher": "Leipzig : Insel-Verlag",
+    "pdf": "alsosprachzarath00niet_0.pdf"
    }
   ]
  }
