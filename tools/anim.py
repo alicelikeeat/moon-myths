@@ -58,8 +58,15 @@ def save(text_id):
     bare = [_strip(p) for p in paras]
     errors, used = [], {}
     for s in _scenes:
+        want = None
         if isinstance(s["anchor"], int):          # 用段落序号写，自动取开头作为定位
-            s["anchor"] = paras[s["anchor"]][:14]
+            want = s["anchor"]
+            L = 14
+            while True:
+                s["anchor"] = paras[want][:L]
+                first = next(i for i, p in enumerate(paras) if s["anchor"] in p)
+                if first == want or L >= len(paras[want]): break
+                L += 6
         a = s["anchor"]
         idx = next((i for i, p in enumerate(paras) if a in p), None)
         if idx is None:
