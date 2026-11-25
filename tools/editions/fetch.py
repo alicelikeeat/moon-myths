@@ -9,7 +9,9 @@ def get(url):
         except Exception as e: err = e; time.sleep(2)
     return {'error': str(err)}
 out = {}
+only = sys.argv[1:]
 for bid, (ia, cm) in Q.items():
+    if only and bid not in only: continue
     rec = {'ia': [], 'commons': []}
     for q in ia:
         u = 'https://archive.org/advancedsearch.php?' + urllib.parse.urlencode({'q': q + ' AND mediatype:texts', 'fl[]': ['identifier', 'title', 'date', 'publisher', 'creator', 'downloads', 'language', 'licenseurl', 'possible-copyright-status'], 'rows': 15, 'sort[]': 'downloads desc', 'output': 'json'}, doseq=True)

@@ -60,4 +60,6 @@ Q = {
  "groundwork": (['title:("Grundlegung zur Metaphysik der Sitten")', 'title:("Fundamental principles of the metaphysic of morals")'], ["Grundlegung zur Metaphysik der Sitten 1785"]),
  "bge": (['title:("Jenseits von Gut und Böse")', 'title:("Beyond good and evil") AND date:[1886-01-01 TO 1929-12-31]'], ["Jenseits von Gut und Böse 1886"]),
  "zarathustra": (['title:("Also sprach Zarathustra") AND date:[1883-01-01 TO 1929-12-31]'], ["Also sprach Zarathustra 1883", "Also sprach Zarathustra Titelblatt"]),
+ "euclid": (['title:(Elements) AND creator:(Euclid) AND date:[1400-01-01 TO 1929-12-31]', 'title:(幾何原本)', 'title:("first six books of the elements of Euclid")'], ["Euclid Elements 1482", "Byrne Euclid 1847", "Oxyrhynchus Euclid papyrus", "幾何原本 徐光啟"]),
+ "jiuzhang": (['title:(九章算術)', 'title:(九章算经)'], ["九章算術", "Nine Chapters on the Mathematical Art", "刘徽 割圆术"]),
 }
