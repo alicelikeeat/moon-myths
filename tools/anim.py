@@ -52,7 +52,7 @@ def scene(anchor, title, els, beats, caption=None):
 def _strip(s):
     return "".join(c for c in s if not unicodedata.category(c).startswith(("P", "S", "Z")) and not c.isspace())
 
-def save(text_id, fill=True, skip=lambda i, p: False):
+def save(text_id, fill=True, skip=lambda i, p: False, scored=True):
     doc = json.load(open(os.path.join(ROOT, "texts", f"{text_id}.json"), encoding="utf-8"))
     paras = [p for s in doc["sections"] for p in s["paragraphs"]]
     bare = [_strip(p) for p in paras]
@@ -110,14 +110,16 @@ def save(text_id, fill=True, skip=lambda i, p: False):
     for i, a_ in used.items():
         idx_of[a_] = i
     for sc in _scenes:
-        sc["score"] = 100
+        if scored:
+            sc["score"] = 100
     if fill:
         for i, p in enumerate(paras):
             if i in used or skip(i, p):
                 continue
-            b = (plus_scene(p, lang) if scores[i] >= 60 else None) or basic_scene(p, lang)
+            b = (plus_scene(p, lang) if scored and scores[i] >= 60 else None) or basic_scene(p, lang)
             if b:
-                b["score"] = scores[i]
+                if scored:
+                    b["score"] = scores[i]
             if b:
                 L = 14
                 while True:
@@ -132,11 +134,11 @@ def save(text_id, fill=True, skip=lambda i, p: False):
     json.dump({"id": text_id, "scenes": _scenes}, open(out, "w", encoding="utf-8"),
               ensure_ascii=False, separators=(",", ":"))
     plus = sum(1 for x in _scenes if x.get("tier") == "plus")
-    rep = sorted((x for x in _scenes if x.get("tier") != "core"), key=lambda x: -x["score"])[:40]
+    rep = sorted((x for x in _scenes if x.get("tier") != "core"), key=lambda x: -x.get("score", 0))[:40]
     os.makedirs(os.path.join(ROOT, "tools", "scores"), exist_ok=True)
     with open(os.path.join(ROOT, "tools", "scores", f"{text_id}.txt"), "w", encoding="utf-8") as fh:
         for x in rep:
-            fh.write(f"{x['score']:3d} {x['tier']:5s} {x['anchor'][:40]}\n")
+            fh.write(f"{x.get('score', 0):3d} {x['tier']:5s} {x['anchor'][:40]}\n")
     print(f"{text_id}: 精讲 {core} + 进阶 {plus} + 普通 {len(_scenes) - core - plus}，覆盖 {len(used)}/{len(paras)} 段")
     check_layout(out)
 
