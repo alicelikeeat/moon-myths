@@ -127,6 +127,11 @@ struct BackdropSettings: View {
                     }
                     .pickerStyle(.segmented)
                 }
+                Section {
+                    AppIconPicker()
+                } header: {
+                    Text("App 图标")
+                }
                 Section("背景") {
                     Picker("样式", selection: $styleRaw) {
                         ForEach(BackdropStyle.allCases) { s in
@@ -218,5 +223,73 @@ private struct OfflineRow: View {
             }
         }
         .onAppear { downloaded = TextStore.shared.isDownloaded(id) }
+    }
+}
+
+
+// MARK: - App 图标
+
+struct AppIconChoice: Identifiable {
+    let id: String          // 备用图标名；nil 表示默认
+    let preview: String
+    let title: String
+    let line: String
+}
+
+let appIconChoices: [AppIconChoice] = [
+    .init(id: "", preview: "PreviewDefault", title: "纯", line: "一片空的玻璃：哲学从无预设开始"),
+    .init(id: "IconTao", preview: "PreviewTao", title: "道", line: "万物负阴而抱阳 ——《老子》"),
+    .init(id: "IconCave", preview: "PreviewCave", title: "洞穴", line: "火光、墙上的影子，和洞口的太阳 —— 柏拉图"),
+    .init(id: "IconReturn", preview: "PreviewReturn", title: "永恒轮回", line: "同一者的永恒复返 —— 尼采"),
+    .init(id: "IconStars", preview: "PreviewStars", title: "星空", line: "头上的星空，心中的道德律 —— 康德"),
+    .init(id: "IconLadder", preview: "PreviewLadder", title: "梯子", line: "登上之后，把梯子扔掉 —— 维特根斯坦"),
+    .init(id: "IconEnso", preview: "PreviewEnso", title: "圆相", line: "一笔成圆，留一缺口 —— 禅"),
+]
+
+struct AppIconPicker: View {
+    @State private var current = UIApplication.shared.alternateIconName ?? ""
+    @State private var failed = false
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 14), count: 4), spacing: 14) {
+                ForEach(appIconChoices) { c in
+                    Button {
+                        set(c.id)
+                    } label: {
+                        VStack(spacing: 6) {
+                            Image(c.preview)
+                                .resizable()
+                                .aspectRatio(1, contentMode: .fit)
+                                .clipShape(.rect(cornerRadius: 14, style: .continuous))
+                                .overlay {
+                                    RoundedRectangle(cornerRadius: 14, style: .continuous)
+                                        .strokeBorder(current == c.id ? Color.accentColor : Color.primary.opacity(0.12),
+                                                      lineWidth: current == c.id ? 3 : 1)
+                                }
+                            Text(c.title).font(.caption2).foregroundStyle(.primary)
+                        }
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel("图标：\(c.title)")
+                }
+            }
+            if let c = appIconChoices.first(where: { $0.id == current }) {
+                Text(c.line).font(.footnote).foregroundStyle(.secondary)
+            }
+            if failed {
+                Text("系统没有允许更换图标，稍后再试。").font(.footnote).foregroundStyle(.secondary)
+            }
+        }
+        .padding(.vertical, 4)
+    }
+
+    private func set(_ id: String) {
+        guard id != current, UIApplication.shared.supportsAlternateIcons else { return }
+        UIApplication.shared.setAlternateIconName(id.isEmpty ? nil : id) { error in
+            Task { @MainActor in
+                if error == nil { current = id; failed = false } else { failed = true }
+            }
+        }
     }
 }
