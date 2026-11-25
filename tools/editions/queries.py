@@ -62,4 +62,7 @@ Q = {
  "zarathustra": (['title:("Also sprach Zarathustra") AND date:[1883-01-01 TO 1929-12-31]'], ["Also sprach Zarathustra 1883", "Also sprach Zarathustra Titelblatt"]),
  "euclid": (['title:(Elements) AND creator:(Euclid) AND date:[1400-01-01 TO 1929-12-31]', 'title:(幾何原本)', 'title:("first six books of the elements of Euclid")'], ["Euclid Elements 1482", "Byrne Euclid 1847", "Oxyrhynchus Euclid papyrus", "幾何原本 徐光啟"]),
  "jiuzhang": (['title:(九章算術)', 'title:(九章算经)'], ["九章算術", "Nine Chapters on the Mathematical Art", "刘徽 割圆术"]),
+ "archimedes": (['title:("geometrical solutions derived from mechanics")', 'title:(Archimedes) AND creator:(Heiberg) AND date:[1800-01-01 TO 1929-12-31]', 'title:("works of Archimedes")'], ["Archimedes Palimpsest", "Archimedes Method palimpsest", "Archimedis opera 1544"]),
+ "zhoubi": (['title:(周髀算經)', 'title:(周髀算经)'], ["周髀算經", "Zhoubi Suanjing", "勾股圓方圖"]),
+ "geometrie": (['title:("La géométrie") AND creator:(Descartes)', 'title:("Discours de la methode") AND date:[1637-01-01 TO 1637-12-31]', 'title:("Geometria") AND creator:(Cartesius)'], ["La Géométrie Descartes 1637", "Descartes Geometrie 1637 page", "Geometria Cartesius 1649"]),
 }
