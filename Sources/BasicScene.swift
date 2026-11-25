@@ -210,10 +210,19 @@ func scriptureScene(text: String, style: String, section: String) -> AnimScene? 
     if zh {
         var t = body
         for q in ["「", "」", "『", "』"] { t = t.replacingOccurrences(of: q, with: "") }
-        lines = t.split(whereSeparator: { "。；！？".contains($0) }).flatMap { piece -> [String] in
-            let p = piece.trimmingCharacters(in: .whitespaces)
-            return p.isEmpty ? [] : wrapZh(p + "", 13)
+        // 按标点切成短句（保留标点），再把短句拼成不超过 13 个字宽的行
+        var clauses: [String] = [], cur = ""
+        for ch in t {
+            cur.append(ch)
+            if "，。；！？、：".contains(ch) { clauses.append(cur); cur = "" }
         }
+        if !cur.trimmingCharacters(in: .whitespaces).isEmpty { clauses.append(cur) }
+        lines = []
+        var line = ""
+        for c in clauses.flatMap({ width($0) > 13 ? wrapZh($0, 13) : [$0] }) {
+            if !line.isEmpty && width(line + c) > 13 { lines.append(line); line = c } else { line += c }
+        }
+        if !line.isEmpty { lines.append(line) }
     } else {
         lines = wrapWords(body, arabic ? 30 : 34)
     }
@@ -234,7 +243,7 @@ func scriptureScene(text: String, style: String, section: String) -> AnimScene? 
     case "quran":
         els.append(AnimElement(id: "motif", kind: "star", r: 70, color: "gold"))
     case "buddhist":
-        els.append(AnimElement(id: "motif", kind: "lotus", x: 0.5, y: 0.52, r: 120, color: "gold", n: 10))
+        els.append(AnimElement(id: "motif", kind: "lotus", x: 0.5, y: 0.84, r: 62, color: "gold", n: 10))
     case "vedic":
         els.append(AnimElement(id: "motif", kind: "rings", x: 0.5, y: 0.52, r: 150, color: "gold", n: 5))
     default:
