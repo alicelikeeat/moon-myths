@@ -190,6 +190,8 @@ final class SceneRuntime {
                 let ax = a.x * W, ay = a.y * H, cx = c.x * W, cy = c.y * H
                 let grow = s.opacity
                 let col = animColor(s.color).opacity(0.9 * min(1, a.opacity + 0.3, c.opacity + 0.3))
+                let glow = pulse.contains(id) ? 1.6 + 0.8 * sin(t * 3.2) : 0
+                if glow > 0 { line(&ctx, ax, ay, cx, cy, col.opacity(0.25), (e.size ?? 2.2) + 5 + glow * 2) }
                 line(&ctx, ax, ay, ax + (cx - ax) * grow, ay + (cy - ay) * grow, col, e.size ?? 2.2, dash: (e.dash ?? false) ? [6, 5] : [])
                 if !s.label.isEmpty && grow > 0.6 {
                     let len = max(1, hypot(cx - ax, cy - ay))
@@ -218,7 +220,8 @@ final class SceneRuntime {
                 for q in ps.dropFirst() { p.addLine(to: CGPoint(x: q.x * W, y: q.y * H)) }
                 p.closeSubpath()
                 let col = animColor(s.color)
-                ctx.fill(p, with: .color(col.opacity(0.22 * s.opacity)))
+                let boost = pulse.contains(id) ? 0.14 + 0.1 * sin(t * 3.2) : 0
+                ctx.fill(p, with: .color(col.opacity((0.22 + boost) * s.opacity)))
                 ctx.stroke(p, with: .color(col.opacity(0.7 * s.opacity)), lineWidth: 1.4)
                 if !s.label.isEmpty {
                     let mx = ps.map(\.x).reduce(0, +) / Double(ps.count) * W, my = ps.map(\.y).reduce(0, +) / Double(ps.count) * H
@@ -235,7 +238,8 @@ final class SceneRuntime {
                     if i == 0 { p.move(to: pt) } else { p.addLine(to: pt) }
                 }
                 let col = animColor(s.color)
-                ctx.fill(p, with: .color(col.opacity(0.16 * s.opacity)))
+                let boost = pulse.contains(id) ? 0.12 + 0.08 * sin(t * 3.2) : 0
+                ctx.fill(p, with: .color(col.opacity((0.16 + boost) * s.opacity)))
                 ctx.stroke(p, with: .color(col.opacity(0.85 * s.opacity)), lineWidth: 1.5)
                 if !s.label.isEmpty { label(&ctx, s.label, s.x * W, s.y * H + rad + 16, col.opacity(s.opacity), size: e.size ?? 12) }
             case "particles":
@@ -255,7 +259,7 @@ final class SceneRuntime {
             guard let e = kinds[id], let s = mix(id), s.opacity > 0.02 else { continue }
             let col = animColor(s.color).opacity(s.opacity)
             let x = s.x * W, y = s.y * H
-            if scene.hasEffects && pulse.contains(id) && e.kind != "text" && e.kind != "arrow" {
+            if scene.hasEffects && pulse.contains(id) && !["text", "arrow", "seg", "circle", "poly", "ngon"].contains(e.kind) {
                 // 精讲：重点处扩散的光晕
                 for j in 0..<2 {
                     let f = fract(t * 0.45 + Double(j) * 0.5)
