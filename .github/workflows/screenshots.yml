@@ -45,54 +45,16 @@ jobs:
           xcrun simctl launch "$UDID" com.alicelikeeat.pure
           sleep 8
           xcrun simctl io "$UDID" screenshot shots/00-list.png
-          for i in 0 1 2 4 5 6 7 10 13 14 17 18 20 23; do
-            xcrun simctl terminate "$UDID" com.alicelikeeat.pure || true
-            xcrun simctl launch "$UDID" com.alicelikeeat.pure -startChapter $i
-            sleep 7
-            xcrun simctl io "$UDID" screenshot "shots/ch-$(printf %02d $i).png"
-          done
-          for i in 0 5 13; do
-            xcrun simctl terminate "$UDID" com.alicelikeeat.pure || true
-            xcrun simctl launch "$UDID" com.alicelikeeat.pure -startChapter $i -backdropStyle aurora
-            sleep 7
-            xcrun simctl io "$UDID" screenshot "shots/aurora-ch-$(printf %02d $i).png"
-          done
-          for spec in hegel-phen:0 hegel-phen:3 hegel-logic:0 hegel-logic:1 russell-denoting:0 russell-pm:0 russell-pm:1 russell-problems:0; do
-            b=${spec%%:*}; n=${spec##*:}
-            xcrun simctl terminate "$UDID" com.alicelikeeat.pure || true
-            xcrun simctl launch "$UDID" com.alicelikeeat.pure -book "$b" -startChapter "$n" -backdropStyle aurora
-            sleep 7
-            xcrun simctl io "$UDID" screenshot "shots/$b-$n.png"
-          done
-          xcrun simctl terminate "$UDID" com.alicelikeeat.pure || true
-          xcrun simctl launch "$UDID" com.alicelikeeat.pure -backdropStyle aurora
-          sleep 7
-          xcrun simctl io "$UDID" screenshot shots/aurora-list.png
           run_shot() { name=$1; shift
             xcrun simctl terminate "$UDID" com.alicelikeeat.pure || true
             xcrun simctl launch "$UDID" com.alicelikeeat.pure "$@"
-            sleep 7
+            sleep 9
             xcrun simctl io "$UDID" screenshot "shots/$name.png"; }
-          run_shot light-home -appearance light
-          run_shot light-kant-0 -appearance light -startChapter 0
-          run_shot light-hegel-logic-0 -appearance light -book hegel-logic -startChapter 0
-          run_shot passages-kant-0 -startChapter 0 -openPassages
-          run_shot passages-light-hegel-phen-0 -appearance light -book hegel-phen -startChapter 0 -openPassages
-          run_shot passages-russell-pm-2 -book russell-pm -startChapter 2 -openPassages -backdropStyle aurora
-          run_shot reader-kant -openReader kant-cpr -autoDownload -readerQuery "Gedanken ohne Inhalt"
-          sleep 5; xcrun simctl io "$UDID" screenshot shots/reader-kant-2.png
-          run_shot reader-hegel-light -appearance light -openReader hegel-phen -autoDownload
-          sleep 5; xcrun simctl io "$UDID" screenshot shots/reader-hegel-light-2.png
-          run_shot book-kant -openBook kant-cpr
-          run_shot timeline -openTimeline
-          run_shot timeline-light -openTimeline -appearance light
-          run_shot paused-kant-6 -startChapter 6 -pausePlayback
-          run_shot live-hegel-logic-1 -book hegel-logic -startChapter 1
-          run_shot home-v17
-          run_shot copernicus-3d -startChapter 0 -show3D -backdropStyle aurora
-          run_shot copernicus-3d-light -startChapter 0 -show3D -appearance light
-          run_shot thinker-reader-lunyu -openReader lunyu -autoDownload
-          run_shot thinker-reader-daodejing-light -appearance light -openReader daodejing -autoDownload
+          for spec in daodejing:0 daodejing:1 daodejing:2 lunyu:0 lunyu:1 mozi:0 mozi:1 xunzi:0 xunzi:1 chunqiufanlu:0 tanjing:0 tanjing:1 chuanxilu:0 chuanxilu:1 zhuangzi:0 zhuangzi:1; do
+            b=${spec%%:*}; n=${spec##*:}
+            run_shot "$b-$n" -book "$b" -startChapter "$n" -appearance light
+          done
+          run_shot home-light -appearance light
           mkdir -p shots/crash
           cp ~/Library/Logs/DiagnosticReports/Pure* shots/crash/ 2>/dev/null || true
           xcrun simctl spawn "$UDID" log show --last 15m --predicate 'process == "Pure"' --style compact 2>/dev/null | grep -iE "fatal|crash|error|precondition" | tail -40 > shots/crash/log.txt || true
