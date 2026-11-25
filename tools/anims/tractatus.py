@@ -110,7 +110,7 @@ S("4.112", "哲学是活动，不是学说", [
     P("fog", 0.5, 0.45, 90, 45, "dim", label="模糊的思想"),
     T("t", 0.5, 0.85, "哲学的成果不是哲学命题，而是命题的澄清", "gold", 11, at=2)],
     [beat("思想常常模糊不清"), beat("哲学的任务：逻辑澄清", set={"fog": {"r": 30, "color": "gold"}}), beat("哲学是一种活动", 7.5)],
-    "Die Philosophie ist keine Lehre, sondern eine Tätigkeit.")
+    "keine Lehre, sondern eine Tätigkeit")
 S("4.116", "能想的都能想清楚", [
     P("fog", 0.5, 0.45, 80, 35, "dim"),
     T("t", 0.5, 0.82, "能说的，都能说清楚", "gold", 13, at=2)],
@@ -120,7 +120,7 @@ S("4.1212", "能显示的，不能说出", [
     B("s", 0.5, 0.35, "命题", 0.3, 0.12, "silver"),
     R("form", 0.5, 0.35, 60, "逻辑形式", "gold", at=1, dash=True),
     T("t", 0.5, 0.75, "形式在命题中映现，却不能被命题说出", "primary", 11, at=2)],
-    [beat("一个命题"), beat("它的逻辑形式在它身上显示出来"), beat("显示的东西，不能被说出", 7.5)], "Was gezeigt werden kann, kann nicht gesagt werden.")
+    [beat("一个命题"), beat("它的逻辑形式在它身上显示出来"), beat("显示的东西，不能被说出", 7.5)], "Zeigen, nicht sagen")
 S("4.46", "重言式与矛盾式", [
     Bar("t", 0.3, 0.75, 0.5, "重言式：总是真", 0.14, "gold"), Bar("c", 0.7, 0.75, 0.01, "矛盾式：总是假", 0.14, "violet", at=1),
     T("x", 0.5, 0.88, "两者都不描绘现实", "primary", 12, at=2)],
@@ -133,12 +133,12 @@ S("5", "命题是基本命题的真值函数", [
 S("5.1361", "因果信念是迷信", [
     N("now", 0.3, 0.45, "现在", "silver", 14), N("fut", 0.72, 0.45, "将来", "dim", 14),
     A("a", "now", "fut", "推出？", "red", at=1, dash=True)],
-    [beat("现在的事件"), beat("能逻辑地推出将来吗？"), beat("不能。相信因果关系就是迷信", 7.5, set={"fut": {"opacity": 0.3}})], "Der Glaube an den Kausalnexus ist der Aberglaube.")
+    [beat("现在的事件"), beat("能逻辑地推出将来吗？"), beat("不能。相信因果关系就是迷信", 7.5, set={"fut": {"opacity": 0.3}})], "Kausalnexus — Aberglaube")
 S("5.6", "语言的界限", [
     R("lang", 0.5, 0.48, 70, "我的语言", "gold"),
-    R("world", 0.5, 0.48, 70, "我的世界", "silver", at=1, dash=True)],
-    [beat("我的语言有一个界限"), beat("我的世界也有界限", set={"lang": {"r": 100}, "world": {"r": 100}}), beat("两条界限重合", 7.5, pulse=["lang"])],
-    "Die Grenzen meiner Sprache bedeuten die Grenzen meiner Welt.")
+    R("world", 0.5, 0.48, 70, "", "silver", at=1, dash=True)],
+    [beat("我的语言有一个界限"), beat("我的世界也有界限", set={"lang": {"r": 100, "label": "语言的界限 = 世界的界限"}, "world": {"r": 100}}), beat("两条界限重合", 7.5, pulse=["lang"])],
+    "Grenzen der Sprache = Grenzen der Welt")
 S("5.61", "逻辑充满世界", [
     R("w", 0.5, 0.48, 100, "世界 = 逻辑的界限", "gold"),
     T("t", 0.5, 0.48, "这里有这个，没有那个？", "primary", 12, at=1),
@@ -212,6 +212,6 @@ S("7", "必须保持沉默", [
     R("lang", 0.5, 0.48, 90, "可说的", "gold"),
     T("out", 0.5, 0.86, "不可说的", "violet", 14, at=1)],
     [beat("能说的，都已说清"), beat("对不可说的"), beat("必须保持沉默", 8, set={"lang": {"opacity": 0.15}})],
-    "Wovon man nicht sprechen kann, darüber muss man schweigen.")
+    "darüber muss man schweigen")
 
 save("tractatus-de")

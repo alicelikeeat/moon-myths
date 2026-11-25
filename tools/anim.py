@@ -124,6 +124,7 @@ def save(text_id, fill=True, skip=lambda i, p: False):
     json.dump({"id": text_id, "scenes": _scenes}, open(out, "w", encoding="utf-8"),
               ensure_ascii=False, separators=(",", ":"))
     print(f"{text_id}: 精讲 {core} + 普通 {len(_scenes) - core}，覆盖 {len(used)}/{len(paras)} 段")
+    check_layout(out)
 
 
 # MARK: 常用模板 ---------------------------------------------------------------
@@ -318,3 +319,60 @@ def basic_scene(text, lang):
     if len(beats_) > 5:
         return None
     return {"anchor": "", "title": title, "tier": "basic", "elements": els, "beats": beats_}
+
+
+# MARK: 版面检查：同一拍里文字是否互相压住 --------------------------------------
+
+def _tw(label, size):
+    w = sum(size * (1.0 if ord(c) > 0x2E80 else 0.58) for c in label)
+    return w / 350, size * 1.25 / 380
+
+def layout_issues(sc):
+    els = {e["id"]: dict(e) for e in sc["elements"]}
+    hidden = set()
+    issues = []
+    for b, bt in enumerate(sc["beats"]):
+        for k, v in (bt.get("set") or {}).items():
+            els[k].update({kk: vv for kk, vv in v.items()})
+            if v.get("opacity", 1) <= 0.05: hidden.add(k)
+        for k in bt.get("hide") or []:
+            hidden.add(k)
+        boxes = []
+        for e in els.values():
+            if e.get("at", 0) > b or e["id"] in hidden or e["kind"] == "arrow" or e.get("opacity", 1) <= 0.05:
+                continue
+            x, y = e.get("x", 0.5), e.get("y", 0.5)
+            lab = e.get("label") or ""
+            size = e.get("size") or (13 if e["kind"] in ("text", "box") else 12)
+            if e["kind"] == "text":
+                w, h = _tw(lab, size); boxes.append((e["id"], x, y, w, h))
+            elif e["kind"] in ("node", "particles") and lab:
+                r = e.get("r", 14)
+                w, h = _tw(lab, size if e["kind"] == "node" else 11)
+                boxes.append((e["id"] + ".label", x, y + (r + 13) / 380, w, h))
+            elif e["kind"] == "bar" and lab:
+                w, h = _tw(lab, 11); boxes.append((e["id"] + ".label", x, y + 14 / 380, w, h))
+            elif e["kind"] == "ring" and lab:
+                w, h = _tw(lab, 12); boxes.append((e["id"] + ".label", x, y - (e.get("r", 14) + 12) / 380, w, h))
+        boxes.append(("headline", 0.5, 22 / 380, *_tw(bt["headline"], 14)))
+        if sc.get("caption"):
+            boxes.append(("caption", 0.5, 1 - 18 / 380, *_tw(sc["caption"], 13)))
+        for i in range(len(boxes)):
+            for j in range(i + 1, len(boxes)):
+                a, c = boxes[i], boxes[j]
+                if abs(a[1] - c[1]) < (a[3] + c[3]) / 2 - 0.01 and abs(a[2] - c[2]) < (a[4] + c[4]) / 2 - 0.004:
+                    issues.append(f"第{b+1}拍 {a[0]} × {c[0]}")
+        for bx in boxes:
+            if bx[1] - bx[3] / 2 < -0.02 or bx[1] + bx[3] / 2 > 1.02:
+                issues.append(f"第{b+1}拍 {bx[0]} 超出左右边界")
+    return sorted(set(issues))
+
+def check_layout(path):
+    d = json.load(open(path, encoding="utf-8"))
+    n = 0
+    for sc in d["scenes"]:
+        iss = layout_issues(sc)
+        if iss:
+            n += 1
+            print(f"[{sc.get('tier')}] {sc['title']}: " + "；".join(iss[:4]))
+    print(f"{n} 个动画有版面问题")
