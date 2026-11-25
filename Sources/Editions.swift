@@ -21,8 +21,10 @@ struct EditionScan: Codable, Hashable {
     let title: String
     let publisher: String
     let pdf: String?
+    let img: String?
+    let kind: String?
 
-    var coverURL: URL? { URL(string: "https://archive.org/services/img/\(ia)") }
+    var coverURL: URL? { URL(string: img ?? "https://archive.org/services/img/\(ia)") }
     var detailsURL: URL? { URL(string: "https://archive.org/details/\(ia)") }
     var pdfURL: URL? {
         guard let pdf, let name = pdf.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) else { return nil }
@@ -66,7 +68,7 @@ struct EditionsSection: View {
                             if let u = s.pdfURL { Link(destination: u) { Label("下载 PDF", systemImage: "arrow.down.doc") } }
                         } label: {
                             EditionCard(url: s.coverURL, caption: s.caption,
-                                        source: "Internet Archive" + (s.publisher.isEmpty ? "" : " · \(s.publisher)"), badge: "扫描本")
+                                        source: "Internet Archive" + (s.publisher.isEmpty ? "" : " · \(s.publisher)"), badge: "扫描本 · \(s.kind ?? "封面")")
                         }
                         .buttonStyle(.plain)
                     }
@@ -99,6 +101,7 @@ private struct EditionCard: View {
                 }
             }
             .frame(width: 132, height: 176)
+            .clipped()
             .background(Color.primary.opacity(0.05))
             .clipShape(.rect(cornerRadius: 12))
             .overlay(alignment: .topLeading) {
