@@ -370,7 +370,8 @@ private struct ThinkerSheet: View {
 // MARK: - 时间轴人物的著作全文（只收公有领域版本）
 
 private func work(_ id: String, _ title: String, _ original: String, _ year: String, _ summary: String) -> Book {
-    Book(id: id, title: title, original: original, year: year, summary: summary, parts: [], chapters: [])
+    Book(id: id, title: title, original: original, year: year, summary: summary,
+         parts: workParts(id), chapters: workChapters[id] ?? [])
 }
 
 let thinkerWorks: [String: [Book]] = [

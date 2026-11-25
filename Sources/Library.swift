@@ -279,7 +279,7 @@ struct ChapterView: View {
                         Text(c.title)
                             .font(.system(size: 30, weight: .semibold, design: .serif))
                             .foregroundStyle(Color.primary)
-                        PassagesView(items: passages["\(book.id):\(index)"] ?? [], book: book, key: "\(book.id):\(index)")
+                        PassagesView(items: passages["\(book.id):\(index)"] ?? workPassages["\(book.id):\(index)"] ?? [], book: book, key: "\(book.id):\(index)")
                     } else {
                     content(c)
                     VStack(alignment: .leading, spacing: 10) {

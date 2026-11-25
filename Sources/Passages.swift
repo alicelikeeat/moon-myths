@@ -7,6 +7,7 @@ struct Passage {
     let english: String?     // 英译；原文是英文时为 nil
     let chinese: String
     var englishSource: String = "Meiklejohn 英译（1855）"
+    var originalLang: String? = nil   // 默认：有英译时为德文，否则为英文
 }
 
 private let ownEN = "本应用英译"
@@ -257,7 +258,7 @@ struct PassagesView: View {
                         .font(.caption.weight(.semibold))
                         .foregroundStyle(Moon.silver)
                     if lang == .all || lang == .original {
-                        block(tag: p.english == nil ? "原文 · English" : "原文 · Deutsch",
+                        block(tag: "原文 · " + (p.originalLang ?? (p.english == nil ? "English" : "Deutsch")),
                               text: p.original, serif: true)
                     }
                     if let en = p.english, lang == .all || lang == .english {
@@ -283,9 +284,9 @@ struct PassagesView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .glassEffect(.regular, in: .rect(cornerRadius: 24))
             }
-            Text(items.contains { $0.english != nil }
-                 ? "德文原文与 Meiklejohn 英译来自公有领域版本（Project Gutenberg）；标注“本应用译”的译文由本应用提供。"
-                 : "原文为罗素的英文原著，出处见各段标注；中文由本应用翻译。")
+            Text(key.hasPrefix("russell")
+                 ? "原文为罗素的英文原著，出处见各段标注；中文由本应用翻译。"
+                 : "原文与人工英译均来自公有领域版本（Project Gutenberg），出处见各段标注；标注“本应用译”的译文由本应用提供。")
                 .font(.caption2).foregroundStyle(Color.primary.opacity(0.45))
         }
     }
