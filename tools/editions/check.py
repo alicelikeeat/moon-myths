@@ -1,18 +1,14 @@
-import json, urllib.request, urllib.parse
+import json, urllib.request, hashlib
 UA={'User-Agent':'PurePhilosophyApp/1.0 (github.com/alicelikeeat/moon-myths)'}
 d=json.load(open('Sources/editions.json')); rep={}
-def ok(u):
+def fetch(u):
     try:
-        with urllib.request.urlopen(urllib.request.Request(u,headers=UA,method='HEAD'),timeout=30) as r: return r.status<400
-    except Exception as e: return False
+        with urllib.request.urlopen(urllib.request.Request(u,headers=UA),timeout=40) as r:
+            b=r.read(); return r.status, r.headers.get('Content-Type',''), hashlib.md5(b).hexdigest(), len(b)
+    except Exception as e: return 0,'','',0
 for b,v in d.items():
     for s in v['scans']:
-        try:
-            m=json.load(urllib.request.urlopen(urllib.request.Request(f"https://archive.org/metadata/{s['ia']}/files",headers=UA),timeout=30))
-            pdfs=[f['name'] for f in m.get('result',[]) if f['name'].lower().endswith('.pdf')]
-        except Exception: pdfs=[]
-        rep[s['ia']]={'pdf':pdfs[0] if pdfs else None,'cover':ok(f"https://archive.org/services/img/{s['ia']}")}
-    for i in v['images']:
-        rep[i['file']]={'thumb':ok(i['thumb'])}
+        i=s['ia']
+        rep[i]={'cover':fetch(f"https://archive.org/services/img/{i}"),'title':fetch(f"https://archive.org/download/{i}/page/title_w400.jpg"),'n4':fetch(f"https://archive.org/download/{i}/page/n4_w400.jpg")}
     print(b,flush=True)
 json.dump(rep,open('check.json','w'),ensure_ascii=False,indent=1)
