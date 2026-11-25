@@ -133,34 +133,13 @@ struct FormulaExplainer: View {
                 Button {
                     withAnimation(.snappy(duration: 0.25)) { open.toggle() }
                 } label: {
-                    Label(open ? "收起" : "读法与解释", systemImage: open ? "chevron.up" : "character.book.closed")
+                    Label(open ? "收起" : "公式动画 · 读法与解释", systemImage: open ? "chevron.up" : "function")
                         .font(.caption.weight(.semibold))
                 }
                 .buttonStyle(.glass)
                 if open {
-                    VStack(alignment: .leading, spacing: 10) {
-                        if let note {
-                            Text(note)
-                                .font(.callout)
-                                .foregroundStyle(Color.primary.opacity(0.85))
-                                .fixedSize(horizontal: false, vertical: true)
-                        }
-                        ForEach(syms, id: \.0) { s in
-                            HStack(alignment: .firstTextBaseline, spacing: 10) {
-                                Text(s.0)
-                                    .font(.system(.body, design: .serif))
-                                    .frame(minWidth: 28, alignment: .center)
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text("读作：\(s.1)").font(.caption.weight(.semibold))
-                                    Text(s.2).font(.caption).foregroundStyle(Color.primary.opacity(0.65))
-                                }
-                            }
-                        }
-                    }
-                    .padding(14)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .glassEffect(.regular, in: .rect(cornerRadius: 18))
-                    .transition(.opacity)
+                    FormulaAnimationView(formula: formula, note: note)
+                        .transition(.opacity.combined(with: .move(edge: .top)))
                 }
             }
         }

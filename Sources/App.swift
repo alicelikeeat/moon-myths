@@ -63,7 +63,9 @@ struct PureApp: App {
     var body: some Scene {
         WindowGroup {
             Group {
-                if ProcessInfo.processInfo.arguments.contains("-scriptureShot") {
+                if ProcessInfo.processInfo.arguments.contains("-formulaDemo") {
+                    FormulaDemoView()
+                } else if ProcessInfo.processInfo.arguments.contains("-scriptureShot") {
                     ScriptureShotView(beat: animGrid?.2 ?? Int(UserDefaults.standard.string(forKey: "animBeat") ?? "0") ?? 0)
                 } else if let g = animGrid {
                     AnimGridView(textId: g.0, page: g.1, beat: g.2)
