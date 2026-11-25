@@ -60,7 +60,7 @@ anchor = next(i for i, p in enumerate(ps) if p.startswith('Let αβγ [Fig. 1] b
 scene(anchor, 'Prop. I · The parabolic segment', els, [
     beat('A segment of a parabola cut off by a chord', 6),
     beat('Inscribe the greatest triangle: call it T', 6, pulse=['T']),
-    beat('Two more triangles fill the gaps: together T/4', 6.5, pulse=['L1', 'R1']),
+    beat('Two more triangles: together T/4', 6.5, pulse=['L1', 'R1']),
     beat('Four more: T/16, and so on without end', 6.5),
     beat('The segment is 4/3 of the triangle', 7, pulse=['seg']),
 ], caption='Archimedes, The Method, Prop. I', geo=True)

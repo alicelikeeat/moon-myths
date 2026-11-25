@@ -67,8 +67,9 @@ def pts(names, coords, at=0, show=True):
     return [(Pt(n, *coords[n], L(n), at=at) if show else Hid(n, *coords[n], at=at)) for n in names]
 
 PROPS = []
+BOOK = [1]
 def prop(n, zh, en):
-    def deco(f): PROPS.append((n, zh, en, f)); return f
+    def deco(f): PROPS.append((BOOK[0], n, zh, en, f)); return f
     return deco
 
 # ———————————————————————————————— 1–10
@@ -693,6 +694,192 @@ def _():
                  bt('则 DC² = AD² + AC² = BC²，DC = BC', 'Then DC² = AD² + AC² = BC², so DC = BC', 7.5),
                  bt('边边边全等：角 BAC 是直角', 'By Prop. 8, the angle BAC is right', 6.5)]
 
+# ———————————————————————————————— 卷二：几何代数
+BOOK[0] = 2
+def rect(id, x, y, w, h, color='gold', at=0, label='', size=None):
+    """矩形（左上角 x, y；宽 w、高 h），顶点为 id1..id4，可单独移动"""
+    c = {f'{id}1': (x, y), f'{id}2': (x + w, y), f'{id}3': (x + w, y + h), f'{id}4': (x, y + h)}
+    return [Hid(n, round(a, 4), round(b, 4), at=at) for n, (a, b) in c.items()] + [Poly(id, list(c), label, color=color, at=at, size=size)]
+def move_rect(id, x, y, w, h):
+    return {f'{id}1': {'x': round(x, 4), 'y': round(y, 4)}, f'{id}2': {'x': round(x + w, 4), 'y': round(y, 4)},
+            f'{id}3': {'x': round(x + w, 4), 'y': round(y + h, 4)}, f'{id}4': {'x': round(x, 4), 'y': round(y + h, 4)}}
+def line_pts(y, xs, names, at=0):
+    return [Pt(n, x, y, L(n), at=at) for n, x in zip(names, xs)]
+
+@prop(1, '矩形可按一边的分段拆开', 'A rectangle splits along a divided side')
+def _():
+    xs = [0.08, 0.36, 0.62, 0.92]; y, h = 0.34, 0.40
+    els = line_pts(y, [xs[0], xs[1], xs[2], xs[3]], 'BDEC') + [Seg('bc', 'B', 'C', color='gold')]
+    els += [Hid('a1', 0.08, 0.10), Hid('a2', 0.08 + h, 0.10), Seg('a', 'a1', 'a2', 'A', color='blue', width=3)]
+    els += rect('R', xs[0], y, xs[3] - xs[0], h, 'silver', at=1)
+    els += rect('r1', xs[0], y, xs[1] - xs[0], h, 'blue', at=2) + rect('r2', xs[1], y, xs[2] - xs[1], h, 'red', at=2) + rect('r3', xs[2], y, xs[3] - xs[2], h, 'green', at=2)
+    return els, [bt('线段 A，与被 D、E 分开的 BC', 'A line A, and BC cut at D and E', 6),
+                 bt('以 A 为高、BC 为底作矩形', 'The rectangle under A and BC', 6),
+                 bt('竖着切开，正好是三块', 'Cut it at D and E: three rectangles', 6.5),
+                 bt('A·BC = A·BD + A·DE + A·EC', 'A·BC = A·BD + A·DE + A·EC', 7, pulse=['r1', 'r2', 'r3'])]
+
+@prop(2, '整段的平方等于两个矩形之和', 'The square equals the two rectangles')
+def _():
+    A, C, B = 0.14, 0.52, 0.86; y = 0.12; s_ = B - A
+    els = line_pts(y, [A, C, B], 'ACB') + [Seg('ab', 'A', 'B', color='gold')]
+    els += rect('sq', A, y, s_, s_, 'silver', at=1) + rect('r1', A, y, C - A, s_, 'blue', at=2) + rect('r2', C, y, B - C, s_, 'red', at=2)
+    return els, [bt('线段 AB 在 C 点分开', 'The line AB cut at C', 5.5),
+                 bt('在 AB 上作正方形', 'Describe the square on AB', 5.5),
+                 bt('过 C 作竖线，分成两块', 'A line through C divides it', 6),
+                 bt('AB² = AB·AC + AB·CB', 'AB² = AB·AC + AB·CB', 6.5, pulse=['r1', 'r2'])]
+
+@prop(3, '矩形等于小矩形加正方形', 'The rectangle equals a rectangle and a square')
+def _():
+    A, C, B = 0.08, 0.56, 0.92; y = 0.30; h = B - C
+    els = line_pts(y, [A, C, B], 'ACB') + [Seg('ab', 'A', 'B', color='gold')]
+    els += rect('R', A, y, B - A, h, 'silver', at=1) + rect('r1', A, y, C - A, h, 'blue', at=2) + rect('sq', C, y, h, h, 'red', at=2)
+    return els, [bt('线段 AB 在 C 点分开', 'The line AB cut at C', 5.5),
+                 bt('以 AB 为长、CB 为宽作矩形', 'The rectangle under AB and BC', 6),
+                 bt('过 C 切开：左边矩形，右边正方形', 'Cut at C: a rectangle and a square', 6.5),
+                 bt('AB·BC = AC·CB + CB²', 'AB·BC = AC·CB + CB²', 6.5, pulse=['r1', 'sq'])]
+
+@prop(4, '(a + b)² = a² + b² + 2ab', '(a + b)² = a² + b² + 2ab')
+def _():
+    A, C, B = 0.12, 0.60, 0.88; y = 0.10; a, b = C - A, B - C
+    els = line_pts(y, [A, C, B], 'ACB') + [Seg('ab', 'A', 'B', color='gold')]
+    els += rect('sq', A, y, a + b, a + b, 'silver', at=1)
+    els += rect('s1', A, y, a, a, 'blue', at=2) + rect('s2', C, y + a, b, b, 'red', at=2)
+    els += rect('k1', C, y, b, a, 'gold', at=3) + rect('k2', A, y + a, a, b, 'gold', at=3)
+    return els, [bt('线段 AB 在 C 点分开', 'The line AB cut at C', 5.5),
+                 bt('在 AB 上作正方形', 'The square on AB', 5.5),
+                 bt('对角上是 AC、CB 上的两个正方形', 'On the diagonal: squares on AC and CB', 6.5, pulse=['s1', 's2']),
+                 bt('另两块各为 AC·CB：两倍的矩形', 'Two rectangles AC·CB remain: the whole', 8, pulse=['k1', 'k2'])]
+
+@prop(5, '平分与不等分：AD·DB + CD² = CB²', 'Equal and unequal segments: AD·DB + CD² = CB²')
+def _():
+    A, C, D, B = 0.06, 0.50, 0.66, 0.94; y = 0.32; db = B - D; cb = B - C; cd = D - C
+    els = line_pts(y, [A, C, D, B], 'ACDB') + [Seg('ab', 'A', 'B', color='gold')]
+    els += rect('p1', A, y - db, C - A, db, 'blue', at=1) + rect('p2', C, y - db, cd, db, 'blue', at=1)
+    els += rect('big', C, y, cb, cb, 'silver', at=2)
+    els += rect('small', C, y + db, cd, cd, 'red', at=3)
+    mv = move_rect('p2', C, y, cd, db); mv.update({'p11': {'x': D, 'y': y}, 'p12': {'x': B, 'y': y}, 'p13': {'x': B, 'y': y + cb}, 'p14': {'x': D, 'y': y + cb}})
+    return els, [bt('AB 在 C 平分，又在 D 不等分', 'AB bisected at C and cut unequally at D', 6.5),
+                 bt('作矩形 AD·DB', 'The rectangle AD·DB', 6),
+                 bt('两块移进 CB 上的正方形，成一个曲尺形', 'Move its parts into the square on CB', 8, set=mv),
+                 bt('缺的一角是 CD²：AD·DB + CD² = CB²', 'The corner left is CD²: AD·DB + CD² = CB²', 8, pulse=['small'])]
+
+@prop(6, '平分后延长：AD·DB + CB² = CD²', 'Bisected and produced: AD·DB + CB² = CD²')
+def _():
+    A, C, B, D = 0.06, 0.32, 0.58, 0.86; y = 0.32; bd = D - B; cb = B - C; cd = D - C
+    els = line_pts(y, [A, C, B, D], 'ACBD') + [Seg('ad', 'A', 'D', color='gold')]
+    els += rect('p1', A, y - bd, C - A, bd, 'blue', at=1) + rect('p2', C, y - bd, cd, bd, 'blue', at=1)
+    els += rect('big', C, y, cd, cd, 'silver', at=2) + rect('small', C, y, cb, cb, 'red', at=3)
+    mv = move_rect('p1', C, y + cb, cb, bd)
+    mv.update({'p21': {'x': D, 'y': y}, 'p22': {'x': D, 'y': y + cd}, 'p23': {'x': B, 'y': y + cd}, 'p24': {'x': B, 'y': y}})
+    return els, [bt('AB 在 C 平分，延长到 D', 'AB bisected at C and produced to D', 6.5),
+                 bt('作矩形 AD·DB', 'The rectangle AD·DB', 6),
+                 bt('两块移进 CD 上的正方形', 'Move its parts into the square on CD', 8, set=mv),
+                 bt('补上 CB²：AD·DB + CB² = CD²', 'Add CB²: AD·DB + CB² = CD²', 7.5, pulse=['small'])]
+
+@prop(7, 'AB² + BC² = 2·AB·BC + AC²', 'AB² + BC² = 2·AB·BC + AC²')
+def _():
+    A, C, B = 0.12, 0.56, 0.88; y = 0.10; ab, bc, ac = B - A, B - C, C - A
+    els = line_pts(y, [A, C, B], 'ACB') + [Seg('ab', 'A', 'B', color='gold')]
+    els += rect('sq', A, y, ab, ab, 'silver', at=1) + rect('s2', C, y, bc, bc, 'red', at=1)
+    els += rect('k1', A, y + bc, ab, bc, 'blue', at=2) + rect('k2', C, y, bc, ab, 'gold', at=2)
+    els += rect('s1', A, y + bc, ac, ac, 'green', at=3)
+    return els, [bt('线段 AB 在 C 点分开', 'The line AB cut at C', 5.5),
+                 bt('AB² 与 BC²（BC² 算了两次）', 'AB² and BC² (BC² counted twice)', 6.5),
+                 bt('两个 AB·BC 矩形，盖住了 BC² 两次', 'Two rectangles AB·BC cover BC² twice', 7),
+                 bt('剩下的是 AC²：AB² + BC² = 2AB·BC + AC²', 'What remains is AC²', 7.5, pulse=['s1'])]
+
+@prop(8, '4·AB·BC + AC² = (AB + BC)²', '4·AB·BC + AC² = (AB + BC)²')
+def _():
+    a, b = 0.52, 0.30; x0, y0 = 0.09, 0.10; s_ = a + b
+    els = [Hid('o1', x0, y0), Hid('o2', x0 + s_, y0), Hid('o3', x0 + s_, y0 + s_), Hid('o4', x0, y0 + s_), Poly('big', ['o1', 'o2', 'o3', 'o4'], color='silver')]
+    els += rect('r1', x0, y0, a, b, 'blue', at=1) + rect('r2', x0 + a, y0, b, a, 'blue', at=1) + rect('r3', x0 + b, y0 + a, a, b, 'blue', at=1) + rect('r4', x0, y0 + b, b, a, 'blue', at=1)
+    els += rect('mid', x0 + b, y0 + b, a - b, a - b, 'red', at=2)
+    return els, [bt('以 AB + BC 为边的正方形', 'The square on AB + BC', 6),
+                 bt('四个 AB·BC 矩形绕成一圈', 'Four rectangles AB·BC wind around it', 7, pulse=['r1', 'r2', 'r3', 'r4']),
+                 bt('中间空出的是 AC²（AC = AB − BC）', 'The hole in the middle is AC²', 7, pulse=['mid']),
+                 bt('4AB·BC + AC² = (AB + BC)²', '4AB·BC + AC² = (AB + BC)²', 6.5)]
+
+@prop(9, 'AD² + DB² = 2(AC² + CD²)', 'AD² + DB² = 2(AC² + CD²)')
+def _():
+    A, C, D, B = 0.06, 0.40, 0.54, 0.74; y = 0.18
+    els = line_pts(y, [A, C, D, B], 'ACDB') + [Seg('ab', 'A', 'B', color='gold')]
+    E = (C, y - (C - A)); F = (D, y - (D - A) + (D - C) * 0)  # 示意
+    els += rect('s1', A, y + 0.02, D - A, D - A, 'blue', at=1) + rect('s2', D, y + 0.02, B - D, B - D, 'blue', at=1)
+    els += rect('t1', 0.06, 0.70, C - A, (C - A) / 2, 'red', at=2) + rect('t2', 0.06 + (C - A) + 0.02, 0.70, C - A, (C - A) / 2, 'red', at=2)
+    els += rect('u1', 0.78, 0.70, D - C, D - C, 'gold', at=2) + rect('u2', 0.78, 0.70 + (D - C) + 0.02, D - C, D - C, 'gold', at=2)
+    return els, [bt('AB 在 C 平分，在 D 不等分', 'AB bisected at C and cut unequally at D', 6.5),
+                 bt('两段上的正方形：AD² + DB²', 'The squares on AD and DB', 6),
+                 bt('等于两个 AC² 加两个 CD²（面积示意）', 'equal twice AC² and twice CD² (areas shown)', 7.5),
+                 bt('欧几里得借等腰直角三角形证明', 'Proved with isosceles right triangles', 7)]
+
+@prop(10, '延长线上的同一关系', 'The same, with the line produced')
+def _():
+    A, C, B, D = 0.06, 0.28, 0.50, 0.66; y = 0.14
+    els = line_pts(y, [A, C, B, D], 'ACBD') + [Seg('ad', 'A', 'D', color='gold')]
+    els += rect('s1', A, y + 0.02, D - A, D - A, 'blue', at=1) + rect('s2', 0.72, y + 0.02, D - B, D - B, 'blue', at=1)
+    return els, [bt('AB 在 C 平分，延长到 D', 'AB bisected at C and produced to D', 6.5),
+                 bt('AD² + DB²', 'The squares on AD and DB', 6),
+                 bt('= 2(AC² + CD²)', 'equal twice the squares on AC and CD', 6.5)]
+
+@prop(11, '黄金分割', 'The golden section')
+def _():
+    A, B = (0.30, 0.66), (0.66, 0.66); s_ = B[0] - A[0]
+    C, D = (A[0], A[1] + s_), (B[0], B[1] + s_)
+    C = (A[0], A[1] - s_); D = (B[0], B[1] - s_)
+    E = mid(A, C); EB = math.dist(E, B); F = (A[0], E[1] + EB)
+    af = F[1] - A[1]; H = (A[0] + af, A[1]); G = (A[0] + af, F[1])
+    co = {'A': A, 'B': B, 'C': C, 'D': D, 'E': E, 'F': F, 'G': G, 'H': H}
+    els = pts('AB', co) + [Seg('ab', 'A', 'B', color='gold', width=2.6)]
+    els += pts('CD', co, at=1) + [Poly('sq', ['A', 'B', 'D', 'C'], color='silver', at=1)]
+    els += pts('E', co, at=2) + [Seg('eb', 'E', 'B', at=2), Circ('k', 'E', 'B', dash=True, at=2), Pt('F', *F, L('F'), at=2), Seg('af', 'A', 'F', at=2)]
+    els += pts('GH', co, at=3) + [Poly('sq2', ['A', 'F', 'G', 'H'], color='gold', at=3)]
+    return els, [bt('要把 AB 分成两段，使 AB·HB = AH²', 'Cut AB at H so that AB·BH = AH²', 6.5),
+                 bt('在 AB 上作正方形 ABDC', 'Describe the square ABDC', 5.5),
+                 bt('平分 AC 于 E，以 EB 为半径截得 F', 'Bisect AC at E; make EF = EB', 7),
+                 bt('作正方形 AFGH：H 就是分点', 'The square AFGH gives the point H', 7, pulse=['sq2'])]
+
+@prop(12, '钝角三角形：对边平方较大', 'Obtuse triangle: the square on the opposite side')
+def _():
+    C, A, B = (0.10, 0.80), (0.52, 0.80), (0.80, 0.30)
+    D = (B[0], A[1])
+    co = {'A': A, 'B': B, 'C': C, 'D': D}
+    els = pts('ABC', co) + [Poly('t', ['A', 'B', 'C'], color='silver')] + wedge('wa', A, B, C, color='red')
+    els += pts('D', co, at=1) + [Seg('ad', 'A', 'D', dash=True, at=1), Seg('bd', 'B', 'D', dash=True, at=1)] + right_mark('rm', D, A, B, at=1)
+    els += [Seg('cad', 'C', 'D', color='gold', at=2), Seg('bc', 'B', 'C', color='blue', width=2.6, at=3)]
+    return els, [bt('角 BAC 是钝角', 'The angle BAC is obtuse', 5.5),
+                 bt('延长 CA，作垂线 BD', 'Produce CA and draw BD perpendicular', 6.5),
+                 bt('用命题 4 与命题 47 展开 CD²', 'Expand by Props. II.4 and I.47', 6.5),
+                 bt('BC² = BA² + AC² + 2·CA·AD', 'BC² = BA² + AC² + 2·CA·AD', 7.5, pulse=['bc'])]
+
+@prop(13, '锐角三角形：对边平方较小', 'Acute angle: the square on the opposite side')
+def _():
+    B, C, A = (0.10, 0.80), (0.90, 0.80), (0.36, 0.26)
+    D = (A[0], B[1])
+    co = {'A': A, 'B': B, 'C': C, 'D': D}
+    els = pts('ABC', co) + [Poly('t', ['A', 'B', 'C'], color='silver')] + wedge('wb', B, A, C, color='blue')
+    els += pts('D', co, at=1) + [Seg('ad', 'A', 'D', dash=True, at=1)] + right_mark('rm', D, C, A, at=1)
+    els += [Seg('ac', 'A', 'C', color='red', width=2.6, at=3)]
+    return els, [bt('角 B 是锐角', 'The angle at B is acute', 5.5),
+                 bt('作 AD 垂直于 BC', 'Draw AD perpendicular to BC', 6),
+                 bt('用命题 7 与命题 I.47 展开', 'Expand by Props. II.7 and I.47', 6.5),
+                 bt('AC² = CB² + BA² − 2·CB·BD', 'AC² = CB² + BA² − 2·CB·BD', 7.5, pulse=['ac'])]
+
+@prop(14, '作正方形等于已知直线形', 'A square equal to a rectilineal figure')
+def _():
+    B, E = (0.06, 0.62), (0.42, 0.62); h = 0.20
+    C, D = (B[0], B[1] - h), (E[0], E[1] - h)
+    F = (E[0] + h, E[1]); G = mid(B, F); r = math.dist(G, F)
+    Hy = E[1] - math.sqrt(r*r - (E[0] - G[0])**2); H = (E[0], Hy); eh = E[1] - Hy
+    co = {'B': B, 'C': C, 'D': D, 'E': E, 'F': F, 'G': G, 'H': H}
+    els = pts('BCDE', co) + [Poly('R', ['B', 'E', 'D', 'C'], color='blue')]
+    els += pts('FG', co, at=1) + [Seg('ef', 'E', 'F', color='gold', at=1), Circ('k', 'G', 'F', dash=True, at=1)]
+    els += pts('H', co, at=2) + [Seg('eh', 'E', 'H', color='red', width=2.6, at=2)]
+    els += rect('sq', E[0], Hy, eh, eh, 'red', at=3)
+    return els, [bt('先作矩形 BCDE 等于已知图形（命题 I.45）', 'First a rectangle BCDE equal to the figure', 7),
+                 bt('延长 BE 到 F，EF = ED；以 BF 为径作圆', 'Make EF = ED; a circle on BF', 7),
+                 bt('延长 DE 交圆于 H', 'Produce DE to meet the circle at H', 6),
+                 bt('EH² = BE·EF：正方形与矩形等积', 'EH² = BE·EF: the square equals the figure', 7.5, pulse=['sq', 'R'])]
+
 # ————————————————————————————————
 def emit(text_id, lang):
     global LANG
@@ -707,13 +894,13 @@ def emit(text_id, lang):
                 if pred(s['title'], j, p): return k
                 k += 1
         raise SystemExit(f'找不到段落 {text_id}')
-    for n, zh, en, build in sorted(PROPS):
+    for bk, n, zh, en, build in sorted(PROPS, key=lambda x: (x[0], x[1])):
         if lang == 'en':
-            i = index_of(lambda t, j, p: t.startswith(f'Book I · Prop. {roman(n)} (') and j == 0)
-            title, cap = f'I.{n} · {en}', f'Euclid, Elements I.{n}'
+            i = index_of(lambda t, j, p: t.startswith(f'Book {roman(bk)} · Prop. {roman(n)} (') and j == 0)
+            title, cap = f'{roman(bk)}.{n} · {en}', f'Euclid, Elements {roman(bk)}.{n}'
         else:
-            i = index_of(lambda t, j, p: t == '卷一 · 题' and p.startswith(f'第{cn(n)}題'))
-            title, cap = f'命题 {n} · {zh}', f'卷一 · 第{cn(n)}题'
+            i = index_of(lambda t, j, p: t == f'卷{cn(bk)} · 题' and p.startswith(f'第{cn(n)}題'))
+            title, cap = (f'命题 {n} · {zh}' if bk == 1 else f'卷{cn(bk)} · 命题 {n} · {zh}'), f'卷{cn(bk)} · 第{cn(n)}题'
         els, beats = build()
         for e in els:
             for k in ('x', 'y'):

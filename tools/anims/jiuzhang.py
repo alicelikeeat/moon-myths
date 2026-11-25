@@ -43,11 +43,83 @@ els = [Hid('O', 0.5, 0.52), Hid('T', 0.5, 0.14), Circ('c', 'O', 'T', color='silv
 for i, n in enumerate(ns):
     els.append(Ngon(f'g{n}', 0.5, 0.52, 0.38, n, color='gold' if i < 3 else 'violet', at=i))
     els.append(T(f'v{n}', 0.5, 0.04, f'正{n}边形：周长 ÷ 直径 ≈ {n * math.sin(math.pi / n):.4f}', color='gold', size=12, at=i))
-beats = [beat('圆内接正六边形：周长恰为直径的三倍（“周三径一”）', 7)]
+beats = [beat('内接正六边形：周长为直径三倍（周三径一）', 7)]
 beats.append(beat('割之：边数加倍成十二边，更贴近圆', 6.5, hide=['g6', 'v6']))
 beats.append(beat('割之弥细，所失弥少', 6, hide=['g12', 'v12']))
 beats.append(beat('割之又割，以至于不可割，则与圆周合体', 8, hide=['g24', 'v24'], pulse=['g96']))
 scene(find('術曰半周半徑相乘得積步'), '圆田术 · 割圆术', els, beats,
       caption='刘徽由九十六边形得 π ≈ 157/50 = 3.14', geo=True)
+
+# —— 方田术：广从相乘
+k = 0.05; X0, Y0 = 0.12, 0.10; W_, H_ = 15, 16
+co = {'r1': (X0, Y0), 'r2': (X0 + W_*k, Y0), 'r3': (X0 + W_*k, Y0 + H_*k), 'r4': (X0, Y0 + H_*k)}
+els = [Hid(n, round(x, 4), round(y, 4)) for n, (x, y) in co.items()] + [Poly('tian', ['r1', 'r2', 'r3', 'r4'], color='green')]
+els += [Seg('guang', 'r4', 'r3', color='gold', width=3, at=1), T('gl', X0 + W_*k/2, Y0 + H_*k + 0.05, '广十五步', color='gold', size=12, at=1)]
+els += [Seg('cong', 'r1', 'r4', color='blue', width=3, at=2), T('cl', 0.05, Y0 + H_*k/2, '从', color='blue', size=12, at=2)]
+for i in range(1, W_):
+    els += [Hid(f'v{i}a', round(X0 + i*k, 4), Y0, at=3), Hid(f'v{i}b', round(X0 + i*k, 4), round(Y0 + H_*k, 4), at=3), Seg(f'v{i}', f'v{i}a', f'v{i}b', color='silver', at=3, width=0.6)]
+for j in range(1, H_):
+    els += [Hid(f'h{j}a', X0, round(Y0 + j*k, 4), at=3), Hid(f'h{j}b', round(X0 + W_*k, 4), round(Y0 + j*k, 4), at=3), Seg(f'h{j}', f'h{j}a', f'h{j}b', color='silver', at=3, width=0.6)]
+scene(find('方田術曰'), '方田术 · 广从相乘', els, [
+    beat('今有田，广十五步，从十六步', 5.5),
+    beat('广：横向十五步', 5, pulse=['guang']),
+    beat('从：纵向十六步', 5, pulse=['cong']),
+    beat('广从步数相乘：15 × 16 = 240 积步', 7),
+    beat('以亩法二百四十步除之：恰为一亩', 6.5, pulse=['tian']),
+], caption='卷一 · 方田', geo=True)
+
+# —— 开方术：55225 步，开得 235 步
+k = 0.80 / 235; X0, Y0 = 0.10, 0.10
+Q = lambda a, b: (round(X0 + a*k, 4), round(Y0 + b*k, 4))
+def lshape(id, a, b, color, at, label):
+    pts_ = {f'{id}1': Q(a, 0), f'{id}2': Q(b, 0), f'{id}3': Q(b, b), f'{id}4': Q(0, b), f'{id}5': Q(0, a), f'{id}6': Q(a, a)}
+    return [Hid(n, *p, at=at) for n, p in pts_.items()] + [Poly(id, list(pts_), label, color=color, at=at, size=11)]
+els = [Hid('o', *Q(0, 0)), Hid('a', *Q(235, 0)), Hid('b', *Q(235, 235)), Hid('c', *Q(0, 235)), Poly('ji', ['o', 'a', 'b', 'c'], color='silver')]
+els += [Hid('s1', *Q(200, 0), at=1), Hid('s2', *Q(200, 200), at=1), Hid('s3', *Q(0, 200), at=1), Poly('sq', ['o', 's1', 's2', 's3'], '200² = 40000', color='gold', at=1)]
+els += lshape('g1', 200, 230, 'blue', 2, '') + [T('t1', 0.5, 0.97, '2×200×30 + 30² = 12900', color='blue', size=12, at=2)]
+els += lshape('g2', 230, 235, 'red', 3, '') + [T('t2', 0.5, 0.97, '2×230×5 + 5² = 2325', color='red', size=12, at=3)]
+scene(find('開方術曰'), '开方术 · 55225 开方得 235', els, [
+    beat('积五万五千二百二十五步，求方边', 6),
+    beat('议得二百：先减去 200 的方，余 15225', 7),
+    beat('复议得三十：减去一道曲尺，余 2325', 8, hide=[]),
+    beat('再议得五：最后一道曲尺恰好减尽', 7, hide=['t1']),
+    beat('方边 235 步：200 + 30 + 5', 6.5, pulse=['ji']),
+], caption='卷四 · 少广', geo=True)
+
+# —— 盈不足术：人出八盈三，人出七不足四
+H = lambda v: round(v / 56 * 0.40, 4)
+els = [N(f'p{i}', 0.16 + 0.113*i, 0.24, r=11, label='8', color='gold') for i in range(7)]
+els += [Bar('pay', 0.36, 0.82, H(56), '共出 56', w=0.16, color='gold'), Bar('price', 0.64, 0.82, H(53), '物价 ?', w=0.16, color='silver')]
+els += [T('diff', 0.5, 0.36, '盈三', color='green', size=15)]
+els += [T('rule', 0.5, 0.36, '人数 = (3 + 4) ÷ (8 − 7) = 7', color='gold', size=14, at=2),
+        T('rule2', 0.5, 0.44, '物价 = 7 × 8 − 3 = 53', color='gold', size=14, at=3)]
+set7 = {f'p{i}': {'label': '7', 'color': 'blue'} for i in range(7)}
+set7.update({'pay': {'h': H(49), 'label': '共出 49', 'color': 'blue'}, 'diff': {'label': '不足四', 'color': 'red'}})
+scene(find('今有共買物人出八'), '盈不足术 · 共买物', els, [
+    beat('共买一物：每人出八，多出三', 7),
+    beat('每人出七，又差四', 7, set=set7),
+    beat('每人多出一，前后相差 3 + 4 = 7：所以有七人', 8, hide=['diff']),
+    beat('物价：七人各出八，减去盈的三，得五十三', 7, set={'price': {'label': '物价 53', 'color': 'gold'}}, pulse=['price']),
+], caption='卷七 · 盈不足')
+
+# —— 方程术：三行算筹，“遍乘直除”
+cols = {'R': 0.78, 'M': 0.55, 'L': 0.32}
+rows = [0.30, 0.43, 0.56, 0.74]
+names = ['上禾', '中禾', '下禾', '实']
+init = {'R': [3, 2, 1, 39], 'M': [2, 3, 1, 34], 'L': [1, 2, 3, 26]}
+els = [T(f'n{j}', 0.12, y, nm, color='silver', size=13) for j, (nm, y) in enumerate(zip(names, rows))]
+els += [T('hR', cols['R'], 0.18, '右行', color='gold', size=13), T('hM', cols['M'], 0.18, '中行', color='blue', size=13), T('hL', cols['L'], 0.18, '左行', color='red', size=13)]
+for c, x in cols.items():
+    for j, y in enumerate(rows):
+        els.append(T(f'{c}{j}', x, y, str(init[c][j]), color='primary', size=17))
+def setcol(c, vals, color):
+    return {f'{c}{j}': {'label': str(v), 'color': color} for j, v in enumerate(vals)}
+scene(find('今有上禾三秉'), '方程术 · 遍乘直除', els, [
+    beat('三个条件布成三行，自右向左', 7),
+    beat('以右行上禾三遍乘中行：6、9、3、102', 7.5, set=setcol('M', [6, 9, 3, 102], 'blue')),
+    beat('中行两次直除右行：上禾消去，余 0、5、1、24', 8, set=setcol('M', [0, 5, 1, 24], 'blue')),
+    beat('左行同样遍乘、直除：0、4、8、39', 8, set=setcol('L', [0, 4, 8, 39], 'red')),
+    beat('再遍乘直除：下禾 = 99 ÷ 36 = 2¾ 斗', 9, set=setcol('L', [0, 0, 36, 99], 'red'), pulse=['L3', 'L2']),
+], caption='卷八 · 方程')
 
 save('jiuzhang-zh')

@@ -1559,6 +1559,66 @@
    }
   ]
  },
+ "principia": {
+  "images": [
+   {
+    "file": "Newton's Principia title page.png",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/Newton%27s_Principia_title_page.png/960px-Newton%27s_Principia_title_page.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "1687 年伦敦初版扉页",
+    "license": "Public domain"
+   },
+   {
+    "file": "Royal Society - Isaac Newton’s Philosophiae Naturalis Principia Mathematica manuscript.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/64/Royal_Society_-_Isaac_Newton%E2%80%99s_Philosophiae_Naturalis_Principia_Mathematica_manuscript.jpg/960px-Royal_Society_-_Isaac_Newton%E2%80%99s_Philosophiae_Naturalis_Principia_Mathematica_manuscript.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "英国皇家学会藏《原理》付印手稿",
+    "license": "Public domain"
+   },
+   {
+    "file": "Newton's Annotated copy of his Principia Mathematica.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a2/Newton%27s_Annotated_copy_of_his_Principia_Mathematica.jpg/960px-Newton%27s_Annotated_copy_of_his_Principia_Mathematica.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "牛顿亲笔批注的初版",
+    "license": "CC BY-SA 4.0"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "philosophiaenatu00newt_0",
+    "caption": "1687 年伦敦初版",
+    "title": "Philosophiae naturalis principia mathematica",
+    "publisher": "Londini : Jussu Societatis Regiae ac typis Josephi Streater. Prostat apud plures",
+    "pdf": "philosophiaenatu00newt_0.pdf",
+    "img": "https://archive.org/download/philosophiaenatu00newt_0/page/title_w400.jpg",
+    "kind": "扉页"
+   },
+   {
+    "ia": "principiamathem00newtgoog",
+    "caption": "1713 年剑桥第二版",
+    "title": "Philosophiae naturalis principia mathematica",
+    "publisher": "Cantabrigiae",
+    "pdf": "principiamathem00newtgoog.pdf",
+    "img": "https://archive.org/download/principiamathem00newtgoog/page/title_w400.jpg",
+    "kind": "扉页"
+   },
+   {
+    "ia": "A297190",
+    "caption": "1726 年伦敦第三版",
+    "title": "Philosophiae naturalis principia mathematica",
+    "publisher": "Londini : Apud Guil. & Joh. Innys...",
+    "pdf": "A297190.pdf",
+    "img": "https://archive.org/download/A297190/page/title_w400.jpg",
+    "kind": "扉页"
+   },
+   {
+    "ia": "bub_gb_Tm0FAAAAQAAJ",
+    "caption": "1729 年 Motte 首部英译本，伦敦",
+    "title": "The mathematical principles of natural philosophy",
+    "publisher": "London, Printed for B. Motte",
+    "pdf": "bub_gb_Tm0FAAAAQAAJ.pdf",
+    "img": "https://archive.org/download/bub_gb_Tm0FAAAAQAAJ/page/title_w400.jpg",
+    "kind": "扉页"
+   }
+  ]
+ },
  "zarathustra": {
   "images": [],
   "scans": [
