@@ -61,6 +61,10 @@ jobs:
             for s in 3 6 10 16 30 40; do sleep 2; xcrun simctl io "$UDID" screenshot "shots/formula-$s.png"; done
             exit_early=1
           fi
+          if [ "${{ inputs.only }}" = "editions" ]; then
+            for b in kant-cpr lunyu discourse tractatus; do run_shot "ed-$b" -openBook $b -appearance light; sleep 6; xcrun simctl io "$UDID" screenshot "shots/ed-$b-late.png"; done
+            exit_early=1
+          fi
           if [ -z "$exit_early" ]; then
           for page in 0 1 2 3 4 5 6 7 8; do for b in 1 2; do
             run_shot "ddj-p$page-b$b" -animGrid daodejing-zh -animPage $page -animBeat $b -appearance light
