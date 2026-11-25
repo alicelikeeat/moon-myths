@@ -1,4 +1,4 @@
-import Foundation
+import SwiftUI
 
 // MARK: - 普通动画：在手机上按原文即时生成（与 tools/anim.py 的 basic_scene 同一套规则）
 //
