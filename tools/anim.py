@@ -106,3 +106,79 @@ def save(text_id):
     json.dump({"id": text_id, "scenes": _scenes}, open(out, "w", encoding="utf-8"),
               ensure_ascii=False, separators=(",", ":"))
     print(f"{text_id}: {len(_scenes)} 个段落动画，覆盖 {len(used)}/{len(paras)} 段")
+
+
+# MARK: 常用模板 ---------------------------------------------------------------
+
+def pairs(n, title, items, h0, h1, h2, cap):
+    """成对的概念：先出现左边，再出现右边，最后互相转化"""
+    els = []
+    k = len(items)
+    for i, (a, b) in enumerate(items):
+        y = 0.2 + 0.62 * (i + 0.5) / k
+        els += [N(f"a{i}", 0.3, y, "", "silver", 11), T(f"ta{i}", 0.16, y, a, size=13),
+                N(f"b{i}", 0.7, y, "", "violet", 11, at=1), T(f"tb{i}", 0.84, y, b, size=13, at=1),
+                A(f"x{i}", f"a{i}", f"b{i}", "", "gold", at=2), A(f"y{i}", f"b{i}", f"a{i}", "", "dim", at=2)]
+    scene(n, title, els, [beat(h0), beat(h1), beat(h2, 7.5)], cap)
+
+def chain(n, title, items, heads, cap, colors=None, vertical=False):
+    """依次出现、用箭头连起来的链条"""
+    els = []
+    k = len(items)
+    nb = len(heads)
+    for i, it in enumerate(items):
+        at = min(nb - 1, i * nb // k)
+        x, y = (0.5, 0.18 + 0.66 * i / max(1, k - 1)) if vertical else (0.1 + 0.8 * i / max(1, k - 1), 0.5)
+        c = (colors or {}).get(i, "gold" if i == k - 1 else "silver")
+        els.append(N(f"n{i}", x, y, it, c, 13, at=at))
+        if i:
+            els.append(A(f"e{i}", f"n{i-1}", f"n{i}", "", "gold", at=at))
+    scene(n, title, els, [beat(h) for h in heads], cap)
+
+def versus(n, title, left, right, h0, h1, h2, cap, win="left"):
+    """两种人 / 两种做法对照，最后一方胜出。left/right = [标题, 说明…]"""
+    els = [B("L", 0.27, 0.32, left[0], 0.4, 0.11, "gold" if win == "left" else "silver"),
+           B("Rt", 0.73, 0.32, right[0], 0.4, 0.11, "silver" if win == "left" else "gold", at=1)]
+    for i, s in enumerate(left[1:]):
+        els.append(T(f"l{i}", 0.27, 0.5 + 0.1 * i, s, size=12))
+    for i, s in enumerate(right[1:]):
+        els.append(T(f"r{i}", 0.73, 0.5 + 0.1 * i, s, size=12, at=1))
+    w = "L" if win == "left" else "Rt"
+    lose = "Rt" if win == "left" else "L"
+    final = {} if win == "both" else {lose: {"opacity": 0.35}, w: {"h": 0.14}}
+    scene(n, title, els, [beat(h0), beat(h1), beat(h2, 7.5, set=final, pulse=[] if win == "both" else [w])], cap)
+
+def junzi(n, title, jz, xr, h0, h1, h2, cap):
+    """君子 / 小人 对照"""
+    versus(n, title, ["君子"] + jz, ["小人"] + xr, h0, h1, h2, cap)
+
+def hub(n, title, items, center, heads, cap, center_color="gold"):
+    """若干要素依次出现，汇向中心"""
+    import math
+    els = [N("c", 0.5, 0.52, center, center_color, 18, at=len(heads) - 1)]
+    k = len(items)
+    nb = len(heads)
+    for i, it in enumerate(items):
+        ang = -math.pi / 2 + 2 * math.pi * i / k
+        at = min(nb - 2, i * (nb - 1) // k) if nb > 1 else 0
+        els.append(N(f"i{i}", 0.5 + 0.33 * math.cos(ang), 0.52 + 0.27 * math.sin(ang), it, "silver", 12, at=at))
+        els.append(A(f"a{i}", f"i{i}", "c", "", "gold", at=nb - 1))
+    scene(n, title, els, [beat(h) for h in heads[:-1]] + [beat(heads[-1], 7.5, pulse=["c"])], cap)
+
+def ladder(n, title, levels, heads, cap):
+    """由低到高的台阶（levels 从低到高）"""
+    els = []
+    k = len(levels)
+    nb = len(heads)
+    for i, lv in enumerate(levels):
+        at = min(nb - 1, i * nb // k)
+        h = 0.12 + 0.55 * (i + 1) / k
+        els.append(Bar(f"b{i}", 0.12 + 0.76 * (i + 0.5) / k, 0.8, h, lv, 0.7 / k, "gold" if i == k - 1 else "silver", at=at))
+    scene(n, title, els, [beat(h) for h in heads[:-1]] + [beat(heads[-1], 7.5, pulse=[f"b{k-1}"])], cap)
+
+def balance(n, title, a, b, h0, h1, h2, cap, mid="中"):
+    """两端失衡，最后回到中间（过犹不及、文质彬彬）"""
+    els = [B("beam", 0.5, 0.5, "", 0.8, 0.02, "dim"),
+           N("l", 0.15, 0.5, a, "silver", 14), N("r", 0.85, 0.5, b, "violet", 14),
+           N("p", 0.15, 0.4, "", "gold", 10, at=1), T("m", 0.5, 0.72, mid, "gold", 15, at=2)]
+    scene(n, title, els, [beat(h0), beat(h1, set={"p": {"x": 0.85}}), beat(h2, 7.5, set={"p": {"x": 0.5, "r": 16}})], cap)

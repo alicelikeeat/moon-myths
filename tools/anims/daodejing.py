@@ -4,43 +4,6 @@ from anim import *
 
 # 《道德经》八十一章：每章一段动画。段落序号 n = 第 n 章。
 
-def pairs(n, title, items, h0, h1, h2, cap):
-    """成对的概念：先出现左边，再出现右边，最后互相转化"""
-    els, s1, s2 = [], {}, {}
-    k = len(items)
-    for i, (a, b) in enumerate(items):
-        y = 0.2 + 0.62 * (i + 0.5) / k
-        els += [N(f"a{i}", 0.3, y, "", "silver", 11), T(f"ta{i}", 0.18, y, a, size=13),
-                N(f"b{i}", 0.7, y, "", "violet", 11, at=1), T(f"tb{i}", 0.82, y, b, size=13, at=1),
-                A(f"x{i}", f"a{i}", f"b{i}", "", "gold", at=2), A(f"y{i}", f"b{i}", f"a{i}", "", "dim", at=2)]
-    scene(n, title, els, [beat(h0), beat(h1), beat(h2, 7.5)], cap)
-
-def chain(n, title, items, heads, cap, colors=None, vertical=False):
-    """依次出现、用箭头连起来的链条；每拍出现一段"""
-    els = []
-    k = len(items)
-    nb = len(heads)
-    for i, it in enumerate(items):
-        at = min(nb - 1, i * nb // k)
-        x, y = (0.5, 0.18 + 0.66 * i / max(1, k - 1)) if vertical else (0.1 + 0.8 * i / max(1, k - 1), 0.5)
-        c = (colors or {}).get(i, "gold" if i == k - 1 else "silver")
-        els.append(N(f"n{i}", x, y, it, c, 13, at=at))
-        if i:
-            els.append(A(f"e{i}", f"n{i-1}", f"n{i}", "", "gold", at=at))
-    scene(n, title, els, [beat(h) for h in heads], cap)
-
-def versus(n, title, left, right, h0, h1, h2, cap, win="left"):
-    """两种做法对照，最后一方胜出"""
-    els = [B("L", 0.27, 0.32, left[0], 0.38, 0.11, "gold" if win == "left" else "silver"),
-           B("Rt", 0.73, 0.32, right[0], 0.38, 0.11, "silver" if win == "left" else "gold", at=1)]
-    for i, s in enumerate(left[1:]):
-        els.append(T(f"l{i}", 0.27, 0.48 + 0.09 * i, s, size=12))
-    for i, s in enumerate(right[1:]):
-        els.append(T(f"r{i}", 0.73, 0.48 + 0.09 * i, s, size=12, at=1))
-    w = "L" if win == "left" else "Rt"
-    lose = "Rt" if win == "left" else "L"
-    scene(n, title, els, [beat(h0), beat(h1), beat(h2, 7.5, set={lose: {"opacity": 0.3}, w: {"h": 0.15}}, pulse=[w])], cap)
-
 # 1
 scene(1, "道可道，非常道", [
     B("said", 0.5, 0.36, "说得出来的“道”", 0.5, 0.11, "silver"),
