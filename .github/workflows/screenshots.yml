@@ -48,12 +48,12 @@ jobs:
           run_shot() { name=$1; shift
             xcrun simctl terminate "$UDID" com.alicelikeeat.pure || true
             xcrun simctl launch "$UDID" com.alicelikeeat.pure "$@"
-            sleep 9
+            sleep 7
             xcrun simctl io "$UDID" screenshot "shots/$name.png"; }
-          for spec in daodejing:0 daodejing:1 daodejing:2 lunyu:0 lunyu:1 mozi:0 mozi:1 xunzi:0 xunzi:1 chunqiufanlu:0 tanjing:0 tanjing:1 chuanxilu:0 chuanxilu:1 zhuangzi:0 zhuangzi:1; do
-            b=${spec%%:*}; n=${spec##*:}
-            run_shot "$b-$n" -book "$b" -startChapter "$n" -appearance light
-          done
+          for page in 0 1 2 3 4 5 6 7 8; do for b in 0 1 2; do
+            run_shot "ddj-p$page-b$b" -animGrid daodejing-zh -animPage $page -animBeat $b -appearance light
+          done; done
+          run_shot reader-ddj -openReader daodejing -readerQuery 上善若水 -autoDownload -readerLang original -appearance light
           run_shot home-light -appearance light
           mkdir -p shots/crash
           cp ~/Library/Logs/DiagnosticReports/Pure* shots/crash/ 2>/dev/null || true

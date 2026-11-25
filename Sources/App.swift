@@ -33,6 +33,16 @@ struct PureApp: App {
         return (b, q)
     }()
 
+    private let animGrid: (String, Int, Int)? = {
+        let args = ProcessInfo.processInfo.arguments
+        func value(_ key: String) -> String? {
+            guard let i = args.firstIndex(of: key), i + 1 < args.count else { return nil }
+            return args[i + 1]
+        }
+        guard let id = value("-animGrid") else { return nil }
+        return (id, Int(value("-animPage") ?? "0") ?? 0, Int(value("-animBeat") ?? "0") ?? 0)
+    }()
+
     init() {
         // 截图用：`-openPassages` 直接显示原文页
         if ProcessInfo.processInfo.arguments.contains("-openPassages") {
@@ -53,7 +63,9 @@ struct PureApp: App {
     var body: some Scene {
         WindowGroup {
             Group {
-                if ProcessInfo.processInfo.arguments.contains("-openTimeline") {
+                if let g = animGrid {
+                    AnimGridView(textId: g.0, page: g.1, beat: g.2)
+                } else if ProcessInfo.processInfo.arguments.contains("-openTimeline") {
                     NavigationStack { HistoryTimelineView() }
                 } else if let b = bookLaunch {
                     NavigationStack { BookView(book: b) }

@@ -286,6 +286,10 @@ private struct ReaderContent: View {
     @State private var highlight: Int?
     @State private var sheet: Sheet?
     @State private var pendingJump: Int?
+    @State private var anims: [Int: AnimScene] = [:]
+    @State private var playing: AnimPlay?
+
+    struct AnimPlay: Identifiable { let scene: AnimScene; let text: String; var id: String { scene.anchor } }
 
     enum Sheet: String, Identifiable { case toc, search, bookmarks; var id: String { rawValue } }
 
@@ -356,6 +360,11 @@ private struct ReaderContent: View {
                 } else if let last = ReaderPrefs.lastPosition(doc.id), last > 0 {
                     proxy.scrollTo(last, anchor: .top)
                 }
+                if let ad = await AnimStore.shared.load(doc.id) {
+                    var m: [Int: AnimScene] = [:]
+                    for s in ad.scenes { if let i = firstMatch(s.anchor), m[i] == nil { m[i] = s } }
+                    anims = m
+                }
             }
         }
         .toolbar {
@@ -373,6 +382,9 @@ private struct ReaderContent: View {
         }
         .translationTask(zh.config) { session in await zh.run(session) }
         .translationTask(en.config) { session in await en.run(session) }
+        .sheet(item: $playing) { a in
+            ParagraphAnimSheet(scene: a.scene, text: a.text)
+        }
         .sheet(item: $sheet) { s in
             switch s {
             case .toc: TOCSheet(doc: doc, starts: sectionStart) { jump($0) }
@@ -408,6 +420,17 @@ private struct ReaderContent: View {
                         .fixedSize(horizontal: false, vertical: true)
                         .textSelection(.enabled)
                     }
+                }
+                if let s = anims[p.id] {
+                    Button {
+                        playing = AnimPlay(scene: s, text: p.text)
+                    } label: {
+                        Label(s.title, systemImage: "play.circle.fill")
+                            .font(.caption.weight(.semibold))
+                            .lineLimit(1)
+                    }
+                    .buttonStyle(.glass)
+                    .tint(Moon.gold)
                 }
             }
             .onAppear { for lang in targets { translator(lang).request(p.id, p.text) } }
