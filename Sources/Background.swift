@@ -244,6 +244,14 @@ let appIconChoices: [AppIconChoice] = [
     .init(id: "IconStars", preview: "PreviewStars", title: "星空", line: "头上的星空，心中的道德律 —— 康德"),
     .init(id: "IconLadder", preview: "PreviewLadder", title: "梯子", line: "登上之后，把梯子扔掉 —— 维特根斯坦"),
     .init(id: "IconEnso", preview: "PreviewEnso", title: "圆相", line: "一笔成圆，留一缺口 —— 禅"),
+    .init(id: "IconOwl", preview: "PreviewOwl", title: "猫头鹰", line: "密涅瓦的猫头鹰，在黄昏时才起飞 —— 黑格尔"),
+    .init(id: "IconButterfly", preview: "PreviewButterfly", title: "梦蝶", line: "不知周之梦为胡蝶与，胡蝶之梦为周与 ——《庄子》"),
+    .init(id: "IconCogito", preview: "PreviewCogito", title: "我思", line: "怀疑一切之后，剩下唯一确定的一点 —— 笛卡尔"),
+    .init(id: "IconSisyphus", preview: "PreviewSisyphus", title: "西西弗斯", line: "应当设想西西弗斯是幸福的 —— 加缪"),
+    .init(id: "IconRiver", preview: "PreviewRiver", title: "河流", line: "人不能两次踏入同一条河 —— 赫拉克利特"),
+    .init(id: "IconDelphi", preview: "PreviewDelphi", title: "德尔斐", line: "认识你自己 —— 德尔斐神庙箴言，苏格拉底"),
+    .init(id: "IconArrow", preview: "PreviewArrow", title: "飞矢", line: "飞矢在每一瞬间都静止不动 —— 芝诺"),
+    .init(id: "IconApricot", preview: "PreviewApricot", title: "杏坛", line: "孔子游乎缁帷之林，休坐乎杏坛之上 ——《庄子》"),
 ]
 
 struct AppIconPicker: View {
