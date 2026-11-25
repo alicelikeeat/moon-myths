@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: python3 tools/editions/fetch.py euclid jiuzhang
+      - run: python3 tools/editions/check.py firstsixbooksel00byrn elementsgeometr00eucl firstsixbooksel00casegoog 06057513.cn 06057481.cn 02094024.cn
       - run: |
           git config user.name "editions-bot"; git config user.email "bot@users.noreply.github.com"
-          git checkout --orphan editions-data && git rm -rfq . && git add candidates.json && git commit -qm "candidates" && git push -f origin editions-data
+          git checkout --orphan editions-data && git rm -rfq . && git add check.json && git commit -qm "candidates" && git push -f origin editions-data

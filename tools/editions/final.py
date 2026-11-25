@@ -57,6 +57,8 @@ S={ # book: (commons [(文件名, 说明)], IA [(id, 说明)])
 "pragmatism":([],[("pragmatismnewnam00jame","1907 年初版，纽约：朗文")]),
 "groundwork":([],[("grundlegungzurm00vorlgoog","1785 年初版，里加：哈特克诺赫"),("grundlegungzurm01kantgoog","1786 年第二版")]),
 "bge":([],[("bub_gb_YIURAAAAYAAJ","1886 年初版，莱比锡：瑙曼"),("beyondgoodevilpr1909niet","1909 年齐默恩（Zimmern）英译本，爱丁堡")]),
+"euclid":([("P. Oxy. I 29.jpg","俄克喜林库斯纸草 29 号：现存最早的《几何原本》残片（约公元 100 年）"),("Euclid's Elements, 1482.jpg","1482 年威尼斯初印本，拉特多尔特印行"),("Byrne 1847 Pythagoras Querformat.jpg","1847 年 Byrne 彩色版：卷一命题 47（勾股定理）")],[("firstsixbooksel00byrn","1847 年 Byrne 彩色版，伦敦：皮克林"),("elementsgeometr00eucl","1570 年 Billingsley 首部英译本，伦敦"),("firstsixbooksel00casegoog","1885 年 Casey 版（本应用英文全文所据），伦敦：朗文"),("06057513.cn","利玛窦、徐光启译《几何原本》卷一")]),
+"jiuzhang":([("九章算術細草圖說.jpg","李潢《九章算术细草图说》书页")],[("06057481.cn","《九章算术》卷一至卷三"),("02094024.cn","李潢《九章算术细草图说》（一）")]),
 "zarathustra":([],[("alsosprachzarat00nietgoog","1895 年版，莱比锡：瑙曼"),("alsosprachzarath00niet_0","1908 年岛屿出版社版")]),
 }
 out={}
