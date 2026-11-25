@@ -432,13 +432,28 @@ private struct ReaderContent: View {
                         }
                         .buttonStyle(.glassProminent)
                         .tint(Moon.gold.opacity(0.85))
+                    } else if s.isPlus {
+                        Button {
+                            playing = AnimPlay(scene: s, text: p.text)
+                        } label: {
+                            HStack(spacing: 6) {
+                                Label("进阶 · \(s.caption ?? "动画")", systemImage: "diamond.fill")
+                                if let sc = s.score { Text("\(sc)分").monospacedDigit().opacity(0.6) }
+                            }
+                            .font(.caption.weight(.medium))
+                            .foregroundStyle(Moon.gold)
+                        }
+                        .buttonStyle(.glass)
                     } else {
                         Button {
                             playing = AnimPlay(scene: s, text: p.text)
                         } label: {
-                            Label("动画", systemImage: "play.circle")
-                                .font(.caption2)
-                                .foregroundStyle(Color.primary.opacity(0.6))
+                            HStack(spacing: 6) {
+                                Label("动画", systemImage: "play.circle")
+                                if let sc = s.score { Text("\(sc)分").monospacedDigit() }
+                            }
+                            .font(.caption2)
+                            .foregroundStyle(Color.primary.opacity(0.6))
                         }
                         .buttonStyle(.glass)
                     }

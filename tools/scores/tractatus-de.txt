@@ -1,0 +1,40 @@
+100 plus  6.33  Wir glau
+ 99 plus  1.11  Die Welt
+ 99 plus  4.41  Die Wahr
+ 98 basic 4.4  Der Satz 
+ 98 plus  5.01  Die Elem
+ 97 basic 3.2  Im Satze 
+ 97 plus  5.234  Die Wah
+ 97 basic 6.31  Das soge
+ 97 plus  6.373  Die Wel
+ 96 basic 5.15  Ist W_r 
+ 96 basic 5.41  Denn: Al
+ 96 plus  5.533  Das Gle
+ 96 basic 5.54  In der a
+ 96 basic 6.22  Die Logi
+ 95 basic 4.45  Für n El
+ 95 basic 5.11  Sind die
+ 95 basic 5.12  Insbeson
+ 95 basic 5.13  Dass die
+ 94 basic 3.12  Das Zeic
+ 94 basic 3.13  Zum Satz
+ 94 basic 3.14  Das Satz
+ 94 basic 3.31  Jeden Te
+ 94 basic 3.34  Der Satz
+ 94 basic 4.23  Der Name
+ 93 plus  2.141  Das Bil
+ 93 basic 2.16  Die Tats
+ 93 basic 3.04  Ein a pr
+ 93 plus  6.234  Die Mat
+ 93 basic 6.3  Die Erfor
+ 92 basic 1.21  Eines ka
+ 92 plus  2.033  Die For
+ 92 plus  4.001  Die Ges
+ 92 basic 5.32  Alle Wah
+ 92 basic 6.432  Wie die
+ 91 basic 5.472  Die Bes
+ 91 basic 5.634  Das hän
+ 91 basic 6.022  Der Zah
+ 91 basic 6.423  Vom Wil
+ 91 plus  6.431  Wie auc
+ 90 basic 4.027  Es lieg

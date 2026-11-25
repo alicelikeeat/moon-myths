@@ -18,9 +18,12 @@ struct AnimScene: Codable, Identifiable, Hashable {
     let caption: String?
     let elements: [AnimElement]
     let beats: [AnimBeat]
-    var tier: String? = nil       // "core" 精讲（加特效）；"basic" 普通（按原文自动生成）
+    var tier: String? = nil       // "core" 精讲；"plus" 进阶（按句式自动成图）；"basic" 普通
+    var score: Int? = nil         // 段落评分 0–100（书内百分位）
 
-    var isCore: Bool { tier != "basic" }
+    var isCore: Bool { tier == nil || tier == "core" }
+    var isPlus: Bool { tier == "plus" }
+    var hasEffects: Bool { tier != "basic" }
 
     static func == (a: AnimScene, b: AnimScene) -> Bool { a.anchor == b.anchor }
     func hash(into h: inout Hasher) { h.combine(anchor) }
@@ -191,7 +194,7 @@ final class SceneRuntime {
             guard let e = kinds[id], let s = mix(id), s.opacity > 0.02 else { continue }
             let col = animColor(s.color).opacity(s.opacity)
             let x = s.x * W, y = s.y * H
-            if scene.isCore && pulse.contains(id) && e.kind != "text" && e.kind != "arrow" {
+            if scene.hasEffects && pulse.contains(id) && e.kind != "text" && e.kind != "arrow" {
                 // 精讲：重点处扩散的光晕
                 for j in 0..<2 {
                     let f = fract(t * 0.45 + Double(j) * 0.5)
@@ -252,7 +255,7 @@ final class SceneRuntime {
         let x1 = x0 + ux * full * grow, y1 = y0 + uy * full * grow
         let col = animColor(s.color).opacity(0.85 * min(1, a.opacity, c.opacity))
         line(&ctx, x0, y0, x1, y1, col, 2, dash: (e.dash ?? false) ? [5, 4] : [])
-        if grow > 0.9 && (e.flow ?? scene.isCore) && full > 30 {
+        if grow > 0.9 && (e.flow ?? scene.hasEffects) && full > 30 {
             // 精讲：沿箭头流动的光点
             for j in 0..<3 {
                 let f = fract(t * 0.35 + Double(j) / 3)

@@ -104,12 +104,20 @@ def save(text_id, fill=True, skip=lambda i, p: False):
     for sc in _scenes:
         sc.setdefault("tier", "core")
     core = len(_scenes)
+    lang = doc.get("lang", "zh")
+    scores = score_book(paras, lang)
+    idx_of = {}
+    for i, a_ in used.items():
+        idx_of[a_] = i
+    for sc in _scenes:
+        sc["score"] = 100
     if fill:
-        lang = doc.get("lang", "zh")
         for i, p in enumerate(paras):
             if i in used or skip(i, p):
                 continue
-            b = basic_scene(p, lang)
+            b = (plus_scene(p, lang) if scores[i] >= 60 else None) or basic_scene(p, lang)
+            if b:
+                b["score"] = scores[i]
             if b:
                 L = 14
                 while True:
@@ -123,7 +131,13 @@ def save(text_id, fill=True, skip=lambda i, p: False):
     out = os.path.join(ROOT, "anims", f"{text_id}.json")
     json.dump({"id": text_id, "scenes": _scenes}, open(out, "w", encoding="utf-8"),
               ensure_ascii=False, separators=(",", ":"))
-    print(f"{text_id}: 精讲 {core} + 普通 {len(_scenes) - core}，覆盖 {len(used)}/{len(paras)} 段")
+    plus = sum(1 for x in _scenes if x.get("tier") == "plus")
+    rep = sorted((x for x in _scenes if x.get("tier") != "core"), key=lambda x: -x["score"])[:40]
+    os.makedirs(os.path.join(ROOT, "tools", "scores"), exist_ok=True)
+    with open(os.path.join(ROOT, "tools", "scores", f"{text_id}.txt"), "w", encoding="utf-8") as fh:
+        for x in rep:
+            fh.write(f"{x['score']:3d} {x['tier']:5s} {x['anchor'][:40]}\n")
+    print(f"{text_id}: 精讲 {core} + 进阶 {plus} + 普通 {len(_scenes) - core - plus}，覆盖 {len(used)}/{len(paras)} 段")
     check_layout(out)
 
 
@@ -413,3 +427,211 @@ def check_layout(path):
 
 def reset():
     _scenes.clear()
+
+
+# MARK: 进阶动画：在普通段落里按句式找出结构清楚的，自动画成图 ------------------
+
+_ANTONYMS = [("有", "無"), ("善", "惡"), ("生", "死"), ("上", "下"), ("大", "小"), ("多", "少"), ("美", "惡"),
+             ("得", "失"), ("治", "亂"), ("是", "非"), ("貴", "賤"), ("富", "貧"), ("強", "弱"), ("剛", "柔"),
+             ("進", "退"), ("先", "後"), ("利", "害"), ("禍", "福"), ("動", "靜"), ("義", "利"), ("君子", "小人"),
+             ("古", "今"), ("內", "外"), ("賢", "不肖"), ("明", "暗"), ("陰", "陽")]
+
+def _uw(x):
+    return sum(1.0 if ord(c) > 0x2E80 else 0.58 for c in x)
+
+def _clipw(x, units):
+    out, w = "", 0.0
+    for ch in x:
+        w += 1.0 if ord(ch) > 0x2E80 else 0.58
+        if w > units:
+            return out.rstrip() + "…"
+        out += ch
+    return out
+
+def _zh_clauses_raw(text):
+    t = text
+    for q in "「」『』“”":
+        t = t.replace(q, "")
+    m = _re.match(r"^([^，。：；！？、]{1,8}?)(曰|問曰|對曰)：", t)
+    speaker = None
+    if m:
+        speaker, t = m.group(1), t[m.end():]
+    return speaker, [c.strip() for c in _re.split(r"[，。；！？：]", t) if c.strip()]
+
+def _plus_zh(text):
+    speaker, cl = _zh_clauses_raw(text)
+    if not cl or len(text) > 140:
+        return None
+    title = _clipw(cl[0], 12)
+    sp = [N("sp", 0.5, 0.16, speaker, "gold", 10)] if speaker else []
+    # 1) 定义：X者，Y也
+    for i, c in enumerate(cl[:-1]):
+        if (c.endswith("者") and 1 <= len(c) - 1 <= 2 and c[0] not in "苟若如雖使凡今昔故"
+                and any(k in c for k in _KEYS_ZH + "人物事") and cl[i + 1].endswith("也") and 2 <= len(cl[i + 1]) <= 10):
+            x, y = c[:-1], cl[i + 1][:-1]
+            els = sp + [N("x", 0.25, 0.5, _clipw(x, 8), "gold", 16), B("y", 0.68, 0.5, _clipw(y, 12), 0.52, 0.13, "silver", at=1),
+                        A("a", "x", "y", "即", "gold", at=1)]
+            return {"title": title, "kind": "定义", "elements": els,
+                    "beats": [beat(_clipw(c, 18)), beat(_clipw(cl[i + 1], 18)), beat(_clipw(x + " ＝ " + y, 20), 7, pulse=["x"])]}
+    # 2) 条件链：A則B
+    links = []
+    for c in cl:
+        if "則" in c:
+            a, b = c.split("則", 1)
+            if 1 <= len(a) <= 8 and 1 <= len(b) <= 8:
+                links.append((a, b))
+    if len(links) >= 2:
+        chained = all(links[j][1] == links[j + 1][0] for j in range(len(links) - 1))
+        els = list(sp)
+        if chained:
+            items = [links[0][0]] + [b_ for _, b_ in links][:4]
+            k = len(items)
+            for i, it in enumerate(items):
+                at = 0 if i < 2 else (1 if i < 4 else 2)
+                els.append(N(f"n{i}", 0.3 if i % 2 == 0 else 0.7, 0.3 + 0.48 * i / max(1, k - 1), _clipw(it, 8), "gold" if i == k - 1 else "silver", 12, at=at))
+                if i:
+                    els.append(A(f"e{i}", f"n{i-1}", f"n{i}", "則", "gold", at=at))
+            return {"title": title, "kind": "条件链", "elements": els,
+                    "beats": [beat(_clipw(cl[0], 18)), beat("一环扣一环"), beat("推到最后", 7, pulse=[f"n{k-1}"])]}
+        rows = links[:4]
+        k = len(rows)
+        for j, (a_, b_) in enumerate(rows):
+            y = 0.3 + 0.5 * j / max(1, k - 1)
+            at = 0 if j < (k + 1) // 2 else 1
+            els += [B(f"c{j}", 0.27, y, _clipw(a_, 7), 0.4, 0.085, "silver", at=at),
+                    B(f"r{j}", 0.75, y, _clipw(b_, 7), 0.38, 0.085, "gold", at=at),
+                    A(f"e{j}", f"c{j}", f"r{j}", "", "gold", at=at)]
+        return {"title": title, "kind": "条件", "elements": els,
+                "beats": [beat("如果……就……"), beat("对照各种条件"), beat("条件不同，结果不同", 7)]}
+    # 3) 排比：三句以上等长、开头或结尾相同
+    for i in range(len(cl) - 2):
+        grp = [cl[i]]
+        for c in cl[i + 1:]:
+            if len(c) == len(grp[0]) and 3 <= len(c) <= 7 and (c[-1] == grp[0][-1] or c[0] == grp[0][0] or c[1:2] == grp[0][1:2]):
+                grp.append(c)
+            else:
+                break
+        if len(grp) >= 3:
+            grp = grp[:6]
+            k = len(grp)
+            els = list(sp)
+            for j, g in enumerate(grp):
+                at = 0 if j < (k + 1) // 2 else 1
+                els.append(B(f"b{j}", 0.5, 0.3 + 0.5 * j / max(1, k - 1), g, 0.46, 0.085, "gold" if j == k - 1 else "silver", at=at))
+            return {"title": title, "kind": "排比", "elements": els,
+                    "beats": [beat(_clipw(grp[0], 18)), beat("层层排比"), beat("合而观之", 7, pulse=[f"b{k-1}"])]}
+    # 4) 对举：一对反义词分在两句
+    for i in range(len(cl) - 1):
+        a, b = cl[i], cl[i + 1]
+        if not (2 <= len(a) <= 10 and 2 <= len(b) <= 10):
+            continue
+        for x, y in _ANTONYMS:
+            if (x in a and y in b and y not in a) or (y in a and x in b and x not in a):
+                els = sp + [B("L", 0.27, 0.42, _clipw(a, 8), 0.42, 0.12, "silver"), B("R", 0.73, 0.42, _clipw(b, 8), 0.42, 0.12, "violet", at=1),
+                            T("tx", 0.27, 0.62, x if x in a else y, "gold", 20), T("ty", 0.73, 0.62, y if x in a else x, "gold", 20, at=1),
+                            A("ab", "L", "R", "", "gold", at=2), A("ba", "R", "L", "", "dim", at=2)]
+                rest = "，".join(cl[i + 2:i + 4])
+                if rest:
+                    els.append(T("rest", 0.5, 0.82, _clipw(rest, 20), "primary", 13, at=2))
+                return {"title": title, "kind": "对举", "elements": els,
+                        "beats": [beat(_clipw(a, 18)), beat(_clipw(b, 18)), beat("两相对照", 7)]}
+    return None
+
+def _plus_west(text, lang):
+    body = _re.sub(r"^\d+(?:\.\d+)*\s+", "", text)
+    if len(body) > 260:
+        return None
+    sents = [x for x in _re.split(r"(?<=[.;:?!])\s+", body) if x.strip()]
+    if not sents:
+        return None
+    s0 = sents[0]
+    title = _clipw(" ".join(body.split()[:5]), 20)
+    num = _re.match(r"^(\d+(?:\.\d+)*)\s+", text)
+    sp = [N("sp", 0.5, 0.16, num.group(1), "gold", 10)] if num else []
+    # 定义：X ist Y / X is Y / By X, I mean Y
+    m = _re.match(r"^By (.{3,40}?),? I (?:mean|understand) (.{3,140})$", s0)
+    if _re.search(r"\b(replied|said|answered|sagte|antwortete)\b", s0):
+        return None
+    if not m and len(sents) <= 2 and len(s0.split()) <= 14:
+        m = _re.match(r"^((?:Der|Die|Das|The|A|An|Ein|Eine|Le|La|Les)\s+[A-ZÄÖÜ]?\S+(?:\s+\S+){0,2}) (?:ist|is|sind|are|est) (.{3,100})$", s0)
+        stop = {"which", "that", "who", "aber", "also", "nun", "doch", "so", "es", "dies", "this", "then", "one", "other", "same"}
+        if m and (any(w.lower().strip(",") in stop for w in m.group(1).split()) or
+                  (m.group(1).split()[0] in ("Der", "Die", "Das", "Ein", "Eine") and not m.group(1).split()[1][:1].isupper())):
+            m = None
+    if m:
+        x, y = m.group(1).strip(), m.group(2).strip().rstrip(".")
+        ys = _wrap_words(y, 34)[:3]
+        els = sp + [N("x", 0.5, 0.32, _clipw(x, 16), "gold", 14)]
+        for j, l in enumerate(ys):
+            els.append(T(f"y{j}", 0.5, 0.58 + 0.08 * j, l, "primary", 13, at=1))
+        els.append(A("a", "x", "y0", "", "gold", at=1))
+        return {"title": title, "kind": "定义", "elements": els,
+                "beats": [beat(_clipw(x, 22)), beat("它是什么？"), beat("定义", 7, pulse=["x"])]}
+    # 转折：not X but Y / nicht X, sondern Y
+    m = _re.search(r"\b(?:not|nicht)\b(.{2,70}?),?\s+\b(?:but|sondern)\b(.{2,90})", s0)
+    if m:
+        a, b = m.group(1).strip(" ,"), m.group(2).strip(" .")
+        els = sp + [B("L", 0.27, 0.42, "", 0.42, 0.2, "dim"), B("R", 0.73, 0.42, "", 0.42, 0.2, "gold", at=1)]
+        for j, l in enumerate(_wrap_words(a, 22)[:3]):
+            els.append(T(f"a{j}", 0.27, 0.36 + 0.07 * j, l, "primary", 11))
+        for j, l in enumerate(_wrap_words(b, 22)[:3]):
+            els.append(T(f"b{j}", 0.73, 0.36 + 0.07 * j, l, "primary", 11, at=1))
+        els.append(T("no", 0.27, 0.62, "✕", "violet", 18)); els.append(T("yes", 0.73, 0.62, "✓", "gold", 18, at=1))
+        return {"title": title, "kind": "转折", "elements": els,
+                "beats": [beat("不是……"), beat("而是……"), beat(_clipw(title, 22), 7, set={"L": {"opacity": 0.4}}, pulse=["R"])]}
+    return None
+
+def plus_scene(text, lang):
+    cjk = sum(1 for c in text if ord(c) > 0x2E80)
+    is_zh = cjk > 0.3 * max(1, len(text.replace(" ", "")))
+    sc = _plus_zh(text) if is_zh else _plus_west(text, lang)
+    if not sc:
+        return None
+    sc = {"anchor": "", "title": sc["title"], "tier": "plus", "caption": sc["kind"], "elements": sc["elements"], "beats": sc["beats"]}
+    if layout_issues(sc):
+        return None
+    return sc
+
+
+# MARK: 给每段打分（0–100，书内百分位）-------------------------------------------
+
+_KEYS_ZH = "仁義义禮礼智信道德天命性心理氣气善惡恶學学知君子聖圣王政民孝忠恕誠诚中和無无為为有法術术勢势兼愛爱利真空佛"
+_KEYS_W = ["reason", "virtue", "good", "soul", "truth", "god", "being", "nature", "knowledge", "justice", "freedom", "idea", "substance",
+           "mind", "cause", "will", "happiness", "existence", "world", "experience", "law", "form", "essence",
+           "vernunft", "wahrheit", "geist", "sein", "wesen", "begriff", "welt", "gott", "freiheit", "erkenntnis", "erfahrung", "satz",
+           "wille", "mensch", "übermensch", "leben", "logik", "sprache", "ding", "tatsache", "notwendig", "a priori",
+           "âme", "dieu", "monade", "raison", "deus", "mens", "anima", "cogito"]
+_NOISE = ["[Footnote", "Footnote", "CHAP.", "Translator", "Project Gutenberg", "BOOK ", "SECTION", "ARTICLE", "Reply Obj", "Objection"]
+
+def raw_score(text, lang):
+    cjk = sum(1 for c in text if ord(c) > 0x2E80)
+    zh = cjk > 0.3 * max(1, len(text.replace(" ", "")))
+    s = 0.0
+    if any(n in text for n in _NOISE):
+        s -= 30
+    if zh:
+        n = len(text)
+        if n < 8: return -50
+        dens = sum(text.count(c) for c in _KEYS_ZH) / n * 100
+        s += min(40, dens * 2.2)
+        s += 20 if 10 <= n <= 80 else (8 if n <= 160 else -min(25, (n - 160) / 20))
+        if _re.match(r"^(子曰|孔子曰|孟子曰|老子曰|莊子曰|荀子曰|曾子曰|有子曰)", text): s += 10
+    else:
+        low = text.lower()
+        words = max(1, len(text.split()))
+        if words < 5: return -50
+        dens = sum(low.count(k) for k in _KEYS_W) / words * 100
+        s += min(40, dens * 3)
+        s += 20 if 12 <= words <= 60 else (8 if words <= 120 else -min(25, (words - 120) / 25))
+        m = _re.match(r"^(\d+(?:\.\d+)*)\s", text)
+        if m: s += max(0, 14 - 3 * len(m.group(1).replace(".", "")))   # 维特根斯坦：主命题优先
+    if plus_scene(text, lang): s += 15
+    return s
+
+def score_book(paras, lang):
+    raws = [raw_score(p, lang) for p in paras]
+    order = sorted(range(len(paras)), key=lambda i: raws[i])
+    pct = [0] * len(paras)
+    for rank, i in enumerate(order):
+        pct[i] = round(100 * rank / max(1, len(paras) - 1))
+    return pct
