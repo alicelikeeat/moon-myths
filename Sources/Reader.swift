@@ -26,7 +26,8 @@ private let coreFullTexts: [String: [FullText]] = [
 ]
 
 /// 原文段落跳转到全文时，用哪个文本（默认该书第一个）
-private let passageTextOverride: [String: String] = ["hegel-logic:3": "hegel-logic-2-de"]
+private let passageTextOverride: [String: String] = ["hegel-logic:3": "hegel-logic-2-de",
+                                                      "zhuziyulei:1": "zhuziyulei-71-zh"]
 
 func textId(forPassage key: String, book: String) -> String? {
     passageTextOverride[key] ?? fullTexts[book]?.first?.id
@@ -424,7 +425,18 @@ private struct ReaderContent: View {
     private func firstMatch(_ q: String) -> Int? {
         let needle = normalize(q)
         guard !needle.isEmpty else { return nil }
-        return paras.first { $0.text.contains(needle) }?.id
+        if let hit = paras.first(where: { $0.text.contains(needle) }) { return hit.id }
+        // 四库本等无标点文本：忽略标点再比较
+        let bare = stripPunct(needle)
+        guard bare.count >= 6 else { return nil }
+        return paras.first { stripPunct($0.text).contains(bare) }?.id
+    }
+
+    private func stripPunct(_ s: String) -> String {
+        String(String.UnicodeScalarView(s.unicodeScalars.filter {
+            !CharacterSet.punctuationCharacters.contains($0) && !CharacterSet.symbols.contains($0)
+                && !CharacterSet.whitespacesAndNewlines.contains($0)
+        }))
     }
 
     private func jump(_ target: Int) {
