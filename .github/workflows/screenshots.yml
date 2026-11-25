@@ -58,6 +58,9 @@ jobs:
           if [ "${{ inputs.only }}" = "scripture" ]; then
             for b in 0 1 2; do run_shot "scripture-b$b" -scriptureShot -animBeat $b -appearance light; done
             run_shot "scripture-dark-b1" -scriptureShot -animBeat 1 -appearance dark
+            run_shot "bible-reader" -openReader bible -autoDownload -readerLang original -appearance light
+            sleep 20
+            xcrun simctl io "$UDID" screenshot "shots/bible-reader-later.png"
             exit_early=1
           fi
           if [ -z "$exit_early" ]; then

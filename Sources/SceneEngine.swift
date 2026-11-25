@@ -404,13 +404,14 @@ final class AnimStore {
             docs[id] = doc
         }
         if !fetched.contains(id) {
-            fetched.insert(id)
             let url = URL(string: "https://raw.githubusercontent.com/alicelikeeat/moon-myths/main/anims/\(id).json")!
-            if let res = try? await URLSession.shared.data(from: url),
-               (res.1 as? HTTPURLResponse)?.statusCode == 200,
+            // 用独立任务下载：阅读页刷新导致的任务取消不会让这次下载失败
+            let result = await Task.detached { try? await URLSession.shared.data(from: url) }.value
+            if let res = result, (res.1 as? HTTPURLResponse)?.statusCode == 200,
                let doc = try? JSONDecoder().decode(AnimDoc.self, from: res.0) {
                 try? res.0.write(to: file(id), options: .atomic)
                 docs[id] = doc
+                fetched.insert(id)          // 只有成功才记下，失败了下次打开还会再试
             }
         }
         return docs[id]
