@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: python3 tools/editions/fetch.py principia
+      - run: python3 tools/editions/check.py philosophiaenatu00newt_0 principiamathem00newtgoog A297190 bub_gb_Tm0FAAAAQAAJ
       - run: |
           git config user.name "editions-bot"; git config user.email "bot@users.noreply.github.com"
-          git checkout --orphan editions-data && git rm -rfq . && git add candidates.json && git commit -qm "candidates" && git push -f origin editions-data
+          git checkout --orphan editions-data && git rm -rfq . && git add check.json && git commit -qm "candidates" && git push -f origin editions-data
