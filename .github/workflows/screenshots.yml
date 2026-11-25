@@ -64,6 +64,9 @@ jobs:
           if [ "${{ inputs.only }}" = "math" ]; then
             for b in 0 1 2 3 4; do run_shot "jihe-b$b" -animGrid jihe-zh -animPage 0 -animBeat $b -appearance light; done
             for b in 0 1 2 3 4; do run_shot "jz-b$b" -animGrid jiuzhang-zh -animPage 0 -animBeat $b -appearance light; done
+            for p in 2 3 4 5; do run_shot "jihe-p$p" -animGrid jihe-zh -animPage $p -animBeat 4 -appearance light; done
+            run_shot "en-p3" -animGrid euclid-en -animPage 3 -animBeat 3 -appearance light
+            for t in zhoubi-zh archimedes-en geometrie-fr; do run_shot "$t" -animGrid $t -animPage 0 -animBeat 4 -appearance light; done
             run_shot "book-euclid" -openBook euclid -appearance light; sleep 5; xcrun simctl io "$UDID" screenshot shots/book-euclid-late.png
             run_shot "timeline" -openTimeline -appearance light
             exit_early=1

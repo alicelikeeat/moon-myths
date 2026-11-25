@@ -1436,6 +1436,129 @@
    }
   ]
  },
+ "archimedes": {
+  "images": [
+   {
+    "file": "Archimedes Palimpsest.jpg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Archimedes_Palimpsest.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "caption": "阿基米德重写本：《方法》唯一传世的抄本，10 世纪抄写，后被刮去改写成祈祷书",
+    "license": "Public domain"
+   },
+   {
+    "file": "Archimedes - Opere, 1544 - 1291605 pagina 55.jpeg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/b/b6/Archimedes_-_Opere%2C_1544_-_1291605_pagina_55.jpeg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "caption": "1544 年巴塞尔初印本《阿基米德全集》书页",
+    "license": "Public domain"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "geometricalsolut00arch",
+    "caption": "1909 年英译本，芝加哥：Open Court（本应用全文所据）",
+    "title": "Geometrical solutions derived from mechanics, a treatise of Archimedes",
+    "publisher": "Chicago, the Open Court Publishing Company; [etc., etc.]",
+    "pdf": "geometricalsolut00arch.pdf",
+    "img": "https://archive.org/download/geometricalsolut00arch/page/title_w400.jpg",
+    "kind": "扉页"
+   },
+   {
+    "ia": "methodofarchimed00arch",
+    "caption": "1912 年 Heath 英译《方法》，剑桥大学出版社",
+    "title": "The Method of Archimedes, recently discovered by Heiberg; a supplement to the Works of Archimedes, 1897",
+    "publisher": "Cambridge, University press",
+    "pdf": "methodofarchimed00arch.pdf",
+    "img": "https://archive.org/download/methodofarchimed00arch/page/title_w400.jpg",
+    "kind": "扉页"
+   },
+   {
+    "ia": "worksofarchimede00arch",
+    "caption": "1897 年 Heath《阿基米德全集》英译，剑桥",
+    "title": "The works of Archimedes",
+    "publisher": "Cambridge, University Press",
+    "pdf": "worksofarchimede00arch.pdf",
+    "img": "https://archive.org/download/worksofarchimede00arch/page/title_w400.jpg",
+    "kind": "扉页"
+   }
+  ]
+ },
+ "zhoubi": {
+  "images": [
+   {
+    "file": "Chinese pythagoras.jpg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Chinese_pythagoras.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "caption": "《周髀算经》中的勾股圆方图（弦图）",
+    "license": "Public domain"
+   },
+   {
+    "file": "Zhao Shuang's diagram of the Gougu Theorem from the Han era Zhoubi Suanjing.png",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/e/ef/Zhao_Shuang%27s_diagram_of_the_Gougu_Theorem_from_the_Han_era_Zhoubi_Suanjing.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "caption": "赵爽弦图的现代重绘",
+    "license": "CC BY-SA 3.0"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "06076246.cn",
+    "caption": "《周髀算经》卷上",
+    "title": "周髀算經·卷上",
+    "publisher": "",
+    "pdf": "06076246.cn.pdf",
+    "img": "https://archive.org/services/img/06076246.cn",
+    "kind": "封面"
+   },
+   {
+    "ia": "02093859.cn",
+    "caption": "《周髀算经》附《周髀算经音义》",
+    "title": "周髀算經 周髀算經音義",
+    "publisher": "",
+    "pdf": "02093859.cn.pdf",
+    "img": "https://archive.org/download/02093859.cn/page/n4_w400.jpg",
+    "kind": "书页"
+   }
+  ]
+ },
+ "geometrie": {
+  "images": [
+   {
+    "file": "Descartes (1637) La Geometrie Livre 1.png",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c4/Descartes_%281637%29_La_Geometrie_Livre_1.png/960px-Descartes_%281637%29_La_Geometrie_Livre_1.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "1637 年初版《几何学》卷一首页",
+    "license": "Public domain"
+   },
+   {
+    "file": "DescartesLaGeometriePg3LaMult.jpg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/d/dc/DescartesLaGeometriePg3LaMult.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "caption": "1637 年初版：用作图做乘法（图 1）",
+    "license": "Public domain"
+   },
+   {
+    "file": "DescartesLaGeometriePg3SqRt.jpg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/e/e7/DescartesLaGeometriePg3SqRt.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "caption": "1637 年初版：用作图开平方（图 2）",
+    "license": "Public domain"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "discoursdelamet00desca",
+    "caption": "1637 年莱顿初版《谈谈方法》，《几何学》为其附录",
+    "title": "Discours de la methode : pour bien conduire sa raison, & chercher la verité dans les sciences. Plus La dioptrique. Les meteores. Et La geom",
+    "publisher": "A Leyde : De l'imprimerie de Ian Maire",
+    "pdf": "discoursdelamet00desca.pdf",
+    "img": "https://archive.org/download/discoursdelamet00desca/page/title_w400.jpg",
+    "kind": "扉页"
+   },
+   {
+    "ia": "lagomtrie00descuoft",
+    "caption": "1886 年巴黎 Hermann 版《几何学》",
+    "title": "La géométrie",
+    "publisher": "Paris A. Hermann",
+    "pdf": "lagomtrie00descuoft.pdf",
+    "img": "https://archive.org/download/lagomtrie00descuoft/page/title_w400.jpg",
+    "kind": "扉页"
+   }
+  ]
+ },
  "zarathustra": {
   "images": [],
   "scans": [

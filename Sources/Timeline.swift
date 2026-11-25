@@ -158,6 +158,12 @@ let thinkers: [Thinker] = [
             thesis: "《几何原本》：从定义、公设、公理出发，一步步证明几何命题，是公理化方法的典范。"),
     Thinker(id: "liuhui", name: "刘徽", region: .math, born: 225, died: 295, approx: true,
             thesis: "注《九章算术》：用出入相补证明句股，以割圆术逼近圆周率。"),
+    Thinker(id: "archimedes", name: "阿基米德", region: .math, born: -287, died: -212, approx: true,
+            thesis: "用杠杆“称”出面积与体积，再以穷竭法严格证明：抛物线弓形等于内接三角形的 4/3。"),
+    Thinker(id: "zhaoshuang", name: "赵爽", region: .math, born: 182, died: 250, approx: true,
+            thesis: "注《周髀算经》，作“勾股圆方图”（弦图），以朱实、黄实证明勾股定理。"),
+    Thinker(id: "descartes-geometry", name: "笛卡尔（数学）", region: .math, born: 1596, died: 1650, approx: false,
+            thesis: "《几何学》：用字母和方程表示线段与曲线，开创解析几何。"),
 ]
 
 let eras: [Era] = [
@@ -188,7 +194,8 @@ let influences: [Influence] = [
     Influence(from: "xunzi", to: "hanfei"), Influence(from: "laozi", to: "zhuangzi"),
     Influence(from: "kongzi", to: "dongzhongshu"), Influence(from: "mengzi", to: "zhuxi"),
     Influence(from: "zhuxi", to: "wangyangming", critical: true),
-    Influence(from: "plato", to: "euclid"), Influence(from: "euclid", to: "spinoza"),
+    Influence(from: "plato", to: "euclid"), Influence(from: "euclid", to: "archimedes"), Influence(from: "euclid", to: "descartes-geometry"),
+    Influence(from: "zhaoshuang", to: "liuhui"), Influence(from: "euclid", to: "spinoza"),
     Influence(from: "socrates", to: "plato"), Influence(from: "plato", to: "aristotle"),
     Influence(from: "plato", to: "augustine"), Influence(from: "aristotle", to: "aquinas"),
     Influence(from: "descartes", to: "spinoza"), Influence(from: "descartes", to: "leibniz"),
@@ -465,6 +472,12 @@ private func work(_ id: String, _ title: String, _ original: String, _ year: Str
 let thinkerWorks: [String: [Book]] = [
     "euclid": [work("euclid", "几何原本", "Στοιχεῖα（Elements）", "约前 300 年",
                     "十三卷，从 23 条定义、5 条公设、5 条公理推出全部命题。收利玛窦、徐光启 1607 年中译前六卷，以及 Casey 1885 年英译前六卷。")],
+    "archimedes": [work("archimedes", "方法", "Περὶ μηχανικῶν θεωρημάτων（The Method）", "约前 250 年",
+                    "致埃拉托色尼的信：先用杠杆原理“称”出结果，再以几何证明。1906 年在一部羊皮纸重写本中被重新发现。收 1909 年英译本。")],
+    "zhaoshuang": [work("zhoubi", "周髀算经", "周髀算經（四部丛刊本）", "约西汉成书 / 三国赵爽注",
+                    "商高论勾股、陈子论日影与盖天说。附赵爽注、甄鸾重述、李淳风等注释。")],
+    "descartes-geometry": [work("geometrie", "几何学", "La Géométrie", "1637",
+                    "《谈谈方法》的附录之一：把几何作图化为代数运算，用方程研究曲线。法文原文。")],
     "liuhui": [work("jiuzhang", "九章算术", "九章算術（四部丛刊本）", "约东汉成书 / 263 年刘徽注",
                     "246 道应用题，分方田、粟米、衰分、少广、商功、均输、盈不足、方程、句股九章。附刘徽注、李淳风等注释。")],
     "kongzi": [work("lunyu", "论语", "論語", "春秋末至战国初", "孔子及其弟子的言行录。原文 + 理雅各（Legge）英译。")],
@@ -529,6 +542,9 @@ let thinkerWorks: [String: [Book]] = [
 let thinkerFullTexts: [String: [FullText]] = [
     "euclid": [FullText(id: "jihe-zh", label: "徐光启译"), FullText(id: "euclid-en", label: "English")],
     "jiuzhang": [FullText(id: "jiuzhang-zh", label: "原文")],
+    "zhoubi": [FullText(id: "zhoubi-zh", label: "原文")],
+    "archimedes": [FullText(id: "archimedes-en", label: "English")],
+    "geometrie": [FullText(id: "geometrie-fr", label: "Français")],
     "lunyu": [FullText(id: "lunyu-zh", label: "原文"), FullText(id: "lunyu-en", label: "English")],
     "daodejing": [FullText(id: "daodejing-zh", label: "原文"), FullText(id: "daodejing-en", label: "English")],
     "zhuangzi": [FullText(id: "zhuangzi-zh", label: "原文"), FullText(id: "zhuangzi-en", label: "English")],

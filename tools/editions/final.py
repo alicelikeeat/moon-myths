@@ -59,6 +59,9 @@ S={ # book: (commons [(文件名, 说明)], IA [(id, 说明)])
 "bge":([],[("bub_gb_YIURAAAAYAAJ","1886 年初版，莱比锡：瑙曼"),("beyondgoodevilpr1909niet","1909 年齐默恩（Zimmern）英译本，爱丁堡")]),
 "euclid":([("P. Oxy. I 29.jpg","俄克喜林库斯纸草 29 号：现存最早的《几何原本》残片（约公元 100 年）"),("Euclid's Elements, 1482.jpg","1482 年威尼斯初印本，拉特多尔特印行"),("Byrne 1847 Pythagoras Querformat.jpg","1847 年 Byrne 彩色版：卷一命题 47（勾股定理）")],[("firstsixbooksel00byrn","1847 年 Byrne 彩色版，伦敦：皮克林"),("elementsgeometr00eucl","1570 年 Billingsley 首部英译本，伦敦"),("firstsixbooksel00casegoog","1885 年 Casey 版（本应用英文全文所据），伦敦：朗文"),("06057513.cn","利玛窦、徐光启译《几何原本》卷一")]),
 "jiuzhang":([("九章算術細草圖說.jpg","李潢《九章算术细草图说》书页")],[("06057481.cn","《九章算术》卷一至卷三"),("02094024.cn","李潢《九章算术细草图说》（一）")]),
+"archimedes":([("Archimedes Palimpsest.jpg","阿基米德重写本：《方法》唯一传世的抄本，10 世纪抄写，后被刮去改写成祈祷书"),("Archimedes - Opere, 1544 - 1291605 pagina 55.jpeg","1544 年巴塞尔初印本《阿基米德全集》书页")],[("geometricalsolut00arch","1909 年英译本，芝加哥：Open Court（本应用全文所据）"),("methodofarchimed00arch","1912 年 Heath 英译《方法》，剑桥大学出版社"),("worksofarchimede00arch","1897 年 Heath《阿基米德全集》英译，剑桥")]),
+"zhoubi":([("Chinese pythagoras.jpg","《周髀算经》中的勾股圆方图（弦图）"),("Zhao Shuang's diagram of the Gougu Theorem from the Han era Zhoubi Suanjing.png","赵爽弦图的现代重绘")],[("06076246.cn","《周髀算经》卷上"),("02093859.cn","《周髀算经》附《周髀算经音义》")]),
+"geometrie":([("Descartes (1637) La Geometrie Livre 1.png","1637 年初版《几何学》卷一首页"),("DescartesLaGeometriePg3LaMult.jpg","1637 年初版：用作图做乘法（图 1）"),("DescartesLaGeometriePg3SqRt.jpg","1637 年初版：用作图开平方（图 2）")],[("discoursdelamet00desca","1637 年莱顿初版《谈谈方法》，《几何学》为其附录"),("lagomtrie00descuoft","1886 年巴黎 Hermann 版《几何学》")]),
 "zarathustra":([],[("alsosprachzarat00nietgoog","1895 年版，莱比锡：瑙曼"),("alsosprachzarath00niet_0","1908 年岛屿出版社版")]),
 }
 out={}

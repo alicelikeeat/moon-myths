@@ -22,9 +22,7 @@
  98 basic Dem.—Let the two sid
  98 basic Or thus: Let u
  98 basic Now we have FE
- 97 basic The adjacent a
  97 basic 13. The triang
- 97 basic Equal triangles (ABC
  97 basic Dem.—Since a : c :: 
  97 basic A = P.BC, A′ =
  97 basic Dem.—Because the rec
@@ -38,3 +36,5 @@
  96 basic Let a : b :: c : d; then, 
  96 basic Dem.—Draw the diagon
  96 basic Exercise. If s
+ 96 basic Dem.—Join AC, BD, AD
+ 96 basic perpendicular to the base, and c
