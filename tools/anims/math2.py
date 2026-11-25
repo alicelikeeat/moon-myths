@@ -19,7 +19,7 @@ def rot(p, n):
     for _ in range(n): x, y = -y, x
     return (x + cx, y + cy)
 tris = [[rot((0, 0), n), rot((5, 0), n), rot(q1, n)] for n in range(4)]
-els = [Hid('o1', *U(0, 0)), Hid('o2', *U(5, 0)), Hid('o3', *U(5, 5)), Hid('o4', *U(0, 5)), Poly('xian', ['o1', 'o2', 'o3', 'o4'], '弦实 25', color='gold')]
+els = [Hid('o1', *U(0, 0)), Hid('o2', *U(5, 0)), Hid('o3', *U(5, 5)), Hid('o4', *U(0, 5)), Poly('xian', ['o1', 'o2', 'o3', 'o4'], color='gold'), T('xl', 0.5, 0.15, '弦实 = 5 × 5 = 25', color='gold', size=12)]
 moves = {}
 for n, t in enumerate(tris):
     gx = sum(p[0] for p in t) / 3 - cx; gy = sum(p[1] for p in t) / 3 - cy; L_ = math.hypot(gx, gy)
