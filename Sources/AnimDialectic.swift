@@ -19,14 +19,12 @@ func drawIllusion(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let mx = lerp(w * 0.35, w * 0.55, p)
     let seen = lerp(52, 24, p)
     let halo = seen * 2.6
-    ctx.fill(Path(ellipseIn: CGRect(x: mx - halo, y: my - halo, width: halo * 2, height: halo * 2)),
-             with: .radialGradient(Gradient(colors: [Moon.gold.opacity(0.28), Moon.gold.opacity(0)]),
+    fillPath(&ctx, Path(ellipseIn: CGRect(x: mx - halo, y: my - halo, width: halo * 2, height: halo * 2)), shading: .radialGradient(Gradient(colors: [Moon.gold.opacity(0.28), Moon.gold.opacity(0)]),
                                    center: CGPoint(x: mx, y: my), startRadius: seen * 0.9, endRadius: halo))
-    ctx.fill(Path(ellipseIn: CGRect(x: mx - seen, y: my - seen, width: seen * 2, height: seen * 2)),
-             with: .radialGradient(Gradient(colors: [Color.primary, Moon.gold, Moon.gold.opacity(0.85)]),
+    fillPath(&ctx, Path(ellipseIn: CGRect(x: mx - seen, y: my - seen, width: seen * 2, height: seen * 2)), shading: .radialGradient(Gradient(colors: [Color.primary, Moon.gold, Moon.gold.opacity(0.85)]),
                                    center: CGPoint(x: mx - seen * 0.3, y: my - seen * 0.3),
                                    startRadius: 0, endRadius: seen * 1.3))
-    ctx.fill(hills, with: .color(Color(red: 0.05, green: 0.05, blue: 0.12)))
+    fillPath(&ctx, hills, Color(red: 0.05, green: 0.05, blue: 0.12))
 
     ring(&ctx, w * 0.84, h * 0.3, 24, Moon.silver, 1, dash: [3, 3])
     label(&ctx, "实际视角大小", w * 0.84, h * 0.3 + 36, Moon.silver, size: 11)
@@ -87,8 +85,8 @@ func drawIdeal(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
             for i in 0..<10 {
                 let y = h * 0.7 - Double(i) * 10
                 let rect = CGRect(x: x - 34, y: y - 6, width: 68, height: 14)
-                ctx.fill(Path(ellipseIn: rect), with: .color(Moon.gold.opacity(0.85)))
-                ctx.stroke(Path(ellipseIn: rect), with: .color(Color.black.opacity(0.3)), lineWidth: 1)
+                fillPath(&ctx, Path(ellipseIn: rect), Moon.gold.opacity(0.85))
+                strokePath(&ctx, Path(ellipseIn: rect), Color.black.opacity(0.3), lineWidth: 1)
             }
             label(&ctx, title, x, h * 0.7 + 28, Color.primary, size: 12)
         }
@@ -126,7 +124,7 @@ func drawDiscipline(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     tri.addLine(to: CGPoint(x: w * 0.42, y: h * 0.65))
     tri.addLine(to: CGPoint(x: w * 0.08, y: h * 0.65))
     tri.closeSubpath()
-    ctx.stroke(tri.trimmedPath(from: 0, to: k), with: .color(Moon.gold), lineWidth: 2.5)
+    strokePath(&ctx, tri.trimmedPath(from: 0, to: k), Moon.gold, lineWidth: 2.5)
     if p > 0.65 { label(&ctx, "内角和 = 180°", w * 0.25, h * 0.73, Moon.gold, size: 12) }
     label(&ctx, "数学：在直观中构造", w * 0.25, 46, Moon.gold, size: 13)
 
@@ -156,8 +154,7 @@ func drawCanon(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
         label(&ctx, name, 50, y + 6, Moon.dim, size: 11)
         box(&ctx, 90, y, w - 200, 12, Moon.dim)
         let v = j == 0 ? s.1 : s.2
-        ctx.fill(Path(roundedRect: CGRect(x: 90, y: y, width: (w - 200) * v, height: 12), cornerRadius: 6),
-                 with: .color(Moon.gold))
+        fillPath(&ctx, Path(roundedRect: CGRect(x: 90, y: y, width: (w - 200) * v, height: 12), cornerRadius: 6), Moon.gold)
     }
     label(&ctx, s.0, w - 55, by + 20, Moon.gold, size: 22)
     caption(&ctx, "扬弃知识，为信仰留出位置", size)

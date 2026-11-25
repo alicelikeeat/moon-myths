@@ -30,12 +30,16 @@ func fract(_ v: Double) -> Double { v - floor(v) }
 func hash01(_ seed: Double) -> Double { fract(sin(seed * 12.9898) * 43758.5453) }
 
 /// 实心小点（粒子）
-func blob(_ ctx: inout GraphicsContext, _ x: Double, _ y: Double, _ r: Double, _ color: Color) {
+func blob(_ ctx: inout GraphicsContext, _ x0: Double, _ y0: Double, _ r: Double, _ color: Color) {
+    let (x, y) = TouchField.push(x0, y0)
+    if let rec = PrimRecorder.current { rec.prims.append(.blob(x, y, r, color)); return }
     ctx.fill(Path(ellipseIn: CGRect(x: x - r, y: y - r, width: r * 2, height: r * 2)), with: .color(color))
 }
 
 /// Liquid Glass 风格的圆：半透明体、渐变边缘、顶部高光
-func dot(_ ctx: inout GraphicsContext, _ x: Double, _ y: Double, _ r: Double, _ color: Color) {
+func dot(_ ctx: inout GraphicsContext, _ x0: Double, _ y0: Double, _ r: Double, _ color: Color) {
+    let (x, y) = r < 4.5 ? TouchField.push(x0, y0) : (x0, y0)
+    if let rec = PrimRecorder.current { rec.prims.append(.dot(x, y, r, color)); return }
     if r >= 4.5, let buf = GlassBuffer.current {
         let a = alphaOf(color)
         guard a > 0.03 else { return }
@@ -65,6 +69,7 @@ func dot(_ ctx: inout GraphicsContext, _ x: Double, _ y: Double, _ r: Double, _ 
 
 func label(_ ctx: inout GraphicsContext, _ s: String, _ x: Double, _ y: Double,
            _ color: Color = Moon.dim, size: Double = 12, serif: Bool = false) {
+    if let rec = PrimRecorder.current { rec.prims.append(.label(s, x, y, color, size, serif, rec.hud)); return }
     if let buf = GlassBuffer.current {
         buf.texts.append(GlassText(text: s, x: x, y: y, color: color, size: size, serif: serif))
         return

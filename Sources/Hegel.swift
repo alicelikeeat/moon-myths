@@ -118,7 +118,7 @@ func drawSenseCertainty(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Doubl
     let (ph, p) = beats(t, [6, 7, 7])
     let day = ph == 0 ? 0 : (ph == 1 ? smooth(p / 0.5) : 1)
     let sky = Path(roundedRect: CGRect(x: 20, y: 44, width: w - 40, height: h * 0.4), cornerRadius: 18)
-    ctx.fill(sky, with: .linearGradient(
+    fillPath(&ctx, sky, shading: .linearGradient(
         Gradient(colors: [Color(red: 0.05 + 0.4 * day, green: 0.07 + 0.5 * day, blue: 0.18 + 0.6 * day),
                           Color(red: 0.1 + 0.5 * day, green: 0.1 + 0.45 * day, blue: 0.25 + 0.4 * day)]),
         startPoint: CGPoint(x: 0, y: 44), endPoint: CGPoint(x: 0, y: 44 + h * 0.4)))
@@ -208,7 +208,7 @@ func drawSpiralOfSpirit(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Doubl
         let pt = CGPoint(x: cx + cos(a) * r, y: cy + sin(a) * r)
         if i == 0 { path.move(to: pt) } else { path.addLine(to: pt) }
     }
-    ctx.stroke(path, with: .color(Color.primary.opacity(0.25)), lineWidth: 1.5)
+    strokePath(&ctx, path, Color.primary.opacity(0.25), lineWidth: 1.5)
     let p = fract(t / 12)
     for (i, n) in names.enumerated() {
         let u = Double(i) / Double(names.count - 1)
@@ -249,8 +249,7 @@ func drawMeasure(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let bx = 40.0, bw = w - 80, by = h * 0.78
     box(&ctx, bx, by, bw, 12, Moon.dim)
     let fill = (temp + 20) / 140
-    ctx.fill(Path(roundedRect: CGRect(x: bx, y: by, width: bw * fill, height: 12), cornerRadius: 6),
-             with: .linearGradient(Gradient(colors: [Moon.silver, Moon.gold]),
+    fillPath(&ctx, Path(roundedRect: CGRect(x: bx, y: by, width: bw * fill, height: 12), cornerRadius: 6), shading: .linearGradient(Gradient(colors: [Moon.silver, Moon.gold]),
                                    startPoint: CGPoint(x: bx, y: 0), endPoint: CGPoint(x: bx + bw, y: 0)))
     for (v, name) in [(0.0, "0 °C"), (100.0, "100 °C")] {
         let x = bx + bw * (v + 20) / 140
@@ -324,7 +323,7 @@ func drawSublation(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
         let y = h * 0.85 - u * h * 0.68
         if i == 0 { path.move(to: CGPoint(x: x, y: y)) } else { path.addLine(to: CGPoint(x: x, y: y)) }
     }
-    ctx.stroke(path, with: .color(Color.primary.opacity(0.25)), lineWidth: 1.5)
+    strokePath(&ctx, path, Color.primary.opacity(0.25), lineWidth: 1.5)
     let p = fract(t / 9)
     for (i, n) in names.enumerated() {
         let u = Double(i) / 2

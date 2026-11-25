@@ -81,6 +81,9 @@ struct FormulaAnimationView: View {
     @State private var step: Int?           // 分步讲解进行到第几段
     @State private var playing = true
     @State private var run = 0              // 重播计数（重启任务）
+    @AppStorage("anim3D") private var is3D = false
+    @State private var tilt = CGSize(width: -16, height: 12)   // 3D：绕竖轴、横轴的角度（度）
+    @State private var tiltStart: CGSize?
     @Namespace private var ns
 
     private var tokens: [String] { formulaTokens(formula) }
@@ -106,6 +109,16 @@ struct FormulaAnimationView: View {
                     .animation(.easeInOut(duration: 1.2), value: finished)
             }
             .glassEffect(.regular, in: .rect(cornerRadius: 22))
+            .rotation3DEffect(.degrees(is3D ? tilt.width : 0), axis: (x: 0, y: 1, z: 0), perspective: 0.55)
+            .rotation3DEffect(.degrees(is3D ? tilt.height : 0), axis: (x: 1, y: 0, z: 0), perspective: 0.55)
+            .gesture(DragGesture(minimumDistance: 6).onChanged { v in
+                guard is3D else { return }
+                if tiltStart == nil { tiltStart = tilt }
+                let b = tiltStart ?? tilt
+                tilt = CGSize(width: min(40, max(-40, b.width + v.translation.width / 5)),
+                              height: min(35, max(-35, b.height - v.translation.height / 5)))
+            }.onEnded { _ in tiltStart = nil }, including: is3D ? .all : .subviews)
+            .animation(.spring(duration: 0.5), value: is3D)
 
             // 2. 当前符号的读法
             ZStack {
@@ -173,8 +186,13 @@ struct FormulaAnimationView: View {
                     restart()
                 } label: { Label("重播", systemImage: "arrow.counterclockwise").font(.caption.weight(.semibold)) }
                 .buttonStyle(.glass)
+                Button {
+                    withAnimation(.snappy) { is3D.toggle() }
+                } label: { Text(is3D ? "3D" : "2D").font(.caption.weight(.bold)).frame(minWidth: 24) }
+                .buttonStyle(.glass)
+                .accessibilityIdentifier("formula.3d")
                 Spacer()
-                Text("点任意符号可单独查看").font(.caption2).foregroundStyle(Color.primary.opacity(0.45))
+                Text(is3D ? "拖动可旋转，点符号查看" : "点任意符号可单独查看").font(.caption2).foregroundStyle(Color.primary.opacity(0.45))
             }
         }
         .task(id: run) { await play() }
@@ -192,6 +210,13 @@ struct FormulaAnimationView: View {
             .foregroundStyle(focused ? Moon.gold : (finished ? Color.primary : Color.primary.opacity(isSym ? 0.95 : 0.75)))
             .padding(.horizontal, isSym ? 6 : ("()[]{},;:".contains(tok) ? 0 : 3))
             .padding(.vertical, 3)
+            // 3D：文字下叠几层错开的影子，看起来有厚度；正在讲的符号浮起来
+            .shadow(color: is3D ? Color.primary.opacity(0.18) : .clear, radius: 0, x: 1, y: 1.5)
+            .shadow(color: is3D ? Color.primary.opacity(0.12) : .clear, radius: 0, x: 2, y: 3)
+            .shadow(color: is3D ? Color.black.opacity(0.18) : .clear, radius: is3D && focused ? 8 : 3, x: 3, y: is3D && focused ? 10 : 5)
+            .scaleEffect(is3D && focused ? 1.18 : 1)
+            .offset(y: is3D && focused ? -4 : 0)
+
             .background {
                 if focus == i {
                     Capsule().fill(Moon.gold.opacity(0.14))

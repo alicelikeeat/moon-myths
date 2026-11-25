@@ -4,6 +4,7 @@ typealias Draw = (inout GraphicsContext, CGSize, Double) -> Void
 
 func line(_ ctx: inout GraphicsContext, _ x1: Double, _ y1: Double, _ x2: Double, _ y2: Double,
           _ color: Color, _ width: Double = 1.5, dash: [CGFloat] = []) {
+    if let r = PrimRecorder.current { r.prims.append(.line(x1, y1, x2, y2, color, width, dash)); return }
     var p = Path()
     p.move(to: CGPoint(x: x1, y: y1))
     p.addLine(to: CGPoint(x: x2, y: y2))
@@ -12,12 +13,14 @@ func line(_ ctx: inout GraphicsContext, _ x1: Double, _ y1: Double, _ x2: Double
 
 func ring(_ ctx: inout GraphicsContext, _ x: Double, _ y: Double, _ r: Double,
           _ color: Color, _ width: Double = 1.5, dash: [CGFloat] = []) {
+    if let rec = PrimRecorder.current { rec.prims.append(.ring(x, y, r, color, width, dash)); return }
     let rect = CGRect(x: x - r, y: y - r, width: r * 2, height: r * 2)
     ctx.stroke(Path(ellipseIn: rect), with: .color(color), style: StrokeStyle(lineWidth: CGFloat(width), dash: dash))
 }
 
 func box(_ ctx: inout GraphicsContext, _ x: Double, _ y: Double, _ w: Double, _ h: Double,
          _ color: Color, fill: Color? = nil) {
+    if let r = PrimRecorder.current { r.prims.append(.box(x, y, w, h, color, fill)); return }
     if let buf = GlassBuffer.current {
         let a = alphaOf(color)
         guard a > 0.03 else { return }
@@ -63,9 +66,13 @@ func phase(_ t: Double, period: Double, count: Int) -> (Int, Double) {
 }
 
 func caption(_ ctx: inout GraphicsContext, _ s: String, _ size: CGSize) {
+    PrimRecorder.current?.hud = true
+    defer { PrimRecorder.current?.hud = false }
     label(&ctx, s, Double(size.width) / 2, Double(size.height) - 18, Moon.gold, size: 13)
 }
 
 func headline(_ ctx: inout GraphicsContext, _ s: String, _ size: CGSize, _ color: Color = Color.primary) {
+    PrimRecorder.current?.hud = true
+    defer { PrimRecorder.current?.hud = false }
     label(&ctx, s, Double(size.width) / 2, 22, color, size: 14)
 }

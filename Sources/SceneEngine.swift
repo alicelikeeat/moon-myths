@@ -90,7 +90,26 @@ func animColor(_ name: String) -> Color {
 }
 
 /// 预先算好每一拍的状态，绘制时只做插值
-final class SceneRuntime {
+final class SceneRuntime: DragSurface {
+    /// 用户拖动过的元素：位移（像素）
+    private var offsets: [String: CGSize] = [:]
+    /// 这一帧可拖动元素的位置
+    private var hits: [(String, Double, Double, Double)] = []
+    var hasDrag: Bool { !offsets.isEmpty }
+    func hit(_ p: CGPoint) -> String? {
+        var best: (String, Double)?
+        for (id, x, y, r) in hits {
+            let d = hypot(x - p.x, y - p.y)
+            if d < max(24, r + 10) && d < (best?.1 ?? .infinity) { best = (id, d) }
+        }
+        return best?.0
+    }
+    func drag(_ id: String, by d: CGSize) {
+        let o = offsets[id] ?? .zero
+        offsets[id] = CGSize(width: o.width + d.width, height: o.height + d.height)
+    }
+    func resetDrag() { offsets.removeAll() }
+
     let scene: AnimScene
     private let order: [String]
     private let kinds: [String: AnimElement]
@@ -158,6 +177,7 @@ final class SceneRuntime {
             s.label = k < 0.5 && a.opacity > 0 ? a.label : c.label
             if pulse.contains(id) { s.r *= 1 + 0.09 * sin(t * 3.2) }
             if geo { s.x = (gx + s.x * S) / W; s.y = (gy + s.y * S) / H }
+            if let o = offsets[id] { s.x += o.width / W; s.y += o.height / H }
             if let e = kinds[id], let o = e.orbit, let a = from[o], let c = to[o] {
                 let cx = lerp(a.x, c.x, k), cy = lerp(a.y, c.y, k)
                 let ang = t * (e.speed ?? 0.6) + Double(id.unicodeScalars.reduce(0) { $0 + Int($1.value) } % 7)
@@ -178,6 +198,7 @@ final class SceneRuntime {
             }
         }
 
+        hits.removeAll(keepingCapacity: true)
         // 先画箭头、粒子，再画节点和文字
         for id in order {
             guard let e = kinds[id], let s = mix(id), s.opacity > 0.02 else { continue }
@@ -206,7 +227,7 @@ final class SceneRuntime {
                 var p = Path()
                 p.addArc(center: CGPoint(x: ax, y: ay), radius: rad, startAngle: .radians(a0), endAngle: .radians(a0 + sweep), clockwise: false)
                 let col = animColor(s.color).opacity(0.75)
-                ctx.stroke(p, with: .color(col), style: StrokeStyle(lineWidth: 1.6, lineCap: .round, dash: (e.dash ?? false) ? [6, 5] : []))
+                strokePath(&ctx, p, col, style: StrokeStyle(lineWidth: 1.6, lineCap: .round, dash: (e.dash ?? false) ? [6, 5] : []))
                 if s.opacity < 0.98 && s.opacity > 0.02 {
                     // 圆规的笔尖
                     blob(&ctx, ax + cos(a0 + sweep) * rad, ay + sin(a0 + sweep) * rad, 3.2, Moon.gold)
@@ -221,8 +242,8 @@ final class SceneRuntime {
                 p.closeSubpath()
                 let col = animColor(s.color)
                 let boost = pulse.contains(id) ? 0.14 + 0.1 * sin(t * 3.2) : 0
-                ctx.fill(p, with: .color(col.opacity((0.22 + boost) * s.opacity)))
-                ctx.stroke(p, with: .color(col.opacity(0.7 * s.opacity)), lineWidth: 1.4)
+                fillPath(&ctx, p, col.opacity((0.22 + boost) * s.opacity))
+                strokePath(&ctx, p, col.opacity(0.7 * s.opacity), lineWidth: 1.4)
                 if !s.label.isEmpty {
                     let mx = ps.map(\.x).reduce(0, +) / Double(ps.count) * W, my = ps.map(\.y).reduce(0, +) / Double(ps.count) * H
                     label(&ctx, s.label, mx, my, Color.primary.opacity(0.9 * s.opacity), size: e.size ?? 13)
@@ -239,8 +260,8 @@ final class SceneRuntime {
                 }
                 let col = animColor(s.color)
                 let boost = pulse.contains(id) ? 0.12 + 0.08 * sin(t * 3.2) : 0
-                ctx.fill(p, with: .color(col.opacity((0.16 + boost) * s.opacity)))
-                ctx.stroke(p, with: .color(col.opacity(0.85 * s.opacity)), lineWidth: 1.5)
+                fillPath(&ctx, p, col.opacity((0.16 + boost) * s.opacity))
+                strokePath(&ctx, p, col.opacity(0.85 * s.opacity), lineWidth: 1.5)
                 if !s.label.isEmpty { label(&ctx, s.label, s.x * W, s.y * H + rad + 16, col.opacity(s.opacity), size: e.size ?? 12) }
             case "particles":
                 let n = e.n ?? 30
@@ -259,6 +280,9 @@ final class SceneRuntime {
             guard let e = kinds[id], let s = mix(id), s.opacity > 0.02 else { continue }
             let col = animColor(s.color).opacity(s.opacity)
             let x = s.x * W, y = s.y * H
+            if s.opacity > 0.3 && ["node", "box", "ring", "text"].contains(e.kind) && (e.kind != "node" || s.r >= 1) {
+                hits.append((id, x, y, e.kind == "box" ? min(s.w * W, s.h * H) / 2 : s.r))
+            }
             if scene.hasEffects && pulse.contains(id) && !["text", "arrow", "seg", "circle", "poly", "ngon"].contains(e.kind) {
                 // 精讲：重点处扩散的光晕
                 for j in 0..<2 {
@@ -405,7 +429,7 @@ struct ParagraphAnimSheet: View {
                             .font(.system(size: 24, weight: .semibold, design: .serif))
                             .foregroundStyle(Color.primary)
                         Stage(height: 380) {
-                            LiveCanvas(clock: clock) { ctx, size, t in
+                            LiveCanvas(clock: clock, surface: runtime) { ctx, size, t in
                                 runtime.draw(&ctx, size, t)
                             }
                         }
@@ -448,7 +472,13 @@ struct AnimGridView: View {
                 let b = min(beat, rt.durations.count - 1)
                 let t = rt.durations.prefix(b).reduce(0, +) + rt.durations[b] * 0.85
                 VStack(spacing: 2) {
-                    Canvas { ctx, size in rt.draw(&ctx, size, t) }
+                    Canvas { ctx, size in
+                        if ProcessInfo.processInfo.arguments.contains("-anim3D") {
+                            drawIn3D(rt.draw, &ctx, size, t, cam: Cam3D(), cache: nil)
+                        } else {
+                            rt.draw(&ctx, size, t)
+                        }
+                    }
                         .frame(width: 350, height: 380)
                         .background(Color.primary.opacity(0.04))
                         .scaleEffect(0.36)

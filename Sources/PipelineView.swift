@@ -52,7 +52,7 @@ struct PipelineView: View {
 
         // σ 层与时空网格
         let sigmaColor = sensibility ? Moon.silver : Color.gray.opacity(0.25)
-        ctx.fill(Path(CGRect(x: 0, y: ySigma - 1, width: w, height: 2)), with: .color(sigmaColor.opacity(0.7)))
+        fillPath(&ctx, Path(CGRect(x: 0, y: ySigma - 1, width: w, height: 2)), sigmaColor.opacity(0.7))
         label(&ctx, "σ  时空形式", w - 52, ySigma - 12, sigmaColor)
         if sensibility {
             for c in 0..<Int(cols) {
@@ -60,13 +60,13 @@ struct PipelineView: View {
                 var p = Path()
                 p.move(to: CGPoint(x: x, y: ySigma))
                 p.addLine(to: CGPoint(x: x, y: yKappa))
-                ctx.stroke(p, with: .color(Moon.silver.opacity(0.08)), lineWidth: 1)
+                strokePath(&ctx, p, Moon.silver.opacity(0.08), lineWidth: 1)
             }
         }
 
         // κ 层
         let kappaColor = understanding ? Moon.gold : Color.gray.opacity(0.25)
-        ctx.fill(Path(CGRect(x: 0, y: yKappa - 1, width: w, height: 2)), with: .color(kappaColor.opacity(0.7)))
+        fillPath(&ctx, Path(CGRect(x: 0, y: yKappa - 1, width: w, height: 2)), kappaColor.opacity(0.7))
         label(&ctx, "κ  12 范畴", w - 46, yKappa - 12, kappaColor)
 
         // 对象节点
@@ -76,8 +76,7 @@ struct PipelineView: View {
                 dot(&ctx, x, yObj, pulse + 10, Moon.gold.opacity(0.12))
                 dot(&ctx, x, yObj, pulse, Moon.gold.opacity(0.35))
             } else {
-                ctx.stroke(Path(ellipseIn: CGRect(x: x - 14, y: yObj - 14, width: 28, height: 28)),
-                           with: .color(.gray.opacity(0.4)), style: StrokeStyle(lineWidth: 1, dash: [3, 4]))
+                strokePath(&ctx, Path(ellipseIn: CGRect(x: x - 14, y: yObj - 14, width: 28, height: 28)), .gray.opacity(0.4), style: StrokeStyle(lineWidth: 1, dash: [3, 4]))
             }
             label(&ctx, name, x, yObj + 26, understanding ? Moon.gold : Moon.dim)
         }

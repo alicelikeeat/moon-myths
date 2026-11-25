@@ -187,7 +187,7 @@ func drawTable(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let light = 0.5 + 0.5 * cos(a - 0.8)
     let tw = w * 0.36, th = h * 0.2
     let rect = Path(roundedRect: CGRect(x: w / 2 - tw / 2, y: h * 0.5 - th / 2, width: tw, height: th), cornerRadius: 10)
-    ctx.fill(rect, with: .color(Color(red: 0.35 + 0.45 * light, green: 0.22 + 0.3 * light, blue: 0.12 + 0.2 * light)))
+    fillPath(&ctx, rect, Color(red: 0.35 + 0.45 * light, green: 0.22 + 0.3 * light, blue: 0.12 + 0.2 * light))
     line(&ctx, ex, ey, w / 2, h * 0.5, Color.primary.opacity(0.3), 1, dash: [4, 4])
     dot(&ctx, ex, ey, 14, Moon.silver)
     label(&ctx, "眼睛", ex, ey + 26, Moon.silver, size: 11)

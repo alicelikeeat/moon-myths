@@ -82,7 +82,7 @@ private func drawRegress(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Doub
                 var seg = Path()
                 seg.move(to: CGPoint(x: x0, y: y))
                 seg.addLine(to: CGPoint(x: max(x0 + 0.5, x1), y: y))
-                ctx.stroke(seg, with: .color(Moon.gold.opacity(1 - Double(d) * 0.09)), lineWidth: 3)
+                strokePath(&ctx, seg, Moon.gold.opacity(1 - Double(d) * 0.09), lineWidth: 3)
             }
         }
         label(&ctx, "已二分 \(depth - 1) 次 · 单纯部分从未出现", cx, h - 26, Moon.gold, size: 13)
@@ -93,8 +93,7 @@ private func drawRegress(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Doub
     for k in 0..<14 {
         let phase = fract(t * 0.18 + Double(k) / 14)
         let r = phase * max(w, h) * 0.75
-        ctx.stroke(Path(ellipseIn: CGRect(x: cx - r, y: cy - r, width: r * 2, height: r * 2)),
-                   with: .color(Moon.violet.opacity((1 - phase) * 0.7)), lineWidth: 1.5)
+        strokePath(&ctx, Path(ellipseIn: CGRect(x: cx - r, y: cy - r, width: r * 2, height: r * 2)), Moon.violet.opacity((1 - phase) * 0.7), lineWidth: 1.5)
     }
     dot(&ctx, cx, cy, 6, Moon.gold)
     label(&ctx, "此刻", cx, cy + 18, Moon.gold)
@@ -110,7 +109,7 @@ private func drawTwoDomains(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: D
     var divider = Path()
     divider.move(to: CGPoint(x: 16, y: mid))
     divider.addLine(to: CGPoint(x: w - 16, y: mid))
-    ctx.stroke(divider, with: .color(Color.primary.opacity(0.3)), style: StrokeStyle(lineWidth: 1, dash: [6, 5]))
+    strokePath(&ctx, divider, Color.primary.opacity(0.3), style: StrokeStyle(lineWidth: 1, dash: [6, 5]))
     label(&ctx, "现象：一切都被决定（反题 ✓）", w / 2, 20, Moon.silver)
     label(&ctx, "本体：可以设想自由（正题 ✓）", w / 2, mid + 22, Moon.gold)
 
@@ -125,7 +124,7 @@ private func drawTwoDomains(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: D
             var l = Path()
             l.move(to: CGPoint(x: x + 9, y: y))
             l.addLine(to: CGPoint(x: x + (w - 60) / Double(n - 1) - 9, y: y))
-            ctx.stroke(l, with: .color(Moon.silver.opacity(0.4)), lineWidth: 1.5)
+            strokePath(&ctx, l, Moon.silver.opacity(0.4), lineWidth: 1.5)
         }
     }
 

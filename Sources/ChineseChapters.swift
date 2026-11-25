@@ -286,12 +286,11 @@ func drawWater(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     }
     ground.addLine(to: CGPoint(x: w, y: h))
     ground.closeSubpath()
-    ctx.fill(ground, with: .color(Color.primary.opacity(0.08)))
+    fillPath(&ctx, ground, Color.primary.opacity(0.08))
     // 低处水池
     let fill = b == 2 ? smooth(p) : (b == 1 ? 0.2 : 0)
     let poolTop = h * 0.8 - 30 * fill
-    ctx.fill(Path(CGRect(x: w * 0.75, y: poolTop, width: w * 0.25, height: h * 0.8 - poolTop + 2)),
-             with: .color(Moon.silver.opacity(0.45)))
+    fillPath(&ctx, Path(CGRect(x: w * 0.75, y: poolTop, width: w * 0.25, height: h * 0.8 - poolTop + 2)), Moon.silver.opacity(0.45))
     // 水滴沿台阶流下
     for i in 0..<10 {
         let u = fract(t * 0.12 + Double(i) / 10)
@@ -457,7 +456,7 @@ func drawStraighten(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
         let yy = y + amp * sin(Double(i) / 60 * 3 * Double.pi)
         if i == 0 { wood.move(to: CGPoint(x: x, y: yy)) } else { wood.addLine(to: CGPoint(x: x, y: yy)) }
     }
-    ctx.stroke(wood, with: .color(Moon.gold), style: StrokeStyle(lineWidth: 10, lineCap: .round))
+    strokePath(&ctx, wood, Moon.gold, style: StrokeStyle(lineWidth: 10, lineCap: .round))
     if b == 1 {
         let cx = 40 + (w - 80) * smooth(p / 0.85)
         box(&ctx, cx - 22, y - 46, 44, 26, Moon.silver)
@@ -491,8 +490,7 @@ func drawAccumulate(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     case 1:
         let level = smooth(p / 0.8)
         let top = h - 70 - (h - 190) * level
-        ctx.fill(Path(roundedRect: CGRect(x: w * 0.25, y: top, width: w * 0.5, height: h - 70 - top), cornerRadius: 12),
-                 with: .color(Moon.silver.opacity(0.35)))
+        fillPath(&ctx, Path(roundedRect: CGRect(x: w * 0.25, y: top, width: w * 0.5, height: h - 70 - top), cornerRadius: 12), Moon.silver.opacity(0.35))
         for i in 0..<6 { blob(&ctx, w * 0.3 + Double(i) * w * 0.08, 60 + fract(t * 0.6 + Double(i) * 0.17) * (top - 60), 3, Moon.silver) }
         if level > 0.9 {
             dot(&ctx, w / 2 + sin(t * 0.8) * w * 0.15, (top + h - 70) / 2, 12, Moon.gold)
@@ -573,7 +571,7 @@ func drawFlag(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
         flag.addLine(to: CGPoint(x: px + u * 110, y: top + 60 + 8 * sin(u * 6 - t * 1.5) * u))
     }
     flag.closeSubpath()
-    ctx.fill(flag, with: .color((b == 1 ? Moon.gold : Moon.violet).opacity(b == 2 ? 0.25 : 0.6)))
+    fillPath(&ctx, flag, (b == 1 ? Moon.gold : Moon.violet).opacity(b == 2 ? 0.25 : 0.6))
     for i in 0..<4 {
         let y = top + 10 + Double(i) * 14
         let x = 20 + fract(t * 0.3 + Double(i) * 0.25) * (px - 30)
@@ -623,7 +621,7 @@ func drawFlower(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     mountain.addLine(to: CGPoint(x: w * 0.8, y: h * 0.38))
     mountain.addLine(to: CGPoint(x: w, y: h * 0.75))
     mountain.closeSubpath()
-    ctx.fill(mountain, with: .color(Color.primary.opacity(0.07)))
+    fillPath(&ctx, mountain, Color.primary.opacity(0.07))
     let bright = b == 0 ? 0.0 : smooth(p / 0.5)
     let fx = w * 0.5, fy = h * 0.62
     for i in 0..<5 {
@@ -652,7 +650,7 @@ func drawFishDebate(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     dot(&ctx, hx, bridgeY - 24, 16, b == 1 || b == 3 ? Moon.violet : Moon.silver)
     label(&ctx, "庄子", zx, bridgeY - 52, Moon.gold, size: 12)
     label(&ctx, "惠子", hx, bridgeY - 52, Moon.violet, size: 12)
-    ctx.fill(Path(CGRect(x: 0, y: h * 0.58, width: w, height: h * 0.3)), with: .color(Moon.silver.opacity(0.15)))
+    fillPath(&ctx, Path(CGRect(x: 0, y: h * 0.58, width: w, height: h * 0.3)), Moon.silver.opacity(0.15))
     for i in 0..<5 {
         let s = Double(i)
         let x = fract(t * 0.06 + hash01(s)) * w

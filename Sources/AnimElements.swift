@@ -206,7 +206,7 @@ func drawAnticipations(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double
 
     let by = h * 0.68, bx = 30.0, bw = w - 60
     box(&ctx, bx, by, bw, 14, Moon.dim)
-    ctx.fill(Path(roundedRect: CGRect(x: bx, y: by, width: bw * v, height: 14), cornerRadius: 7), with: .color(Moon.gold))
+    fillPath(&ctx, Path(roundedRect: CGRect(x: bx, y: by, width: bw * v, height: 14), cornerRadius: 7), Moon.gold)
     let depth = 1 + Int(fract(t / 21) * 7)
     let parts = 1 << depth
     for k in 0...parts {

@@ -78,15 +78,11 @@ private func drawRings(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double
     let cx = w / 2, cy = h / 2
     let outer = min(w, h) * 0.46, inner = outer * 0.52
 
-    ctx.fill(Path(ellipseIn: CGRect(x: cx - outer, y: cy - outer, width: outer * 2, height: outer * 2)),
-             with: .color(Moon.violet.opacity(0.10)))
-    ctx.stroke(Path(ellipseIn: CGRect(x: cx - outer, y: cy - outer, width: outer * 2, height: outer * 2)),
-               with: .color(Moon.violet.opacity(0.6)), style: StrokeStyle(lineWidth: 1, dash: [5, 5]))
+    fillPath(&ctx, Path(ellipseIn: CGRect(x: cx - outer, y: cy - outer, width: outer * 2, height: outer * 2)), Moon.violet.opacity(0.10))
+    strokePath(&ctx, Path(ellipseIn: CGRect(x: cx - outer, y: cy - outer, width: outer * 2, height: outer * 2)), Moon.violet.opacity(0.6), style: StrokeStyle(lineWidth: 1, dash: [5, 5]))
     let breathe = inner + 2 * sin(t * 1.6)
-    ctx.fill(Path(ellipseIn: CGRect(x: cx - breathe, y: cy - breathe, width: breathe * 2, height: breathe * 2)),
-             with: .color(Moon.gold.opacity(0.14)))
-    ctx.stroke(Path(ellipseIn: CGRect(x: cx - breathe, y: cy - breathe, width: breathe * 2, height: breathe * 2)),
-               with: .color(Moon.gold.opacity(0.8)), lineWidth: 1.5)
+    fillPath(&ctx, Path(ellipseIn: CGRect(x: cx - breathe, y: cy - breathe, width: breathe * 2, height: breathe * 2)), Moon.gold.opacity(0.14))
+    strokePath(&ctx, Path(ellipseIn: CGRect(x: cx - breathe, y: cy - breathe, width: breathe * 2, height: breathe * 2)), Moon.gold.opacity(0.8), lineWidth: 1.5)
 
     label(&ctx, "可知 E", cx, cy - inner + 18, Moon.gold)
     label(&ctx, "可思", cx, cy - outer + 16, Moon.violet)

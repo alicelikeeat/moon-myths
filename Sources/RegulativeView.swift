@@ -63,7 +63,7 @@ private func drawAscent(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Doubl
     var asym = Path()
     asym.move(to: CGPoint(x: left, y: py(1)))
     asym.addLine(to: CGPoint(x: right, y: py(1)))
-    ctx.stroke(asym, with: .color(Moon.gold.opacity(0.8)), style: StrokeStyle(lineWidth: 1.5, dash: [6, 5]))
+    strokePath(&ctx, asym, Moon.gold.opacity(0.8), style: StrokeStyle(lineWidth: 1.5, dash: [6, 5]))
     label(&ctx, "理念（虚焦点 focus imaginarius）", w / 2, py(1) - 16, Moon.gold)
 
     // 曲线
@@ -73,7 +73,7 @@ private func drawAscent(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Doubl
         let p = CGPoint(x: px(x), y: py(unity(x)))
         if i == 0 { curve.move(to: p) } else { curve.addLine(to: p) }
     }
-    ctx.stroke(curve, with: .color(Moon.silver), lineWidth: 2)
+    strokePath(&ctx, curve, Moon.silver, lineWidth: 2)
 
     // 沿梯度上升的知识点
     let x = fract(t * 0.07) * maxX
@@ -84,7 +84,7 @@ private func drawAscent(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Doubl
     var arrow = Path()
     arrow.move(to: CGPoint(x: px(x), y: py(u)))
     arrow.addLine(to: CGPoint(x: px(x) + 40, y: py(u) - 40 * grad * (bottom - top) / (right - left) * maxX))
-    ctx.stroke(arrow, with: .color(Moon.violet), lineWidth: 2)
+    strokePath(&ctx, arrow, Moon.violet, lineWidth: 2)
 
     label(&ctx, String(format: "统一度 %.4f  ·  距理念 %.4f", u, 1 - u), w / 2, bottom + 18, Color.primary)
     label(&ctx, "经验知识 →", left + 40, bottom - 10)

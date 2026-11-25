@@ -92,7 +92,7 @@ func drawSchema(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double, _ c: 
     var axis = Path()
     axis.move(to: CGPoint(x: 20, y: axisY))
     axis.addLine(to: CGPoint(x: w - 20, y: axisY))
-    ctx.stroke(axis, with: .color(Moon.silver.opacity(0.5)), lineWidth: 1)
+    strokePath(&ctx, axis, Moon.silver.opacity(0.5), lineWidth: 1)
     label(&ctx, "时间 t →", w - 50, axisY + 16)
     label(&ctx, c.math, w / 2, 22, Moon.silver, size: 16)
 
@@ -119,7 +119,7 @@ func drawSchema(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double, _ c: 
         }
         p.addLine(to: CGPoint(x: 30 + span, y: axisY))
         p.closeSubpath()
-        ctx.fill(p, with: .linearGradient(Gradient(colors: [Moon.gold.opacity(0.7), Moon.violet.opacity(0.1)]),
+        fillPath(&ctx, p, shading: .linearGradient(Gradient(colors: [Moon.gold.opacity(0.7), Moon.violet.opacity(0.1)]),
                                           startPoint: CGPoint(x: 0, y: axisY - h * 0.45),
                                           endPoint: CGPoint(x: 0, y: axisY)))
 
@@ -128,7 +128,7 @@ func drawSchema(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double, _ c: 
         var line = Path()
         line.move(to: CGPoint(x: 30, y: y))
         line.addLine(to: CGPoint(x: 30 + span, y: y))
-        ctx.stroke(line, with: .color(Moon.gold), lineWidth: 4)
+        strokePath(&ctx, line, Moon.gold, lineWidth: 4)
         label(&ctx, "实体（持久）", 70, y - 18, Moon.gold)
         for k in 0..<6 {
             let x = 30 + fract(Double(k) / 6 + t * 0.08) * span
@@ -148,7 +148,7 @@ func drawSchema(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double, _ c: 
         var arrow = Path()
         arrow.move(to: CGPoint(x: ax + 16, y: y))
         arrow.addLine(to: CGPoint(x: max(ax + 16, head - 14), y: y))
-        ctx.stroke(arrow, with: .color(Color.primary.opacity(0.8)), lineWidth: 2)
+        strokePath(&ctx, arrow, Color.primary.opacity(0.8), lineWidth: 2)
         label(&ctx, "不可逆：t₁ < t₂", w / 2, h * 0.3)
 
     case .simultaneity:
@@ -160,11 +160,11 @@ func drawSchema(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double, _ c: 
         var link = Path()
         link.move(to: CGPoint(x: x, y: y1 + 12))
         link.addLine(to: CGPoint(x: x, y: y2 - 12))
-        ctx.stroke(link, with: .color(Color.primary.opacity(0.7)), style: StrokeStyle(lineWidth: 2, dash: [4, 3]))
+        strokePath(&ctx, link, Color.primary.opacity(0.7), style: StrokeStyle(lineWidth: 2, dash: [4, 3]))
         var tick = Path()
         tick.move(to: CGPoint(x: x, y: axisY - 6))
         tick.addLine(to: CGPoint(x: x, y: axisY + 6))
-        ctx.stroke(tick, with: .color(Moon.silver), lineWidth: 2)
+        strokePath(&ctx, tick, Moon.silver, lineWidth: 2)
         label(&ctx, "A ↔ B", x + 34, (y1 + y2) / 2, Color.primary)
 
     case .modality:
@@ -183,7 +183,7 @@ func drawSchema(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double, _ c: 
                 var l = Path()
                 l.move(to: CGPoint(x: 70, y: y))
                 l.addLine(to: CGPoint(x: 20 + span, y: y))
-                ctx.stroke(l, with: .color(col), lineWidth: 3)
+                strokePath(&ctx, l, col, lineWidth: 3)
             }
         }
     }

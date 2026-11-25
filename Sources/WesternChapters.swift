@@ -253,7 +253,7 @@ func drawCave(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let (b, p) = beats(t, [6, 6, 6, 7])
     let wallX = w * 0.12, floorY = h * 0.78
     // 洞穴与出口
-    ctx.fill(Path(CGRect(x: 0, y: 0, width: w * 0.75, height: h)), with: .color(Color.primary.opacity(b == 3 ? 0.04 : 0.1)))
+    fillPath(&ctx, Path(CGRect(x: 0, y: 0, width: w * 0.75, height: h)), Color.primary.opacity(b == 3 ? 0.04 : 0.1))
     line(&ctx, wallX, h * 0.2, wallX, floorY, Color.primary.opacity(0.4), 3)
     // 火
     let fx = w * 0.55, fy = h * 0.62
@@ -499,12 +499,12 @@ func drawRope(_ ctx: inout GraphicsContext, _ size: CGSize, _ t: Double) {
     let w = Double(size.width), h = Double(size.height)
     let (b, p) = beats(t, [6, 7, 7])
     let y = h * 0.42
-    ctx.fill(Path(CGRect(x: w * 0.18, y: y + 10, width: w * 0.64, height: h - y)), with: .color(Color.primary.opacity(0.08)))
+    fillPath(&ctx, Path(CGRect(x: w * 0.18, y: y + 10, width: w * 0.64, height: h - y)), Color.primary.opacity(0.08))
     label(&ctx, "深渊", w / 2, h * 0.8, Moon.dim, size: 12)
     var rope = Path()
     rope.move(to: CGPoint(x: w * 0.15, y: y))
     rope.addQuadCurve(to: CGPoint(x: w * 0.85, y: y), control: CGPoint(x: w / 2, y: y + 24))
-    ctx.stroke(rope, with: .color(Moon.gold.opacity(0.8)), lineWidth: 2)
+    strokePath(&ctx, rope, Moon.gold.opacity(0.8), lineWidth: 2)
     dot(&ctx, w * 0.1, y, 18, Moon.silver)
     label(&ctx, "动物", w * 0.1, y + 32, Moon.silver, size: 12)
     dot(&ctx, w * 0.9, y, 18 + (b == 2 ? 6 * smooth(p) : 0), Moon.gold)
