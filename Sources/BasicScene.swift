@@ -106,8 +106,8 @@ func basicScene(text: String, lang declared: String, score: Int?) -> AnimScene? 
         guard !lines.isEmpty else { return nil }
         title = String(lines[0].prefix(10))
     } else {
-        if let r = text.range(of: #"^\d+(\.\d+)*\s+"#, options: .regularExpression) {
-            speaker = text[r].trimmingCharacters(in: .whitespaces)
+        if let r = text.range(of: #"^\d+(\.\d+)*\.?\s+"#, options: .regularExpression) {
+            speaker = text[r].trimmingCharacters(in: .whitespaces).trimmingCharacters(in: CharacterSet(charactersIn: "."))
             body = String(text[r.upperBound...])
         }
         sents = sentences(body)

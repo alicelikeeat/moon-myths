@@ -288,7 +288,7 @@ def basic_scene(text, lang):
         title = lines[0][:10]
     else:
         num = None
-        m = _re.match(r"^(\d+(?:\.\d+)*)\s+", text)
+        m = _re.match(r"^(\d+(?:\.\d+)*)\.?\s+", text)
         body = text
         if m:
             num = m.group(1); body = text[m.end():]
