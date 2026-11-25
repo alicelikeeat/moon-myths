@@ -205,6 +205,9 @@ struct BookView: View {
                         Text("该书在部分地区仍受版权保护，本应用只提供节选。")
                             .font(.caption).foregroundStyle(Color.primary.opacity(0.5))
                     }
+                    if let ed = bookEditions[book.id], !ed.isEmpty {
+                        EditionsSection(editions: ed)
+                    }
                     ForEach(book.parts, id: \.self) { part in
                         Text(part)
                             .font(.footnote.weight(.semibold)).foregroundStyle(Color.primary.opacity(0.6))

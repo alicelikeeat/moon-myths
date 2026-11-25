@@ -1,0 +1,1108 @@
+{
+ "kant-cpr": {
+  "images": [
+   {
+    "file": "Kant-KdrV-1781.png",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b9/Kant-KdrV-1781.png/960px-Kant-KdrV-1781.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "1781 年初版（A 版）扉页，里加：哈特克诺赫出版",
+    "license": "Public domain"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "bub_gb_gHk9AAAAcAAJ",
+    "caption": "1791 年第四版，法兰克福",
+    "title": "Kritik der reinen Vernunft",
+    "publisher": "Frankfurt u.a."
+   },
+   {
+    "ia": "immanuelkantscri01kant",
+    "caption": "1881 年 Max Müller 英译本，伦敦麦克米伦",
+    "title": "Immanuel Kant's Critique of pure reason",
+    "publisher": "London, Macmillan"
+   }
+  ]
+ },
+ "hegel-phen": {
+  "images": [
+   {
+    "file": "Phänomenologie des Geistes.jpg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/9/93/Ph%C3%A4nomenologie_des_Geistes.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "caption": "1807 年初版扉页，班贝格与维尔茨堡",
+    "license": "Public domain"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "systemderwissen00hegegoog",
+    "caption": "1807 年初版《科学体系·第一部：精神现象学》",
+    "title": "System der Wissenschaft : erster Theil, Die Phänomenologie des Geistes",
+    "publisher": "Bamberg : J.A. Goebhardt"
+   },
+   {
+    "ia": "phnomenologied00hege",
+    "caption": "1907 年 Lasson 校订本，莱比锡",
+    "title": "Phänomenologie des geistes",
+    "publisher": "Leipzig : Dürr'schen Buchlandlung"
+   }
+  ]
+ },
+ "hegel-logic": {
+  "images": [
+   {
+    "file": "Wissenschaft der Logik.jpg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/b/b1/Wissenschaft_der_Logik.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "caption": "初版扉页，纽伦堡：施拉格",
+    "license": "Public domain"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "wissenschaftder03hegegoog",
+    "caption": "1812 年初版，纽伦堡",
+    "title": "Wissenschaft der Logik",
+    "publisher": "Nürnberg : Johann Leonhard Schrag"
+   },
+   {
+    "ia": "bub_gb_XHGx2e_KLOYC",
+    "caption": "1833 年《黑格尔全集》本，柏林：东克尔与洪堡",
+    "title": "Georg Wilhelm Friedrich Hegels Werke vollstandige Ausgabe durch einen Verein von Freunden des Verewigten Ph. Marheineke ... et al. Georg Wil",
+    "publisher": "Duncker und Humblot"
+   }
+  ]
+ },
+ "russell-denoting": {
+  "images": [
+   {
+    "file": "On Denoting.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bb/On_Denoting.jpg/960px-On_Denoting.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "《心灵》（Mind）1905 年第 14 卷所载《论指称》",
+    "license": "CC BY-SA 3.0"
+   }
+  ],
+  "scans": []
+ },
+ "russell-pm": {
+  "images": [
+   {
+    "file": "Russell, Whitehead - Principia Mathematica to 56.jpg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/2/27/Russell%2C_Whitehead_-_Principia_Mathematica_to_56.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "caption": "《数学原理》（至 ✱56）",
+    "license": "Public domain"
+   },
+   {
+    "file": "Principia Mathematica 54-43.png",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/d/d7/Principia_Mathematica_54-43.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "caption": "第一卷 ✱54.43：由此可证 1+1=2",
+    "license": "Public domain"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "cu31924001575244",
+    "caption": "1910 年初版第一卷，剑桥大学出版社",
+    "title": "Principia mathematica",
+    "publisher": "Cambridge, University Press"
+   }
+  ]
+ },
+ "russell-problems": {
+  "images": [
+   {
+    "file": "Russell title1912.jpg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/9/92/Russell_title1912.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "caption": "1912 年初版扉页",
+    "license": "Public domain"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "problemsofphilos00russuoft",
+    "caption": "1912 年初版，伦敦：威廉斯与诺盖特",
+    "title": "The problems of philosophy",
+    "publisher": "London : Williams & Norgate"
+   },
+   {
+    "ia": "problemsofphilo00russuoft",
+    "caption": "1912 年美国版，纽约：霍尔特",
+    "title": "The problems of philosophy",
+    "publisher": "New York : H. Holt"
+   }
+  ]
+ },
+ "lunyu": {
+  "images": [
+   {
+    "file": "Manuscript of Lunyu, text by Kong Anguo with commentary by Zheng Xuan.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/16/Manuscript_of_Lunyu%2C_text_by_Kong_Anguo_with_commentary_by_Zheng_Xuan.jpg/960px-Manuscript_of_Lunyu%2C_text_by_Kong_Anguo_with_commentary_by_Zheng_Xuan.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "唐代写本《论语》郑玄注",
+    "license": "Public domain"
+   },
+   {
+    "file": "Commentary on The Analects of Confucius WDL11839.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b6/Commentary_on_The_Analects_of_Confucius_WDL11839.jpg/960px-Commentary_on_The_Analects_of_Confucius_WDL11839.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "16 世纪《论语》注本（世界数字图书馆藏）",
+    "license": "Public domain"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "06081456.cn",
+    "caption": "朱熹《四书章句集注·论语集注》卷一至卷六",
+    "title": "四書集注章句·論語集注·卷一~卷六",
+    "publisher": ""
+   },
+   {
+    "ia": "06043734.cn",
+    "caption": "皇侃《论语集解义疏》卷一至卷二",
+    "title": "論語集解義疏·卷一~卷二",
+    "publisher": ""
+   },
+   {
+    "ia": "02075220.cn",
+    "caption": "刘宝楠《论语正义》（一）",
+    "title": "論語正義(一)",
+    "publisher": ""
+   }
+  ]
+ },
+ "daodejing": {
+  "images": [
+   {
+    "file": "Mawangdui LaoTsu Ms2.JPG",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/e/ed/Mawangdui_LaoTsu_Ms2.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "caption": "马王堆汉墓帛书《老子》（西汉）",
+    "license": "Public domain"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "06049303.cn",
+    "caption": "《老子道德经》上篇",
+    "title": "老子道德經·上篇",
+    "publisher": ""
+   },
+   {
+    "ia": "06048948.cn",
+    "caption": "《道德真经注》卷一至卷二",
+    "title": "道德真經註·卷一~卷二",
+    "publisher": ""
+   },
+   {
+    "ia": "02092040.cn",
+    "caption": "严遵《道德真经指归》（一）",
+    "title": "道德真經指歸(一)",
+    "publisher": ""
+   }
+  ]
+ },
+ "zhuangzi": {
+  "images": [
+   {
+    "file": "Zhuangzi Tian Yun Ms.JPG",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a5/Zhuangzi_Tian_Yun_Ms.JPG/960px-Zhuangzi_Tian_Yun_Ms.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "唐写本《庄子·天运》（8 世纪）",
+    "license": "Public domain"
+   },
+   {
+    "file": "Zhuangzi Song Edition.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/95/Zhuangzi_Song_Edition.jpg/960px-Zhuangzi_Song_Edition.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "宋刻本《庄子》",
+    "license": "Public domain"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "06048962.cn",
+    "caption": "郭象《庄子注》卷一至卷二",
+    "title": "莊子注·卷一~卷二",
+    "publisher": ""
+   },
+   {
+    "ia": "02092140.cn",
+    "caption": "郭庆藩《庄子集释》（一）",
+    "title": "莊子集釋(一)",
+    "publisher": ""
+   }
+  ]
+ },
+ "mengzi": {
+  "images": [
+   {
+    "file": "Jiatai Era Mencius title page.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f6/Jiatai_Era_Mencius_title_page.jpg/960px-Jiatai_Era_Mencius_title_page.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "南宋嘉泰年间刻本《孟子》",
+    "license": "Public domain"
+   },
+   {
+    "file": "Mencius published in Edo period Japan.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a8/Mencius_published_in_Edo_period_Japan.jpg/960px-Mencius_published_in_Edo_period_Japan.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "日本江户时代刊本《孟子》（约 1632 年）",
+    "license": "Public Domain"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "06081458.cn",
+    "caption": "朱熹《四书章句集注·孟子集注》卷一至卷二",
+    "title": "四書集注章句·孟子集注·卷一~卷二",
+    "publisher": ""
+   },
+   {
+    "ia": "06072986.cn",
+    "caption": "赵岐注、孙奭疏《孟子注疏》",
+    "title": "孟子注疏·卷一上~卷一下",
+    "publisher": ""
+   },
+   {
+    "ia": "02075282.cn",
+    "caption": "焦循《孟子正义》（一）",
+    "title": "孟子正義(一)",
+    "publisher": ""
+   }
+  ]
+ },
+ "hanfeizi": {
+  "images": [],
+  "scans": [
+   {
+    "ia": "06072346.cn",
+    "caption": "《韩非子》卷一至卷四",
+    "title": "韓非子·卷一~卷四",
+    "publisher": ""
+   },
+   {
+    "ia": "02092483.cn",
+    "caption": "王先慎《韩非子集解》（一）",
+    "title": "韓非子集解(一)",
+    "publisher": ""
+   }
+  ]
+ },
+ "zhuziyulei": {
+  "images": [],
+  "scans": [
+   {
+    "ia": "06049689.cn",
+    "caption": "《朱子语类》卷一至卷二",
+    "title": "朱子語類·卷一~卷二",
+    "publisher": ""
+   },
+   {
+    "ia": "06049690.cn",
+    "caption": "《朱子语类》卷三至卷四",
+    "title": "朱子語類·卷三~卷四",
+    "publisher": ""
+   }
+  ]
+ },
+ "mozi": {
+  "images": [],
+  "scans": [
+   {
+    "ia": "06076356.cn",
+    "caption": "《墨子》卷一至卷四",
+    "title": "墨子卷·卷一~卷四",
+    "publisher": ""
+   },
+   {
+    "ia": "02095513.cn",
+    "caption": "孙诒让《墨子间诂》（一）",
+    "title": "墨子聞詁(一)",
+    "publisher": ""
+   }
+  ]
+ },
+ "xunzi": {
+  "images": [],
+  "scans": [
+   {
+    "ia": "02091525.cn",
+    "caption": "王先谦《荀子集解》（一）",
+    "title": "荀子集解(一)",
+    "publisher": ""
+   },
+   {
+    "ia": "02091526.cn",
+    "caption": "王先谦《荀子集解》（二）",
+    "title": "荀子集解(二)",
+    "publisher": ""
+   }
+  ]
+ },
+ "chunqiufanlu": {
+  "images": [],
+  "scans": [
+   {
+    "ia": "06072286.cn",
+    "caption": "《春秋繁露》卷一至卷六",
+    "title": "春秋繁露·卷一~卷六",
+    "publisher": ""
+   },
+   {
+    "ia": "02075125.cn",
+    "caption": "苏舆《春秋繁露义证》（一）",
+    "title": "春秋繁露義證(一)",
+    "publisher": ""
+   }
+  ]
+ },
+ "apology": {
+  "images": [],
+  "scans": [
+   {
+    "ia": "dialoguesplato05platgoog",
+    "caption": "1876 年乔伊特（Jowett）译《柏拉图对话集》第一卷",
+    "title": "The dialogues of Plato. Vol. 1, Euthyphro, Apology, Crito, Meno, Gorgias, Menexenus",
+    "publisher": "New Haven ; London : Yale University Press"
+   },
+   {
+    "ia": "dialogueofplato00platuoft",
+    "caption": "1900 年《柏拉图对话集》：含《申辩篇》《克里同》《斐多》",
+    "title": "Dialogues of Plato : containing The apology of Socrates, Crito, Phaedo, and Protagoras",
+    "publisher": "London ; New York : Colonial Press"
+   }
+  ]
+ },
+ "republic": {
+  "images": [
+   {
+    "file": "Politeia beginning. Codex Parisinus graecus 1807.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7b/Politeia_beginning._Codex_Parisinus_graecus_1807.jpg/960px-Politeia_beginning._Codex_Parisinus_graecus_1807.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "巴黎希腊文抄本 1807 号：《理想国》开篇（约 900 年）",
+    "license": "Public domain"
+   },
+   {
+    "file": "P. Oxy. LII 3679.jpg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/3/3d/P._Oxy._LII_3679.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "caption": "俄克喜林库斯纸草 3679：《理想国》残片（3 世纪）",
+    "license": "Public domain"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "a604578400platuoft",
+    "caption": "1888 年乔伊特译本，牛津：克拉伦登出版社",
+    "title": "The Republic of Plato",
+    "publisher": "Oxford : Clarendon Press"
+   }
+  ]
+ },
+ "phaedo": {
+  "images": [
+   {
+    "file": "Olympiodorus the Younger, Venice, Gr. 196.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/97/Olympiodorus_the_Younger%2C_Venice%2C_Gr._196.jpg/960px-Olympiodorus_the_Younger%2C_Venice%2C_Gr._196.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "小奥林匹奥多罗斯《斐多》注疏抄本（约 900 年，威尼斯）",
+    "license": "Public domain"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "phaedofoplato00platuoft",
+    "caption": "1883 年《斐多》，伦敦：麦克米伦",
+    "title": "The Phaedo of Plato;",
+    "publisher": "London, Macmillan"
+   },
+   {
+    "ia": "trialanddeathofs00platiala",
+    "caption": "1895 年《苏格拉底的审判与死亡》（含《斐多》）",
+    "title": "The trial and death of Socrates : being the Euthyphron, Apology, Crito, and Phaedo of Plato",
+    "publisher": "London : Macmillan ; New York : Macmillan"
+   }
+  ]
+ },
+ "symposium": {
+  "images": [
+   {
+    "file": "Plato Symposium papyrus.jpg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/c/ca/Plato_Symposium_papyrus.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "caption": "《会饮》纸草残片",
+    "license": "Public domain"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "symposiumofplato01plat",
+    "caption": "1909 年《会饮》，剑桥：赫弗父子",
+    "title": "The Symposium of Plato,",
+    "publisher": "Cambridge, W. Heffer and sons; London, Sipkin, Marshall and co. ltd."
+   }
+  ]
+ },
+ "confessions": {
+  "images": [
+   {
+    "file": "Basel, Universitätsbibliothek, A IV 4, f. 1r – Aurelius Augustinus, Confessiones.JPG",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ce/Basel%2C_Universit%C3%A4tsbibliothek%2C_A_IV_4%2C_f._1r_%E2%80%93_Aurelius_Augustinus%2C_Confessiones.JPG/960px-Basel%2C_Universit%C3%A4tsbibliothek%2C_A_IV_4%2C_f._1r_%E2%80%93_Aurelius_Augustinus%2C_Confessiones.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "巴塞尔大学图书馆藏《忏悔录》抄本首页",
+    "license": "Public domain"
+   },
+   {
+    "file": "Confessiones-UBU Hs. 41-f.001r-Tronende Augustinus met een hart doorboort met pijlen.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/97/Confessiones-UBU_Hs._41-f.001r-Tronende_Augustinus_met_een_hart_doorboort_met_pijlen.jpg/960px-Confessiones-UBU_Hs._41-f.001r-Tronende_Augustinus_met_een_hart_doorboort_met_pijlen.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "乌得勒支大学藏《忏悔录》抄本（15 世纪）",
+    "license": "Public domain"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "confessionssaug00pusegoog",
+    "caption": "1838 年蒲赛（Pusey）英译本，牛津",
+    "title": "The Confessions of S. Augustine",
+    "publisher": "J.H. Parker ; J.G. and F . Rivington"
+   }
+  ]
+ },
+ "discourse": {
+  "images": [
+   {
+    "file": "Page de titre de la première édition du discours de la méthode.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/df/Page_de_titre_de_la_premi%C3%A8re_%C3%A9dition_du_discours_de_la_m%C3%A9thode.jpg/960px-Page_de_titre_de_la_premi%C3%A8re_%C3%A9dition_du_discours_de_la_m%C3%A9thode.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "1637 年初版扉页，莱顿：让·迈尔",
+    "license": "Public domain"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "discoursdelamet00desca",
+    "caption": "1637 年初版，莱顿",
+    "title": "Discours de la methode : pour bien conduire sa raison, & chercher la verité dans les sciences. Plus La dioptrique. Les meteores. Et La geom",
+    "publisher": "A Leyde : De l'imprimerie de Ian Maire"
+   },
+   {
+    "ia": "discoursdelameth00desc",
+    "caption": "1658 年巴黎版",
+    "title": "Discours de la methode : pour bien conduire sa raison, & chercher la verité dans les sciences : Plus La dioptrique, et Les meteores. Qui son",
+    "publisher": "A Paris : Chez Henry Le Gras ..."
+   }
+  ]
+ },
+ "meditationes": {
+  "images": [
+   {
+    "file": "Meditationes de prima philosophia 1641.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/77/Meditationes_de_prima_philosophia_1641.jpg/960px-Meditationes_de_prima_philosophia_1641.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "1641 年初版扉页，巴黎",
+    "license": "Public domain"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "ned-kbn-all-00003573-001",
+    "caption": "1642 年阿姆斯特丹第二版，埃尔泽维尔",
+    "title": "Meditationes de prima philosophia ... Renatus Descartes his adjunctae sunt variae objectiones ... cum responsionibus authoris",
+    "publisher": "Elzevir, Louis"
+   },
+   {
+    "ia": "bub_gb_ZZibllqkgCQC",
+    "caption": "1644 年阿姆斯特丹版，布劳",
+    "title": "Renati DesCartes Meditationes de prima philosophia, in quibus Dei exsistentia, & animæ humanæ à corpore distinctio, demonstrantur",
+    "publisher": "apud Iohannem Blaeu"
+   }
+  ]
+ },
+ "ethics": {
+  "images": [],
+  "scans": [
+   {
+    "ia": "ned-kbn-all-00004303-001",
+    "caption": "1677 年《遗著集》（Opera Posthuma）初版，《伦理学》首次刊行",
+    "title": "Opera posthuma, quorum series post præfationem exhibetur",
+    "publisher": "Rieuwertsz, Jan"
+   },
+   {
+    "ia": "ethica00unkngoog",
+    "caption": "1905 年拉丁文本，海牙：奈霍夫",
+    "title": "Ethica",
+    "publisher": "M. Nijhoff"
+   }
+  ]
+ },
+ "enquiry": {
+  "images": [],
+  "scans": [
+   {
+    "ia": "enquiryconcernin01hume",
+    "caption": "1900 年 Open Court 版，芝加哥",
+    "title": "An enquiry concerning human understanding",
+    "publisher": "Chicago, The Open court publishing co.; [etc., etc.]"
+   }
+  ]
+ },
+ "nicomachean": {
+  "images": [],
+  "scans": [
+   {
+    "ia": "cu31924028995914",
+    "caption": "1847 年英译本，牛津",
+    "title": "The Nicomachean ethics of Aristotle : a new translation, mainly from the text of Bekker. With explanatory notes. Designed for the assistance",
+    "publisher": "Oxford : William Graham"
+   },
+   {
+    "ia": "petersethics00arisrich",
+    "caption": "1886 年 Peters 英译本，伦敦",
+    "title": "The Nicomachean ethics of Aristotle",
+    "publisher": "London, K. Paul, Trench & Co."
+   }
+  ]
+ },
+ "politics": {
+  "images": [
+   {
+    "file": "Aristotle, Politics, Udine 258.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3a/Aristotle%2C_Politics%2C_Udine_258.jpg/960px-Aristotle%2C_Politics%2C_Udine_258.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "15 世纪中叶《政治学》抄本（乌迪内）",
+    "license": "Public domain"
+   },
+   {
+    "file": "Politica 1481 Aristóteles.jpg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Politica_1481_Arist%C3%B3teles.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "caption": "1481 年刊本《政治学》",
+    "license": "CC BY-SA 4.0"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "aristotlespolit00elligoog",
+    "caption": "1895 年埃利斯（Ellis）英译本，伦敦：劳特利奇",
+    "title": "Aristotle's Politics: A Treatise on Government",
+    "publisher": "G. Routledge"
+   }
+  ]
+ },
+ "summa": {
+  "images": [
+   {
+    "file": "Basel, Universitätsbibliothek, A I 14, Head – Thomas Aquinas, Summa theologiae (prima pars.JPG",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/02/Basel%2C_Universit%C3%A4tsbibliothek%2C_A_I_14%2C_Head_%E2%80%93_Thomas_Aquinas%2C_Summa_theologiae_%28prima_pars.JPG/960px-Basel%2C_Universit%C3%A4tsbibliothek%2C_A_I_14%2C_Head_%E2%80%93_Thomas_Aquinas%2C_Summa_theologiae_%28prima_pars.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "巴塞尔大学藏《神学大全》第一集抄本（15 世纪）",
+    "license": "Public domain"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "summatheologi01thom",
+    "caption": "1912 年英国多明我会英译本第一卷，伦敦",
+    "title": "The \"Summa theologica\" of St. Thomas Aquinas",
+    "publisher": "London : Burns Oates & Washbourne"
+   }
+  ]
+ },
+ "monadologie": {
+  "images": [
+   {
+    "file": "Leibniz Monadology 1.jpg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Leibniz_Monadology_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "caption": "《单子论》书页",
+    "license": "Public domain"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "monadologie00zimmgoog",
+    "caption": "1847 年德译本，维也纳",
+    "title": "Monadologie",
+    "publisher": "Braumüller und Seidel"
+   },
+   {
+    "ia": "la-monadologie-lachelier-1919",
+    "caption": "1919 年 Lachelier 校订法文本",
+    "title": "Leibniz, La Monadologie, ed. Henri Lachelier, 9th Ed., 1919",
+    "publisher": ""
+   }
+  ]
+ },
+ "tractatus": {
+  "images": [
+   {
+    "file": "Tractatus title page.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/db/Tractatus_title_page.jpg/960px-Tractatus_title_page.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "1922 年德英对照初版扉页，伦敦：凯根·保罗",
+    "license": "Public domain"
+   },
+   {
+    "file": "Start of Tractatus Logico-Philosophicus.jpg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/d/d1/Start_of_Tractatus_Logico-Philosophicus.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "caption": "1922 年版正文开篇：1 世界是一切发生的事情",
+    "license": "Public domain"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "in.ernet.dli.2015.218527",
+    "caption": "1922 年伦敦初版（印度数字图书馆扫描）",
+    "title": "Tractatus Logico Philosophicus",
+    "publisher": ""
+   }
+  ]
+ },
+ "zhouyi": {
+  "images": [
+   {
+    "file": "I Ching Song Dynasty print.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/35/I_Ching_Song_Dynasty_print.jpg/960px-I_Ching_Song_Dynasty_print.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "宋刻本《周易》",
+    "license": "Public domain"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "06070838.cn",
+    "caption": "朱熹《原本周易本义》卷一至卷二",
+    "title": "原本周易本義·卷一~卷二",
+    "publisher": ""
+   },
+   {
+    "ia": "06075217.cn",
+    "caption": "《周易本义》卷首至卷一",
+    "title": "周易本義·卷首~卷一",
+    "publisher": ""
+   }
+  ]
+ },
+ "guanzi": {
+  "images": [],
+  "scans": [
+   {
+    "ia": "06081560.cn",
+    "caption": "《管子》卷一至卷三",
+    "title": "管子·卷一~卷三",
+    "publisher": ""
+   },
+   {
+    "ia": "02092471.cn",
+    "caption": "戴望《管子校正》（一）",
+    "title": "管子校正(一)",
+    "publisher": ""
+   }
+  ]
+ },
+ "sunzi": {
+  "images": [],
+  "scans": [
+   {
+    "ia": "02092175.cn",
+    "caption": "《十一家注孙子》（一）",
+    "title": "十一家注孫子(一)",
+    "publisher": ""
+   },
+   {
+    "ia": "artofwaroldestmi00suntuoft",
+    "caption": "1910 年翟林奈（Giles）英译本，伦敦",
+    "title": "The art of war: the oldest military treatise in the world",
+    "publisher": "London Luzac"
+   }
+  ]
+ },
+ "liji": {
+  "images": [],
+  "scans": [
+   {
+    "ia": "06073258.cn",
+    "caption": "《礼记注疏》卷三十七至卷三十八",
+    "title": "禮記注疏·卷三十七~卷三十八",
+    "publisher": ""
+   }
+  ]
+ },
+ "liezi": {
+  "images": [],
+  "scans": [
+   {
+    "ia": "06076369.cn",
+    "caption": "《列子》卷一至卷四",
+    "title": "列子·卷一~卷四",
+    "publisher": ""
+   },
+   {
+    "ia": "02092156.cn",
+    "caption": "《列子》（一）",
+    "title": "列子(一)",
+    "publisher": ""
+   }
+  ]
+ },
+ "lunheng": {
+  "images": [],
+  "scans": [
+   {
+    "ia": "06073461.cn",
+    "caption": "《论衡》卷一至卷二",
+    "title": "論衡·卷一~卷二",
+    "publisher": ""
+   }
+  ]
+ },
+ "zhouyuangong": {
+  "images": [
+   {
+    "file": "太極圖.jpg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/c/cc/%E5%A4%AA%E6%A5%B5%E5%9C%96.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "caption": "周敦颐《太极图》",
+    "license": "CC0"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "06053510.cn",
+    "caption": "《周元公集》卷一至卷四",
+    "title": "周元公集·卷一~卷四",
+    "publisher": ""
+   }
+  ]
+ },
+ "zhangzi": {
+  "images": [],
+  "scans": [
+   {
+    "ia": "06071413.cn",
+    "caption": "《张子全书》卷一至卷二（含《西铭》《正蒙》）",
+    "title": "張子全書·卷一~卷二",
+    "publisher": ""
+   }
+  ]
+ },
+ "ercheng": {
+  "images": [],
+  "scans": [
+   {
+    "ia": "06071429.cn",
+    "caption": "《二程遗书》卷一至卷二下",
+    "title": "二程遺書·卷一~卷二下",
+    "publisher": ""
+   }
+  ]
+ },
+ "xiangshan": {
+  "images": [],
+  "scans": [
+   {
+    "ia": "06058125.cn",
+    "caption": "《象山集》卷一至卷三",
+    "title": "象山集·卷一～卷三",
+    "publisher": ""
+   }
+  ]
+ },
+ "rizhilu": {
+  "images": [],
+  "scans": [
+   {
+    "ia": "06061656.cn",
+    "caption": "《日知录》卷一",
+    "title": "日知錄·卷一",
+    "publisher": ""
+   }
+  ]
+ },
+ "lucretius": {
+  "images": [
+   {
+    "file": "Lucretius, De rerum natura.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/Lucretius%2C_De_rerum_natura.jpg/960px-Lucretius%2C_De_rerum_natura.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "1483 年刊本《物性论》",
+    "license": "Public domain"
+   },
+   {
+    "file": "Lucretius - De rerum natura, first lines Leiden VLF 30, 9th century.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b3/Lucretius_-_De_rerum_natura%2C_first_lines_Leiden_VLF_30%2C_9th_century.jpg/960px-Lucretius_-_De_rerum_natura%2C_first_lines_Leiden_VLF_30%2C_9th_century.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "莱顿藏 9 世纪抄本开篇",
+    "license": "Public domain"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "dererumnatura00lucr",
+    "caption": "1889 年剑桥大学出版社版",
+    "title": "De rerum natura",
+    "publisher": "Cambridge : The University Press"
+   }
+  ]
+ },
+ "enchiridion": {
+  "images": [
+   {
+    "file": "Epictetus Enchiridion 1683 page1.jpg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Epictetus_Enchiridion_1683_page1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "caption": "1683 年刊本《手册》首页",
+    "license": "Public domain"
+   },
+   {
+    "file": "Epicteti Enchiridion Latinis versibus adumbratum (Oxford 1715) frontispiece.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/00/Epicteti_Enchiridion_Latinis_versibus_adumbratum_%28Oxford_1715%29_frontispiece.jpg/960px-Epicteti_Enchiridion_Latinis_versibus_adumbratum_%28Oxford_1715%29_frontispiece.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "1715 年牛津拉丁诗体本卷首插画",
+    "license": "Public domain"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "allworksofepicte00epic",
+    "caption": "1759 年《爱比克泰德全集》英译本，都柏林",
+    "title": "All the works of Epictetus : which are now extant; consisting of his Discourses, preserved by Arrian, in four books, the Enchiridion, and fr",
+    "publisher": "Dublin : Printed for Hulton Bradley ..."
+   }
+  ]
+ },
+ "meditations": {
+  "images": [],
+  "scans": [
+   {
+    "ia": "meditationsofmar00marc",
+    "caption": "1887 年英译本，伦敦",
+    "title": "The meditations of Marcus Aurelius",
+    "publisher": "London : W. Scott"
+   },
+   {
+    "ia": "meditations00marcuoft",
+    "caption": "1906 年 Everyman 版，伦敦：登特",
+    "title": "Meditations",
+    "publisher": "London : Dent ; New York : E.P. Dutton"
+   }
+  ]
+ },
+ "prince": {
+  "images": [],
+  "scans": [
+   {
+    "ia": "4R581INV679",
+    "caption": "1532 年罗马初版，布拉多印行",
+    "title": "Il Principe... La vita di Castruccio Castracani da Lucca... Il modo che tenne il duca Valentino per ammazar Vitellozo, Oliverotto da Fermo, ",
+    "publisher": "Antonio Blado d'Asola"
+   },
+   {
+    "ia": "8K4INV80RES_P2",
+    "caption": "1535 年刊本",
+    "title": "Il Principe... La vita di Castruccio Castracani... Il modo che tenne il duca Valentino per ammazare Vitellozo, Oliverotto da Fermo, il S. Pa",
+    "publisher": ""
+   }
+  ]
+ },
+ "leviathan": {
+  "images": [],
+  "scans": [
+   {
+    "ia": "leviathan00hobba",
+    "caption": "1651 年伦敦初版，克鲁克印行",
+    "title": "Leviathan; or, The matter, forme, & power of a common-wealth, ecclesiasticall and civill",
+    "publisher": "London, Printed for A. Crooke"
+   },
+   {
+    "ia": "leviathansivedem00hobb",
+    "caption": "1668 年阿姆斯特丹拉丁文版",
+    "title": "Leviathan, sive, De materia, forma, & potestate civitatis ecclesiasticae et civilis",
+    "publisher": "[Amsterdam : Joan Blaeu]"
+   }
+  ]
+ },
+ "pensees": {
+  "images": [
+   {
+    "file": "Pascal - Pensées - 1670 - Bandeau (FR-631136102 RELp 0061).jpg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Pascal_-_Pens%C3%A9es_-_1670_-_Bandeau_%28FR-631136102_RELp_0061%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "caption": "1670 年初版（王港版）书页",
+    "license": "CC BY-SA 4.0"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "pensesdeblaise00pascuoft",
+    "caption": "1896 年依手稿原貌校订本",
+    "title": "Pensées de Blaise Pascal dans leur texte authentique et selon l'ordre voulu par l'auteur, précédées de documents sur sa vie et suivies de se",
+    "publisher": "[Brussels?] : Desclée, De Brouwer"
+   }
+  ]
+ },
+ "locke-government": {
+  "images": [
+   {
+    "file": "Title page of John Locke, Two Treatises of Government (London, 1690) LCCN2002710224.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bb/Title_page_of_John_Locke%2C_Two_Treatises_of_Government_%28London%2C_1690%29_LCCN2002710224.jpg/960px-Title_page_of_John_Locke%2C_Two_Treatises_of_Government_%28London%2C_1690%29_LCCN2002710224.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "1690 年初版扉页，伦敦：丘吉尔",
+    "license": "Public domain"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "twotreatisesofgo00lock_1",
+    "caption": "1690 年伦敦初版",
+    "title": "Two treatises of government: in the former, the false principles, and foundation of Sir Robert Filmer, and his followers, are detected and o",
+    "publisher": "London, A. Churchill"
+   },
+   {
+    "ia": "twotreatisesofgo00lockuoft",
+    "caption": "1772 年伦敦第七版",
+    "title": "Two treatises of government",
+    "publisher": "London, Reprinted the 7th time by J. Whiston [and others"
+   }
+  ]
+ },
+ "berkeley-principles": {
+  "images": [],
+  "scans": [
+   {
+    "ia": "treatiseconcerni00berk",
+    "caption": "1904 年 Open Court 版，芝加哥",
+    "title": "A treatise concerning the principles of human knowledge",
+    "publisher": "Chicago : Open court pub. co."
+   }
+  ]
+ },
+ "rousseau-inequality": {
+  "images": [
+   {
+    "file": "Discours sur l'inégalité.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5e/Discours_sur_l%27in%C3%A9galit%C3%A9.jpg/960px-Discours_sur_l%27in%C3%A9galit%C3%A9.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "1755 年初版扉页，阿姆斯特丹：雷伊",
+    "license": "Public domain"
+   },
+   {
+    "file": "Fragment du Discours sur l’origine de l’inégalité.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/df/Fragment_du_Discours_sur_l%E2%80%99origine_de_l%E2%80%99in%C3%A9galit%C3%A9.jpg/960px-Fragment_du_Discours_sur_l%E2%80%99origine_de_l%E2%80%99in%C3%A9galit%C3%A9.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "《论不平等》手稿残页（1754 年）",
+    "license": "Public domain"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "discourssurlori00rous",
+    "caption": "1755 年阿姆斯特丹初版",
+    "title": "Discours sur l'origine, et les fondemens de l'inégalité parmi les hommes",
+    "publisher": "Amsterdam, M.-M. Rey"
+   }
+  ]
+ },
+ "schopenhauer-essays": {
+  "images": [
+   {
+    "file": "Parerga und Paralipomena (1902).jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bd/Parerga_und_Paralipomena_%281902%29.jpg/960px-Parerga_und_Paralipomena_%281902%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "《附录与补遗》1902 年版",
+    "license": "Public domain"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "bub_gb_WuUOAAAAIAAJ",
+    "caption": "1851 年初版，柏林：哈恩",
+    "title": "Parerga und Paralipomena : kleine philosophische Schriften",
+    "publisher": "Berlin : A.W. Hahn"
+   }
+  ]
+ },
+ "on-liberty": {
+  "images": [
+   {
+    "file": "On Liberty (first edition title page via facsimile).jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/72/On_Liberty_%28first_edition_title_page_via_facsimile%29.jpg/960px-On_Liberty_%28first_edition_title_page_via_facsimile%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "1859 年初版扉页（影印）",
+    "license": "Public domain"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "onlibertyxero00milluoft",
+    "caption": "1859 年伦敦初版，帕克",
+    "title": "On liberty",
+    "publisher": "London, J.W. Parker"
+   }
+  ]
+ },
+ "utilitarianism": {
+  "images": [
+   {
+    "file": "Utilitarism.jpg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/f/fd/Utilitarism.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "caption": "1863 年初版扉页",
+    "license": "Public domain"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "a592840000milluoft",
+    "caption": "1863 年伦敦初版",
+    "title": "Utilitarianism",
+    "publisher": "London : Parker, Son, and Bourn"
+   }
+  ]
+ },
+ "manifesto": {
+  "images": [],
+  "scans": [
+   {
+    "ia": "manifest-der-kommunistischen-partei_202204",
+    "caption": "1848 年德文初版（扫描）",
+    "title": "Manifest der Kommunistischen Partei",
+    "publisher": ""
+   },
+   {
+    "ia": "manifestoofcommu00marx_1",
+    "caption": "1898 年英译本，纽约",
+    "title": "Manifesto of the Communist party",
+    "publisher": "New York, The National executive committee of the Socialist labor party"
+   }
+  ]
+ },
+ "pragmatism": {
+  "images": [],
+  "scans": [
+   {
+    "ia": "pragmatismnewnam00jame",
+    "caption": "1907 年初版，纽约：朗文",
+    "title": "Pragmatism, a new name for some old ways of thinking; popular lectures on philosophy",
+    "publisher": "New York, [etc.] : Longmans, Green, and Co."
+   }
+  ]
+ },
+ "groundwork": {
+  "images": [],
+  "scans": [
+   {
+    "ia": "grundlegungzurm00vorlgoog",
+    "caption": "1785 年初版，里加：哈特克诺赫",
+    "title": "Grundlegung zur Metaphysik der Sitten",
+    "publisher": "J. F. Hartknoch"
+   },
+   {
+    "ia": "grundlegungzurm01kantgoog",
+    "caption": "1786 年第二版",
+    "title": "Grundlegung zur Metaphysik der Sitten",
+    "publisher": "Riga : J. F. Hartknoch"
+   }
+  ]
+ },
+ "bge": {
+  "images": [],
+  "scans": [
+   {
+    "ia": "bub_gb_YIURAAAAYAAJ",
+    "caption": "1886 年初版，莱比锡：瑙曼",
+    "title": "Jenseits von Gut und Böse Vorspiel einer Philosophie der Zukunft",
+    "publisher": "C.G. Naumann"
+   },
+   {
+    "ia": "beyondgoodevilpr1909niet",
+    "caption": "1909 年齐默恩（Zimmern）英译本，爱丁堡",
+    "title": "Beyond good and evil : prelude to a philosophy of the future",
+    "publisher": "Edinburgh : T. N. Foulis"
+   }
+  ]
+ },
+ "zarathustra": {
+  "images": [],
+  "scans": [
+   {
+    "ia": "alsosprachzarat00nietgoog",
+    "caption": "1895 年版，莱比锡：瑙曼",
+    "title": "Also sprach Zarathustra. Ein Buch für Alle und Keinen",
+    "publisher": "Leipzig, C.G. Naumann"
+   },
+   {
+    "ia": "alsosprachzarath00niet_0",
+    "caption": "1908 年岛屿出版社版",
+    "title": "Also sprach Zarathustra : ein Buch für alle und keinen",
+    "publisher": "Leipzig : Insel-Verlag"
+   }
+  ]
+ }
+}
