@@ -230,7 +230,7 @@ struct BeatDots: View {
             .padding(.leading, 2)
         }
         .padding(.horizontal, 12).padding(.vertical, 9)
-        .glassEffect(Glass.regular.interactive(), in: .capsule)
+        .glassEffect(.regular, in: .capsule)
         .animation(.spring(duration: 0.3), value: current)
     }
 }

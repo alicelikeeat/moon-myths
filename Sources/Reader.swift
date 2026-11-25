@@ -7,6 +7,12 @@ import Observation
 struct FullText: Identifiable {
     let id: String
     let label: String     // 例如 “Deutsch” “English” “第一卷”
+    var lang: String {
+        if id.hasSuffix("-zh") { return "zh" }
+        if id.hasSuffix("-en") { return "en" }
+        if id.hasSuffix("-la") { return "la" }
+        return "de"
+    }
 }
 
 /// 每本书可读的全文（只收公有领域版本）
@@ -128,30 +134,66 @@ struct BookReaderView: View {
     let book: Book
     var initialText: String? = nil
     var query: String? = nil
-    @State private var selected: String = ""
+    @State private var volume: String = ""
+    @AppStorage("readerLang") private var langRaw = PassageLang.original.rawValue
 
     var body: some View {
         let texts = fullTexts[book.id] ?? []
+        let origLang = texts.first?.lang ?? "en"
+        let originals = texts.filter { $0.lang == origLang }
+        let lang = PassageLang(rawValue: langRaw) ?? .original
         ZStack {
             Backdrop()
             VStack(spacing: 0) {
-                if texts.count > 1 {
-                    Picker("版本", selection: $selected) {
-                        ForEach(texts) { Text($0.label).tag($0.id) }
+                Picker("语言", selection: $langRaw) {
+                    ForEach(PassageLang.allCases) { Text($0.title).tag($0.rawValue) }
+                }
+                .pickerStyle(.segmented)
+                .padding(.horizontal, 20)
+                .padding(.top, 8)
+                if originals.count > 1 {
+                    Picker("卷", selection: $volume) {
+                        ForEach(originals) { Text($0.label).tag($0.id) }
                     }
                     .pickerStyle(.segmented)
                     .padding(.horizontal, 20)
-                    .padding(.vertical, 8)
+                    .padding(.top, 8)
                 }
-                if !selected.isEmpty {
-                    ReaderView(textId: selected, query: selected == (initialText ?? texts.first?.id) ? query : nil)
-                        .id(selected)
+                if !volume.isEmpty {
+                    let plan = readingPlan(lang: lang, origLang: origLang, texts: texts)
+                    ReaderView(textId: plan.textId, query: plan.textId == volume ? query : nil,
+                               targets: plan.targets, hideOriginal: plan.hideOriginal)
+                        .id("\(plan.textId)|\(langRaw)")
+                        .padding(.top, 8)
                 }
             }
         }
         .navigationTitle("《\(book.title)》全文")
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear { if selected.isEmpty { selected = initialText ?? texts.first?.id ?? "" } }
+        .onAppear {
+            if volume.isEmpty {
+                let start = initialText ?? texts.first?.id ?? ""
+                volume = originals.contains { $0.id == start } ? start : (originals.first?.id ?? start)
+                if initialText != nil, query != nil { langRaw = PassageLang.original.rawValue }
+            }
+        }
+    }
+
+    /// 选择要显示的文本与需要机器翻译的语言
+    private func readingPlan(lang: PassageLang, origLang: String, texts: [FullText]) -> (textId: String, targets: [String], hideOriginal: Bool) {
+        switch lang {
+        case .original:
+            return (volume, [], false)
+        case .english:
+            if origLang == "en" { return (volume, [], false) }
+            if let en = texts.first(where: { $0.lang == "en" }) { return (en.id, [], false) }   // 优先用人工英译
+            return (volume, ["en"], true)
+        case .chinese:
+            if origLang == "zh" { return (volume, [], false) }
+            return (volume, ["zh"], true)
+        case .all:
+            return (volume, ["en", "zh"].filter { $0 != origLang }, false)
+        }
     }
 }
 
@@ -160,6 +202,8 @@ struct BookReaderView: View {
 struct ReaderView: View {
     let textId: String
     var query: String? = nil
+    var targets: [String] = []
+    var hideOriginal = false
     private var store: TextStore { TextStore.shared }
 
     var body: some View {
@@ -183,7 +227,7 @@ struct ReaderView: View {
     private func content(_ state: TextStore.State) -> some View {
         switch state {
         case .ready(let doc):
-            ReaderContent(doc: doc, query: query)
+            ReaderContent(doc: doc, query: query, targets: targets, hideOriginal: hideOriginal)
         case .downloading:
             VStack(spacing: 14) {
                 ProgressView()
@@ -226,6 +270,12 @@ private struct Para: Identifiable {
 private struct ReaderContent: View {
     let doc: FullDoc
     let query: String?
+    let targets: [String]
+    let hideOriginal: Bool
+
+    @State private var zh = Translator(target: "zh")
+    @State private var en = Translator(target: "en")
+    private func translator(_ lang: String) -> Translator { lang == "zh" ? zh : en }
 
     @AppStorage("readerFont") private var fontSize = 18.0
     @State private var paras: [Para] = []
@@ -245,6 +295,15 @@ private struct ReaderContent: View {
                         .font(.system(size: 26, weight: .semibold, design: .serif))
                         .foregroundStyle(Color.primary)
                     Text(doc.source).font(.caption).foregroundStyle(Color.primary.opacity(0.5))
+                    if !targets.isEmpty {
+                        let failure = targets.compactMap { translator($0).failed }.first
+                        Label(failure ?? "\(targets.map { $0 == "zh" ? "中文" : "English" }.joined(separator: "、")) 为 Apple 设备端机器翻译，读到哪里翻译到哪里，仅供参考。",
+                              systemImage: failure == nil ? "translate" : "exclamationmark.triangle")
+                            .font(.caption)
+                            .foregroundStyle(Color.primary.opacity(0.7))
+                            .padding(12)
+                            .glassEffect(.regular, in: .rect(cornerRadius: 16))
+                    }
                     ForEach(paras) { p in
                         if sectionStart.indices.contains(p.section), sectionStart[p.section] == p.id {
                             Text(doc.sections[p.section].title)
@@ -272,6 +331,7 @@ private struct ReaderContent: View {
             }
             .task {
                 guard paras.isEmpty else { return }
+                for lang in targets { translator(lang).setup(textId: doc.id, sourceLang: doc.lang) }
                 build()
                 bookmarks = ReaderPrefs.bookmarks(doc.id)
                 try? await Task.sleep(for: .milliseconds(150))
@@ -295,6 +355,8 @@ private struct ReaderContent: View {
                 }
             }
         }
+        .translationTask(zh.config) { session in await zh.run(session) }
+        .translationTask(en.config) { session in await en.run(session) }
         .sheet(item: $sheet) { s in
             switch s {
             case .toc: TOCSheet(doc: doc, starts: sectionStart) { jump($0) }
@@ -310,12 +372,26 @@ private struct ReaderContent: View {
             if marked {
                 Image(systemName: "bookmark.fill").font(.caption).foregroundStyle(Moon.gold).padding(.top, 4)
             }
-            Text(p.text)
-                .font(.system(size: fontSize, design: .serif))
-                .foregroundStyle(Color.primary.opacity(0.9))
-                .lineSpacing(fontSize * 0.35)
-                .fixedSize(horizontal: false, vertical: true)
-                .textSelection(.enabled)
+            VStack(alignment: .leading, spacing: 8) {
+                if !hideOriginal {
+                    Text(p.text)
+                        .font(.system(size: fontSize, design: .serif))
+                        .foregroundStyle(Color.primary.opacity(0.9))
+                        .lineSpacing(fontSize * 0.35)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .textSelection(.enabled)
+                }
+                ForEach(targets, id: \.self) { lang in
+                    let t = translator(lang).text(for: p.id)
+                    Text(t ?? (hideOriginal ? p.text : "翻译中…"))
+                        .font(.system(size: hideOriginal ? fontSize : fontSize - 2, design: lang == "zh" ? .default : .serif))
+                        .foregroundStyle(Color.primary.opacity(t == nil ? 0.35 : (hideOriginal ? 0.9 : 0.65)))
+                        .lineSpacing(fontSize * 0.3)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .textSelection(.enabled)
+                }
+            }
+            .onAppear { for lang in targets { translator(lang).request(p.id, p.text) } }
         }
         .padding(highlight == p.id ? 12 : 0)
         .background {

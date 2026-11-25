@@ -5,7 +5,6 @@ struct PlaybackControls: ViewModifier {
     @Bindable var clock: PlaybackClock
     @State private var expanded = false
     @State private var lastTouch = Date()
-    @Namespace private var ns
 
     func body(content: Content) -> some View {
         content
@@ -21,7 +20,7 @@ struct PlaybackControls: ViewModifier {
                                     }
                                 }
                             }
-                            .glassEffectID("beats", in: ns)
+                            .transition(.scale(scale: 0.6).combined(with: .opacity))
 
                             Menu {
                                 ForEach(PlaybackClock.speeds, id: \.self) { s in
@@ -35,11 +34,10 @@ struct PlaybackControls: ViewModifier {
                             } label: {
                                 Text(speedText(clock.speed))
                                     .font(.system(size: 12, weight: .semibold).monospacedDigit())
-                                    .foregroundStyle(Color.primary)
-                                    .frame(minWidth: 40, minHeight: 32)
-                                    .glassEffect(Glass.regular.interactive(), in: .capsule)
+                                    .frame(minWidth: 30, minHeight: 26)
                             }
-                            .glassEffectID("speed", in: ns)
+                            .buttonStyle(.glass)
+                            .transition(.scale(scale: 0.6).combined(with: .opacity))
 
                             Button {
                                 touch()
@@ -47,12 +45,11 @@ struct PlaybackControls: ViewModifier {
                             } label: {
                                 Image(systemName: clock.playing ? "pause.fill" : "play.fill")
                                     .font(.system(size: 12, weight: .semibold))
-                                    .foregroundStyle(Color.primary)
-                                    .frame(width: 32, height: 32)
-                                    .glassEffect(Glass.regular.interactive(), in: .circle)
+                                    .frame(width: 26, height: 26)
                             }
-                            .buttonStyle(.plain)
-                            .glassEffectID("play", in: ns)
+                            .buttonStyle(.glass)
+                            .buttonBorderShape(.circle)
+                            .transition(.scale(scale: 0.6).combined(with: .opacity))
                         }
 
                         Button {
@@ -61,12 +58,10 @@ struct PlaybackControls: ViewModifier {
                         } label: {
                             Image(systemName: expanded ? "chevron.right" : (clock.playing ? "slider.horizontal.3" : "pause.fill"))
                                 .font(.system(size: 11, weight: .semibold))
-                                .foregroundStyle(Color.primary.opacity(expanded ? 0.8 : 0.6))
-                                .frame(width: 30, height: 30)
-                                .glassEffect(Glass.regular.interactive(), in: .circle)
+                                .frame(width: 24, height: 24)
                         }
-                        .buttonStyle(.plain)
-                        .glassEffectID("toggle", in: ns)
+                        .buttonStyle(.glass)
+                        .buttonBorderShape(.circle)
                     }
                 }
                 .padding(8)
