@@ -50,9 +50,13 @@ jobs:
             xcrun simctl launch "$UDID" com.alicelikeeat.pure "$@"
             sleep 7
             xcrun simctl io "$UDID" screenshot "shots/$name.png"; }
-          for page in 0 1 2 3 4 5 6 7 8; do for b in 0 1 2; do
+          for page in 0 1 2 3 4 5 6 7 8; do for b in 1 2; do
             run_shot "ddj-p$page-b$b" -animGrid daodejing-zh -animPage $page -animBeat $b -appearance light
           done; done
+          for page in 0 3 6 12 20 30; do
+            run_shot "lunyu-p$page" -animGrid lunyu-zh -animPage $page -animBeat 1 -appearance light
+          done
+          run_shot "tlp-p10" -animGrid tractatus-de -animPage 10 -animBeat 1 -appearance light
           run_shot reader-ddj -openReader daodejing -readerQuery 上善若水 -autoDownload -readerLang original -appearance light
           run_shot home-light -appearance light
           mkdir -p shots/crash

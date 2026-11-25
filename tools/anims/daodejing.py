@@ -547,4 +547,4 @@ scene(81, "既以与人己愈多", [
     [beat("信言不美，美言不信"), beat("圣人不积，处处给予"), beat("给人越多，自己越多：为而不争", 7.5, set={"sage": {"r": 24}})],
     "天之道，利而不害")
 
-save("daodejing-zh")
+save("daodejing-zh", skip=lambda i, p: i == 0)

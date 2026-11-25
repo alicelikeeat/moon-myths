@@ -18,6 +18,9 @@ struct AnimScene: Codable, Identifiable, Hashable {
     let caption: String?
     let elements: [AnimElement]
     let beats: [AnimBeat]
+    var tier: String? = nil       // "core" 精讲（加特效）；"basic" 普通（按原文自动生成）
+
+    var isCore: Bool { tier != "basic" }
 
     static func == (a: AnimScene, b: AnimScene) -> Bool { a.anchor == b.anchor }
     func hash(into h: inout Hasher) { h.combine(anchor) }
@@ -36,6 +39,10 @@ struct AnimElement: Codable {
     var dash: Bool? = nil
     var n: Int? = nil                             // 粒子数
     var at: Int? = nil                            // 第几拍出现（默认 0）
+    var flow: Bool? = nil                         // 箭头上流动的光点（精讲默认开启）
+    var orbit: String? = nil                      // 绕某个元素旋转
+    var or: Double? = nil                         // 环绕半径（点）
+    var speed: Double? = nil                      // 环绕角速度
 }
 
 struct AnimPatch: Codable {
@@ -140,7 +147,24 @@ final class SceneRuntime {
             s.color = k < 0.5 ? a.color : c.color
             s.label = k < 0.5 && a.opacity > 0 ? a.label : c.label
             if pulse.contains(id) { s.r *= 1 + 0.09 * sin(t * 3.2) }
+            if let e = kinds[id], let o = e.orbit, let a = from[o], let c = to[o] {
+                let cx = lerp(a.x, c.x, k), cy = lerp(a.y, c.y, k)
+                let ang = t * (e.speed ?? 0.6) + Double(id.unicodeScalars.reduce(0) { $0 + Int($1.value) } % 7)
+                let rad = e.or ?? 60
+                s.x = cx + cos(ang) * rad / W
+                s.y = cy + sin(ang) * rad * 0.8 / H
+            }
             return s
+        }
+
+        // 精讲：背景缓慢漂浮的微粒
+        if scene.isCore {
+            for i in 0..<18 {
+                let q = Double(i)
+                let x = fract(hash01(q) + t * 0.004 * (1 + hash01(q + 5))) * W
+                let y = fract(hash01(q + 11) - t * 0.006 * (1 + hash01(q + 2))) * H
+                blob(&ctx, x, y, 1.2 + hash01(q + 7) * 1.4, Moon.gold.opacity(0.10 + 0.08 * sin(t + q)))
+            }
         }
 
         // 先画箭头、粒子，再画节点和文字
@@ -149,7 +173,7 @@ final class SceneRuntime {
             switch e.kind {
             case "arrow":
                 guard let f = e.from, let g = e.to, let a = mix(f), let c = mix(g) else { continue }
-                drawArrow(&ctx, a, c, kinds[f]?.kind, kinds[g]?.kind, s, e, W, H)
+                drawArrow(&ctx, a, c, kinds[f]?.kind, kinds[g]?.kind, s, e, W, H, t)
             case "particles":
                 let n = e.n ?? 30
                 for i in 0..<n {
@@ -167,6 +191,14 @@ final class SceneRuntime {
             guard let e = kinds[id], let s = mix(id), s.opacity > 0.02 else { continue }
             let col = animColor(s.color).opacity(s.opacity)
             let x = s.x * W, y = s.y * H
+            if scene.isCore && pulse.contains(id) && e.kind != "text" && e.kind != "arrow" {
+                // 精讲：重点处扩散的光晕
+                for j in 0..<2 {
+                    let f = fract(t * 0.45 + Double(j) * 0.5)
+                    let base = e.kind == "box" ? max(s.w * W, s.h * H) / 2 : s.r
+                    ring(&ctx, x, y, base * (1.1 + f * 0.9), animColor(s.color).opacity(0.45 * (1 - f) * s.opacity), 1.5)
+                }
+            }
             switch e.kind {
             case "node":
                 dot(&ctx, x, y, s.r, col)
@@ -207,7 +239,7 @@ final class SceneRuntime {
     }
 
     private func drawArrow(_ ctx: inout GraphicsContext, _ a: ElState, _ c: ElState, _ ka: String?, _ kc: String?,
-                           _ s: ElState, _ e: AnimElement, _ W: Double, _ H: Double) {
+                           _ s: ElState, _ e: AnimElement, _ W: Double, _ H: Double, _ t: Double) {
         let ax = a.x * W, ay = a.y * H, cx = c.x * W, cy = c.y * H
         let dx = cx - ax, dy = cy - ay
         let len = hypot(dx, dy)
@@ -220,6 +252,13 @@ final class SceneRuntime {
         let x1 = x0 + ux * full * grow, y1 = y0 + uy * full * grow
         let col = animColor(s.color).opacity(0.85 * min(1, a.opacity, c.opacity))
         line(&ctx, x0, y0, x1, y1, col, 2, dash: (e.dash ?? false) ? [5, 4] : [])
+        if grow > 0.9 && (e.flow ?? scene.isCore) && full > 30 {
+            // 精讲：沿箭头流动的光点
+            for j in 0..<3 {
+                let f = fract(t * 0.35 + Double(j) / 3)
+                blob(&ctx, x0 + ux * full * f, y0 + uy * full * f, 2.6, col.opacity(sin(f * .pi)))
+            }
+        }
         if grow > 0.9 {
             let hx = -ux * 9, hy = -uy * 9
             line(&ctx, x1, y1, x1 + hx * 0.87 - hy * 0.5, y1 + hy * 0.87 + hx * 0.5, col, 2)

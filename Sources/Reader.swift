@@ -422,15 +422,26 @@ private struct ReaderContent: View {
                     }
                 }
                 if let s = anims[p.id] {
-                    Button {
-                        playing = AnimPlay(scene: s, text: p.text)
-                    } label: {
-                        Label(s.title, systemImage: "play.circle.fill")
-                            .font(.caption.weight(.semibold))
-                            .lineLimit(1)
+                    if s.isCore {
+                        Button {
+                            playing = AnimPlay(scene: s, text: p.text)
+                        } label: {
+                            Label("精讲 · \(s.title)", systemImage: "sparkles")
+                                .font(.caption.weight(.semibold))
+                                .lineLimit(1)
+                        }
+                        .buttonStyle(.glassProminent)
+                        .tint(Moon.gold.opacity(0.85))
+                    } else {
+                        Button {
+                            playing = AnimPlay(scene: s, text: p.text)
+                        } label: {
+                            Label("动画", systemImage: "play.circle")
+                                .font(.caption2)
+                                .foregroundStyle(Color.primary.opacity(0.6))
+                        }
+                        .buttonStyle(.glass)
                     }
-                    .buttonStyle(.glass)
-                    .tint(Moon.gold)
                 }
             }
             .onAppear { for lang in targets { translator(lang).request(p.id, p.text) } }

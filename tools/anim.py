@@ -52,7 +52,7 @@ def scene(anchor, title, els, beats, caption=None):
 def _strip(s):
     return "".join(c for c in s if not unicodedata.category(c).startswith(("P", "S", "Z")) and not c.isspace())
 
-def save(text_id):
+def save(text_id, fill=True, skip=lambda i, p: False):
     doc = json.load(open(os.path.join(ROOT, "texts", f"{text_id}.json"), encoding="utf-8"))
     paras = [p for s in doc["sections"] for p in s["paragraphs"]]
     bare = [_strip(p) for p in paras]
@@ -101,11 +101,29 @@ def save(text_id):
                         errors.append(f"{s['title']}：{k}.{kk} 超出舞台")
     if errors:
         print("\n".join(errors)); sys.exit(1)
+    for sc in _scenes:
+        sc.setdefault("tier", "core")
+    core = len(_scenes)
+    if fill:
+        lang = doc.get("lang", "zh")
+        for i, p in enumerate(paras):
+            if i in used or skip(i, p):
+                continue
+            b = basic_scene(p, lang)
+            if b:
+                L = 14
+                while True:
+                    a = paras[i][:L]
+                    if next(j for j, q in enumerate(paras) if a in q) == i or L >= len(paras[i]): break
+                    L += 6
+                b["anchor"] = a
+                used[i] = a
+                _scenes.append(b)
     os.makedirs(os.path.join(ROOT, "anims"), exist_ok=True)
     out = os.path.join(ROOT, "anims", f"{text_id}.json")
     json.dump({"id": text_id, "scenes": _scenes}, open(out, "w", encoding="utf-8"),
               ensure_ascii=False, separators=(",", ":"))
-    print(f"{text_id}: {len(_scenes)} 个段落动画，覆盖 {len(used)}/{len(paras)} 段")
+    print(f"{text_id}: 精讲 {core} + 普通 {len(_scenes) - core}，覆盖 {len(used)}/{len(paras)} 段")
 
 
 # MARK: 常用模板 ---------------------------------------------------------------
@@ -182,3 +200,121 @@ def balance(n, title, a, b, h0, h1, h2, cap, mid="中"):
            N("l", 0.15, 0.5, a, "silver", 14), N("r", 0.85, 0.5, b, "violet", 14),
            N("p", 0.15, 0.4, "", "gold", 10, at=1), T("m", 0.5, 0.72, mid, "gold", 15, at=2)]
     scene(n, title, els, [beat(h0), beat(h1, set={"p": {"x": 0.85}}), beat(h2, 7.5, set={"p": {"x": 0.5, "r": 16}})], cap)
+
+
+# MARK: 普通动画：按原文自动生成 ------------------------------------------------
+
+import re as _re
+_KEY_ZH = "仁道德君子禮礼義义孝信學学知智樂乐天命政善恕忠性心"
+
+def _wrap_zh(c, n=17):
+    return [c[i:i + n] for i in range(0, len(c), n)]
+
+def _clauses_zh(text):
+    t = text.replace("「", "").replace("」", "").replace("『", "").replace("』", "").replace("“", "").replace("”", "")
+    parts = [x.strip() for x in _re.split(r"[，。；！？：、,.;!?:]", t) if x.strip()]
+    merged = []
+    for x in parts:
+        if merged and len(x) <= 2:
+            merged[-1] += "，" + x
+        else:
+            merged.append(x)
+    return [l for x in merged for l in _wrap_zh(x)]
+
+def _wrap_words(sent, n=40):
+    lines, cur = [], ""
+    for w in sent.split():
+        if cur and len(cur) + 1 + len(w) > n:
+            lines.append(cur); cur = w
+        else:
+            cur = (cur + " " + w).strip()
+    if cur: lines.append(cur)
+    return lines
+
+def basic_scene(text, lang):
+    """说话人 → 逐句浮现 → 点亮关键句"""
+    speaker = None
+    if lang == "zh":
+        m = _re.match(r"^(.{1,8}?)(曰|問曰|问曰|對曰|对曰)：", text)
+        body = text
+        if m:
+            speaker = m.group(1)
+            body = text[m.end():]
+        lines = _clauses_zh(body)
+        if not lines:
+            return None
+        title = lines[0][:10]
+    else:
+        num = None
+        m = _re.match(r"^(\d+(?:\.\d+)*)\s+", text)
+        body = text
+        if m:
+            num = m.group(1); body = text[m.end():]
+        sents = [x for x in _re.split(r"(?<=[.;:?!])\s+", body) if x.strip()]
+        lines = [l for x in sents for l in _wrap_words(x)]
+        if not lines:
+            return None
+        speaker = num
+        title = (num + " " if num else "") + " ".join(body.split()[:4])
+    # 君子 / 小人 对照：自动排成两栏
+    if lang == "zh" and "君子" in body and "小人" in body and len(lines) <= 8:
+        jz = [l for l in lines if "君子" in l] or lines[:1]
+        xr = [l for l in lines if "小人" in l] or lines[-1:]
+        els = [B("L", 0.27, 0.34, "君子", 0.36, 0.1, "gold"), B("R", 0.73, 0.34, "小人", 0.36, 0.1, "silver", at=1)]
+        for i, l in enumerate(jz[:3]):
+            els.append(T(f"l{i}", 0.27, 0.52 + 0.1 * i, l[:9], size=12))
+        for i, l in enumerate(xr[:3]):
+            els.append(T(f"r{i}", 0.73, 0.52 + 0.1 * i, l[:9], size=12, at=1))
+        sc = {"anchor": "", "title": title, "tier": "basic", "elements": els,
+              "beats": [beat("君子"), beat("小人"), beat("两相对照", 6.5, pulse=["L"])]}
+        return sc
+    if lang == "zh":
+        per = 3 if len(lines) <= 9 else min(5, -(-len(lines) // 4))
+        groups = [lines[i:i + per] for i in range(0, len(lines), per)]
+        key = None
+        for l in lines:
+            if any(c in l for c in _KEY_ZH):
+                key = [l]; break
+        key = key or [lines[-1]]
+    else:
+        # 西文：一拍一句（太长的句子拆成每拍最多 4 行），短句合并
+        groups = []
+        for x in sents:
+            ls = _wrap_words(x)
+            nch = -(-len(ls) // 4)
+            sz = -(-len(ls) // nch)
+            chunks = [ls[i:i + sz] for i in range(0, len(ls), sz)]
+            for c in chunks:
+                if groups and len(groups[-1]) + len(c) <= 3:
+                    groups[-1] = groups[-1] + c
+                else:
+                    groups.append(c)
+        key = _wrap_words(sents[0])[:3]
+    total = len(groups)
+    groups = groups[:4]
+    truncated = len(groups) < total
+    if len(groups) == 1 and len(groups[0]) >= 2:
+        g = groups[0]; h = (len(g) + 1) // 2
+        groups = [g[:h], g[h:]]
+    els, beats_ = [], []
+    if speaker:
+        els.append(N("sp", 0.5, 0.2, speaker, "gold", 12))
+    size = 13 if lang == "zh" else 12
+    for gi, g in enumerate(groups):
+        for li, l in enumerate(g):
+            els.append(T(f"t{gi}_{li}", 0.5, 0.38 + 0.11 * li, l, "primary", size, at=gi))
+    for gi, g in enumerate(groups):
+        hide = [f"t{gi-1}_{li}" for li in range(len(groups[gi - 1]))] if gi else None
+        bt = beat(f"{gi + 1} / {len(groups)}" + ("（节选）" if truncated and gi == len(groups) - 1 else ""), 6)
+        if hide: bt["hide"] = hide
+        beats_.append(bt)
+    last = len(groups) - 1
+    kb = len(beats_)
+    for li, l in enumerate(key):
+        els.append(T(f"k{li}", 0.5, 0.45 + 0.11 * li, l, "gold", 15 if lang == "zh" else 13, at=kb))
+    bt = beat("要点", 6.5, hide=[f"t{last}_{li}" for li in range(len(groups[last]))])
+    if speaker: bt["pulse"] = ["sp"]
+    beats_.append(bt)
+    if len(beats_) > 5:
+        return None
+    return {"anchor": "", "title": title, "tier": "basic", "elements": els, "beats": beats_}
