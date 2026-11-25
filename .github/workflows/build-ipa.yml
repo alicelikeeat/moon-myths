@@ -55,7 +55,7 @@ jobs:
         if: ${{ inputs.offline }}
         run: |
           mkdir -p Bundled
-          cp -R texts anims Bundled/
+          cp -R texts anims comments Bundled/
           du -sh Bundled
           echo "SUFFIX=-offline" >> "$GITHUB_ENV"
 

@@ -298,6 +298,7 @@ private struct ReaderContent: View {
     @State private var anims: [Int: AnimScene] = [:]
     @State private var animScores: [Int] = []
     @State private var basicAnims = false
+    @State private var comments: CommentDoc?
     @State private var playing: AnimPlay?
 
     struct AnimPlay: Identifiable { let scene: AnimScene; let text: String; var id: String { scene.anchor + "|" + text.prefix(40) } }
@@ -371,6 +372,7 @@ private struct ReaderContent: View {
                 } else if let last = ReaderPrefs.lastPosition(doc.id), last > 0 {
                     proxy.scrollTo(last, anchor: .top)
                 }
+                comments = await CommentStore.shared.load(doc.id)
                 if let ad = await AnimStore.shared.load(doc.id) {
                     var m: [Int: AnimScene] = [:]
                     for s in ad.scenes { if let i = firstMatch(s.anchor), m[i] == nil { m[i] = s } }
@@ -448,6 +450,10 @@ private struct ReaderContent: View {
                         .fixedSize(horizontal: false, vertical: true)
                         .textSelection(.enabled)
                     }
+                }
+                if let c = comments {
+                    let notes = c.sources.compactMap { s in s.items[String(p.id)].map { (s.name, $0) } }
+                    if !notes.isEmpty { CommentaryBox(notes: notes) }
                 }
                 if let s = anims[p.id] {
                     if s.isCore {

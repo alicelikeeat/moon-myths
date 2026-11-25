@@ -270,12 +270,20 @@ struct ChapterView: View {
                 VStack(alignment: .leading, spacing: 18) {
                     Text("《\(book.title)》 · 第 \(index + 1) / \(book.chapters.count) 章 · \(c.part)")
                         .font(.caption).foregroundStyle(Moon.silver)
+                    let topic = scholarTopics["\(book.id):\(index)"]
                     Picker("内容", selection: $mode) {
                         Text("解读").tag(0)
                         Text("原文").tag(1)
+                        if topic != nil { Text("学者").tag(2) }
                     }
                     .pickerStyle(.segmented)
-                    if mode == 1 {
+                    if mode == 2, let topic {
+                        Text(c.title)
+                            .font(.system(size: 30, weight: .semibold, design: .serif))
+                            .foregroundStyle(Color.primary)
+                        ScholarsView(topic: topic)
+                            .id("scholars\(index)")
+                    } else if mode == 1 {
                         Text(c.title)
                             .font(.system(size: 30, weight: .semibold, design: .serif))
                             .foregroundStyle(Color.primary)
