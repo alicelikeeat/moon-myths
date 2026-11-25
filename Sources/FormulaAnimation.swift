@@ -87,7 +87,7 @@ struct FormulaAnimationView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             // 1. 公式本身
-            FlowLayout(spacing: 5, lineSpacing: 10) {
+            FlowLayout(spacing: 2, lineSpacing: 10) {
                 ForEach(Array(tokens.enumerated()), id: \.offset) { i, tok in
                     tokenView(i, tok)
                 }
@@ -159,9 +159,9 @@ struct FormulaAnimationView: View {
         let visible = i < shown
         let focused = focus == i
         Text(tok)
-            .font(.system(size: isSym ? 24 : 19, weight: isSym ? .regular : .medium, design: .serif))
+            .font(.system(size: tok == "∘" ? 30 : (isSym ? 24 : 19), weight: isSym ? .regular : .medium, design: .serif))
             .foregroundStyle(focused ? Moon.gold : (finished ? Color.primary : Color.primary.opacity(isSym ? 0.95 : 0.75)))
-            .padding(.horizontal, isSym ? 7 : 2)
+            .padding(.horizontal, isSym ? 6 : ("()[]{},;:".contains(tok) ? 0 : 3))
             .padding(.vertical, 3)
             .background {
                 if focused {
