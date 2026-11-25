@@ -283,7 +283,7 @@ struct LiveCanvas: View {
         cache.highlight = (p, Date().timeIntervalSinceReferenceDate)
         var best: (String, CGPoint, Double)?
         for (s, q) in cache.labels where s.count <= 40 {
-            let d = hypot(q.x - p.x, q.y - p.y)
+            let d = Double(hypot(q.x - p.x, q.y - p.y))
             if d < 70 && d < (best?.2 ?? .infinity) { best = (s, q, d) }
         }
         guard let (s, q, _) = best else { return }
