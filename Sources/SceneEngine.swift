@@ -9,6 +9,8 @@ import Observation
 struct AnimDoc: Codable {
     let id: String
     let scenes: [AnimScene]
+    var scores: [Int]? = nil      // 每段的评分（宗教经典没有）
+    var basic: Bool? = nil        // 其余段落是否在手机上生成普通动画
 }
 
 struct AnimScene: Codable, Identifiable, Hashable {

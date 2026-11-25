@@ -131,8 +131,13 @@ def save(text_id, fill=True, skip=lambda i, p: False, scored=True):
                 _scenes.append(b)
     os.makedirs(os.path.join(ROOT, "anims"), exist_ok=True)
     out = os.path.join(ROOT, "anims", f"{text_id}.json")
-    json.dump({"id": text_id, "scenes": _scenes}, open(out, "w", encoding="utf-8"),
-              ensure_ascii=False, separators=(",", ":"))
+    # 普通动画在手机上按同样规则即时生成，这里只检查版面，不写进文件
+    check = {"id": text_id, "scenes": _scenes}
+    json.dump(check, open("/tmp/anim_check.json", "w", encoding="utf-8"), ensure_ascii=False)
+    doc_out = {"id": text_id, "scenes": [x for x in _scenes if x.get("tier") != "basic"], "basic": fill}
+    if scored:
+        doc_out["scores"] = scores
+    json.dump(doc_out, open(out, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
     plus = sum(1 for x in _scenes if x.get("tier") == "plus")
     rep = sorted((x for x in _scenes if x.get("tier") != "core"), key=lambda x: -x.get("score", 0))[:40]
     os.makedirs(os.path.join(ROOT, "tools", "scores"), exist_ok=True)
@@ -140,7 +145,7 @@ def save(text_id, fill=True, skip=lambda i, p: False, scored=True):
         for x in rep:
             fh.write(f"{x.get('score', 0):3d} {x['tier']:5s} {x['anchor'][:40]}\n")
     print(f"{text_id}: 精讲 {core} + 进阶 {plus} + 普通 {len(_scenes) - core - plus}，覆盖 {len(used)}/{len(paras)} 段")
-    check_layout(out)
+    check_layout("/tmp/anim_check.json")
 
 
 # MARK: 常用模板 ---------------------------------------------------------------

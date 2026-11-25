@@ -12,6 +12,7 @@ struct FullText: Identifiable {
         if id.hasSuffix("-en") { return "en" }
         if id.hasSuffix("-la") { return "la" }
         if id.hasSuffix("-fr") { return "fr" }
+        if id.hasSuffix("-ar") { return "ar" }
         return "de"
     }
 }
@@ -287,9 +288,11 @@ private struct ReaderContent: View {
     @State private var sheet: Sheet?
     @State private var pendingJump: Int?
     @State private var anims: [Int: AnimScene] = [:]
+    @State private var animScores: [Int] = []
+    @State private var basicAnims = false
     @State private var playing: AnimPlay?
 
-    struct AnimPlay: Identifiable { let scene: AnimScene; let text: String; var id: String { scene.anchor } }
+    struct AnimPlay: Identifiable { let scene: AnimScene; let text: String; var id: String { scene.anchor + "|" + text.prefix(40) } }
 
     enum Sheet: String, Identifiable { case toc, search, bookmarks; var id: String { rawValue } }
 
@@ -364,6 +367,8 @@ private struct ReaderContent: View {
                     var m: [Int: AnimScene] = [:]
                     for s in ad.scenes { if let i = firstMatch(s.anchor), m[i] == nil { m[i] = s } }
                     anims = m
+                    animScores = ad.scores ?? []
+                    basicAnims = ad.basic ?? false
                 }
             }
         }
@@ -392,6 +397,21 @@ private struct ReaderContent: View {
             case .bookmarks: BookmarkSheet(paras: paras, marks: bookmarks) { jump($0) }
             }
         }
+    }
+
+    /// 普通动画按钮：点开时才生成
+    private func basicButton(_ p: Para, score: Int?, make: @escaping () -> AnimScene?) -> some View {
+        Button {
+            if let s = make() { playing = AnimPlay(scene: s, text: p.text) }
+        } label: {
+            HStack(spacing: 6) {
+                Label("动画", systemImage: "play.circle")
+                if let sc = score { Text("\(sc)分").monospacedDigit() }
+            }
+            .font(.caption2)
+            .foregroundStyle(Color.primary.opacity(0.6))
+        }
+        .buttonStyle(.glass)
     }
 
     private func paragraph(_ p: Para) -> some View {
@@ -445,17 +465,11 @@ private struct ReaderContent: View {
                         }
                         .buttonStyle(.glass)
                     } else {
-                        Button {
-                            playing = AnimPlay(scene: s, text: p.text)
-                        } label: {
-                            HStack(spacing: 6) {
-                                Label("动画", systemImage: "play.circle")
-                                if let sc = s.score { Text("\(sc)分").monospacedDigit() }
-                            }
-                            .font(.caption2)
-                            .foregroundStyle(Color.primary.opacity(0.6))
-                        }
-                        .buttonStyle(.glass)
+                        basicButton(p, score: s.score) { s }
+                    }
+                } else if basicAnims {
+                    basicButton(p, score: animScores.indices.contains(p.id) ? animScores[p.id] : nil) {
+                        basicScene(text: p.text, lang: doc.lang, score: animScores.indices.contains(p.id) ? animScores[p.id] : nil)
                     }
                 }
             }
