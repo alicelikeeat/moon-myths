@@ -2,7 +2,7 @@ import SwiftUI
 
 // MARK: - 章节（键：著作 id）
 
-let workChapters: [String: [Chapter]] = [
+let chineseWorkChapters: [String: [Chapter]] = [
     "daodejing": [
         Chapter(part: "核心观点", title: "有无相生",
                 thesis: "美与恶、有与无、难与易，彼此依存而生，没有一方能单独成立。",
@@ -141,7 +141,7 @@ func workParts(_ id: String) -> [String] {
 private let legge = "Legge 英译"
 private let ownEN = "本应用英译"
 
-let workPassages: [String: [Passage]] = [
+let chineseWorkPassages: [String: [Passage]] = [
     "daodejing:0": [Passage(ref: "《道德經》第二章",
         original: "天下皆知美之為美，斯惡矣；皆知善之為善，斯不善矣。故有無相生，難易相成，長短相形，高下相傾，音聲相和，前後相隨。",
         english: "All in the world know the beauty of the beautiful, and in doing this they have (the idea of) what ugliness is; they all know the skill of the skilful, and in doing this they have (the idea of) what the want of skill is.",
