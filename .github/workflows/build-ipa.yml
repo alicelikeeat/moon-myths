@@ -60,7 +60,9 @@ jobs:
           echo "SUFFIX=-offline" >> "$GITHUB_ENV"
 
       - name: Generate Xcode project
-        run: xcodegen generate
+        run: |
+          mkdir -p Bundled && touch Bundled/.keep   # 普通版：空文件夹
+          xcodegen generate
 
       - name: Build (no signing)
         run: |
@@ -78,7 +80,8 @@ jobs:
             MARKETING_VERSION="$VER" \
             CURRENT_PROJECT_VERSION="${{ github.run_number }}" \
             build | tee xcodebuild.log | grep -E "error:|warning: unre|BUILD" || true
-          test -d build/Build/Products/Release-iphoneos/Pure.app
+          ! grep -q "BUILD FAILED" xcodebuild.log
+          test -f build/Build/Products/Release-iphoneos/Pure.app/Pure
 
       - name: Package IPA
         run: |

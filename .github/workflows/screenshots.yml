@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Generate project
-        run: brew install xcodegen && xcodegen generate
+        run: brew install xcodegen && mkdir -p Bundled && touch Bundled/.keep && xcodegen generate
 
       - name: Pick an iOS 26 iPhone simulator
         run: |
@@ -38,7 +38,7 @@ jobs:
           xcodebuild -project Pure.xcodeproj -scheme Pure -configuration Debug \
             -sdk iphonesimulator -destination "id=$UDID" -derivedDataPath build \
             CODE_SIGNING_ALLOWED=NO build | grep -E "error:|BUILD" || true
-          test -d build/Build/Products/Debug-iphonesimulator/Pure.app
+          mkdir -p Bundled; test -f build/Build/Products/Debug-iphonesimulator/Pure.app/Pure
 
       - name: Capture screenshots
         run: |

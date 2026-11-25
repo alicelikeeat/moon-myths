@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Generate project
-        run: brew install xcodegen && xcodegen generate
+        run: brew install xcodegen && mkdir -p Bundled && touch Bundled/.keep && xcodegen generate
       - name: Pick an iOS 26 iPhone simulator
         run: |
           UDID=$(xcrun simctl list devices available -j | python3 -c "
