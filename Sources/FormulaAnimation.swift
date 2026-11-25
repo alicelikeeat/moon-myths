@@ -124,7 +124,7 @@ struct FormulaAnimationView: View {
                     }
                     .padding(14)
                     .glassEffect(.regular.tint(Moon.gold.opacity(0.12)), in: .rect(cornerRadius: 18))
-                    .transition(.asymmetric(insertion: .move(edge: .bottom).combined(with: .opacity), removal: .opacity))
+                    .transition(.asymmetric(insertion: .move(edge: .bottom).combined(with: .opacity), removal: .opacity.animation(.easeOut(duration: 0.12))))
                     .id(f)
                 } else if let k = step, steps.indices.contains(k) {
                     VStack(alignment: .leading, spacing: 8) {
@@ -148,7 +148,7 @@ struct FormulaAnimationView: View {
                     .padding(14)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .glassEffect(.regular.tint(Moon.gold.opacity(0.10)), in: .rect(cornerRadius: 18))
-                    .transition(.asymmetric(insertion: .move(edge: .trailing).combined(with: .opacity), removal: .opacity))
+                    .transition(.asymmetric(insertion: .move(edge: .trailing).combined(with: .opacity), removal: .opacity.animation(.easeOut(duration: 0.12))))
                     .id("step\(k)")
                 } else if finished, let note {
                     Text(note)
@@ -196,13 +196,11 @@ struct FormulaAnimationView: View {
                 if focus == i {
                     Capsule().fill(Moon.gold.opacity(0.14))
                         .matchedGeometryEffect(id: "hl", in: ns)
-                } else if inStep {
-                    Capsule().fill(Moon.gold.opacity(0.10))
                 }
             }
             .overlay(alignment: .bottom) {
                 if inStep {
-                    Capsule().fill(Moon.gold.opacity(0.8)).frame(height: 2).offset(y: 4)
+                    Capsule().fill(Moon.gold.opacity(0.8)).frame(height: 2).padding(.horizontal, -2).offset(y: 4)
                         .transition(.scale(scale: 0.2, anchor: .leading).combined(with: .opacity))
                 }
             }
