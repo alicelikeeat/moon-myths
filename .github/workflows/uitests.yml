@@ -26,4 +26,4 @@ jobs:
           xcodebuild test -project Pure.xcodeproj -scheme Pure -sdk iphonesimulator \
             -destination "id=$UDID" -derivedDataPath build -resultBundlePath result.xcresult \
             CODE_SIGN_IDENTITY="-" CODE_SIGNING_REQUIRED=NO \
-            2>&1 | grep -E "error:|Test Case|XCTAssert|failed|passed|BUILD|TEST" | tail -60
+            2>&1 | grep -E "error:|Test Case|ROUND|AFTER|failed|passed|BUILD|TEST" | tail -60

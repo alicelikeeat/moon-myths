@@ -5,6 +5,7 @@ struct PlaybackControls: ViewModifier {
     @Bindable var clock: PlaybackClock
     @State private var expanded = false
     @State private var lastTouch = Date()
+    @State private var taps = 0
 
     func body(content: Content) -> some View {
         content
@@ -56,6 +57,7 @@ struct PlaybackControls: ViewModifier {
                     }
 
                     Button {
+                        taps += 1
                         touch()
                         withAnimation(.snappy(duration: 0.25)) { expanded.toggle() }
                     } label: {
@@ -67,6 +69,7 @@ struct PlaybackControls: ViewModifier {
                     .buttonStyle(.glass)
                     .buttonBorderShape(.circle)
                     .accessibilityIdentifier("playback.toggle")
+                    .accessibilityValue("taps=\(taps) expanded=\(expanded)")
                 }
                 .padding(8)
             }
