@@ -99,7 +99,7 @@ scene(find('今有共買物人出八'), '盈不足术 · 共买物', els, [
     beat('共买一物：每人出八，多出三', 7),
     beat('每人出七，又差四', 7, set=set7),
     beat('每人多出一，前后相差 3 + 4 = 7：所以有七人', 8, hide=['diff']),
-    beat('物价：七人各出八，减去盈的三，得五十三', 7, set={'price': {'label': '物价 53', 'color': 'gold'}}, pulse=['price']),
+    beat('物价：七人各出八，减去盈的三，得五十三', 7, set=dict({'price': {'label': '物价 53', 'color': 'gold'}, 'pay': {'h': H(56), 'label': '共出 56', 'color': 'gold'}}, **{f'p{i}': {'label': '8', 'color': 'gold'} for i in range(7)}), pulse=['price']),
 ], caption='卷七 · 盈不足')
 
 # —— 方程术：三行算筹，“遍乘直除”
