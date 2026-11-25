@@ -61,6 +61,13 @@ jobs:
             for s in 3 6 10 16 30 40; do sleep 2; xcrun simctl io "$UDID" screenshot "shots/formula-$s.png"; done
             exit_early=1
           fi
+          if [ "${{ inputs.only }}" = "math" ]; then
+            for b in 0 1 2 3 4; do run_shot "jihe-b$b" -animGrid jihe-zh -animPage 0 -animBeat $b -appearance light; done
+            for b in 0 1 2 3 4; do run_shot "jz-b$b" -animGrid jiuzhang-zh -animPage 0 -animBeat $b -appearance light; done
+            run_shot "book-euclid" -openBook euclid -appearance light; sleep 5; xcrun simctl io "$UDID" screenshot shots/book-euclid-late.png
+            run_shot "timeline" -openTimeline -appearance light
+            exit_early=1
+          fi
           if [ "${{ inputs.only }}" = "editions" ]; then
             for b in kant-cpr lunyu discourse tractatus; do run_shot "ed-$b" -openBook $b -appearance light; sleep 6; xcrun simctl io "$UDID" screenshot "shots/ed-$b-late.png"; done
             exit_early=1

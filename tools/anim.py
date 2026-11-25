@@ -44,9 +44,10 @@ def beat(headline, dur=6.5, set=None, hide=None, pulse=None):
     if pulse: d["pulse"] = pulse
     return d
 
-def scene(anchor, title, els, beats, caption=None):
+def scene(anchor, title, els, beats, caption=None, geo=False):
     s = {"anchor": anchor, "title": title, "elements": els, "beats": beats}
     if caption: s["caption"] = caption
+    if geo: s["geo"] = True
     _scenes.append(s)
 
 def _strip(s):
@@ -85,10 +86,12 @@ def save(text_id, fill=True, skip=lambda i, p: False, scored=True, style=None):
             if e.get("at", 0) >= nb:
                 errors.append(f"{s['title']}：{e['id']} 在第 {e['at']} 拍出现，但只有 {nb} 拍")
             for k in ("x", "y"):
-                if k in e and not 0.04 <= e[k] <= 0.96:
+                if k in e and not (0.0 if s.get("geo") else 0.04) <= e[k] <= (1.0 if s.get("geo") else 0.96):
                     errors.append(f"{s['title']}：{e['id']}.{k}={e[k]} 超出舞台")
-            if e["kind"] == "arrow" and not (e["from"] in ids and e["to"] in ids):
-                errors.append(f"{s['title']}：箭头 {e['id']} 端点不存在")
+            if e["kind"] in ("arrow", "seg", "circle") and not (e["from"] in ids and e["to"] in ids):
+                errors.append(f"{s['title']}：{e['id']} 端点不存在")
+            for q in e.get("pts") or []:
+                if q not in ids: errors.append(f"{s['title']}：{e['id']} 顶点 {q} 不存在")
         for b in s["beats"]:
             if not 5 <= b["dur"] <= 9:
                 errors.append(f"{s['title']}：节拍时长 {b['dur']}")
@@ -97,7 +100,7 @@ def save(text_id, fill=True, skip=lambda i, p: False, scored=True, style=None):
                     errors.append(f"{s['title']}：节拍引用了不存在的元素 {k}")
             for k, v in b.get("set", {}).items():
                 for kk in ("x", "y"):
-                    if kk in v and not 0.04 <= v[kk] <= 0.96:
+                    if kk in v and not (0.0 if s.get("geo") else 0.04) <= v[kk] <= (1.0 if s.get("geo") else 0.96):
                         errors.append(f"{s['title']}：{k}.{kk} 超出舞台")
     if errors:
         print("\n".join(errors)); sys.exit(1)
@@ -385,6 +388,7 @@ def _tw(label, size):
     return w / 350, size * 1.25 / 380
 
 def layout_issues(sc):
+    if sc.get("geo"): return []
     els = {e["id"]: dict(e) for e in sc["elements"]}
     hidden = set()
     issues = []
@@ -644,3 +648,27 @@ def score_book(paras, lang):
     for rank, i in enumerate(order):
         pct[i] = round(100 * rank / max(1, len(paras) - 1))
     return pct
+
+
+# MARK: 几何作图 ---------------------------------------------------------------
+# 用于 scene(..., geo=True)：坐标在居中的正方形里（0…1），引擎保证等距、正圆。
+
+def Seg(id, a, b, label="", color="silver", at=0, dash=False, width=None):
+    return _el("seg", id, **{"from": a}, to=b, label=label or None, color=color, at=at, dash=dash or None, size=width)
+
+def Circ(id, center, through, color="silver", at=0, dash=False):
+    return _el("circle", id, **{"from": center}, to=through, color=color, at=at, dash=dash or None)
+
+def Poly(id, pts, label="", color="gold", at=0, size=None):
+    return _el("poly", id, pts=pts, label=label or None, color=color, at=at, size=size)
+
+def Ngon(id, x, y, rad, n, label="", color="gold", at=0):
+    return _el("ngon", id, x=x, y=y, w=rad, n=n, label=label or None, color=color, at=at)
+
+def Pt(id, x, y, label="", color="primary", at=0, r=3.5):
+    """作图用的点：小圆点 + 字母"""
+    return _el("node", id, x=round(x, 4), y=round(y, 4), label=label or None, color=color, r=r, at=at, size=12)
+
+def Hid(id, x, y, at=0):
+    """不可见的顶点（多边形、线段的端点）"""
+    return _el("node", id, x=round(x, 4), y=round(y, 4), r=0.01, at=at)

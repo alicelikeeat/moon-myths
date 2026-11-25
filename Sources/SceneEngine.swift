@@ -22,6 +22,7 @@ struct AnimScene: Codable, Identifiable, Hashable {
     let beats: [AnimBeat]
     var tier: String? = nil       // "core" 精讲；"plus" 进阶（按句式自动成图）；"basic" 普通
     var score: Int? = nil         // 段落评分 0–100（书内百分位）
+    var geo: Bool? = nil          // 几何作图：坐标放在居中的正方形里，保证圆是圆、等长是等长
 
     var isCore: Bool { tier == nil || tier == "core" }
     var isPlus: Bool { tier == "plus" }
@@ -33,7 +34,7 @@ struct AnimScene: Codable, Identifiable, Hashable {
 
 struct AnimElement: Codable {
     let id: String
-    let kind: String              // node box ring text arrow particles bar
+    let kind: String              // node box ring text arrow particles bar；几何：seg circle poly ngon
     var x: Double? = nil, y: Double? = nil        // 0…1（相对舞台）
     var r: Double? = nil                          // 点
     var w: Double? = nil, h: Double? = nil        // 0…1（相对舞台）
@@ -49,6 +50,7 @@ struct AnimElement: Codable {
     var or: Double? = nil                         // 环绕半径（点）
     var speed: Double? = nil                      // 环绕角速度
     var font: String? = nil                       // "serif"：经文用衬线字体
+    var pts: [String]? = nil                      // poly：顶点（元素 id）
 }
 
 struct AnimPatch: Codable {
@@ -143,6 +145,8 @@ final class SceneRuntime {
         let from = b == 0 ? initial : states[b - 1]
         let to = states[b]
         let pulse = Set(scene.beats[b].pulse ?? [])
+        let geo = scene.geo ?? false
+        let S = min(W - 40, H - 110), gx = (W - S) / 2, gy = 48 + (H - 110 - S) / 2
 
         func mix(_ id: String) -> ElState? {
             guard let a = from[id], let c = to[id] else { return nil }
@@ -153,6 +157,7 @@ final class SceneRuntime {
             s.color = k < 0.5 ? a.color : c.color
             s.label = k < 0.5 && a.opacity > 0 ? a.label : c.label
             if pulse.contains(id) { s.r *= 1 + 0.09 * sin(t * 3.2) }
+            if geo { s.x = (gx + s.x * S) / W; s.y = (gy + s.y * S) / H }
             if let e = kinds[id], let o = e.orbit, let a = from[o], let c = to[o] {
                 let cx = lerp(a.x, c.x, k), cy = lerp(a.y, c.y, k)
                 let ang = t * (e.speed ?? 0.6) + Double(id.unicodeScalars.reduce(0) { $0 + Int($1.value) } % 7)
@@ -180,6 +185,59 @@ final class SceneRuntime {
             case "arrow":
                 guard let f = e.from, let g = e.to, let a = mix(f), let c = mix(g) else { continue }
                 drawArrow(&ctx, a, c, kinds[f]?.kind, kinds[g]?.kind, s, e, W, H, t)
+            case "seg":
+                guard let f = e.from, let g = e.to, let a = mix(f), let c = mix(g) else { continue }
+                let ax = a.x * W, ay = a.y * H, cx = c.x * W, cy = c.y * H
+                let grow = s.opacity
+                let col = animColor(s.color).opacity(0.9 * min(1, a.opacity + 0.3, c.opacity + 0.3))
+                line(&ctx, ax, ay, ax + (cx - ax) * grow, ay + (cy - ay) * grow, col, e.size ?? 2.2, dash: (e.dash ?? false) ? [6, 5] : [])
+                if !s.label.isEmpty && grow > 0.6 {
+                    let len = max(1, hypot(cx - ax, cy - ay))
+                    label(&ctx, s.label, (ax + cx) / 2 + (cy - ay) / len * 14, (ay + cy) / 2 - (cx - ax) / len * 14, col, size: 11)
+                }
+            case "circle":
+                // 圆规：以 from 为心、过 to 点，按出现进度画出圆弧
+                guard let f = e.from, let g = e.to, let a = mix(f), let c = mix(g) else { continue }
+                let ax = a.x * W, ay = a.y * H, cx = c.x * W, cy = c.y * H
+                let rad = hypot(cx - ax, cy - ay), a0 = atan2(cy - ay, cx - ax)
+                let sweep = 2 * Double.pi * s.opacity
+                var p = Path()
+                p.addArc(center: CGPoint(x: ax, y: ay), radius: rad, startAngle: .radians(a0), endAngle: .radians(a0 + sweep), clockwise: false)
+                let col = animColor(s.color).opacity(0.75)
+                ctx.stroke(p, with: .color(col), style: StrokeStyle(lineWidth: 1.6, lineCap: .round, dash: (e.dash ?? false) ? [6, 5] : []))
+                if s.opacity < 0.98 && s.opacity > 0.02 {
+                    // 圆规的笔尖
+                    blob(&ctx, ax + cos(a0 + sweep) * rad, ay + sin(a0 + sweep) * rad, 3.2, Moon.gold)
+                    line(&ctx, ax, ay, ax + cos(a0 + sweep) * rad, ay + sin(a0 + sweep) * rad, Moon.gold.opacity(0.35), 1)
+                }
+            case "poly":
+                let ps = (e.pts ?? []).compactMap { mix($0) }
+                guard ps.count >= 3 else { continue }
+                var p = Path()
+                p.move(to: CGPoint(x: ps[0].x * W, y: ps[0].y * H))
+                for q in ps.dropFirst() { p.addLine(to: CGPoint(x: q.x * W, y: q.y * H)) }
+                p.closeSubpath()
+                let col = animColor(s.color)
+                ctx.fill(p, with: .color(col.opacity(0.22 * s.opacity)))
+                ctx.stroke(p, with: .color(col.opacity(0.7 * s.opacity)), lineWidth: 1.4)
+                if !s.label.isEmpty {
+                    let mx = ps.map(\.x).reduce(0, +) / Double(ps.count) * W, my = ps.map(\.y).reduce(0, +) / Double(ps.count) * H
+                    label(&ctx, s.label, mx, my, Color.primary.opacity(0.9 * s.opacity), size: e.size ?? 13)
+                }
+            case "ngon":
+                // 正 n 边形，内接于以 (x, y) 为心、半径 r（几何坐标里是正方形边长的比例）的圆
+                let n = max(3, e.n ?? 6)
+                let rad = geo ? s.w * S : s.r
+                var p = Path()
+                for i in 0...n {
+                    let ang = -Double.pi / 2 + 2 * Double.pi * Double(i) / Double(n)
+                    let pt = CGPoint(x: s.x * W + cos(ang) * rad, y: s.y * H + sin(ang) * rad)
+                    if i == 0 { p.move(to: pt) } else { p.addLine(to: pt) }
+                }
+                let col = animColor(s.color)
+                ctx.fill(p, with: .color(col.opacity(0.16 * s.opacity)))
+                ctx.stroke(p, with: .color(col.opacity(0.85 * s.opacity)), lineWidth: 1.5)
+                if !s.label.isEmpty { label(&ctx, s.label, s.x * W, s.y * H + rad + 16, col.opacity(s.opacity), size: e.size ?? 12) }
             case "particles":
                 let n = e.n ?? 30
                 for i in 0..<n {

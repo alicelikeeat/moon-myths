@@ -1346,6 +1346,96 @@
    }
   ]
  },
+ "euclid": {
+  "images": [
+   {
+    "file": "P. Oxy. I 29.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8d/P._Oxy._I_29.jpg/960px-P._Oxy._I_29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "俄克喜林库斯纸草 29 号：现存最早的《几何原本》残片（约公元 100 年）",
+    "license": "Public domain"
+   },
+   {
+    "file": "Euclid's Elements, 1482.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d4/Euclid%27s_Elements%2C_1482.jpg/960px-Euclid%27s_Elements%2C_1482.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "1482 年威尼斯初印本，拉特多尔特印行",
+    "license": "CC BY-SA 4.0"
+   },
+   {
+    "file": "Byrne 1847 Pythagoras Querformat.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8d/Byrne_1847_Pythagoras_Querformat.jpg/960px-Byrne_1847_Pythagoras_Querformat.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "caption": "1847 年 Byrne 彩色版：卷一命题 47（勾股定理）",
+    "license": "Public domain"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "firstsixbooksel00byrn",
+    "caption": "1847 年 Byrne 彩色版，伦敦：皮克林",
+    "title": "The first six books of the Elements of Euclid : in which coloured diagrams and symbols are used instead of letters for the greater ease of l",
+    "publisher": "London : William Pickering",
+    "pdf": "firstsixbooksel00byrn.pdf",
+    "img": "https://archive.org/download/firstsixbooksel00byrn/page/title_w400.jpg",
+    "kind": "扉页"
+   },
+   {
+    "ia": "elementsgeometr00eucl",
+    "caption": "1570 年 Billingsley 首部英译本，伦敦",
+    "title": "The Elements of geometrie of the most auncient philosopher Evclide of Megara",
+    "publisher": "London, Imprinted by I. Daye",
+    "pdf": "elementsgeometr00eucl.pdf",
+    "img": "https://archive.org/download/elementsgeometr00eucl/page/title_w400.jpg",
+    "kind": "扉页"
+   },
+   {
+    "ia": "firstsixbooksel00casegoog",
+    "caption": "1885 年 Casey 版（本应用英文全文所据），伦敦：朗文",
+    "title": "The First Six Books of the Elements of Euclid: And Propositions I-XXI of Book XI, and an ...",
+    "publisher": "Longmans, Green, & co.",
+    "pdf": "firstsixbooksel00casegoog.pdf",
+    "img": "https://archive.org/download/firstsixbooksel00casegoog/page/title_w400.jpg",
+    "kind": "扉页"
+   },
+   {
+    "ia": "06057513.cn",
+    "caption": "利玛窦、徐光启译《几何原本》卷一",
+    "title": "幾何原本·卷一之首~卷一",
+    "publisher": "",
+    "pdf": "06057513.cn.pdf",
+    "img": "https://archive.org/download/06057513.cn/page/n4_w400.jpg",
+    "kind": "书页"
+   }
+  ]
+ },
+ "jiuzhang": {
+  "images": [
+   {
+    "file": "九章算術細草圖說.jpg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/e/e0/%E4%B9%9D%E7%AB%A0%E7%AE%97%E8%A1%93%E7%B4%B0%E8%8D%89%E5%9C%96%E8%AA%AA.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "caption": "李潢《九章算术细草图说》书页",
+    "license": "Public domain"
+   }
+  ],
+  "scans": [
+   {
+    "ia": "06057481.cn",
+    "caption": "《九章算术》卷一至卷三",
+    "title": "九章算術·卷一~卷三",
+    "publisher": "",
+    "pdf": "06057481.cn.pdf",
+    "img": "https://archive.org/download/06057481.cn/page/n4_w400.jpg",
+    "kind": "书页"
+   },
+   {
+    "ia": "02094024.cn",
+    "caption": "李潢《九章算术细草图说》（一）",
+    "title": "九章算術細草圖說(一)",
+    "publisher": "",
+    "pdf": "02094024.cn.pdf",
+    "img": "https://archive.org/download/02094024.cn/page/n4_w400.jpg",
+    "kind": "书页"
+   }
+  ]
+ },
  "zarathustra": {
   "images": [],
   "scans": [

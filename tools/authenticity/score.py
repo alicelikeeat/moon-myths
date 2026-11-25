@@ -16,7 +16,7 @@ RUBRIC = [
 ]
 
 # 书 → 全文
-FT = {"kant-cpr": ["kant-cpr-de", "kant-cpr-en"], "hegel-logic": ["hegel-logic-1-de", "hegel-logic-2-de"], "hegel-phen": ["hegel-phen-de"],
+FT = {"kant-cpr": ["kant-cpr-de", "kant-cpr-en"], "euclid": ["jihe-zh", "euclid-en"], "jiuzhang": ["jiuzhang-zh"], "hegel-logic": ["hegel-logic-1-de", "hegel-logic-2-de"], "hegel-phen": ["hegel-phen-de"],
       "nicomachean": ["ethics-aristotle-en"], "zhuziyulei": ["zhuziyulei-1-zh", "zhuziyulei-36-zh", "zhuziyulei-71-zh", "zhuziyulei-106-zh"],
       "russell-denoting": [], "russell-pm": [], "russell-problems": []}
 def fulltexts(b):
@@ -27,6 +27,7 @@ ENGLISH_ORIGINAL = {"enquiry", "leviathan", "locke-government", "berkeley-princi
 
 # 有明确底本说明的 Gutenberg 本（原文印本或可考译者）
 NAMED_EDITION = {
+    "euclid": "利玛窦、徐光启 1607 年译本（四库全书本）；Casey 1885 年英译本",
     "kant-cpr": "德文第二版（B 版，1787）；英译 Meiklejohn（1855）",
     "hegel-phen": "德文原文，据 1807 年初版文本",
     "hegel-logic": "德文原文，两卷",
@@ -47,6 +48,7 @@ COMPLETE = {
     "lunheng": (18, "全文，按卷分段，篇题未逐一分开"),
     "guanzi": (18, "全文，部分篇目分段较粗"),
     "kant-cpr": (20, "A/B 两版中收 B 版全文，并有英译全文"),
+    "euclid": (16, "收利玛窦、徐光启译本前六卷与 Casey 英译前六卷；全书十三卷，后七卷未收"),
     "schopenhauer-essays": (14, "英译选本，只收《附录与补遗》中的部分文章"),
     "russell-denoting": (5, "该文仍受版权保护的地区较多，只收节选"),
     "russell-pm": (5, "只收节选"),
@@ -91,6 +93,8 @@ AUTHOR = {
     "schopenhauer-essays": (13, "叔本华《附录与补遗》的英译选本，篇目由译者选编"), "on-liberty": (15, "密尔亲撰"), "utilitarianism": (15, "密尔亲撰"),
     "manifesto": (15, "马克思、恩格斯合著，1848 年刊行"), "pragmatism": (15, "詹姆士的讲演，生前刊行"), "groundwork": (15, "康德亲撰"),
     "bge": (15, "尼采亲撰"), "zarathustra": (15, "尼采亲撰"),
+    "euclid": (12, "一般归于欧几里得，但他整理汇编了前人成果；今本经塞翁（4 世纪）等人修订，19 世纪发现的梵蒂冈抄本更接近早期面貌"),
+    "jiuzhang": (11, "非一人一时之作，约在东汉编定；今本附刘徽注（263 年）与李淳风等注释（唐），原文与注文分得开"),
 }
 
 # 从书目信息里读出的底本（Timeline.swift 中的原名标注）
@@ -118,9 +122,16 @@ for b, (au, aunote) in AUTHOR.items():
     else:
         title = ' / '.join(texts[t]['title'] for t in fts)
         base, notes['底本'] = 20, f"{title}；据 Project Gutenberg 转录的公有领域印本"
+    if b == "euclid":
+        base, notes['底本'] = 23, "中译据漢籍リポジトリ KR3f0047 整理，底本为《四库全书》本；英译据 Project Gutenberg #21076（Casey 1885 年版）"
     # 原文
-    langs = {texts[t]['lang'] for t in fts}
-    if b in ENGLISH_ORIGINAL or langs & {'zh', 'de', 'la', 'fr'}:
+    if b == "euclid":
+        orig, notes['原文'] = 12, "原著为古希腊文，本应用只有译本：利玛窦、徐光启 1607 年中译，Casey 1885 年英译"
+        langs = set()
+    else:
+        langs = {texts[t]['lang'] for t in fts}
+    if b == "euclid": pass
+    elif b in ENGLISH_ORIGINAL or langs & {'zh', 'de', 'la', 'fr'}:
         orig, notes['原文'] = 20, "可读原文" + ("，另附英译" if 'en' in langs and len(langs) > 1 else "")
     else:
         orig, notes['原文'] = 12, "只有公有领域英译本：" + ' / '.join(texts[t]['title'] for t in fts)

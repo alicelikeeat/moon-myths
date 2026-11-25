@@ -3,8 +3,14 @@ import SwiftUI
 // MARK: - 数据
 
 enum Region: String, CaseIterable {
-    case china, west
-    var title: String { self == .china ? "中国" : "西方" }
+    case china, west, math
+    var title: String {
+        switch self {
+        case .china: return "中国"
+        case .west: return "西方"
+        case .math: return "数学"
+        }
+    }
 }
 
 struct Thinker: Identifiable {
@@ -146,6 +152,12 @@ let thinkers: [Thinker] = [
             thesis: "存在先于本质；人被判定为自由。"),
     Thinker(id: "camus", name: "加缪", region: .west, born: 1913, died: 1960, approx: false,
             thesis: "荒诞：在没有意义的世界里反抗，想象西西弗是幸福的。"),
+
+    // 数学
+    Thinker(id: "euclid", name: "欧几里得", region: .math, born: -325, died: -265, approx: true,
+            thesis: "《几何原本》：从定义、公设、公理出发，一步步证明几何命题，是公理化方法的典范。"),
+    Thinker(id: "liuhui", name: "刘徽", region: .math, born: 225, died: 295, approx: true,
+            thesis: "注《九章算术》：用出入相补证明句股，以割圆术逼近圆周率。"),
 ]
 
 let eras: [Era] = [
@@ -158,6 +170,10 @@ let eras: [Era] = [
     Era(region: .china, name: "宋元", start: 960, end: 1368),
     Era(region: .china, name: "明", start: 1368, end: 1644),
     Era(region: .china, name: "清", start: 1644, end: 1912),
+    Era(region: .math, name: "古代数学", start: -600, end: 500),
+    Era(region: .math, name: "中世纪与东方", start: 500, end: 1500),
+    Era(region: .math, name: "近代数学", start: 1500, end: 1800),
+    Era(region: .math, name: "现代数学", start: 1800, end: 2000),
     Era(region: .west, name: "古希腊", start: -600, end: -323),
     Era(region: .west, name: "希腊化与罗马", start: -323, end: 476),
     Era(region: .west, name: "中世纪", start: 476, end: 1400),
@@ -172,6 +188,7 @@ let influences: [Influence] = [
     Influence(from: "xunzi", to: "hanfei"), Influence(from: "laozi", to: "zhuangzi"),
     Influence(from: "kongzi", to: "dongzhongshu"), Influence(from: "mengzi", to: "zhuxi"),
     Influence(from: "zhuxi", to: "wangyangming", critical: true),
+    Influence(from: "plato", to: "euclid"), Influence(from: "euclid", to: "spinoza"),
     Influence(from: "socrates", to: "plato"), Influence(from: "plato", to: "aristotle"),
     Influence(from: "plato", to: "augustine"), Influence(from: "aristotle", to: "aquinas"),
     Influence(from: "descartes", to: "spinoza"), Influence(from: "descartes", to: "leibniz"),
@@ -348,7 +365,7 @@ struct HistoryTimelineView: View {
                            : [.init(color: .black, location: 0), .init(color: .black, location: 1)],
                            startPoint: .leading, endPoint: .trailing)
         }
-        .glassEffect(Glass.regular.tint((deep ? Moon.gold : (t.region == .china ? Moon.violet : Moon.silver)).opacity(deep ? 0.35 : 0.18)).interactive(),
+        .glassEffect(Glass.regular.tint((deep ? Moon.gold : (t.region == .china ? Moon.violet : t.region == .math ? Color(red: 0.35, green: 0.72, blue: 0.62) : Moon.silver)).opacity(deep ? 0.35 : 0.18)).interactive(),
                      in: .capsule)
     }
 }
@@ -446,6 +463,10 @@ private func work(_ id: String, _ title: String, _ original: String, _ year: Str
 }
 
 let thinkerWorks: [String: [Book]] = [
+    "euclid": [work("euclid", "几何原本", "Στοιχεῖα（Elements）", "约前 300 年",
+                    "十三卷，从 23 条定义、5 条公设、5 条公理推出全部命题。收利玛窦、徐光启 1607 年中译前六卷，以及 Casey 1885 年英译前六卷。")],
+    "liuhui": [work("jiuzhang", "九章算术", "九章算術（四部丛刊本）", "约东汉成书 / 263 年刘徽注",
+                    "246 道应用题，分方田、粟米、衰分、少广、商功、均输、盈不足、方程、句股九章。附刘徽注、李淳风等注释。")],
     "kongzi": [work("lunyu", "论语", "論語", "春秋末至战国初", "孔子及其弟子的言行录。原文 + 理雅各（Legge）英译。")],
     "laozi": [work("daodejing", "道德经", "道德經", "约战国", "五千言，八十一章。原文 + 理雅各英译。")],
     "zhuangzi": [work("zhuangzi", "庄子", "Chuang Tzu (tr. Giles)", "战国", "原文全文（漢籍リポジトリ）+ 翟理斯（Giles）1889 年英译。")],
@@ -506,6 +527,8 @@ let thinkerWorks: [String: [Book]] = [
 
 /// 时间轴人物著作的全文版本
 let thinkerFullTexts: [String: [FullText]] = [
+    "euclid": [FullText(id: "jihe-zh", label: "徐光启译"), FullText(id: "euclid-en", label: "English")],
+    "jiuzhang": [FullText(id: "jiuzhang-zh", label: "原文")],
     "lunyu": [FullText(id: "lunyu-zh", label: "原文"), FullText(id: "lunyu-en", label: "English")],
     "daodejing": [FullText(id: "daodejing-zh", label: "原文"), FullText(id: "daodejing-en", label: "English")],
     "zhuangzi": [FullText(id: "zhuangzi-zh", label: "原文"), FullText(id: "zhuangzi-en", label: "English")],
