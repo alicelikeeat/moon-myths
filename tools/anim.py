@@ -209,7 +209,15 @@ import re as _re
 _KEY_ZH = "仁道德君子禮礼義义孝信學学知智樂乐天命政善恕忠性心"
 
 def _wrap_zh(c, n=17):
-    return [c[i:i + n] for i in range(0, len(c), n)]
+    """按显示宽度折行：汉字算 1，西文字符算 0.58"""
+    out, cur, w = [], "", 0.0
+    for ch in c:
+        cw = 1.0 if ord(ch) > 0x2E80 else 0.58
+        if w + cw > n and cur:
+            out.append(cur); cur, w = "", 0.0
+        cur += ch; w += cw
+    if cur: out.append(cur)
+    return out
 
 def _clauses_zh(text):
     t = text.replace("「", "").replace("」", "").replace("『", "").replace("』", "").replace("“", "").replace("”", "")
@@ -223,17 +231,29 @@ def _clauses_zh(text):
     return [l for x in merged for l in _wrap_zh(x)]
 
 def _wrap_words(sent, n=40):
-    lines, cur = [], ""
+    """按显示宽度折行（西文字符 0.58，汉字 1），每行不超过 n×0.58 个汉字宽"""
+    budget = n * 0.58
+    def width(x): return sum(1.0 if ord(c) > 0x2E80 else 0.58 for c in x)
+    words = []
     for w in sent.split():
-        if cur and len(cur) + 1 + len(w) > n:
+        if width(w) > budget:
+            words.extend(_wrap_zh(w, budget))
+        else:
+            words.append(w)
+    lines, cur = [], ""
+    for w in words:
+        cand = (cur + " " + w).strip()
+        if cur and width(cand) > budget:
             lines.append(cur); cur = w
         else:
-            cur = (cur + " " + w).strip()
+            cur = cand
     if cur: lines.append(cur)
     return lines
 
 def basic_scene(text, lang):
     """说话人 → 逐句浮现 → 点亮关键句"""
+    cjk = sum(1 for c in text if ord(c) > 0x2E80)
+    lang = "zh" if cjk > 0.3 * max(1, len(text.replace(" ", ""))) else ("en" if lang == "zh" else lang)
     speaker = None
     if lang == "zh":
         m = _re.match(r"^(.{1,8}?)(曰|問曰|问曰|對曰|对曰)：", text)
@@ -376,3 +396,6 @@ def check_layout(path):
             n += 1
             print(f"[{sc.get('tier')}] {sc['title']}: " + "；".join(iss[:4]))
     print(f"{n} 个动画有版面问题")
+
+def reset():
+    _scenes.clear()
