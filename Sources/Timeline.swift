@@ -392,6 +392,10 @@ let thinkerWorks: [String: [Book]] = [
     ],
     "spinoza": [work("ethics", "伦理学", "Ethics (tr. Elwes)", "1677", "按几何学方式证明。埃尔维斯英译。")],
     "hume": [work("enquiry", "人类理解研究", "An Enquiry Concerning Human Understanding", "1748", "因果、习惯与归纳问题。英文原著。")],
+    "aristotle": [work("nicomachean", "尼各马可伦理学", "The Ethics of Aristotle (tr. Chase)", "约前 4 世纪", "幸福、德性与中道。蔡斯（Chase）1847 年英译。")],
+    "aquinas": [work("summa", "神学大全（第一集）", "Summa Theologica, Part I", "1265–1274", "包含证明上帝存在的“五路”。多明我会英译。")],
+    "leibniz": [work("monadologie", "单子论", "La Monadologie", "1714", "法文原文（皮亚 1909 年校注本）。")],
+    "wittgenstein": [work("tractatus", "逻辑哲学论", "Logisch-philosophische Abhandlung", "1921", "德文原文，526 条编号命题。")],
     "nietzsche": [work("zarathustra", "查拉图斯特拉如是说", "Also sprach Zarathustra", "1883–1885", "德文原文 + 康芒（Common）英译。")],
 ]
 
@@ -413,4 +417,8 @@ let thinkerFullTexts: [String: [FullText]] = [
     "ethics": [FullText(id: "ethics-en", label: "English")],
     "enquiry": [FullText(id: "enquiry-en", label: "English")],
     "zarathustra": [FullText(id: "zarathustra-de", label: "Deutsch"), FullText(id: "zarathustra-en", label: "English")],
+    "nicomachean": [FullText(id: "ethics-aristotle-en", label: "English")],
+    "summa": [FullText(id: "summa-en", label: "English")],
+    "monadologie": [FullText(id: "monadologie-fr", label: "Français")],
+    "tractatus": [FullText(id: "tractatus-de", label: "Deutsch")],
 ]

@@ -1,7 +1,11 @@
 import SwiftUI
 
-let workChapters: [String: [Chapter]] = chineseWorkChapters.merging(westernWorkChapters) { a, _ in a }
-let workPassages: [String: [Passage]] = chineseWorkPassages.merging(westernWorkPassages) { a, _ in a }
+let workChapters: [String: [Chapter]] = chineseWorkChapters
+    .merging(westernWorkChapters) { a, _ in a }
+    .merging(westernWorkChapters2) { a, _ in a }
+let workPassages: [String: [Passage]] = chineseWorkPassages
+    .merging(westernWorkPassages) { a, _ in a }
+    .merging(westernWorkPassages2) { a, _ in a }
 
 // MARK: - 章节
 

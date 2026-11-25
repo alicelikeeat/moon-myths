@@ -11,6 +11,7 @@ struct FullText: Identifiable {
         if id.hasSuffix("-zh") { return "zh" }
         if id.hasSuffix("-en") { return "en" }
         if id.hasSuffix("-la") { return "la" }
+        if id.hasSuffix("-fr") { return "fr" }
         return "de"
     }
 }
