@@ -256,7 +256,7 @@ def basic_scene(text, lang):
     lang = "zh" if cjk > 0.3 * max(1, len(text.replace(" ", ""))) else ("en" if lang == "zh" else lang)
     speaker = None
     if lang == "zh":
-        m = _re.match(r"^(.{1,8}?)(曰|問曰|问曰|對曰|对曰)：", text)
+        m = _re.match(r"^([^，。：；「」『』！？、]{1,8}?)(曰|問曰|问曰|對曰|对曰)：", text)
         body = text
         if m:
             speaker = m.group(1)
@@ -314,26 +314,40 @@ def basic_scene(text, lang):
     total = len(groups)
     groups = groups[:4]
     truncated = len(groups) < total
+    def _clip(x, units=21):
+        out, w = "", 0.0
+        for ch in x:
+            w += 1.0 if ord(ch) > 0x2E80 else 0.58
+            if w > units:
+                return out.rstrip() + "…"
+            out += ch
+        return out
+    title = _clip(title)
     if len(groups) == 1 and len(groups[0]) >= 2:
         g = groups[0]; h = (len(g) + 1) // 2
         groups = [g[:h], g[h:]]
     els, beats_ = [], []
     if speaker:
-        els.append(N("sp", 0.5, 0.2, speaker, "gold", 12))
-    size = 13 if lang == "zh" else 12
+        els.append(N("sp", 0.5, 0.2, speaker, "gold", 11))
+    size = 15 if lang == "zh" else 13
+    gap = 0.1
+    maxl = max(len(g) for g in groups)
     for gi, g in enumerate(groups):
+        y0 = 0.52 - gap * (len(g) - 1) / 2
+        els.append(B(f"q{gi}", 0.08, 0.52, "", 0.008, gap * len(g), "gold", at=gi))
         for li, l in enumerate(g):
-            els.append(T(f"t{gi}_{li}", 0.5, 0.38 + 0.11 * li, l, "primary", size, at=gi))
+            els.append(T(f"t{gi}_{li}", 0.5, y0 + gap * li, l, "primary", size, at=gi))
     for gi, g in enumerate(groups):
-        hide = [f"t{gi-1}_{li}" for li in range(len(groups[gi - 1]))] if gi else None
-        bt = beat(f"{gi + 1} / {len(groups)}" + ("（节选）" if truncated and gi == len(groups) - 1 else ""), 6)
+        hide = ([f"t{gi-1}_{li}" for li in range(len(groups[gi - 1]))] + [f"q{gi-1}"]) if gi else None
+        bt = beat(title + ("（节选）" if truncated and gi == len(groups) - 1 else ""), 6)
         if hide: bt["hide"] = hide
         beats_.append(bt)
     last = len(groups) - 1
     kb = len(beats_)
+    ky0 = 0.52 - 0.12 * (len(key) - 1) / 2
     for li, l in enumerate(key):
-        els.append(T(f"k{li}", 0.5, 0.45 + 0.11 * li, l, "gold", 15 if lang == "zh" else 13, at=kb))
-    bt = beat("要点", 6.5, hide=[f"t{last}_{li}" for li in range(len(groups[last]))])
+        els.append(T(f"k{li}", 0.5, ky0 + 0.12 * li, l, "gold", 17 if lang == "zh" else 14, at=kb))
+    bt = beat("要点", 6.5, hide=[f"t{last}_{li}" for li in range(len(groups[last]))] + [f"q{last}"])
     if speaker: bt["pulse"] = ["sp"]
     beats_.append(bt)
     if len(beats_) > 5:
