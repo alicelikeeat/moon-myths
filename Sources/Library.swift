@@ -162,7 +162,10 @@ private struct BookRow: View {
                 .glassEffect(Glass.regular.tint(Color.primary.opacity(0.12)), in: .circle)
             VStack(alignment: .leading, spacing: 3) {
                 Text("《\(book.title)》").font(.body.weight(.semibold)).foregroundStyle(Color.primary)
-                Text(book.chapters.isEmpty ? "\(book.year) · 全文" : "\(book.year) · \(book.chapters.count) 章").font(.caption).foregroundStyle(Color.primary.opacity(0.55))
+                HStack(spacing: 6) {
+                    Text(book.chapters.isEmpty ? "\(book.year) · 全文" : "\(book.year) · \(book.chapters.count) 章").font(.caption).foregroundStyle(Color.primary.opacity(0.55))
+                    if let a = authenticity?.books[book.id] { AuthBadge(score: a.total) }
+                }
                 Text(book.summary).font(.caption).foregroundStyle(Color.primary.opacity(0.7)).lineLimit(2)
             }
             Spacer(minLength: 0)
@@ -204,6 +207,9 @@ struct BookView: View {
                     } else {
                         Text("该书在部分地区仍受版权保护，本应用只提供节选。")
                             .font(.caption).foregroundStyle(Color.primary.opacity(0.5))
+                    }
+                    if let doc = authenticity, let a = doc.books[book.id] {
+                        AuthCard(score: a, rubric: doc.rubric).padding(.top, 8)
                     }
                     if let ed = bookEditions[book.id], !ed.isEmpty {
                         EditionsSection(editions: ed)
