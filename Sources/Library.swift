@@ -326,8 +326,11 @@ struct ChapterView: View {
         case .canvas(let draw):
             if let live = liveFormulas["\(book.id):\(index)"] {
                 TimelineView(.animation(minimumInterval: 0.05)) { tl in
-                    Header(title: c.title, formula: live(clock.time(tl.date.timeIntervalSinceReferenceDate)), subtitle: c.thesis)
+                    Header(title: c.title, formula: live(clock.time(tl.date.timeIntervalSinceReferenceDate)), subtitle: c.thesis,
+                           explainKey: c.formula)
                 }
+                // 放在 TimelineView 外面：不随每帧重建，展开状态才稳定
+                FormulaExplainer(formula: c.formula)
             } else {
                 Header(title: c.title, formula: c.formula, subtitle: c.thesis)
             }

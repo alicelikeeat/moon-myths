@@ -90,6 +90,8 @@ struct Header: View {
     let title: String
     let formula: String
     let subtitle: String
+    /// 用于查找“读法与解释”的公式原文（动态公式时传章节的静态公式）
+    var explainKey: String? = nil
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text(title)
@@ -106,6 +108,9 @@ struct Header: View {
             Text(subtitle)
                 .font(.subheadline)
                 .foregroundStyle(Color.primary.opacity(0.7))
+            if explainKey == nil {
+                FormulaExplainer(formula: formula)
+            }
         }
     }
 }

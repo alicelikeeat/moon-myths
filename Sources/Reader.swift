@@ -298,13 +298,27 @@ private struct ReaderContent: View {
                         .foregroundStyle(Color.primary)
                     Text(doc.source).font(.caption).foregroundStyle(Color.primary.opacity(0.5))
                     if !targets.isEmpty {
-                        let failure = targets.compactMap { translator($0).failed }.first
-                        Label(failure ?? "\(targets.map { $0 == "zh" ? "中文" : "English" }.joined(separator: "、")) 为 Apple 设备端机器翻译，读到哪里翻译到哪里，仅供参考。",
-                              systemImage: failure == nil ? "translate" : "exclamationmark.triangle")
-                            .font(.caption)
-                            .foregroundStyle(Color.primary.opacity(0.7))
-                            .padding(12)
-                            .glassEffect(.regular, in: .rect(cornerRadius: 16))
+                        let broken = targets.map { translator($0) }.first { $0.failed != nil }
+                        VStack(alignment: .leading, spacing: 10) {
+                            Label(broken?.failed ?? "\(targets.map { $0 == "zh" ? "中文" : "English" }.joined(separator: "、")) 为 Apple 设备端机器翻译，读到哪里翻译到哪里，仅供参考。",
+                                  systemImage: broken == nil ? "translate" : "exclamationmark.triangle")
+                            if let t = broken, t.needsDownload {
+                                Button {
+                                    t.retry()
+                                } label: {
+                                    Label("下载语言包", systemImage: "arrow.down.circle").font(.callout.weight(.semibold))
+                                }
+                                .buttonStyle(.glassProminent)
+                                Text("也可以在 设置 → App → 翻译 → 下载语言 中提前下载。")
+                                    .font(.caption2)
+                                    .foregroundStyle(Color.primary.opacity(0.5))
+                            }
+                        }
+                        .font(.caption)
+                        .foregroundStyle(Color.primary.opacity(0.7))
+                        .padding(12)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .glassEffect(.regular, in: .rect(cornerRadius: 16))
                     }
                     ForEach(paras) { p in
                         if sectionStart.indices.contains(p.section), sectionStart[p.section] == p.id {
@@ -385,12 +399,15 @@ private struct ReaderContent: View {
                 }
                 ForEach(targets, id: \.self) { lang in
                     let t = translator(lang).text(for: p.id)
+                    let off = translator(lang).failed != nil
+                    if !(t == nil && off && !hideOriginal) {
                     Text(t ?? (hideOriginal ? p.text : "翻译中…"))
                         .font(.system(size: hideOriginal ? fontSize : fontSize - 2, design: lang == "zh" ? .default : .serif))
                         .foregroundStyle(Color.primary.opacity(t == nil ? 0.35 : (hideOriginal ? 0.9 : 0.65)))
                         .lineSpacing(fontSize * 0.3)
                         .fixedSize(horizontal: false, vertical: true)
                         .textSelection(.enabled)
+                    }
                 }
             }
             .onAppear { for lang in targets { translator(lang).request(p.id, p.text) } }

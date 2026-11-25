@@ -11,7 +11,10 @@ final class Translator {
     private var pending: [Int: String] = [:]
     var config: TranslationSession.Configuration?
     private(set) var failed: String?
+    /// 语言包还没下载：显示“下载语言包”按钮，而不是自动反复弹窗
+    private(set) var needsDownload = false
     private var textId = ""
+    private var source: Locale.Language?
     private var scheduled = false
 
     init(target: String) { self.target = target }
@@ -23,40 +26,76 @@ final class Translator {
         }
     }
 
+    private static func name(_ code: String) -> String {
+        ["en": "英语", "de": "德语", "fr": "法语", "la": "拉丁语", "zh": "中文"][code] ?? code
+    }
+
     func setup(textId: String, sourceLang: String) {
         guard self.textId != textId else { return }
         self.textId = textId
         cache = Self.load(textId, target)
         failed = nil
-        if sourceLang == target { config = nil; return }
+        needsDownload = false
+        config = nil
+        if sourceLang == target { return }
         if sourceLang == "la" {
             failed = "Apple 翻译暂不支持拉丁文，这本书只能阅读原文。"
-            config = nil
             return
         }
-        config = TranslationSession.Configuration(source: Self.language(sourceLang, source: true),
-                                                  target: Self.language(target, source: false))
+        let src = Self.language(sourceLang, source: true), dst = Self.language(target, source: false)
+        source = src
+        let pair = "\(Self.name(sourceLang)) → \(Self.name(target))"
+        Task { @MainActor in
+            let status = await LanguageAvailability().status(from: src, to: dst)
+            guard self.textId == textId else { return }
+            switch status {
+            case .installed:
+                start()
+            case .supported:
+                needsDownload = true
+                failed = "需要先下载“\(pair)”离线语言包（只需一次）。"
+            case .unsupported:
+                failed = "这台设备不支持“\(pair)”的设备端翻译。"
+            @unknown default:
+                start()
+            }
+        }
+    }
+
+    private func start() {
+        guard let src = source else { return }
+        config = TranslationSession.Configuration(source: src, target: Self.language(target, source: false))
+    }
+
+    /// 用户点“下载语言包”或“重试”：重新建立会话，系统会弹出下载窗口
+    func retry() {
+        failed = nil
+        needsDownload = false
+        if config == nil { start() } else { config?.invalidate() }
     }
 
     func text(for id: Int) -> String? { cache[id] }
 
     func request(_ id: Int, _ text: String) {
-        guard config != nil, cache[id] == nil, pending[id] == nil else { return }
+        guard cache[id] == nil, pending[id] == nil else { return }
         pending[id] = text
-        guard !scheduled else { return }
+        guard config != nil, failed == nil, !scheduled else { return }
         scheduled = true
         Task { @MainActor in
             try? await Task.sleep(for: .milliseconds(150))
             scheduled = false
-            config?.invalidate()          // 触发 translationTask 重新运行
+            if failed == nil { config?.invalidate() }          // 触发 translationTask 重新运行
         }
     }
 
     func run(_ session: TranslationSession) async {
+        guard failed == nil else { return }
         do {
             try await session.prepareTranslation()
         } catch {
-            failed = "需要先在系统中下载翻译语言包，或当前设备不支持设备端翻译。"
+            // 用户关掉了下载窗口：停在这里，等用户再点按钮，不再反复弹窗
+            needsDownload = true
+            failed = "语言包还没有下载完成，翻译暂时不可用。"
             return
         }
         while !pending.isEmpty {
@@ -69,7 +108,9 @@ final class Translator {
                     if let s = r.clientIdentifier, let id = Int(s) { cache[id] = r.targetText }
                 }
             } catch {
-                failed = "翻译失败：\(error.localizedDescription)"
+                for (id, text) in batch { pending[id] = text }   // 留着，重试时再翻
+                needsDownload = true
+                failed = "翻译没有成功，通常是离线语言包还没下载好。"
                 return
             }
         }
