@@ -16,4 +16,8 @@ for f in sorted(glob.glob(os.path.join(anim.ROOT, "texts", "*.json"))):
     if tid in done or (NO_ANIM and tid.startswith(NO_ANIM)):
         continue
     anim.reset()
-    anim.save(tid, scored=not tid.startswith(RELIGIOUS))
+    style = None
+    if tid.startswith(RELIGIOUS):
+        style = ("quran" if tid.startswith("quran") else "bible" if tid.startswith("bible")
+                 else "vedic" if tid.startswith(("upanishad", "gita")) else "buddhist")
+    anim.save(tid, scored=not tid.startswith(RELIGIOUS), style=style)

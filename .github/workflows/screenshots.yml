@@ -2,6 +2,11 @@ name: Simulator screenshots
 
 on:
   workflow_dispatch:
+    inputs:
+      only:
+        description: "只截某一组（scripture），留空截全部"
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -50,6 +55,12 @@ jobs:
             xcrun simctl launch "$UDID" com.alicelikeeat.pure "$@"
             sleep 7
             xcrun simctl io "$UDID" screenshot "shots/$name.png"; }
+          if [ "${{ inputs.only }}" = "scripture" ]; then
+            for b in 0 1 2; do run_shot "scripture-b$b" -scriptureShot -animBeat $b -appearance light; done
+            run_shot "scripture-dark-b1" -scriptureShot -animBeat 1 -appearance dark
+            exit_early=1
+          fi
+          if [ -z "$exit_early" ]; then
           for page in 0 1 2 3 4 5 6 7 8; do for b in 1 2; do
             run_shot "ddj-p$page-b$b" -animGrid daodejing-zh -animPage $page -animBeat $b -appearance light
           done; done
@@ -59,6 +70,7 @@ jobs:
           run_shot "tlp-p10" -animGrid tractatus-de -animPage 10 -animBeat 1 -appearance light
           run_shot reader-ddj -openReader daodejing -readerQuery 上善若水 -autoDownload -readerLang original -appearance light
           run_shot home-light -appearance light
+          fi
           mkdir -p shots/crash
           cp ~/Library/Logs/DiagnosticReports/Pure* shots/crash/ 2>/dev/null || true
           xcrun simctl spawn "$UDID" log show --last 15m --predicate 'process == "Pure"' --style compact 2>/dev/null | grep -iE "fatal|crash|error|precondition" | tail -40 > shots/crash/log.txt || true

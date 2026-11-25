@@ -64,12 +64,12 @@ func dot(_ ctx: inout GraphicsContext, _ x: Double, _ y: Double, _ r: Double, _ 
 }
 
 func label(_ ctx: inout GraphicsContext, _ s: String, _ x: Double, _ y: Double,
-           _ color: Color = Moon.dim, size: Double = 12) {
+           _ color: Color = Moon.dim, size: Double = 12, serif: Bool = false) {
     if let buf = GlassBuffer.current {
-        buf.texts.append(GlassText(text: s, x: x, y: y, color: color, size: size))
+        buf.texts.append(GlassText(text: s, x: x, y: y, color: color, size: size, serif: serif))
         return
     }
-    ctx.draw(Text(s).font(.system(size: size, weight: .medium, design: .rounded)).foregroundColor(color),
+    ctx.draw(Text(s).font(.system(size: size, weight: serif ? .regular : .medium, design: serif ? .serif : .rounded)).foregroundColor(color),
              at: CGPoint(x: x, y: y))
 }
 

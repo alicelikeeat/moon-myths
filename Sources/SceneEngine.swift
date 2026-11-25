@@ -10,6 +10,7 @@ struct AnimDoc: Codable {
     let id: String
     let scenes: [AnimScene]
     var scores: [Int]? = nil      // 每段的评分（宗教经典没有）
+    var style: String? = nil      // 宗教经典：bible / quran / buddhist / vedic
     var basic: Bool? = nil        // 其余段落是否在手机上生成普通动画
 }
 
@@ -24,6 +25,7 @@ struct AnimScene: Codable, Identifiable, Hashable {
     var score: Int? = nil         // 段落评分 0–100（书内百分位）
 
     var isCore: Bool { tier == nil || tier == "core" }
+    var isScripture: Bool { tier == "scripture" }
     var isPlus: Bool { tier == "plus" }
     var hasEffects: Bool { tier != "basic" }
 
@@ -48,6 +50,7 @@ struct AnimElement: Codable {
     var orbit: String? = nil                      // 绕某个元素旋转
     var or: Double? = nil                         // 环绕半径（点）
     var speed: Double? = nil                      // 环绕角速度
+    var font: String? = nil                       // "serif"：经文用衬线字体
 }
 
 struct AnimPatch: Codable {
@@ -163,7 +166,7 @@ final class SceneRuntime {
         }
 
         // 精讲：背景缓慢漂浮的微粒
-        if scene.isCore {
+        if scene.isCore || scene.isScripture {
             for i in 0..<18 {
                 let q = Double(i)
                 let x = fract(hash01(q) + t * 0.004 * (1 + hash01(q + 5))) * W
@@ -179,6 +182,18 @@ final class SceneRuntime {
             case "arrow":
                 guard let f = e.from, let g = e.to, let a = mix(f), let c = mix(g) else { continue }
                 drawArrow(&ctx, a, c, kinds[f]?.kind, kinds[g]?.kind, s, e, W, H, t)
+            case "halo":
+                drawHalo(&ctx, s.x * W, s.y * H, s.r, animColor(s.color), s.opacity, t)
+            case "rays":
+                drawRays(&ctx, s.x * W, s.y * H, s.r, e.n ?? 14, animColor(s.color), s.opacity, t)
+            case "star":
+                drawStarLattice(&ctx, W, H, s.r, animColor(s.color), s.opacity, t)
+            case "lotus":
+                drawLotus(&ctx, s.x * W, s.y * H, s.r, e.n ?? 8, animColor(s.color), s.opacity, t)
+            case "rings":
+                drawRings(&ctx, s.x * W, s.y * H, s.r, e.n ?? 4, animColor(s.color), s.opacity, t)
+            case "frame":
+                drawFrame(&ctx, W, H, animColor(s.color), s.opacity)
             case "particles":
                 let n = e.n ?? 30
                 for i in 0..<n {
@@ -220,7 +235,8 @@ final class SceneRuntime {
                 ring(&ctx, x, y, s.r, col, 1.6, dash: (e.dash ?? false) ? [5, 5] : [])
                 if !s.label.isEmpty { label(&ctx, s.label, x, y - s.r - 12, col, size: e.size ?? 12) }
             case "text":
-                label(&ctx, s.label, x, y, animColor(s.color == "silver" ? "primary" : s.color).opacity(s.opacity), size: e.size ?? 13)
+                label(&ctx, s.label, x, y, animColor(s.color == "silver" ? "primary" : s.color).opacity(s.opacity), size: e.size ?? 13,
+                      serif: e.font == "serif")
             default: break
             }
         }
@@ -272,6 +288,94 @@ final class SceneRuntime {
         if !s.label.isEmpty && grow > 0.6 {
             label(&ctx, s.label, (x0 + x1) / 2 - uy * 14, (y0 + y1) / 2 + ux * 14, col, size: e.size ?? 11)
         }
+    }
+}
+
+// MARK: - 经文的装饰（只用几何与光，不描绘任何神圣人物）
+
+private func drawHalo(_ ctx: inout GraphicsContext, _ x: Double, _ y: Double, _ r: Double, _ c: Color, _ o: Double, _ t: Double) {
+    let breathe = 1 + 0.04 * sin(t * 0.8)
+    let rr = r * breathe
+    ctx.fill(Path(ellipseIn: CGRect(x: x - rr, y: y - rr, width: rr * 2, height: rr * 2)),
+             with: .radialGradient(Gradient(colors: [c.opacity(0.28 * o), c.opacity(0.10 * o), c.opacity(0)]),
+                                   center: CGPoint(x: x, y: y), startRadius: 0, endRadius: rr))
+}
+
+private func drawRays(_ ctx: inout GraphicsContext, _ x: Double, _ y: Double, _ r: Double, _ n: Int, _ c: Color, _ o: Double, _ t: Double) {
+    for i in 0..<n {
+        let a = .pi * (0.08 + 0.84 * Double(i) / Double(max(1, n - 1))) + 0.02 * sin(t * 0.3 + Double(i))
+        let len = r * (0.75 + 0.25 * sin(t * 0.5 + Double(i) * 1.7))
+        var p = Path()
+        p.move(to: CGPoint(x: x, y: y))
+        p.addLine(to: CGPoint(x: x + cos(a) * len, y: y + sin(a) * len))
+        ctx.stroke(p, with: .linearGradient(Gradient(colors: [c.opacity(0.35 * o), c.opacity(0)]),
+                                            startPoint: CGPoint(x: x, y: y), endPoint: CGPoint(x: x + cos(a) * len, y: y + sin(a) * len)),
+                   lineWidth: 1.2)
+    }
+}
+
+/// 八角星几何纹样（伊斯兰装饰传统中常见的抽象图案）
+private func drawStarLattice(_ ctx: inout GraphicsContext, _ W: Double, _ H: Double, _ cell: Double, _ c: Color, _ o: Double, _ t: Double) {
+    let step = max(40, cell)
+    let rot = t * 0.015
+    var y = -step / 2
+    var row = 0
+    while y < H + step {
+        var x = (row % 2 == 0 ? 0 : step / 2) - step / 2
+        while x < W + step {
+            var p = Path()
+            for k in 0..<2 {
+                let base = rot + Double(k) * .pi / 4
+                for j in 0..<4 {
+                    let a0 = base + Double(j) * .pi / 2, a1 = base + Double(j + 1) * .pi / 2
+                    let rr = step * 0.32
+                    if j == 0 { p.move(to: CGPoint(x: x + cos(a0) * rr, y: y + sin(a0) * rr)) }
+                    p.addLine(to: CGPoint(x: x + cos(a1) * rr, y: y + sin(a1) * rr))
+                }
+                p.closeSubpath()
+            }
+            ctx.stroke(p, with: .color(c.opacity(0.16 * o)), lineWidth: 0.8)
+            x += step
+        }
+        y += step * 0.87
+        row += 1
+    }
+}
+
+private func drawLotus(_ ctx: inout GraphicsContext, _ x: Double, _ y: Double, _ r: Double, _ n: Int, _ c: Color, _ o: Double, _ t: Double) {
+    let open = 0.85 + 0.15 * sin(t * 0.4)
+    for layer in 0..<2 {
+        let lr = r * (layer == 0 ? 1 : 0.62) * open
+        let count = layer == 0 ? n : max(4, n - 2)
+        for i in 0..<count {
+            let a = Double(i) / Double(count) * 2 * .pi + Double(layer) * .pi / Double(count) + t * 0.01
+            var petal = Path()
+            petal.addEllipse(in: CGRect(x: -lr * 0.16, y: -lr * 0.5, width: lr * 0.32, height: lr))
+            let tr = CGAffineTransform(translationX: x + cos(a) * lr * 0.5, y: y + sin(a) * lr * 0.5).rotated(by: a + .pi / 2)
+            ctx.stroke(petal.applying(tr), with: .color(c.opacity((layer == 0 ? 0.22 : 0.32) * o)), lineWidth: 1)
+        }
+    }
+}
+
+private func drawRings(_ ctx: inout GraphicsContext, _ x: Double, _ y: Double, _ r: Double, _ n: Int, _ c: Color, _ o: Double, _ t: Double) {
+    for i in 0..<n {
+        let f = fract(Double(i) / Double(n) + t * 0.03)
+        let rr = r * (0.2 + 0.8 * f)
+        ctx.stroke(Path(ellipseIn: CGRect(x: x - rr, y: y - rr, width: rr * 2, height: rr * 2)),
+                   with: .color(c.opacity(0.3 * o * (1 - f))), lineWidth: 1)
+    }
+}
+
+private func drawFrame(_ ctx: inout GraphicsContext, _ W: Double, _ H: Double, _ c: Color, _ o: Double) {
+    for (inset, a) in [(14.0, 0.35), (19.0, 0.18)] {
+        ctx.stroke(Path(roundedRect: CGRect(x: inset, y: inset + 22, width: W - inset * 2, height: H - inset * 2 - 40), cornerRadius: 10),
+                   with: .color(c.opacity(a * o)), lineWidth: 0.8)
+    }
+    for (cx, cy) in [(14.0, 36.0), (W - 14, 36.0), (14.0, H - 18), (W - 14, H - 18)] {
+        var d = Path()
+        d.move(to: CGPoint(x: cx, y: cy - 5)); d.addLine(to: CGPoint(x: cx + 5, y: cy))
+        d.addLine(to: CGPoint(x: cx, y: cy + 5)); d.addLine(to: CGPoint(x: cx - 5, y: cy)); d.closeSubpath()
+        ctx.fill(d, with: .color(c.opacity(0.4 * o)))
     }
 }
 

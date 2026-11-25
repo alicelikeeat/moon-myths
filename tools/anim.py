@@ -52,7 +52,7 @@ def scene(anchor, title, els, beats, caption=None):
 def _strip(s):
     return "".join(c for c in s if not unicodedata.category(c).startswith(("P", "S", "Z")) and not c.isspace())
 
-def save(text_id, fill=True, skip=lambda i, p: False, scored=True):
+def save(text_id, fill=True, skip=lambda i, p: False, scored=True, style=None):
     doc = json.load(open(os.path.join(ROOT, "texts", f"{text_id}.json"), encoding="utf-8"))
     paras = [p for s in doc["sections"] for p in s["paragraphs"]]
     bare = [_strip(p) for p in paras]
@@ -137,6 +137,8 @@ def save(text_id, fill=True, skip=lambda i, p: False, scored=True):
     doc_out = {"id": text_id, "scenes": [x for x in _scenes if x.get("tier") != "basic"], "basic": fill}
     if scored:
         doc_out["scores"] = scores
+    if style:
+        doc_out["style"] = style
     json.dump(doc_out, open(out, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
     plus = sum(1 for x in _scenes if x.get("tier") == "plus")
     rep = sorted((x for x in _scenes if x.get("tier") != "core"), key=lambda x: -x.get("score", 0))[:40]

@@ -17,6 +17,7 @@ struct GlassText {
     let x: Double, y: Double
     let color: Color
     let size: Double
+    var serif: Bool = false
 }
 
 /// Canvas 绘制时收集玻璃节点与文字；叠加层用原生 glassEffect 渲染（延迟 ≤ 1 帧，肉眼不可见）
@@ -197,7 +198,7 @@ private struct GlassTextsView: View {
             Color.clear
             ForEach(Array(texts.enumerated()), id: \.offset) { _, t in
                 Text(t.text)
-                    .font(.system(size: t.size, weight: .medium, design: .rounded))
+                    .font(.system(size: t.size, weight: t.serif ? .regular : .medium, design: t.serif ? .serif : .rounded))
                     .foregroundStyle(t.color)
                     .fixedSize()
                     .position(x: t.x, y: t.y)

@@ -290,6 +290,7 @@ private struct ReaderContent: View {
     @State private var anims: [Int: AnimScene] = [:]
     @State private var animScores: [Int] = []
     @State private var basicAnims = false
+    @State private var animStyle: String?
     @State private var playing: AnimPlay?
 
     struct AnimPlay: Identifiable { let scene: AnimScene; let text: String; var id: String { scene.anchor + "|" + text.prefix(40) } }
@@ -369,6 +370,7 @@ private struct ReaderContent: View {
                     anims = m
                     animScores = ad.scores ?? []
                     basicAnims = ad.basic ?? false
+                    animStyle = ad.style
                 }
             }
         }
@@ -467,6 +469,17 @@ private struct ReaderContent: View {
                     } else {
                         basicButton(p, score: s.score) { s }
                     }
+                } else if basicAnims, let style = animStyle {
+                    Button {
+                        if let s = scriptureScene(text: p.text, style: style, section: doc.sections[p.section].title) {
+                            playing = AnimPlay(scene: s, text: p.text)
+                        }
+                    } label: {
+                        Label("经文", systemImage: "sparkle")
+                            .font(.caption2.weight(.medium))
+                            .foregroundStyle(Moon.gold.opacity(0.85))
+                    }
+                    .buttonStyle(.glass)
                 } else if basicAnims {
                     basicButton(p, score: animScores.indices.contains(p.id) ? animScores[p.id] : nil) {
                         basicScene(text: p.text, lang: doc.lang, score: animScores.indices.contains(p.id) ? animScores[p.id] : nil)

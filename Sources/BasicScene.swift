@@ -189,3 +189,108 @@ func basicScene(text: String, lang declared: String, score: Int?) -> AnimScene? 
     guard beats.count <= 5 else { return nil }
     return AnimScene(anchor: "", title: title, caption: nil, elements: els, beats: beats, tier: "basic", score: score)
 }
+
+// MARK: - 经文动画：庄重、安静，只用几何与光
+
+/// style：bible / quran / buddhist / vedic；reference：显示在顶部的出处（卷名 + 节号）
+func scriptureScene(text: String, style: String, section: String) -> AnimScene? {
+    var body = text.trimmingCharacters(in: .whitespaces)
+    var verse = ""
+    if let r = body.range(of: #"^(\d+:\d+|\d+\.)\s*"#, options: .regularExpression) {
+        verse = body[r].trimmingCharacters(in: .whitespaces).trimmingCharacters(in: CharacterSet(charactersIn: "."))
+        body = String(body[r.upperBound...])
+    }
+    guard !body.isEmpty else { return nil }
+    let compact = body.replacingOccurrences(of: " ", with: "")
+    let zh = Double(body.filter(isCJK).count) > 0.3 * Double(max(1, compact.count))
+    let arabic = body.unicodeScalars.contains { (0x0600...0x06FF).contains($0.value) }
+
+    // 折行：经文字号更大，每行更短
+    var lines: [String]
+    if zh {
+        var t = body
+        for q in ["「", "」", "『", "』"] { t = t.replacingOccurrences(of: q, with: "") }
+        lines = t.split(whereSeparator: { "。；！？".contains($0) }).flatMap { piece -> [String] in
+            let p = piece.trimmingCharacters(in: .whitespaces)
+            return p.isEmpty ? [] : wrapZh(p + "", 13)
+        }
+    } else {
+        lines = wrapWords(body, arabic ? 30 : 34)
+    }
+    guard !lines.isEmpty else { return nil }
+    let per = zh ? 3 : 4
+    var groups = stride(from: 0, to: lines.count, by: per).map { Array(lines[$0..<min(lines.count, $0 + per)]) }
+    let truncated = groups.count > 4
+    groups = Array(groups.prefix(4))
+
+    // 出处：卷名（取“·”后面的部分，或末尾的“Called …”）+ 节号
+    var book = section
+    if let r = book.range(of: "Called ") { book = String(book[r.upperBound...]) }
+    if let r = book.range(of: " · ") { book = String(book[r.upperBound...]) }
+    let reference = clip([book, verse].filter { !$0.isEmpty }.joined(separator: " "), 20) + (truncated ? "（节选）" : "")
+
+    var els: [AnimElement] = [AnimElement(id: "frame", kind: "frame", color: "gold")]
+    switch style {
+    case "quran":
+        els.append(AnimElement(id: "motif", kind: "star", r: 70, color: "gold"))
+    case "buddhist":
+        els.append(AnimElement(id: "motif", kind: "lotus", x: 0.5, y: 0.52, r: 120, color: "gold", n: 10))
+    case "vedic":
+        els.append(AnimElement(id: "motif", kind: "rings", x: 0.5, y: 0.52, r: 150, color: "gold", n: 5))
+    default:
+        els.append(AnimElement(id: "motif", kind: "rays", x: 0.5, y: 0.1, r: 300, color: "gold", n: 17))
+    }
+    els.append(AnimElement(id: "halo", kind: "halo", x: 0.5, y: 0.52, r: 150, color: "gold"))
+
+    let size = zh ? 19.0 : (arabic ? 21.0 : 15.0)
+    let gap = zh ? 0.12 : (arabic ? 0.13 : 0.1)
+    var beats: [AnimBeat] = []
+    for (gi, g) in groups.enumerated() {
+        let y0 = 0.52 - gap * Double(g.count - 1) / 2
+        for (li, l) in g.enumerated() {
+            els.append(AnimElement(id: "t\(gi)_\(li)", kind: "text", x: 0.5, y: y0 + gap * Double(li), color: "primary",
+                                   label: l, size: size, at: gi, font: "serif"))
+        }
+        let hide: [String]? = gi == 0 ? nil : groups[gi - 1].indices.map { "t\(gi - 1)_\($0)" }
+        beats.append(AnimBeat(dur: 7.5, headline: reference, hide: hide))
+    }
+    // 最后一拍：经文慢慢化为金色
+    let last = groups.count - 1
+    var toGold: [String: AnimPatch] = [:]
+    for li in groups[last].indices { toGold["t\(last)_\(li)"] = AnimPatch(color: "gold") }
+    toGold["halo"] = AnimPatch(r: 175)
+    beats.append(AnimBeat(dur: 7.5, headline: reference, set: toGold))
+    guard beats.count <= 5 else { return nil }
+    return AnimScene(anchor: "", title: reference, caption: nil, elements: els, beats: beats, tier: "scripture", score: nil)
+}
+
+// MARK: - 截图用：四种经文风格并排（`-scriptureShot -animBeat b`）
+
+struct ScriptureShotView: View {
+    let beat: Int
+    private let samples: [(String, String, String)] = [
+        ("1:1 In the beginning God created the heaven and the earth.", "bible", "The First Book of Moses: Called Genesis"),
+        ("1. بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ", "quran", "1. الفاتحة · Al-Fatiha"),
+        ("觀自在菩薩行深般若波羅蜜多時，照見五蘊皆空，度一切苦厄。", "buddhist", "般若波羅蜜多心經"),
+        ("That is whole; this is whole; from that whole this whole came.", "vedic", "Isa-Upanishad"),
+    ]
+
+    var body: some View {
+        let cols = Array(repeating: GridItem(.fixed(190), spacing: 6), count: 2)
+        LazyVGrid(columns: cols, spacing: 8) {
+            ForEach(Array(samples.enumerated()), id: \.offset) { _, s in
+                if let sc = scriptureScene(text: s.0, style: s.1, section: s.2) {
+                    let rt = SceneRuntime(sc)
+                    let b = min(beat, rt.durations.count - 1)
+                    let t = rt.durations.prefix(b).reduce(0, +) + rt.durations[b] * 0.85
+                    Canvas { ctx, size in rt.draw(&ctx, size, t) }
+                        .frame(width: 350, height: 380)
+                        .background(Color.primary.opacity(0.04))
+                        .scaleEffect(0.53)
+                        .frame(width: 190, height: 206)
+                }
+            }
+        }
+        .padding(.top, 60)
+    }
+}
