@@ -1,0 +1,1252 @@
+{
+ "laozi": {
+  "en": "Laozi",
+  "enlen": 43074,
+  "qid": "Q9333",
+  "langs": 158,
+  "zh": "老子",
+  "views": {
+   "en": 386320,
+   "zh": 121311
+  },
+  "zhlen": 94511,
+  "influenced": 5,
+  "sep": {
+   "slug": "laozi",
+   "words": 19395
+  }
+ },
+ "kongzi": {
+  "en": "Confucius",
+  "enlen": 119372,
+  "qid": "Q4604",
+  "langs": 243,
+  "zh": "孔子",
+  "views": {
+   "en": 800760,
+   "zh": 248813
+  },
+  "zhlen": 168925,
+  "influenced": 7,
+  "sep": {
+   "slug": "confucius",
+   "words": 11289
+  }
+ },
+ "mozi": {
+  "en": "Mozi",
+  "enlen": 47623,
+  "qid": "Q272411",
+  "langs": 58,
+  "zh": "墨子",
+  "views": {
+   "en": 73629,
+   "zh": 33605
+  },
+  "zhlen": 19714,
+  "influenced": 0,
+  "sep": {
+   "slug": "mohism",
+   "words": 24246
+  }
+ },
+ "mengzi": {
+  "en": "Mencius",
+  "enlen": 26549,
+  "qid": "Q188903",
+  "langs": 77,
+  "zh": "孟子",
+  "views": {
+   "en": 99016,
+   "zh": 54991
+  },
+  "zhlen": 21592,
+  "influenced": 0,
+  "sep": {
+   "slug": "mencius",
+   "words": 11388
+  }
+ },
+ "zhuangzi": {
+  "en": "Zhuang Zhou",
+  "enlen": 15541,
+  "qid": "Q47739",
+  "langs": 72,
+  "zh": "庄子",
+  "views": {
+   "en": 110317,
+   "zh": 76614
+  },
+  "zhlen": 29285,
+  "influenced": 2,
+  "sep": {
+   "slug": "zhuangzi",
+   "words": 20802
+  }
+ },
+ "xunzi": {
+  "en": "Xunzi (philosopher)",
+  "enlen": 38967,
+  "qid": "Q216072",
+  "langs": 58,
+  "zh": "荀子",
+  "views": {
+   "en": 56502,
+   "zh": 58913
+  },
+  "zhlen": 75350,
+  "influenced": 0,
+  "sep": {
+   "slug": "xunzi",
+   "words": 8348
+  }
+ },
+ "hanfei": {
+  "en": "Han Fei",
+  "enlen": 19916,
+  "qid": "Q28959",
+  "langs": 60,
+  "zh": "韩非",
+  "views": {
+   "en": 39621,
+   "zh": 30813
+  },
+  "zhlen": 11064,
+  "influenced": 0,
+  "sep": {
+   "slug": "chinese-legalism",
+   "words": 15394
+  }
+ },
+ "dongzhongshu": {
+  "en": "Dong Zhongshu",
+  "enlen": 8367,
+  "qid": "Q445626",
+  "langs": 31,
+  "zh": "董仲舒",
+  "views": {
+   "en": 10786,
+   "zh": 34447
+  },
+  "zhlen": 58493,
+  "influenced": 0
+ },
+ "huineng": {
+  "en": "Huineng",
+  "enlen": 53051,
+  "qid": "Q345012",
+  "langs": 30,
+  "zh": "惠能",
+  "views": {
+   "en": 37922,
+   "zh": 68785
+  },
+  "zhlen": 25772,
+  "influenced": 0
+ },
+ "zhuxi": {
+  "en": "Zhu Xi",
+  "enlen": 34141,
+  "qid": "Q9397",
+  "langs": 121,
+  "zh": "朱熹",
+  "views": {
+   "en": 44029,
+   "zh": 66424
+  },
+  "zhlen": 47301,
+  "influenced": 1,
+  "sep": {
+   "slug": "zhu-xi",
+   "words": 17650
+  }
+ },
+ "wangyangming": {
+  "en": "Wang Yangming",
+  "enlen": 17981,
+  "qid": "Q378462",
+  "langs": 44,
+  "zh": "王陽明",
+  "views": {
+   "en": 36460,
+   "zh": 123880
+  },
+  "zhlen": 48151,
+  "influenced": 1,
+  "sep": {
+   "slug": "wang-yangming",
+   "words": 8257
+  }
+ },
+ "wangfuzhi": {
+  "en": "Wang Fuzhi",
+  "enlen": 9733,
+  "qid": "Q714374",
+  "langs": 25,
+  "zh": "王夫之",
+  "views": {
+   "en": 6263,
+   "zh": 23914
+  },
+  "zhlen": 35812,
+  "influenced": 0
+ },
+ "zhouyi": {
+  "en": "I Ching",
+  "enlen": 63139,
+  "qid": "Q181937",
+  "langs": 65,
+  "zh": "易经",
+  "views": {
+   "en": 460641,
+   "zh": 123589
+  },
+  "zhlen": 36150,
+  "influenced": 0
+ },
+ "guanzhong": {
+  "en": "Guan Zhong",
+  "enlen": 16773,
+  "qid": "Q457972",
+  "langs": 24,
+  "zh": "管仲",
+  "views": {
+   "en": 13448,
+   "zh": 34223
+  },
+  "zhlen": 16495,
+  "influenced": 0
+ },
+ "sunwu": {
+  "en": "Sun Tzu",
+  "enlen": 32885,
+  "qid": "Q37151",
+  "langs": 114,
+  "zh": "孙武",
+  "views": {
+   "en": 396195,
+   "zh": 43110
+  },
+  "zhlen": 15849,
+  "influenced": 2
+ },
+ "zisi": {
+  "en": "Zisi",
+  "enlen": 5812,
+  "qid": "Q1147803",
+  "langs": 22,
+  "zh": "子思",
+  "views": {
+   "en": 6442,
+   "zh": 8008
+  },
+  "zhlen": 3157,
+  "influenced": 1
+ },
+ "liezi": {
+  "en": "Liezi",
+  "enlen": 14819,
+  "qid": "Q434429",
+  "langs": 26,
+  "zh": "列子 (古籍)",
+  "views": {
+   "en": 17088,
+   "zh": 4911
+  },
+  "zhlen": 8153,
+  "influenced": 0
+ },
+ "gongsunlong": {
+  "en": "Gongsun Long",
+  "enlen": 9259,
+  "qid": "Q1362266",
+  "langs": 22,
+  "zh": "公孙龙",
+  "views": {
+   "en": 5319,
+   "zh": 6392
+  },
+  "zhlen": 15616,
+  "influenced": null,
+  "sep": {
+   "slug": "school-names",
+   "words": 16674
+  }
+ },
+ "wangchong": {
+  "en": "Wang Chong",
+  "enlen": 26012,
+  "qid": "Q319329",
+  "langs": 38,
+  "zh": "王充",
+  "views": {
+   "en": 7205,
+   "zh": 6940
+  },
+  "zhlen": 25766,
+  "influenced": 0
+ },
+ "zhoudunyi": {
+  "en": "Zhou Dunyi",
+  "enlen": 13774,
+  "qid": "Q197962",
+  "langs": 25,
+  "zh": "周敦颐",
+  "views": {
+   "en": 7960,
+   "zh": 16929
+  },
+  "zhlen": 9736,
+  "influenced": 0
+ },
+ "zhangzai": {
+  "en": "Zhang Zai",
+  "enlen": 12689,
+  "qid": "Q197338",
+  "langs": 20,
+  "zh": "張載 (北宋)",
+  "views": {
+   "en": 5074,
+   "zh": 43100
+  },
+  "zhlen": 53209,
+  "influenced": 0
+ },
+ "ercheng": {
+  "en": "Cheng Yi (philosopher)",
+  "enlen": 7156,
+  "qid": "Q558380",
+  "langs": 21,
+  "zh": "程颐",
+  "views": {
+   "en": 5454,
+   "zh": 8892
+  },
+  "zhlen": 11754,
+  "influenced": 0
+ },
+ "luxiangshan": {
+  "en": "Lu Jiuyuan",
+  "enlen": 7297,
+  "qid": "Q2466384",
+  "langs": 15,
+  "zh": "陸九淵",
+  "views": {
+   "en": 3063,
+   "zh": 9766
+  },
+  "zhlen": 9591,
+  "influenced": 0
+ },
+ "guyanwu": {
+  "en": "Gu Yanwu",
+  "enlen": 50890,
+  "qid": "Q1195906",
+  "langs": 25,
+  "zh": "顾炎武",
+  "views": {
+   "en": 50680,
+   "zh": 20937
+  },
+  "zhlen": 21588,
+  "influenced": 0
+ },
+ "socrates": {
+  "en": "Socrates",
+  "enlen": 92134,
+  "qid": "Q913",
+  "langs": 207,
+  "zh": "苏格拉底",
+  "views": {
+   "en": 1373270,
+   "zh": 74585
+  },
+  "zhlen": 40516,
+  "influenced": 20,
+  "sep": {
+   "slug": "socrates",
+   "words": 14003
+  }
+ },
+ "plato": {
+  "en": "Plato",
+  "enlen": 55423,
+  "qid": "Q859",
+  "langs": 222,
+  "zh": "柏拉图",
+  "views": {
+   "en": 1166849,
+   "zh": 65229
+  },
+  "zhlen": 77912,
+  "influenced": 73,
+  "sep": {
+   "slug": "plato",
+   "words": 12449
+  }
+ },
+ "aristotle": {
+  "en": "Aristotle",
+  "enlen": 158602,
+  "qid": "Q868",
+  "langs": 234,
+  "zh": "亚里士多德",
+  "views": {
+   "en": 1299048,
+   "zh": 70545
+  },
+  "zhlen": 63252,
+  "influenced": 92,
+  "sep": {
+   "slug": "aristotle",
+   "words": 23556
+  }
+ },
+ "lucretius": {
+  "en": "Lucretius",
+  "enlen": 19513,
+  "qid": "Q47154",
+  "langs": 83,
+  "zh": "卢克莱修",
+  "views": {
+   "en": 99373,
+   "zh": 4531
+  },
+  "zhlen": 3609,
+  "influenced": 4,
+  "sep": {
+   "slug": "lucretius",
+   "words": 15260
+  }
+ },
+ "epictetus": {
+  "en": "Epictetus",
+  "enlen": 21877,
+  "qid": "Q183144",
+  "langs": 71,
+  "zh": "愛比克泰德",
+  "views": {
+   "en": 298047,
+   "zh": 10634
+  },
+  "zhlen": 4845,
+  "influenced": 1
+ },
+ "marcusaurelius": {
+  "en": "Marcus Aurelius",
+  "enlen": 143070,
+  "qid": "Q1430",
+  "langs": 116,
+  "zh": "馬可·奧理略",
+  "views": {
+   "en": 1848120,
+   "zh": 21430
+  },
+  "zhlen": 9573,
+  "influenced": 5,
+  "sep": {
+   "slug": "marcus-aurelius",
+   "words": 8903
+  }
+ },
+ "augustine": {
+  "en": "Augustine of Hippo",
+  "enlen": 180506,
+  "qid": "Q8018",
+  "langs": 166,
+  "zh": "希波的奥古斯丁",
+  "views": {
+   "en": 1156078,
+   "zh": 37110
+  },
+  "zhlen": 47619,
+  "influenced": 28,
+  "sep": {
+   "slug": "augustine",
+   "words": 29750
+  }
+ },
+ "aquinas": {
+  "en": "Thomas Aquinas",
+  "enlen": 167190,
+  "qid": "Q9438",
+  "langs": 164,
+  "zh": "托马斯·阿奎那",
+  "views": {
+   "en": 947660,
+   "zh": 23423
+  },
+  "zhlen": 33047,
+  "influenced": 32,
+  "sep": {
+   "slug": "aquinas",
+   "words": 18640
+  }
+ },
+ "machiavelli": {
+  "en": "Niccolò Machiavelli",
+  "enlen": 158181,
+  "qid": "Q1399",
+  "langs": 162,
+  "zh": "尼古洛·馬基雅維利",
+  "views": {
+   "en": 1110674,
+   "zh": 30725
+  },
+  "zhlen": 22771,
+  "influenced": 23,
+  "sep": {
+   "slug": "machiavelli",
+   "words": 10559
+  }
+ },
+ "hobbes": {
+  "en": "Thomas Hobbes",
+  "enlen": 73045,
+  "qid": "Q37621",
+  "langs": 113,
+  "zh": "托马斯·霍布斯",
+  "views": {
+   "en": 392808,
+   "zh": 18888
+  },
+  "zhlen": 31738,
+  "influenced": 9,
+  "sep": {
+   "slug": "hobbes",
+   "words": 10654
+  }
+ },
+ "descartes": {
+  "en": "René Descartes",
+  "enlen": 125549,
+  "qid": "Q9191",
+  "langs": 187,
+  "zh": "勒内·笛卡儿",
+  "views": {
+   "en": 710816,
+   "zh": 53900
+  },
+  "zhlen": 43877,
+  "influenced": 32,
+  "sep": {
+   "slug": "descartes",
+   "words": 23240
+  }
+ },
+ "pascal": {
+  "en": "Blaise Pascal",
+  "enlen": 65288,
+  "qid": "Q1290",
+  "langs": 138,
+  "zh": "布莱斯·帕斯卡",
+  "views": {
+   "en": 393161,
+   "zh": 18638
+  },
+  "zhlen": 11579,
+  "influenced": 21,
+  "sep": {
+   "slug": "pascal",
+   "words": 9356
+  }
+ },
+ "spinoza": {
+  "en": "Baruch Spinoza",
+  "enlen": 118968,
+  "qid": "Q35802",
+  "langs": 124,
+  "zh": "巴魯赫·斯賓諾莎",
+  "views": {
+   "en": 617252,
+   "zh": 34114
+  },
+  "zhlen": 127006,
+  "influenced": 49,
+  "sep": {
+   "slug": "spinoza",
+   "words": 15408
+  }
+ },
+ "locke": {
+  "en": "John Locke",
+  "enlen": 105575,
+  "qid": "Q9353",
+  "langs": 155,
+  "zh": "约翰·洛克",
+  "views": {
+   "en": 743944,
+   "zh": 30404
+  },
+  "zhlen": 39644,
+  "influenced": 23,
+  "sep": {
+   "slug": "locke",
+   "words": 24831
+  }
+ },
+ "leibniz": {
+  "en": "Gottfried Wilhelm Leibniz",
+  "enlen": 188909,
+  "qid": "Q9047",
+  "langs": 161,
+  "zh": "戈特弗里德·莱布尼茨",
+  "views": {
+   "en": 396287,
+   "zh": 27113
+  },
+  "zhlen": 29487,
+  "influenced": 33,
+  "sep": {
+   "slug": "leibniz",
+   "words": 19686
+  }
+ },
+ "berkeley": {
+  "en": "George Berkeley",
+  "enlen": 107153,
+  "qid": "Q82049",
+  "langs": 89,
+  "zh": "乔治·贝克莱",
+  "views": {
+   "en": 139144,
+   "zh": 7860
+  },
+  "zhlen": 11616,
+  "influenced": 7,
+  "sep": {
+   "slug": "berkeley",
+   "words": 17616
+  }
+ },
+ "hume": {
+  "en": "David Hume",
+  "enlen": 196189,
+  "qid": "Q37160",
+  "langs": 112,
+  "zh": "大卫·休谟",
+  "views": {
+   "en": 453116,
+   "zh": 30456
+  },
+  "zhlen": 77295,
+  "influenced": 22,
+  "sep": {
+   "slug": "hume",
+   "words": 19496
+  }
+ },
+ "rousseau": {
+  "en": "Jean-Jacques Rousseau",
+  "enlen": 157665,
+  "qid": "Q6527",
+  "langs": 165,
+  "zh": "让-雅克·卢梭",
+  "views": {
+   "en": 601091,
+   "zh": 48294
+  },
+  "zhlen": 27509,
+  "influenced": 25,
+  "sep": {
+   "slug": "rousseau",
+   "words": 11072
+  }
+ },
+ "kant": {
+  "en": "Immanuel Kant",
+  "enlen": 170836,
+  "qid": "Q9312",
+  "langs": 185,
+  "zh": "伊曼努尔·康德",
+  "views": {
+   "en": 1009883,
+   "zh": 69408
+  },
+  "zhlen": 49366,
+  "influenced": 88,
+  "sep": {
+   "slug": "kant",
+   "words": 24198
+  }
+ },
+ "hegel": {
+  "en": "Georg Wilhelm Friedrich Hegel",
+  "enlen": 155645,
+  "qid": "Q9235",
+  "langs": 144,
+  "zh": "格奥尔格·威廉·弗里德里希·黑格尔",
+  "views": {
+   "en": 550301,
+   "zh": 40277
+  },
+  "zhlen": 50000,
+  "influenced": 85,
+  "sep": {
+   "slug": "hegel",
+   "words": 23520
+  }
+ },
+ "schopenhauer": {
+  "en": "Arthur Schopenhauer",
+  "enlen": 166781,
+  "qid": "Q38193",
+  "langs": 112,
+  "zh": "阿图尔·叔本华",
+  "views": {
+   "en": 660011,
+   "zh": 53894
+  },
+  "zhlen": 42842,
+  "influenced": 33,
+  "sep": {
+   "slug": "schopenhauer",
+   "words": 13669
+  }
+ },
+ "kierkegaard": {
+  "en": "Søren Kierkegaard",
+  "enlen": 157989,
+  "qid": "Q6512",
+  "langs": 116,
+  "zh": "索倫·克爾凱郭爾",
+  "views": {
+   "en": 630417,
+   "zh": 29295
+  },
+  "zhlen": 110563,
+  "influenced": 28,
+  "sep": {
+   "slug": "kierkegaard",
+   "words": 18332
+  }
+ },
+ "mill": {
+  "en": "John Stuart Mill",
+  "enlen": 127989,
+  "qid": "Q50020",
+  "langs": 95,
+  "zh": "约翰·斯图尔特·密尔",
+  "views": {
+   "en": 363790,
+   "zh": 15549
+  },
+  "zhlen": 27078,
+  "influenced": 13,
+  "sep": {
+   "slug": "mill",
+   "words": 19270
+  }
+ },
+ "marx": {
+  "en": "Karl Marx",
+  "enlen": 215337,
+  "qid": "Q9061",
+  "langs": 217,
+  "zh": "卡尔·马克思",
+  "views": {
+   "en": 2117313,
+   "zh": 141605
+  },
+  "zhlen": 216491,
+  "influenced": 111,
+  "sep": {
+   "slug": "marx",
+   "words": 17080
+  }
+ },
+ "nietzsche": {
+  "en": "Friedrich Nietzsche",
+  "enlen": 214299,
+  "qid": "Q9358",
+  "langs": 179,
+  "zh": "弗里德里希·尼采",
+  "views": {
+   "en": 1718541,
+   "zh": 109061
+  },
+  "zhlen": 62369,
+  "influenced": 87,
+  "sep": {
+   "slug": "nietzsche",
+   "words": 25125
+  }
+ },
+ "james": {
+  "en": "William James",
+  "enlen": 94964,
+  "qid": "Q125249",
+  "langs": 90,
+  "zh": "威廉·詹姆士",
+  "views": {
+   "en": 284952,
+   "zh": 8820
+  },
+  "zhlen": 9429,
+  "influenced": 7,
+  "sep": {
+   "slug": "james",
+   "words": 8914
+  }
+ },
+ "russell": {
+  "en": "Bertrand Russell",
+  "enlen": 196054,
+  "qid": "Q33760",
+  "langs": 129,
+  "zh": "伯特兰·罗素",
+  "views": {
+   "en": 720933,
+   "zh": 44647
+  },
+  "zhlen": 43226,
+  "influenced": 19,
+  "sep": {
+   "slug": "russell",
+   "words": 21326
+  }
+ },
+ "wittgenstein": {
+  "en": "Ludwig Wittgenstein",
+  "enlen": 208780,
+  "qid": "Q9391",
+  "langs": 130,
+  "zh": "路德维希·维特根斯坦",
+  "views": {
+   "en": 614412,
+   "zh": 104397
+  },
+  "zhlen": 193858,
+  "influenced": 31,
+  "sep": {
+   "slug": "wittgenstein",
+   "words": 16019
+  }
+ },
+ "heidegger": {
+  "en": "Martin Heidegger",
+  "enlen": 124821,
+  "qid": "Q48301",
+  "langs": 119,
+  "zh": "马丁·海德格尔",
+  "views": {
+   "en": 496765,
+   "zh": 35039
+  },
+  "zhlen": 59927,
+  "influenced": 70,
+  "sep": {
+   "slug": "heidegger",
+   "words": 30205
+  }
+ },
+ "sartre": {
+  "en": "Jean-Paul Sartre",
+  "enlen": 105524,
+  "qid": "Q9364",
+  "langs": 155,
+  "zh": "让-保罗·萨特",
+  "views": {
+   "en": 720391,
+   "zh": 49485
+  },
+  "zhlen": 47458,
+  "influenced": 57,
+  "sep": {
+   "slug": "sartre",
+   "words": 18239
+  }
+ },
+ "camus": {
+  "en": "Albert Camus",
+  "enlen": 66225,
+  "qid": "Q34670",
+  "langs": 142,
+  "zh": "阿尔贝·加缪",
+  "views": {
+   "en": 1078627,
+   "zh": 78436
+  },
+  "zhlen": 17396,
+  "influenced": 29,
+  "sep": {
+   "slug": "camus",
+   "words": 13411
+  }
+ },
+ "euclid": {
+  "en": "Euclid",
+  "enlen": 47431,
+  "qid": "Q8747",
+  "langs": 170,
+  "zh": "欧几里得",
+  "views": {
+   "en": 309285,
+   "zh": 17036
+  },
+  "zhlen": 15234,
+  "influenced": 4
+ },
+ "liuhui": {
+  "en": "Liu Hui",
+  "enlen": 11454,
+  "qid": "Q316304",
+  "langs": 38,
+  "zh": "刘徽",
+  "views": {
+   "en": 12883,
+   "zh": 7675
+  },
+  "zhlen": 8826,
+  "influenced": 0
+ },
+ "archimedes": {
+  "en": "Archimedes",
+  "enlen": 76873,
+  "qid": "Q8739",
+  "langs": 193,
+  "zh": "阿基米德",
+  "views": {
+   "en": 640204,
+   "zh": 43205
+  },
+  "zhlen": 36075,
+  "influenced": 3
+ },
+ "zhaoshuang": {
+  "en": "Zhao Shuang",
+  "enlen": 2516,
+  "qid": "Q706283",
+  "langs": 9,
+  "zh": "赵爽 (篮球运动员)",
+  "views": {
+   "en": 477,
+   "zh": 755
+  },
+  "zhlen": 6171,
+  "influenced": 0
+ },
+ "newton": {
+  "en": "Isaac Newton",
+  "enlen": 230901,
+  "qid": "Q935",
+  "langs": 239,
+  "zh": "艾萨克·牛顿",
+  "views": {
+   "en": 2382399,
+   "zh": 110973
+  },
+  "zhlen": 68013,
+  "influenced": 28,
+  "sep": {
+   "slug": "newton",
+   "words": 6983
+  }
+ },
+ "descartes-geometry": {
+  "en": "La Géométrie",
+  "enlen": 10658,
+  "qid": "Q210113",
+  "langs": 19,
+  "zh": null,
+  "views": {
+   "en": 11862
+  },
+  "influenced": 0,
+  "sep": {
+   "slug": "descartes-mathematics",
+   "words": 15327
+  }
+ },
+ "pythagoras": {
+  "en": "Pythagoras",
+  "enlen": 105342,
+  "qid": "Q10261",
+  "langs": 163,
+  "zh": "毕达哥拉斯",
+  "views": {
+   "en": 531242,
+   "zh": 23626
+  },
+  "zhlen": 6180,
+  "influenced": 7,
+  "sep": {
+   "slug": "pythagoras",
+   "words": 19073
+  }
+ },
+ "apollonius": {
+  "en": "Apollonius of Perga",
+  "enlen": 59104,
+  "qid": "Q180109",
+  "langs": 71,
+  "zh": "阿波罗尼奥斯",
+  "views": {
+   "en": 31457,
+   "zh": 2928
+  },
+  "zhlen": 2678,
+  "influenced": 0
+ },
+ "diophantus": {
+  "en": "Diophantus",
+  "enlen": 30231,
+  "qid": "Q178217",
+  "langs": 74,
+  "zh": "丢番图",
+  "views": {
+   "en": 36811,
+   "zh": 6451
+  },
+  "zhlen": 3714,
+  "influenced": 2
+ },
+ "zuchongzhi": {
+  "en": "Zu Chongzhi",
+  "enlen": 15768,
+  "qid": "Q227444",
+  "langs": 38,
+  "zh": "祖冲之",
+  "views": {
+   "en": 19033,
+   "zh": 26100
+  },
+  "zhlen": 13716,
+  "influenced": 0
+ },
+ "alkhwarizmi": {
+  "en": "Al-Khwarizmi",
+  "enlen": 81157,
+  "qid": "Q9038",
+  "langs": 154,
+  "zh": "花拉子米",
+  "views": {
+   "en": 359680,
+   "zh": 9998
+  },
+  "zhlen": 30110,
+  "influenced": 1
+ },
+ "fibonacci": {
+  "en": "Fibonacci",
+  "enlen": 25643,
+  "qid": "Q8763",
+  "langs": 118,
+  "zh": "斐波那契",
+  "views": {
+   "en": 235170,
+   "zh": 7658
+  },
+  "zhlen": 6487,
+  "influenced": 1
+ },
+ "liye": {
+  "en": "Li Ye (mathematician)",
+  "enlen": 13395,
+  "qid": "Q716964",
+  "langs": 12,
+  "zh": "李冶",
+  "views": {
+   "en": 1937,
+   "zh": 2491
+  },
+  "zhlen": 32722,
+  "influenced": 0
+ },
+ "qinjiushao": {
+  "en": "Qin Jiushao",
+  "enlen": 5236,
+  "qid": "Q565225",
+  "langs": 25,
+  "zh": "秦九韶",
+  "views": {
+   "en": 4555,
+   "zh": 4624
+  },
+  "zhlen": 10322,
+  "influenced": 0
+ },
+ "yanghui": {
+  "en": "Yang Hui",
+  "enlen": 7870,
+  "qid": "Q574521",
+  "langs": 20,
+  "zh": "杨辉",
+  "views": {
+   "en": 6337,
+   "zh": 2721
+  },
+  "zhlen": 2766,
+  "influenced": 0
+ },
+ "zhushijie": {
+  "en": "Zhu Shijie",
+  "enlen": 5732,
+  "qid": "Q198126",
+  "langs": 23,
+  "zh": "朱世傑",
+  "views": {
+   "en": 3967,
+   "zh": 2325
+  },
+  "zhlen": 6411,
+  "influenced": 0
+ },
+ "xuguangqi": {
+  "en": "Xu Guangqi",
+  "enlen": 30505,
+  "qid": "Q420427",
+  "langs": 30,
+  "zh": "徐光启",
+  "views": {
+   "en": 21098,
+   "zh": 34276
+  },
+  "zhlen": 47030,
+  "influenced": 0
+ },
+ "fermat": {
+  "en": "Pierre de Fermat",
+  "enlen": 22936,
+  "qid": "Q75655",
+  "langs": 97,
+  "zh": "皮埃爾·德·費馬",
+  "views": {
+   "en": 95932,
+   "zh": 8352
+  },
+  "zhlen": 5538,
+  "influenced": 3
+ },
+ "meiwending": {
+  "en": null,
+  "qid": "Q11114865",
+  "langs": 5,
+  "zh": "梅文鼎",
+  "views": {
+   "zh": 2392
+  },
+  "zhlen": 6273,
+  "influenced": 0
+ },
+ "euler": {
+  "en": "Leonhard Euler",
+  "enlen": 105161,
+  "qid": "Q7604",
+  "langs": 167,
+  "zh": "萊昂哈德·歐拉",
+  "views": {
+   "en": 684134,
+   "zh": 36456
+  },
+  "zhlen": 50555,
+  "influenced": 6
+ },
+ "gauss": {
+  "en": "Carl Friedrich Gauss",
+  "enlen": 193408,
+  "qid": "Q6722",
+  "langs": 165,
+  "zh": "卡爾·弗里德里希·高斯",
+  "views": {
+   "en": 429389,
+   "zh": 67665
+  },
+  "zhlen": 209244,
+  "influenced": 6
+ },
+ "boole": {
+  "en": "George Boole",
+  "enlen": 66033,
+  "qid": "Q134661",
+  "langs": 83,
+  "zh": "乔治·布尔",
+  "views": {
+   "en": 145155,
+   "zh": 5031
+  },
+  "zhlen": 6704,
+  "influenced": 3,
+  "sep": {
+   "slug": "boole",
+   "words": 14958
+  }
+ },
+ "riemann": {
+  "en": "Bernhard Riemann",
+  "enlen": 27001,
+  "qid": "Q42299",
+  "langs": 102,
+  "zh": "伯恩哈德·黎曼",
+  "views": {
+   "en": 137666,
+   "zh": 12331
+  },
+  "zhlen": 8280,
+  "influenced": 2
+ },
+ "dedekind": {
+  "en": "Richard Dedekind",
+  "enlen": 18324,
+  "qid": "Q76556",
+  "langs": 65,
+  "zh": "理查德·戴德金",
+  "views": {
+   "en": 38755,
+   "zh": 2772
+  },
+  "zhlen": 2869,
+  "influenced": 0,
+  "sep": {
+   "slug": "dedekind-foundations",
+   "words": 15867
+  }
+ },
+ "cantor": {
+  "en": "Georg Cantor",
+  "enlen": 83181,
+  "qid": "Q76420",
+  "langs": 93,
+  "zh": "格奥尔格·康托尔",
+  "views": {
+   "en": 160309,
+   "zh": 7341
+  },
+  "zhlen": 16383,
+  "influenced": 3
+ },
+ "hilbert": {
+  "en": "David Hilbert",
+  "enlen": 61672,
+  "qid": "Q41585",
+  "langs": 137,
+  "zh": "大卫·希尔伯特",
+  "views": {
+   "en": 203557,
+   "zh": 16571
+  },
+  "zhlen": 30377,
+  "influenced": 2,
+  "sep": {
+   "slug": "hilbert-program",
+   "words": 10745
+  }
+ },
+ "godel": {
+  "en": "Kurt Gödel",
+  "enlen": 59733,
+  "qid": "Q41390",
+  "langs": 100,
+  "zh": "库尔特·哥德尔",
+  "views": {
+   "en": 370809,
+   "zh": 11898
+  },
+  "zhlen": 9616,
+  "influenced": 1,
+  "sep": {
+   "slug": "goedel",
+   "words": 19675
+  }
+ }
+}
