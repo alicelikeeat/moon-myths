@@ -415,7 +415,7 @@ struct RoundTableView: View {
             }
             .frame(width: S, height: S)
         }
-        .defaultScrollAnchor(.center)
+        .defaultScrollAnchor(.top)
         .scrollIndicators(.hidden)
         .safeAreaInset(edge: .top, spacing: 0) {
             HomeTitle(title: "圆桌", subtitle: "按年代围坐一圈，人人平等；光晕表示分数，点人物看影响关系")
@@ -625,7 +625,7 @@ struct TempleView: View {
 
     private func dome(_ t: Thinker) -> some View {
         ZStack(alignment: .bottom) {
-            DomeShape(lit: lit).frame(height: 300)
+            DomeShape(lit: lit).aspectRatio(2, contentMode: .fit)
             Button { detail = t } label: {
                 VStack(spacing: 6) {
                     Text("至 纯").font(.system(size: 10, weight: .semibold, design: .serif)).tracking(4).foregroundStyle(fameGold)
