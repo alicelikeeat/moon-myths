@@ -76,7 +76,7 @@ enum FameTier {
         case .unrated: [Color(white: 0.92), .white, Color(white: 0.75), Color(white: 0.92)]
         case .pure: [champagne, Color(red: 1, green: 0.97, blue: 0.9), champagneDeep, champagne]
         case .fine: [pureGold, Color(red: 1, green: 0.9, blue: 0.5), pureGoldDeep, pureGold]
-        case .plain, .unrated: [diamond, .white, diamondDeep, .white, diamond]
+        case .plain: [diamond, .white, diamondDeep, .white, diamond]
         }
     }
 }
@@ -137,7 +137,7 @@ struct FameCardStyle: ViewModifier {
             content
                 .glassEffect(Glass.regular.tint(pureGold.opacity(0.16)), in: .rect(cornerRadius: radius))
                 .overlay(RoundedRectangle(cornerRadius: radius).strokeBorder(border, lineWidth: 0.8))
-        case .plain:
+        case .plain, .unrated:
             // 专业：钻石般清透的玻璃，冷白细线
             content
                 .glassEffect(Glass.regular.tint(diamond.opacity(0.22)), in: .rect(cornerRadius: radius))
