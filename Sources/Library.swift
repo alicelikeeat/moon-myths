@@ -63,6 +63,7 @@ private var appVersion: String {
 
 struct HomeView: View {
     @State private var showSettings = false
+    @State private var demoSheet: Thinker?
     @AppStorage("homeStyle") private var style = "tree"
     private let styles: [(String, String, String)] = [
         ("tree", "世界树", "tree"), ("pyramid", "金字塔", "triangle"), ("table", "圆桌", "circle.circle"),
@@ -102,6 +103,14 @@ struct HomeView: View {
                 }
             }
             .sheet(isPresented: $showSettings) { BackdropSettings() }
+            .sheet(item: $demoSheet) { FameSheet(thinker: $0) }
+            .onAppear {
+                // 截图用：-fameSheet <人物 id> 直接打开评分页
+                if let i = ProcessInfo.processInfo.arguments.firstIndex(of: "-fameSheet"), i + 1 < ProcessInfo.processInfo.arguments.count {
+                    let id = ProcessInfo.processInfo.arguments[i + 1]
+                    demoSheet = thinkers.first { $0.id == id }
+                }
+            }
         }
     }
 

@@ -64,6 +64,9 @@ jobs:
           if [ "${{ inputs.only }}" = "home" ]; then
             run_shot "home-light" -appearance light; sleep 2; xcrun simctl io "$UDID" screenshot shots/home-light-late.png
             run_shot "home-dark" -appearance dark
+            for st in pyramid table heaven temple; do run_shot "home-$st" -homeStyle $st -appearance light; done
+            run_shot "home-heaven-dark" -homeStyle heaven -appearance dark
+            run_shot "home-fame-sheet" -homeStyle tree -fameSheet kongzi -appearance light
             exit_early=1
           fi
           if [ "${{ inputs.only }}" = "3d" ]; then
