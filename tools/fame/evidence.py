@@ -137,7 +137,7 @@ E = {
 "james": dict(h=15, hist=[("《心理学原理》奠定美国心理学；与皮尔士共同开创实用主义", en("William_James"))], off=[]),
 "russell": dict(h=19, hist=[("与怀特海著《数学原理》，开创分析哲学；晚年领导反核运动（《罗素—爱因斯坦宣言》）", en("Russell–Einstein_Manifesto"))],
  off=[("1949 年获英王授予功绩勋章", en("Bertrand_Russell"), 2), ("1950 年获诺贝尔文学奖", en("Bertrand_Russell"), 3),
-  ("1940 年纽约法院撤销其纽约城市学院教职任命", en("Bertrand_Russell_case"), -1)]),
+  ("1940 年纽约法院撤销其纽约城市学院教职任命", en("Kay_v._Board_of_Higher_Education"), -1)]),
 "wittgenstein": dict(h=17, hist=[("《逻辑哲学论》与《哲学研究》两度改变分析哲学的方向", en("Ludwig_Wittgenstein"))], off=[]),
 "heidegger": dict(h=17, hist=[("《存在与时间》影响存在主义、解释学与解构主义", en("Martin_Heidegger")),
   ("1933 年加入纳粹党并任弗莱堡大学校长", en("Heidegger_and_Nazism"))],

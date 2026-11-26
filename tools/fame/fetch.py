@@ -50,9 +50,12 @@ def jget(url, **kw):
     b = get(url, **kw)
     return json.loads(b) if b else None
 
-out = {}
-pantheon_ok = True
+import os
+# 增量：已有 fame.json 时只补抓缺失或不完整的条目（FULL=1 则全部重抓）
+try: out = {} if os.environ.get("FULL") else json.load(open("fame.json"))
+except Exception: out = {}
 for tid, (en, sep) in T.items():
+    if out.get(tid, {}).get("langs") and out[tid].get("views"): continue
     rec = {"en": en}
     q = jget("https://en.wikipedia.org/w/api.php?action=query&format=json&redirects=1&prop=pageprops|info&titles=" + urllib.parse.quote(en))
     try:

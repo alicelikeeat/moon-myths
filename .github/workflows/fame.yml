@@ -6,6 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - run: git fetch origin fame-data && git show origin/fame-data:fame.json > fame.json || rm -f fame.json
       - run: python3 tools/fame/fetch.py
         timeout-minutes: 25
       - run: if [ -f tools/fame/links.txt ]; then python3 tools/fame/checklinks.py tools/fame/links.txt > links.json; fi

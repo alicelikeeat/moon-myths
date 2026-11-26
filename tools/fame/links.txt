@@ -12,7 +12,6 @@ https://en.wikipedia.org/wiki/Bans_on_communist_symbols
 https://en.wikipedia.org/wiki/Baruch_Spinoza
 https://en.wikipedia.org/wiki/Berkeley,_California
 https://en.wikipedia.org/wiki/Bertrand_Russell
-https://en.wikipedia.org/wiki/Bertrand_Russell_case
 https://en.wikipedia.org/wiki/Blaise_Pascal
 https://en.wikipedia.org/wiki/Boolean_algebra
 https://en.wikipedia.org/wiki/British_empiricism
@@ -49,6 +48,7 @@ https://en.wikipedia.org/wiki/Isaac_Newton
 https://en.wikipedia.org/wiki/Jean-Paul_Sartre
 https://en.wikipedia.org/wiki/John_Locke
 https://en.wikipedia.org/wiki/John_Stuart_Mill
+https://en.wikipedia.org/wiki/Kay_v._Board_of_Higher_Education
 https://en.wikipedia.org/wiki/Kurt_Gödel
 https://en.wikipedia.org/wiki/La_Géométrie
 https://en.wikipedia.org/wiki/Leibniz–Newton_calculus_controversy
