@@ -24,7 +24,7 @@ func pbr(_ c: UIColor, opacity: Float = 1, rough: Float = 0.12, metal: Float = 0
 
 private let goldUI = UIColor(red: 0.85, green: 0.68, blue: 0.36, alpha: 1)
 
-private func ent(_ mesh: MeshResource, _ m: Material, _ name: String = "", at p: SIMD3<Float> = .zero) -> ModelEntity {
+private func ent(_ mesh: MeshResource, _ m: any RealityKit.Material, _ name: String = "", at p: SIMD3<Float> = .zero) -> ModelEntity {
     let e = ModelEntity(mesh: mesh, materials: [m])
     e.name = name
     e.position = p
@@ -86,9 +86,10 @@ struct Stage3D: View {
                         let a = fi * 2.399963
                         let y = 1 - 2 * (fi + 0.5) / 90
                         let r = sqrt(max(0, 1 - y * y))
-                        let d = Float(1.6 + 0.5 * abs(sin(fi * 7.1)))
-                        let star = ent(.generateSphere(radius: 0.003 + 0.003 * abs(sin(fi * 3.3))),
-                                       UnlitMaterial(color: UIColor(white: 1, alpha: 0.55)), at: [cos(a) * r * d, y * d * 0.6, sin(a) * r * d])
+                        let d: Float = 1.6 + 0.5 * abs(sin(fi * 7.1))
+                        let rad: Float = 0.003 + 0.003 * abs(sin(fi * 3.3))
+                        let pos = SIMD3<Float>(cos(a) * r * d, y * d * 0.6, sin(a) * r * d)
+                        let star = ent(MeshResource.generateSphere(radius: rad), UnlitMaterial(color: UIColor(white: 1, alpha: 0.55)), at: pos)
                         dust.addChild(star)
                     }
                     root.addChild(dust)
@@ -218,7 +219,8 @@ struct Cave3D: View {
         } animate: { root, t, ph, p in
             let lit = ph == 0 ? 0.18 : 1.0
             // 火焰跳动
-            let flick = 1 + 0.12 * sin(t * 13) + 0.06 * sin(t * 29)
+            let f1: Double = 0.12 * sin(t * 13), f2: Double = 0.06 * sin(t * 29)
+            let flick: Double = 1 + f1 + f2
             root.findEntity(named: "fire")?.scale = .init(repeating: Float(flick))
             root.findEntity(named: "fire2")?.scale = .init(repeating: Float(2 - flick))
             setOpacity(root.findEntity(named: "fire"), ph == 0 ? 0.25 : 1)
@@ -227,15 +229,19 @@ struct Cave3D: View {
             let s = (Self.wallZ - F.z) / (Self.puppetZ - F.z)
             for i in 0..<3 {
                 let u = fract(t * 0.07 + Double(i) * 0.33)
-                let pos = SIMD3<Float>(Float(-0.5 + u * 1.0), Float(-0.005 + 0.008 * sin(t * 3 + Double(i))), Self.puppetZ)
+                let px: Double = -0.5 + u, py: Double = -0.005 + 0.008 * sin(t * 3 + Double(i))
+                let pos = SIMD3<Float>(Float(px), Float(py), Self.puppetZ)
                 let pup = root.findEntity(named: "pup\(i)")
                 pup?.position = pos
                 setOpacity(pup, lit)
-                let sx = F.x + (pos.x - F.x) * s, sy = F.y + (pos.y - F.y) * s
+                let sx: Float = F.x + (pos.x - F.x) * s
+                let sy: Float = F.y + (pos.y - F.y) * s
                 let sh = root.findEntity(named: "sh\(i)")
                 sh?.position = [sx, sy, Self.wallZ + 0.002]
                 sh?.scale = [s, s, 0.04]
-                setOpacity(sh, abs(sx) < 0.8 ? 0.85 * Double(1 - abs(sx) / 0.8 * 0.3) : 0)
+                let edge: Float = abs(sx)
+                let fade: Double = edge < 0.8 ? 0.85 * (1 - Double(edge) / 0.8 * 0.3) : 0
+                setOpacity(sh, fade)
             }
             // 第二拍：中间那位转身；第三拍：沿小路走向太阳
             let turn = ph == 0 ? 0 : (ph == 1 ? smooth(p / 0.4) : 1)
@@ -246,8 +252,12 @@ struct Cave3D: View {
             }
             let sun = root.findEntity(named: "sun")
             setOpacity(sun, ph == 2 ? smooth(p / 0.3) : 0)
-            sun?.scale = .init(repeating: Float(0.6 + 0.4 * (ph == 2 ? smooth(p) : 0)))
-            for j in 0..<14 { setOpacity(root.findEntity(named: "path\(j)"), ph == 2 ? smooth(p * 3 - Double(j) / 14 * 1.5) : 0) }
+            let sunS: Double = 0.6 + 0.4 * (ph == 2 ? smooth(p) : 0)
+            sun?.scale = SIMD3<Float>(repeating: Float(sunS))
+            for j in 0..<14 {
+                let pj: Double = ph == 2 ? smooth(p * 3 - Double(j) / 14 * 1.5) : 0
+                setOpacity(root.findEntity(named: "path\(j)"), pj)
+            }
         }
     }
 }
@@ -262,7 +272,8 @@ struct Spiral3D: View {
     private static func point(_ u: Double) -> SIMD3<Float> {
         let a = u * 4.5 * 2 * Double.pi
         let r = 0.34 * (1 - u * 0.6)
-        return [Float(cos(a) * r), Float(-0.22 + u * 0.5), Float(sin(a) * r)]
+        let x: Double = cos(a) * r, y: Double = -0.22 + u * 0.5, z: Double = sin(a) * r
+        return SIMD3<Float>(Float(x), Float(y), Float(z))
     }
 
     var body: some View {
@@ -300,11 +311,13 @@ struct Spiral3D: View {
                 setOpacity(root.findEntity(named: "lab\(k)"), 0.25 + 0.75 * reached)
                 // 被扬弃的环节：缩小、变透明，却仍留在原处
                 let past = ph >= 1 ? smooth((u - uk) / 0.15) : 0
-                root.findEntity(named: "node\(k)")?.scale = .init(repeating: Float(1 + 0.4 * reached - 0.45 * past))
+                let ns: Double = 1 + 0.4 * reached - 0.45 * past
+                root.findEntity(named: "node\(k)")?.scale = SIMD3<Float>(repeating: Float(ns))
             }
             let whole = root.findEntity(named: "whole")
             setOpacity(whole, ph == 2 ? 0.9 * smooth(p / 0.6) : 0)
-            whole?.scale = .init(repeating: Float(ph == 2 ? 0.7 + 0.3 * smooth(p / 0.6) : 0.7))
+            let wS: Double = ph == 2 ? 0.7 + 0.3 * smooth(p / 0.6) : 0.7
+            whole?.scale = SIMD3<Float>(repeating: Float(wS))
             root.findEntity(named: "spirit")?.scale = .init(repeating: Float(1 + 0.15 * sin(t * 4)))
         }
     }
@@ -337,19 +350,23 @@ struct Dao3D: View {
         } animate: { root, t, ph, p in
             let one = root.findEntity(named: "one")
             let born = ph == 0 ? smooth(p / 0.7) : 1
-            one?.scale = .init(repeating: Float(0.05 + 0.95 * born) * Float(1 + 0.04 * sin(t * 2)))
+            let oneS: Double = (0.05 + 0.95 * born) * (1 + 0.04 * sin(t * 2))
+            one?.scale = SIMD3<Float>(repeating: Float(oneS))
             setOpacity(one, ph == 0 ? born : (ph == 1 ? 1 - smooth(p / 0.4) : 0))
             // 二：一分为阴阳，彼此环绕
             let split = ph == 0 ? 0 : (ph == 1 ? smooth(p / 0.6) : 1)
             let a = t * 0.9
             let r = 0.13 * split
-            root.findEntity(named: "yin")?.position = [Float(cos(a) * r), Float(0.02 * sin(a * 2)), Float(sin(a) * r)]
-            root.findEntity(named: "yang")?.position = [Float(-cos(a) * r), Float(-0.02 * sin(a * 2)), Float(-sin(a) * r)]
+            let cx: Double = cos(a) * r, cz: Double = sin(a) * r, cyy: Double = 0.02 * sin(a * 2)
+            let yinP = SIMD3<Float>(Float(cx), Float(cyy), Float(cz))
+            root.findEntity(named: "yin")?.position = yinP
+            root.findEntity(named: "yang")?.position = -yinP
             setOpacity(root.findEntity(named: "yin"), split)
             setOpacity(root.findEntity(named: "yang"), split)
             // 三：冲气居中，连成一环
             let three = ph < 2 ? 0 : (ph == 2 ? smooth(p / 0.6) : 1)
-            root.findEntity(named: "chong")?.scale = .init(repeating: Float(0.1 + 0.9 * three) * Float(1 + 0.08 * sin(t * 3)))
+            let chS: Double = (0.1 + 0.9 * three) * (1 + 0.08 * sin(t * 3))
+            root.findEntity(named: "chong")?.scale = SIMD3<Float>(repeating: Float(chS))
             setOpacity(root.findEntity(named: "chong"), three)
             for j in 0..<60 { setOpacity(root.findEntity(named: "ring\(j)"), three * 0.8) }
             // 万物：从中心沿各个方向生出，缓缓旋转
@@ -357,11 +374,12 @@ struct Dao3D: View {
             for i in 0..<Self.many {
                 let fi = Double(i)
                 let y = 1 - 2 * (fi + 0.5) / Double(Self.many)
-                let rr = sqrt(max(0, 1 - y * y))
-                let ang = fi * 2.399963 + t * 0.15
-                let d = (0.16 + 0.22 * fract(fi * 0.618)) * grow
+                let rr: Double = sqrt(max(0, 1 - y * y))
+                let ang: Double = fi * 2.399963 + t * 0.15
+                let d: Double = (0.16 + 0.22 * fract(fi * 0.618)) * grow
                 let e = root.findEntity(named: "w\(i)")
-                e?.position = [Float(cos(ang) * rr * d), Float(y * d * 0.8), Float(sin(ang) * rr * d)]
+                let px: Double = cos(ang) * rr * d, py: Double = y * d * 0.8, pz: Double = sin(ang) * rr * d
+                e?.position = SIMD3<Float>(Float(px), Float(py), Float(pz))
                 setOpacity(e, smooth(grow * 2 - fi / Double(Self.many)))
             }
         }
