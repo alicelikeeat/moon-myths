@@ -7,7 +7,7 @@ jobs:
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
-      - run: python3 tools/statues/find2.py
+      - run: python3 tools/statues/find3.py
       - run: |
           git config user.name "statue-bot"; git config user.email "bot@users.noreply.github.com"
-          cp museums.json /tmp/ && git checkout --orphan statues-data2 && git rm -rfq . && cp /tmp/museums.json . && git add museums.json && git commit -qm "museums" && git push -f origin statues-data2
+          cp europeana.json /tmp/ && git checkout --orphan statues-data3 && git rm -rfq . && cp /tmp/europeana.json . && git add europeana.json && git commit -qm "europeana" && git push -f origin statues-data3

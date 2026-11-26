@@ -4,6 +4,24 @@
 import json, re, sys, os
 ROOT = os.path.join(os.path.dirname(__file__), "../..")
 cand = json.load(open(sys.argv[1]))
+museums = json.load(open(sys.argv[2])) if len(sys.argv) > 2 else {}
+
+def mtype(k):
+    k = k or ""
+    for key, t in (("sculpt", "sculpture"), ("bust", "bust"), ("medal", "relief"), ("relief", "relief"), ("photograph", "photo"),
+                   ("print", "print"), ("drawing", "drawing"), ("paint", "painting")):
+        if key in k: return t
+    return "other"
+
+# 开放馆藏接口的结果并入候选（许可由接口直接给出）
+for tid, hits in museums.items():
+    lst = cand.setdefault(tid, {"qid": None, "works": []})["works"]
+    for h in hits:
+        lst.append({"wikidata": None, "type": mtype(h.get("kind")), "label": h.get("title"), "creator": h.get("creator"),
+                    "inception": str(h["begin"]) if h.get("begin") not in (None, "") else None, "collection": h.get("museum"),
+                    "inv": h.get("inv"), "copyright": "public domain" if h.get("pd") else None, "material": h.get("medium"),
+                    "urls": [h["url"]] if h.get("url") else [], "url_status": {h["url"]: 200} if h.get("url") else {},
+                    "license": h.get("license"), "pd": h.get("pd")})
 doc = json.load(open(f"{ROOT}/Sources/statues.json"))
 manual = {r["id"] for r in doc["records"]}
 
@@ -33,6 +51,7 @@ def score(w, born, died):
     if y is not None and born - 5 <= y <= died + 5: s += 4
     if (w.get("copyright") or "").lower().startswith("public domain"): s += 2
     if w["type"] == "photo" and died < 1840: s -= 10
+    if w.get("pd"): s += 3          # 开放馆藏明确标为 CC0
     return s
 
 def wd(u): return u.replace("http://www.wikidata.org/entity/", "https://www.wikidata.org/wiki/")
@@ -60,14 +79,14 @@ for tid, (name, region, born, died) in people.items():
     c = cand.get(tid) or {"works": []}
     works = sorted(c["works"], key=lambda w: -score(w, born, died))
     sitter = f"{name} {yrs(born)}—{yrs(died)} 年"
-    verification = "Wikidata 线索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+    verification = "Wikidata 线索与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
     if not works:
         records.append({
             "id": tid, "kind": "none", "kindLabel": "原型待查", "status": "待考",
             "work": "未找到有馆藏记录的原型", "author": "未载", "date": "未载", "sitterDates": sitter,
             "institution": "未载", "accession": "未载",
             "url": f"https://www.wikidata.org/wiki/{c.get('qid')}" if c.get("qid") else "https://www.wikidata.org",
-            "reason": "Wikidata 中没有记载描绘此人、且带收藏信息的胸像、雕塑、画像或照片。",
+            "reason": "Wikidata 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
             "relation": "未载",
             "features": [{"name": n, "state": "待对照"} for n in FEATURES["tradition"]],
             "inferred": ["在找到原型之前，全部造型均为推定"],
@@ -85,14 +104,14 @@ for tid, (name, region, born, died) in people.items():
     else: relation = f"作品年代（{yrs(y)}）早于人物生年，记录可能有误，待查。"
     url = ok_url(w)
     inst = w.get("collection") or "未载"
-    reason = (f"Wikidata 记载描绘{name}的作品共 {len(works)} 件；此件为{TYPE_ZH.get(w['type'], '图像')}"
+    reason = (f"在 Wikidata 与开放馆藏接口中找到描绘{name}的作品 {len(works)} 件；此件为{TYPE_ZH.get(w['type'], '图像')}"
               f"{'，作于人物生前' if (y is not None and born <= y <= died + 5) else ''}"
               f"{'，收藏机构与编号齐全' if w.get('collection') and w.get('inv') else '，收藏信息不全'}"
               f"{'，馆方页面可以打开' if url else '，未找到可打开的馆方页面'}。")
     cr = w.get("copyright") or ""
     alts = []
     for a in works[1:]:
-        au = ok_url(a) or wd(a["wikidata"])
+        au = ok_url(a) or (wd(a["wikidata"]) if a.get("wikidata") else "")
         alts.append({"work": f"{a.get('label') or '未载'}（{TYPE_ZH.get(a['type'], '图像')}，{a.get('creator') or '作者未载'}，{(a.get('inception') or '年代未载')[:4]}）",
                      "institution": f"{a.get('collection') or '收藏未载'}{('，编号 ' + a['inv']) if a.get('inv') else ''}", "url": au})
         if len(alts) == 2: break
@@ -103,14 +122,16 @@ for tid, (name, region, born, died) in people.items():
         "date": (f"{yrs(y)} 年" if y is not None else "未载") + (f"，{w['material']}" if w.get("material") else ""),
         "sitterDates": sitter,
         "institution": inst, "accession": w.get("inv") or "未载",
-        "url": url or wd(w["wikidata"]),
+        "url": url or (wd(w["wikidata"]) if w.get("wikidata") else ""),
         "reason": reason, "relation": relation,
         "features": [{"name": n, "state": "待对照"} for n in FEATURES[kind]],
         "inferred": ["在取得同一件原作的多角度资料之前，侧面与背面为推定", "材质统一为白石，属视觉简化"],
         "usage": {"original": "公有领域（据 Wikidata 版权状态）" if cr.lower().startswith("public domain") else (f"Wikidata 版权状态：{cr}" if cr else "未载"),
-                  "reference": "馆方图像的使用条件未核", "existing3D": "未查", "license": "未载",
+                  "reference": (f"馆方开放获取：{w['license']}" if w.get("pd") else "馆方图像的使用条件未核"), "existing3D": "未查",
+                  "license": (w.get("license") or "未载"),
                   "attribution": f"{inst}{(', ' + w['inv']) if w.get('inv') else ''}",
-                  "adapt": "待核", "distribute": "待核", "thumbnail": "待核"},
+                  "adapt": "允许（CC0）" if w.get("pd") else "待核", "distribute": "允许（CC0）" if w.get("pd") else "待核",
+                  "thumbnail": "条件允许（CC0），本版不内嵌，链接馆方页" if w.get("pd") else "待核"},
         "model": None,
         "pending": (["人工打开馆方藏品页，核对作品身份、年代与图像"] if url else ["找到该作品的馆方藏品页（目前只有 Wikidata 线索）"])
                    + ["确认图像或扫描的使用许可", "逐项对照三项造型特征"],
