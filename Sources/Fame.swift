@@ -395,8 +395,9 @@ private struct PyramidBackdrop: View {
 struct RoundTableView: View {
     @State private var focus: String?
     @State private var detail: Thinker?
-    private let S = 900.0
-    private var R: Double { S / 2 - 50 }
+    // 两排交错落座：外圈与内圈相隔 44pt，整张桌子缩到约一屏半，线条不必放大就很清楚
+    private let S = 580.0
+    private var R: Double { S / 2 - 34 }
 
     var body: some View {
         let order = thinkers.sorted { $0.born < $1.born }
@@ -404,9 +405,9 @@ struct RoundTableView: View {
             ZStack {
                 // 桌面：一整块大玻璃圆盘
                 Circle().fill(.clear)
-                    .frame(width: R * 2 - 70, height: R * 2 - 70)
+                    .frame(width: R * 2 - 110, height: R * 2 - 110)
                     .glassEffect(Glass.regular.tint(fameGold.opacity(0.08)), in: .circle)
-                Circle().strokeBorder(fameGold.opacity(0.3), lineWidth: 0.8).frame(width: R * 2 - 90, height: R * 2 - 90)
+                Circle().strokeBorder(fameGold.opacity(0.3), lineWidth: 0.8).frame(width: R * 2 - 124, height: R * 2 - 124)
                 Canvas { ctx, size in drawArcs(&ctx, order) }
                     .frame(width: S, height: S)
                     .allowsHitTesting(false)
@@ -415,7 +416,7 @@ struct RoundTableView: View {
             }
             .frame(width: S, height: S)
         }
-        .defaultScrollAnchor(.top)
+        .defaultScrollAnchor(.center)
         .scrollIndicators(.hidden)
         .safeAreaInset(edge: .top, spacing: 0) {
             HomeTitle(title: "圆桌", subtitle: "按年代围坐一圈，人人平等；光晕表示分数，点人物看影响关系")
@@ -427,7 +428,8 @@ struct RoundTableView: View {
 
     private func pos(_ i: Int, _ n: Int) -> CGPoint {
         let a = Double(i) / Double(n) * 2 * .pi - .pi / 2
-        return CGPoint(x: S / 2 + cos(a) * R, y: S / 2 + sin(a) * R)
+        let r = i % 2 == 0 ? R : R - 44
+        return CGPoint(x: S / 2 + cos(a) * r, y: S / 2 + sin(a) * r)
     }
 
     private func drawArcs(_ ctx: inout GraphicsContext, _ order: [Thinker]) {
@@ -440,9 +442,11 @@ struct RoundTableView: View {
             path.move(to: p)
             // 弧线弯向圆心：越远的两人，弧线越深入桌心
             path.addQuadCurve(to: q, control: CGPoint(x: S / 2 + (p.x + q.x - S) * 0.15, y: S / 2 + (p.y + q.y - S) * 0.15))
-            let col = inf.critical ? Color(red: 0.8, green: 0.4, blue: 0.3) : fameGold
-            ctx.stroke(path, with: .color(col.opacity(focus == nil ? 0.12 : (on ? 0.75 : 0.03))),
-                       style: StrokeStyle(lineWidth: on && focus != nil ? 1.6 : 0.8, dash: inf.critical ? [4, 3] : []))
+            // 线条要清楚：实色、够粗、圆头；未选中时也保持可辨认
+            let col = inf.critical ? Color(red: 0.82, green: 0.32, blue: 0.24) : Color(red: 0.72, green: 0.52, blue: 0.16)
+            let a: Double = focus == nil ? 0.55 : (on ? 1 : 0.08)
+            ctx.stroke(path, with: .color(col.opacity(a)),
+                       style: StrokeStyle(lineWidth: on && focus != nil ? 2.2 : 1.3, lineCap: .round, dash: inf.critical ? [5, 4] : []))
         }
     }
 
@@ -452,7 +456,7 @@ struct RoundTableView: View {
                 Text(t.name).font(.system(size: 30, weight: .semibold, design: .serif))
                 if let s = fameOf(t) { FameRing(score: s.total, size: 64) }
                 Text(t.thesis).font(.footnote).foregroundStyle(Color.primary.opacity(0.7))
-                    .multilineTextAlignment(.center).frame(width: 300)
+                    .multilineTextAlignment(.center).frame(width: 250)
                 Button("评分与证据") { detail = t }.buttonStyle(.glassProminent)
             } else {
                 Text("圆 桌").font(.system(size: 40, weight: .semibold, design: .serif)).tracking(8)
@@ -476,12 +480,12 @@ struct RoundTableView: View {
                 .font(.system(size: 10, weight: .semibold, design: .serif))
                 .lineLimit(2).minimumScaleFactor(0.7).multilineTextAlignment(.center)
                 .foregroundStyle(Color.primary)
-                .frame(width: 40, height: 40)
+                .frame(width: 38, height: 38)
         }
         .buttonStyle(.plain)
         .glassEffect(tier == .pure ? Glass.regular.tint(fameGold.opacity(0.35)).interactive()
                                    : Glass.regular.tint(fameRegionTint(t.region).opacity(0.25)).interactive(), in: .circle)
-        .background(Circle().fill(RadialGradient(colors: [fameGold.opacity(glow), .clear], center: .center, startRadius: 10, endRadius: 34)).frame(width: 68, height: 68))
+        .background(Circle().fill(RadialGradient(colors: [fameGold.opacity(glow), .clear], center: .center, startRadius: 10, endRadius: 28)).frame(width: 56, height: 56))
         .scaleEffect(on ? 1.25 : 1)
         .position(p)
     }
