@@ -13,8 +13,16 @@ final class PlaybackUITests: XCTestCase {
         for round in 1...10 {
             let before = (toggle.value as? String) ?? ""
             toggle.tap()
-            sleep(2)
-            let after = (toggle.value as? String) ?? ""
+            // 等状态变化（最多 6 秒），并记录响应用了多久：CI 模拟器刚启动时主线程很忙，固定等 2 秒会误判
+            let t0 = Date()
+            var after = before
+            while Date().timeIntervalSince(t0) < 6 {
+                after = (toggle.value as? String) ?? ""
+                if after != before { break }
+                usleep(100_000)
+            }
+            print("LATENCY \(round): \(String(format: "%.1f", Date().timeIntervalSince(t0)))s")
+            sleep(1)
             print("ROUND \(round): before=\(before) after=\(after) value=\(toggle.value ?? "-")")
             if before == after { failures += 1 }
             if round == 5 { sleep(7); print("AFTER AUTO-COLLAPSE: play=\(play.exists)") }
