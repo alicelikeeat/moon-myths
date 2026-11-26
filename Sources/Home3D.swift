@@ -1048,3 +1048,130 @@ struct Temple3DView: View {
         }
     }
 }
+
+// MARK: - 世界树 3D：渐细的树干与根，三条枝在空间里分开生长；每位人物是站在等级底座上的卡通小人，周围有萤火
+
+struct WorldTree3DView: View {
+    private static let W = 390.0
+    private static let layout = treeLayout(width: W)
+    private static let fireflies = 24
+
+    /// 2D 布局 → 3D 位置：高度来自年代，左右来自枝的位置；三条枝在纵深上错开
+    private static func place(_ n: TreeNode) -> SIMD3<Float> {
+        let x = Float((n.x / W - 0.5) * 1.3)
+        let y = Float((1 - n.y / layout.height) * 1.7 - 0.15)
+        let wob = Float(sin(Double(n.order) * 1.7)) * 0.06
+        let z: Float
+        switch n.thinker.region {
+        case .china: z = 0.16 + wob
+        case .west: z = -0.16 + wob
+        case .math: z = 0.32 + wob
+        }
+        return [x, y, z]
+    }
+
+    private static func segment(_ a: SIMD3<Float>, _ b: SIMD3<Float>, _ r: Float, _ m: any RealityKit.Material) -> ModelEntity {
+        let d = b - a
+        let e = model(.generateCylinder(height: max(0.001, simd_length(d)), radius: r), m, at: (a + b) / 2)
+        e.orientation = simd_quatf(from: [0, 1, 0], to: simd_normalize(d))
+        return e
+    }
+
+    var body: some View {
+        let nodes = Self.layout.nodes
+        let byOrder = nodes.sorted { $0.order < $1.order }
+        HomeStage3D(title: "哲学之树", subtitle: "根在下、冠在上：中国一枝、西方一枝、数学一根藤，沿年代向上生长", eye: [0, 0.9, 2.7], target: [0, 0.62, 0],
+                    entrance: Double(nodes.count) * 0.03 + 2.2, relations: true, hint: "点人物聚焦 · 拖动环绕 · 双指拉近",
+                    hooks: StageHooks(
+                        neighbors: { id in
+                            guard let i = byOrder.firstIndex(where: { $0.id == id }) else { return (nil, nil) }
+                            return (i > 0 ? byOrder[i - 1].id : nil, i + 1 < byOrder.count ? byOrder[i + 1].id : nil)
+                        }
+                    )) { root, refs in
+            let bark = mat(UIColor(red: 0.86, green: 0.82, blue: 0.76, alpha: 1), rough: 0.85)
+            let tree = Entity()
+            // 树干：自下而上逐段变细
+            let top: Float = 1.5, bottom: Float = -0.15
+            for k in 0..<12 {
+                let y0 = bottom + (top - bottom) * Float(k) / 12, y1 = bottom + (top - bottom) * Float(k + 1) / 12
+                let r = 0.045 - 0.032 * Float(k) / 12
+                tree.addChild(Self.segment([0, y0, 0], [0, y1, 0], r, bark))
+            }
+            // 根：向四周伸开
+            for k in 0..<7 {
+                let a = Float(k) / 7 * 2 * .pi + 0.3
+                var last = SIMD3<Float>(0, bottom + 0.02, 0)
+                for s in 1...4 {
+                    let u = Float(s) / 4
+                    let p = SIMD3<Float>(cos(a) * 0.32 * u, bottom - 0.02 - 0.05 * u * u, sin(a) * 0.32 * u)
+                    tree.addChild(Self.segment(last, p, 0.016 * (1 - u * 0.7), bark))
+                    last = p
+                }
+            }
+            // 三条枝：同一地域按年代从低到高连成一条，最低一片叶子连回树干
+            for region in Region.allCases {
+                let ns = nodes.filter { $0.thinker.region == region }.sorted { $0.y > $1.y }
+                guard let first = ns.first else { continue }
+                let col = UIColor(fameRegionTint(region)).withAlphaComponent(1)
+                let branch = mat(col, rough: 0.55)
+                var last = SIMD3<Float>(0, Self.place(first).y - 0.08, 0)
+                for n in ns {
+                    let p = Self.place(n)
+                    // 中途加一个弯折点，让枝条不是直线
+                    let mid = (last + p) / 2 + SIMD3<Float>(0, 0.02, 0)
+                    tree.addChild(Self.segment(last, mid, 0.006, branch))
+                    tree.addChild(Self.segment(mid, p, 0.006, branch))
+                    last = p
+                }
+            }
+            root.addChild(tree)
+            refs["tree"] = tree
+            // 人物：等级底座 + 卡通小人（或考据雕像）
+            for n in byOrder {
+                let t = n.thinker
+                let tier = FameTier(fameTotal(t))
+                let leaf = model(.generateCylinder(height: 0.004, radius: tier == .pure ? 0.019 : 0.014), tierMat(t), at: Self.place(n))
+                let fs: Float = tier == .pure ? 1.15 : 0.85
+                let fig = figureSlot(for: t, scale: fs)
+                fig.position = [0, 0.002, 0]
+                fig.components.set(BillboardComponent())
+                leaf.addChild(fig)
+                let label = text3D(shortName(t), size: 0.015)
+                label.position = [0, 0.05 * fs + 0.012, 0]
+                leaf.addChild(label)
+                tappable(leaf, id: t.id, refs)
+                leaf.components.set(OpacityComponent(opacity: 0))
+                root.addChild(leaf)
+                refs["leaf\(n.order)"] = leaf
+            }
+            // 萤火
+            for f in 0..<Self.fireflies {
+                let e = model(.generateSphere(radius: 0.004), mat(UIColor(red: 1, green: 0.88, blue: 0.55, alpha: 1), glow: 6))
+                root.addChild(e)
+                refs["fly\(f)"] = e
+            }
+        } animate: { refs, t in
+            // 入场：树干从下往上长出，人物按年代依次出现
+            let grow = ease(t / 1.6)
+            if t < 2 {
+                refs["tree"]?.scale = [1, max(0.01, grow), 1]
+                refs["tree"]?.position.y = -0.15 * (1 - grow)
+            }
+            if t < Double(byOrder.count) * 0.03 + 2.2 {
+                for n in byOrder {
+                    let k = ease((t - 1.0 - Double(n.order) * 0.03) / 0.5)
+                    fade(refs["leaf\(n.order)"], k)
+                }
+            }
+            for f in 0..<Self.fireflies {
+                let ff = Double(f)
+                let a = Float(ff * 2.4 + refs.now * (0.15 + 0.05 * sin(ff)))
+                let r = Float(0.35 + 0.3 * abs(sin(ff * 1.3)))
+                let y = Float(0.1 + fract(ff * 0.37 + refs.now * 0.02) * 1.4)
+                let e = refs["fly\(f)"]
+                e?.position = [cos(a) * r, y, sin(a) * r]
+                fade(e, ease(t - 1.5) * (0.4 + 0.6 * Float(abs(sin(refs.now * 1.5 + ff)))))
+            }
+        }
+    }
+}

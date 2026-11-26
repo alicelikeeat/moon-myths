@@ -67,7 +67,7 @@ struct HomeView: View {
     @AppStorage("homeStyle") private var style = "tree"
     @AppStorage("home3D") private var home3D = false
     @AppStorage("nameLang") private var nameLang = "zh"
-    private var has3D: Bool { ["pyramid", "table", "heaven", "temple"].contains(style) }
+    private var has3D: Bool { ["tree", "pyramid", "table", "heaven", "temple"].contains(style) }
     private let styles: [(String, String, String)] = [
         ("tree", "世界树", "tree"), ("pyramid", "金字塔", "triangle"), ("table", "圆桌", "circle.circle"),
         ("heaven", "天堂", "sun.max"), ("temple", "罗马神殿", "building.columns"), ("list", "书目", "list.bullet"),
@@ -84,7 +84,7 @@ struct HomeView: View {
                     case "table": if home3D { RoundTable3DView() } else { RoundTableView() }
                     case "heaven": if home3D { Heaven3DView() } else { HeavenView() }
                     case "temple": if home3D { Temple3DView() } else { TempleView() }
-                    default: WorldTreeView()
+                    default: if home3D { WorldTree3DView() } else { WorldTreeView() }
                     }
                 }
                 .id(style + (home3D ? "3d" : "") + nameLang)
