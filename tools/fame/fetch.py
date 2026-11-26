@@ -36,6 +36,8 @@ T = {
  "cantor": ("Georg Cantor", None), "hilbert": ("David Hilbert", "hilbert-program"), "godel": ("Kurt Gödel", "goedel"),
 }
 
+ZH = {"meiwending": "梅文鼎"}
+
 def get(url, tries=2, timeout=20):
     for k in range(tries):
         try:
@@ -62,12 +64,18 @@ for tid, (en, sep) in T.items():
         page = next(iter(q["query"]["pages"].values()))
         rec["en"] = page["title"]; qid = page["pageprops"]["wikibase_item"]; rec["enlen"] = page.get("length")
     except Exception:
-        print("no qid", tid, file=sys.stderr); out[tid] = rec; continue
+        # 英文维基没有条目时，改从中文维基取 Wikidata 编号
+        zq = jget("https://zh.wikipedia.org/w/api.php?action=query&format=json&redirects=1&prop=pageprops&titles=" + urllib.parse.quote(ZH.get(tid, "")))
+        try:
+            qid = next(iter(zq["query"]["pages"].values()))["pageprops"]["wikibase_item"]; rec["en"] = None
+        except Exception:
+            print("no qid", tid, file=sys.stderr); out[tid] = rec; continue
     rec["qid"] = qid
     ent = jget(f"https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&props=sitelinks&ids={qid}")
     links = ent["entities"][qid].get("sitelinks", {}) if ent else {}
     rec["langs"] = sum(1 for k in links if k.endswith("wiki") and k not in ("commonswiki", "specieswiki", "metawiki"))
     rec["zh"] = links.get("zhwiki", {}).get("title")
+    if not rec.get("en"): rec["en"] = links.get("enwiki", {}).get("title")
     views = {}
     for lang, title in (("en", rec["en"]), ("zh", rec["zh"])):
         if not title: continue
