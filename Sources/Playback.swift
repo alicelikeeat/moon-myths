@@ -61,20 +61,24 @@ struct PlaybackControls: ViewModifier {
             }
             .overlay(alignment: .topTrailing) {
                 // 展开 / 收起按钮单独一层：旁边的控件出现、消失时它的位置和点按区域都不变
-                    Button {
+                // 不用 .glass 按钮样式：它在图标切换的同时做形变动画，期间的点按会被吞掉（UI 测试里约一半点击无效）。
+                // 改为普通按钮 + 可交互的玻璃背景，点按区域固定为 44pt
+                Button {
                     touch()
                     withAnimation(.snappy(duration: 0.25)) { expanded.toggle() }
                 } label: {
                     Image(systemName: expanded ? "chevron.right" : (clock.playing ? "slider.horizontal.3" : "pause.fill"))
                         .font(.system(size: 13, weight: .semibold))
+                        .contentTransition(.identity)
                         .frame(width: 30, height: 30)
-                        .contentShape(Circle())
+                        .glassEffect(.regular.interactive(), in: .circle)
+                        .frame(width: 44, height: 44)
+                        .contentShape(Rectangle())
                 }
-                .buttonStyle(.glass)
-                .buttonBorderShape(.circle)
+                .buttonStyle(.plain)
                 .accessibilityIdentifier("playback.toggle")
                 .accessibilityValue(expanded ? "expanded" : "collapsed")
-                    .padding(8)
+                .padding(1)
             }
             .task(id: lastTouch) {
                 // 播放中 5 秒无操作自动收起；暂停时保持展开，方便拖动

@@ -464,10 +464,15 @@ struct CartoonAvatar: View {
 // MARK: - 3D：所有场景共用的人物槽位（先放卡通小人，考据雕像“可展示”后自动替换）
 
 /// 一个站在等级小底盘上的人物；scale 为整体缩放
+/// 同一种服饰、同一等级的小人只建一次，其余克隆（共享网格与材质，建场更快）
+private var figureTemplates: [String: Entity] = [:]
+
 func figureSlot(for t: Thinker, scale: Float = 1) -> Entity {
     let slot = Entity()
     slot.scale = .init(repeating: scale)
-    slot.addChild(cartoonFigure(for: t))
+    let key = "\(CartoonStyle.of(t).rawValue)|\(FameTier(fameTotal(t)))|\(t.id == "russell" ? "pipe" : "")"
+    if figureTemplates[key] == nil { figureTemplates[key] = cartoonFigure(for: t) }
+    slot.addChild(figureTemplates[key]!.clone(recursive: true))
     StatueLoader.shared.load(t.id, into: slot)
     return slot
 }

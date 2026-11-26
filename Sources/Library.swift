@@ -98,14 +98,6 @@ struct HomeView: View {
                         Picker("首页", selection: Binding(get: { style }, set: { v in withAnimation(.smooth(duration: 0.4)) { style = v } })) {
                             ForEach(styles, id: \.0) { s in Label(s.1, systemImage: s.2).tag(s.0) }
                         }
-                        Toggle(isOn: $blindMode) {
-                            Label("未评分模式（自己打分）", systemImage: "eye.slash")
-                        }
-                        Menu {
-                            Picker("名字语言", selection: $nameLang) {
-                                ForEach(NameLang.allCases) { l in Text(l.title).tag(l.rawValue) }
-                            }
-                        } label: { Label("名字语言 · \(NameLang(rawValue: nameLang)?.title ?? "中文")", systemImage: "character.bubble") }
                     } label: {
                         Label("首页样式", systemImage: styles.first { $0.0 == style }?.2 ?? "tree")
                     }
@@ -120,10 +112,11 @@ struct HomeView: View {
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("外观", systemImage: "paintpalette") { showSettings = true }
+                    Button("设置", systemImage: "gearshape") { showSettings = true }
+                        .accessibilityIdentifier("home.settings")
                 }
             }
-            .sheet(isPresented: $showSettings) { BackdropSettings() }
+            .sheet(isPresented: $showSettings) { AppSettings() }
             .sheet(item: $demoSheet) { FameSheet(thinker: $0) }
             .onAppear {
                 // 截图用：-fameSheet <人物 id> 直接打开评分页
