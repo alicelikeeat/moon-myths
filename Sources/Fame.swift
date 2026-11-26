@@ -444,8 +444,8 @@ struct RoundTableView: View {
             path.addQuadCurve(to: q, control: CGPoint(x: S / 2 + (p.x + q.x - S) * 0.15, y: S / 2 + (p.y + q.y - S) * 0.15))
             // 线条要清楚：实色、够粗、圆头；未选中时也保持可辨认
             let col = inf.critical ? Color(red: 0.82, green: 0.32, blue: 0.24) : Color(red: 0.72, green: 0.52, blue: 0.16)
-            let a: Double = focus == nil ? 0.55 : (on ? 1 : 0.08)
-            ctx.stroke(path, with: .color(col.opacity(a)),
+            let alpha: Double = focus == nil ? 0.55 : (on ? 1 : 0.08)
+            ctx.stroke(path, with: .color(col.opacity(alpha)),
                        style: StrokeStyle(lineWidth: on && focus != nil ? 2.2 : 1.3, lineCap: .round, dash: inf.critical ? [5, 4] : []))
         }
     }
