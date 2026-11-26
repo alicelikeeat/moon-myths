@@ -3,6 +3,68 @@
  "rule": "只有模型可加载、来源可定位、使用条件已记录且完成对照的条目（状态“可展示”）才显示雕像；其余显示刻名基座。",
  "records": [
   {
+   "id": "laozi",
+   "kind": "portrait",
+   "kindLabel": "据画像建模",
+   "status": "待考",
+   "work": "Lao-tzu Riding an Ox",
+   "author": "Zhang Lu",
+   "date": "未载，paper",
+   "sitterDates": "老子 前 600—前 470 年",
+   "institution": "National Palace Museum",
+   "accession": "故畫000437N000000000",
+   "url": "https://digitalarchive.npm.gov.tw/Painting/Content?pid=3236&Dept=P",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘老子的作品 5 件；此件为画像，收藏机构与编号齐全，馆方页面可以打开。",
+   "relation": "作品年代未载，与人物本人的关系待查。",
+   "features": [
+    {
+     "name": "头部外轮廓与面部比例",
+     "state": "待对照"
+    },
+    {
+     "name": "发型或头饰",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "馆方图像的使用条件未核",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "National Palace Museum, 故畫000437N000000000",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "未载（画像，Ding Yunpeng，年代未载）",
+     "institution": "The Palace Museum，编号 新00105980",
+     "url": "https://www.dpm.org.cn/collection/paint/228151.html"
+    },
+    {
+     "work": "未载（画像，Wu Chao，年代未载）",
+     "institution": "The Palace Museum，编号 新00154407",
+     "url": "https://minghuaji.dpm.org.cn/paint/detail?id=56b6bb7f7c6f41a9a8a921ff5059e2d4"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
    "id": "kongzi",
    "kind": "tradition",
    "kindLabel": "据后世传统形象建模",
@@ -17,11 +79,24 @@
    "reason": "馆藏页给出作者、年代、编号与“Public Domain”标注，来源与图像使用条件是三位中最清楚的；属于东亚流传的孔子标准像传统。",
    "relation": "后世想象像：孔子没有同时代画像传世，此作反映十七世纪东亚对孔子形象的传统理解，并非写真。",
    "features": [
-    {"name": "冠饰的形制与高度", "state": "待对照"},
-    {"name": "长须与面部轮廓", "state": "待对照"},
-    {"name": "交领宽袖的衣领走向", "state": "待对照"}
+    {
+     "name": "冠饰的形制与高度",
+     "state": "待对照"
+    },
+    {
+     "name": "长须与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "交领宽袖的衣领走向",
+     "state": "待对照"
+    }
    ],
-   "inferred": ["背面与侧面全部为推定（原作为单幅正面或四分之三侧画像）", "冠服的厚度与体积为推定", "材质改为白石，属视觉简化"],
+   "inferred": [
+    "背面与侧面全部为推定（原作为单幅正面或四分之三侧画像）",
+    "冠服的厚度与体积为推定",
+    "材质改为白石，属视觉简化"
+   ],
    "usage": {
     "original": "原作年代约 1658 年，著作权早已届满",
     "reference": "馆藏页标注 Public Domain，提供下载",
@@ -33,11 +108,2218 @@
     "thumbnail": "条件允许，但本版不内嵌图像，改为链接馆藏页"
    },
    "model": null,
-   "pending": ["在馆藏页高清图上逐项核对三项特征", "按正面与四分之三角度制作简化胸像并输出 USDZ", "与参考图按相同角度出对照截图"],
+   "pending": [
+    "在馆藏页高清图上逐项核对三项特征",
+    "按正面与四分之三角度制作简化胸像并输出 USDZ",
+    "与参考图按相同角度出对照截图"
+   ],
    "alternates": [
-    {"work": "至圣先师像（清雍正十二年刻石，允礼绘）", "institution": "西安碑林博物馆（据华盛顿大学东亚图书馆拓片说明）", "url": "https://depts.washington.edu/ealclir/wordpress/?p=279"},
-    {"work": "至圣先贤半身像册（120 人，元代以后）", "institution": "国立故宫博物院（台北），编号 中-畫-000329-00000", "url": "https://theme.npm.edu.tw/exh106/Confucius/en/index.html"}
-   ]
+    {
+     "work": "至圣先师像（清雍正十二年刻石，允礼绘）",
+     "institution": "西安碑林博物馆（据华盛顿大学东亚图书馆拓片说明）",
+     "url": "https://depts.washington.edu/ealclir/wordpress/?p=279"
+    },
+    {
+     "work": "至圣先贤半身像册（120 人，元代以后）",
+     "institution": "国立故宫博物院（台北），编号 中-畫-000329-00000",
+     "url": "https://theme.npm.edu.tw/exh106/Confucius/en/index.html"
+    }
+   ],
+   "verification": "人工打开馆方藏品页核对（2026-11-26）"
+  },
+  {
+   "id": "mozi",
+   "kind": "none",
+   "kindLabel": "原型待查",
+   "status": "待考",
+   "work": "未找到有馆藏记录的原型",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "墨子 前 470—前 391 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q272411",
+   "reason": "Wikidata、Europeana 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
+   "relation": "未载",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在找到原型之前，全部造型均为推定"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "未载",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "在博物馆、图书馆、档案馆中查找有明确馆藏记录的画像或雕塑"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "mengzi",
+   "kind": "tradition",
+   "kindLabel": "据后世传统形象建模",
+   "status": "待考",
+   "work": "Portrait of Fridericus Menzius",
+   "author": "https://d-nb.info/gnd/116146826",
+   "date": "1735 年",
+   "sitterDates": "孟子 前 372—前 289 年",
+   "institution": "Leipzig University Library",
+   "accession": "未载",
+   "url": "http://www.portraitindex.de/documents/obj/33205817",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘孟子的作品 3 件；此件为肖像图像，收藏信息不全，馆方页面可以打开。",
+   "relation": "身后作品：晚于孟子去世约 2024 年，反映后世对其形象的理解，并非写真。",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "开放许可：公有领域标记（PDM）（http://creativecommons.org/publicdomain/mark/1.0/）",
+    "existing3D": "未查",
+    "license": "公有领域标记（PDM）（http://creativecommons.org/publicdomain/mark/1.0/）",
+    "attribution": "Leipzig University Library",
+    "adapt": "允许（公有领域）",
+    "distribute": "允许",
+    "thumbnail": "条件允许，本版不内嵌，链接馆方页"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "未载（画像，Qiu Ying，年代未载）",
+     "institution": "Shanghai Museum",
+     "url": "https://www.shanghaimuseum.net/mu/frontend/pg/article/id/CI00000973"
+    },
+    {
+     "work": "未载（画像，作者未载，年代未载）",
+     "institution": "Shanghai Museum",
+     "url": "https://www.wikidata.org/wiki/Q132602713"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "zhuangzi",
+   "kind": "tradition",
+   "kindLabel": "据后世传统形象建模",
+   "status": "待考",
+   "work": "未载",
+   "author": "Hua Zuli",
+   "date": "1326 年，paper",
+   "sitterDates": "庄子 前 369—前 286 年",
+   "institution": "Shanghai Museum",
+   "accession": "未载",
+   "url": "https://www.shanghaimuseum.net/mu/frontend/pg/article/id/CI00000823",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘庄子的作品 1 件；此件为画像，收藏信息不全，馆方页面可以打开。",
+   "relation": "身后作品：晚于庄子去世约 1612 年，反映后世对其形象的理解，并非写真。",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "馆方图像的使用条件未核",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "Shanghai Museum",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "xunzi",
+   "kind": "portrait",
+   "kindLabel": "据画像建模",
+   "status": "待考",
+   "work": "未载",
+   "author": "未载",
+   "date": "未载，paper",
+   "sitterDates": "荀子 前 313—前 238 年",
+   "institution": "National Museum of China",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q132570229",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘荀子的作品 1 件；此件为画像，收藏信息不全，未找到可打开的馆方页面。",
+   "relation": "作品年代未载，与人物本人的关系待查。",
+   "features": [
+    {
+     "name": "头部外轮廓与面部比例",
+     "state": "待对照"
+    },
+    {
+     "name": "发型或头饰",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "馆方图像的使用条件未核",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "National Museum of China",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "找到该作品的馆方藏品页（目前只有 Wikidata 线索）",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "hanfei",
+   "kind": "none",
+   "kindLabel": "原型待查",
+   "status": "待考",
+   "work": "未找到有馆藏记录的原型",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "韩非 前 280—前 233 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q28959",
+   "reason": "Wikidata、Europeana 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
+   "relation": "未载",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在找到原型之前，全部造型均为推定"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "未载",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "在博物馆、图书馆、档案馆中查找有明确馆藏记录的画像或雕塑"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "dongzhongshu",
+   "kind": "none",
+   "kindLabel": "原型待查",
+   "status": "待考",
+   "work": "未找到有馆藏记录的原型",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "董仲舒 前 179—前 104 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q445626",
+   "reason": "Wikidata、Europeana 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
+   "relation": "未载",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在找到原型之前，全部造型均为推定"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "未载",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "在博物馆、图书馆、档案馆中查找有明确馆藏记录的画像或雕塑"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "huineng",
+   "kind": "tradition",
+   "kindLabel": "据后世传统形象建模",
+   "status": "待考",
+   "work": "The Sixth Patriarch Carrying a Pole",
+   "author": "Zhi Weng",
+   "date": "1255 年",
+   "sitterDates": "慧能 638—713 年",
+   "institution": "Gotoh Museum",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q107045337",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘慧能的作品 1 件；此件为画像，收藏信息不全，未找到可打开的馆方页面。",
+   "relation": "身后作品：晚于慧能去世约 542 年，反映后世对其形象的理解，并非写真。",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "馆方图像的使用条件未核",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "Gotoh Museum",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "找到该作品的馆方藏品页（目前只有 Wikidata 线索）",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "zhuxi",
+   "kind": "portrait",
+   "kindLabel": "据画像建模",
+   "status": "待考",
+   "work": "Målning, Bildkonst, Porträtt av Zhu Xi, Painting, Graphics",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "朱熹 1130—1200 年",
+   "institution": "Museum of Far Eastern Antiquities",
+   "accession": "未载",
+   "url": "https://collections.smvk.se/carlotta-om/web/object/104523",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘朱熹的作品 2 件；此件为肖像图像，收藏信息不全，馆方页面可以打开。",
+   "relation": "作品年代未载，与人物本人的关系待查。",
+   "features": [
+    {
+     "name": "头部外轮廓与面部比例",
+     "state": "待对照"
+    },
+    {
+     "name": "发型或头饰",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "开放许可：CC0（http://creativecommons.org/publicdomain/zero/1.0/）",
+    "existing3D": "未查",
+    "license": "CC0（http://creativecommons.org/publicdomain/zero/1.0/）",
+    "attribution": "Museum of Far Eastern Antiquities",
+    "adapt": "允许（公有领域）",
+    "distribute": "允许",
+    "thumbnail": "条件允许，本版不内嵌，链接馆方页"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "Portrait of Zhu Xi (1130-1200)（画像，作者未载，年代未载）",
+     "institution": "Harvard Art Museums，编号 1985.929",
+     "url": "https://www.wikidata.org/wiki/Q106852184"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "wangyangming",
+   "kind": "portrait",
+   "kindLabel": "据画像建模",
+   "status": "待考",
+   "work": "未载",
+   "author": "Cai Shixin",
+   "date": "未载，paper",
+   "sitterDates": "王阳明 1472—1529 年",
+   "institution": "Shanghai Museum",
+   "accession": "未载",
+   "url": "https://www.shanghaimuseum.net/mu/frontend/pg/article/id/CI00004944",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘王阳明的作品 1 件；此件为画像，收藏信息不全，馆方页面可以打开。",
+   "relation": "作品年代未载，与人物本人的关系待查。",
+   "features": [
+    {
+     "name": "头部外轮廓与面部比例",
+     "state": "待对照"
+    },
+    {
+     "name": "发型或头饰",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "馆方图像的使用条件未核",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "Shanghai Museum",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "wangfuzhi",
+   "kind": "none",
+   "kindLabel": "原型待查",
+   "status": "待考",
+   "work": "未找到有馆藏记录的原型",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "王夫之 1619—1692 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q714374",
+   "reason": "Wikidata、Europeana 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
+   "relation": "未载",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在找到原型之前，全部造型均为推定"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "未载",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "在博物馆、图书馆、档案馆中查找有明确馆藏记录的画像或雕塑"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "zhouyi",
+   "kind": "none",
+   "kindLabel": "原型待查",
+   "status": "待考",
+   "work": "未找到有馆藏记录的原型",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "《周易》 前 1046—前 771 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q181937",
+   "reason": "Wikidata、Europeana 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
+   "relation": "未载",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在找到原型之前，全部造型均为推定"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "未载",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "在博物馆、图书馆、档案馆中查找有明确馆藏记录的画像或雕塑"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "guanzhong",
+   "kind": "none",
+   "kindLabel": "原型待查",
+   "status": "待考",
+   "work": "未找到有馆藏记录的原型",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "管仲 前 723—前 645 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q457972",
+   "reason": "Wikidata、Europeana 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
+   "relation": "未载",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在找到原型之前，全部造型均为推定"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "未载",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "在博物馆、图书馆、档案馆中查找有明确馆藏记录的画像或雕塑"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "sunwu",
+   "kind": "none",
+   "kindLabel": "原型待查",
+   "status": "待考",
+   "work": "未找到有馆藏记录的原型",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "孙子 前 545—前 470 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q37151",
+   "reason": "Wikidata、Europeana 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
+   "relation": "未载",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在找到原型之前，全部造型均为推定"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "未载",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "在博物馆、图书馆、档案馆中查找有明确馆藏记录的画像或雕塑"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "zisi",
+   "kind": "none",
+   "kindLabel": "原型待查",
+   "status": "待考",
+   "work": "未找到有馆藏记录的原型",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "子思（《礼记》） 前 483—前 402 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q1147803",
+   "reason": "Wikidata、Europeana 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
+   "relation": "未载",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在找到原型之前，全部造型均为推定"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "未载",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "在博物馆、图书馆、档案馆中查找有明确馆藏记录的画像或雕塑"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "liezi",
+   "kind": "none",
+   "kindLabel": "原型待查",
+   "status": "待考",
+   "work": "未找到有馆藏记录的原型",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "列子 前 450—前 375 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q434429",
+   "reason": "Wikidata、Europeana 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
+   "relation": "未载",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在找到原型之前，全部造型均为推定"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "未载",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "在博物馆、图书馆、档案馆中查找有明确馆藏记录的画像或雕塑"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "gongsunlong",
+   "kind": "none",
+   "kindLabel": "原型待查",
+   "status": "待考",
+   "work": "未找到有馆藏记录的原型",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "公孙龙 前 320—前 250 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q1362266",
+   "reason": "Wikidata、Europeana 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
+   "relation": "未载",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在找到原型之前，全部造型均为推定"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "未载",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "在博物馆、图书馆、档案馆中查找有明确馆藏记录的画像或雕塑"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "wangchong",
+   "kind": "none",
+   "kindLabel": "原型待查",
+   "status": "待考",
+   "work": "未找到有馆藏记录的原型",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "王充 27—97 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q319329",
+   "reason": "Wikidata、Europeana 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
+   "relation": "未载",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在找到原型之前，全部造型均为推定"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "未载",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "在博物馆、图书馆、档案馆中查找有明确馆藏记录的画像或雕塑"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "zhoudunyi",
+   "kind": "tradition",
+   "kindLabel": "据后世传统形象建模",
+   "status": "待考",
+   "work": "Zhou Maoshu Admiring Lotuses",
+   "author": "Kanō Masanobu",
+   "date": "1500 年",
+   "sitterDates": "周敦颐 1017—1073 年",
+   "institution": "Kyushu National Museum",
+   "accession": "A35",
+   "url": "https://www.wikidata.org/wiki/Q107047024",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘周敦颐的作品 2 件；此件为画像，收藏机构与编号齐全，未找到可打开的馆方页面。",
+   "relation": "身后作品：晚于周敦颐去世约 427 年，反映后世对其形象的理解，并非写真。",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "馆方图像的使用条件未核",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "Kyushu National Museum, A35",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "找到该作品的馆方藏品页（目前只有 Wikidata 线索）",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "未载（画像，作者未载，年代未载）",
+     "institution": "National Museum of China",
+     "url": "https://www.wikidata.org/wiki/Q132570298"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "zhangzai",
+   "kind": "none",
+   "kindLabel": "原型待查",
+   "status": "待考",
+   "work": "未找到有馆藏记录的原型",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "张载 1020—1077 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q197338",
+   "reason": "Wikidata、Europeana 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
+   "relation": "未载",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在找到原型之前，全部造型均为推定"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "未载",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "在博物馆、图书馆、档案馆中查找有明确馆藏记录的画像或雕塑"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "ercheng",
+   "kind": "portrait",
+   "kindLabel": "据画像建模",
+   "status": "待考",
+   "work": "未载",
+   "author": "未载",
+   "date": "未载，paper",
+   "sitterDates": "二程 1032—1107 年",
+   "institution": "National Museum of China",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q132570306",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘二程的作品 1 件；此件为画像，收藏信息不全，未找到可打开的馆方页面。",
+   "relation": "作品年代未载，与人物本人的关系待查。",
+   "features": [
+    {
+     "name": "头部外轮廓与面部比例",
+     "state": "待对照"
+    },
+    {
+     "name": "发型或头饰",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "馆方图像的使用条件未核",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "National Museum of China",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "找到该作品的馆方藏品页（目前只有 Wikidata 线索）",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "luxiangshan",
+   "kind": "none",
+   "kindLabel": "原型待查",
+   "status": "待考",
+   "work": "未找到有馆藏记录的原型",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "陆九渊 1139—1193 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q2466384",
+   "reason": "Wikidata、Europeana 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
+   "relation": "未载",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在找到原型之前，全部造型均为推定"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "未载",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "在博物馆、图书馆、档案馆中查找有明确馆藏记录的画像或雕塑"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "guyanwu",
+   "kind": "none",
+   "kindLabel": "原型待查",
+   "status": "待考",
+   "work": "未找到有馆藏记录的原型",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "顾炎武 1613—1682 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q1195906",
+   "reason": "Wikidata、Europeana 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
+   "relation": "未载",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在找到原型之前，全部造型均为推定"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "未载",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "在博物馆、图书馆、档案馆中查找有明确馆藏记录的画像或雕塑"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "socrates",
+   "kind": "tradition",
+   "kindLabel": "据后世传统形象建模",
+   "status": "待考",
+   "work": "Antieke buste van Socrates",
+   "author": "未载",
+   "date": "1638 年",
+   "sitterDates": "苏格拉底 前 470—前 399 年",
+   "institution": "Rijksmuseum",
+   "accession": "未载",
+   "url": "http://hdl.handle.net/10934/RM0001.COLLECT.166029",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘苏格拉底的作品 43 件；此件为胸像，收藏信息不全，馆方页面可以打开。",
+   "relation": "身后作品：晚于苏格拉底去世约 2037 年，反映后世对其形象的理解，并非写真。",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "开放许可：公有领域标记（PDM）（http://creativecommons.org/publicdomain/mark/1.0/）",
+    "existing3D": "未查",
+    "license": "公有领域标记（PDM）（http://creativecommons.org/publicdomain/mark/1.0/）",
+    "attribution": "Rijksmuseum",
+    "adapt": "允许（公有领域）",
+    "distribute": "允许",
+    "thumbnail": "条件允许，本版不内嵌，链接馆方页"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "Portretbuste van Socrates（胸像，作者未载，年代未载）",
+     "institution": "Rijksmuseum",
+     "url": "http://hdl.handle.net/10934/RM0001.collect.80850"
+    },
+    {
+     "work": "Socrates and Alcibiades（画像，Kristian Zahrtmann，1911）",
+     "institution": "Statens Museum for Kunst，编号 KMS8219",
+     "url": "https://open.smk.dk/artwork/image/KMS8219"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "plato",
+   "kind": "tradition",
+   "kindLabel": "据后世传统形象建模",
+   "status": "待考",
+   "work": "Medallion with Plato",
+   "author": "Wedgwood Manufactory",
+   "date": "1775 年，Stoneware (jasperware)",
+   "sitterDates": "柏拉图 前 427—前 347 年",
+   "institution": "Art Institute of Chicago",
+   "accession": "1912.1154",
+   "url": "https://www.artic.edu/artworks/67966",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘柏拉图的作品 26 件；此件为雕塑，收藏机构与编号齐全，馆方页面可以打开。",
+   "relation": "身后作品：晚于柏拉图去世约 2122 年，反映后世对其形象的理解，并非写真。",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "开放许可：CC0（芝加哥艺术博物馆开放获取）",
+    "existing3D": "未查",
+    "license": "CC0（芝加哥艺术博物馆开放获取）",
+    "attribution": "Art Institute of Chicago, 1912.1154",
+    "adapt": "允许（公有领域）",
+    "distribute": "允许",
+    "thumbnail": "条件允许，本版不内嵌，链接馆方页"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "Plato（画像，Pedro Berruguete，1476）",
+     "institution": "Department of Paintings of the Louvre，编号 MI 655",
+     "url": "https://rkd.nl/explore/images/44213"
+    },
+    {
+     "work": "Bildnis des Plato（肖像图像，作者未载，年代未载）",
+     "institution": "Leipzig University Library",
+     "url": "http://www.portraitindex.de/documents/obj/33206920"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "aristotle",
+   "kind": "tradition",
+   "kindLabel": "据后世传统形象建模",
+   "status": "待考",
+   "work": "Büste des Aristoteles",
+   "author": "https://d-nb.info/gnd/104242337",
+   "date": "1549 年",
+   "sitterDates": "亚里士多德 前 384—前 322 年",
+   "institution": "The Albertina Museum",
+   "accession": "未载",
+   "url": "https://sammlungenonline.albertina.at/objects/383909",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘亚里士多德的作品 35 件；此件为胸像，收藏信息不全，馆方页面可以打开。",
+   "relation": "身后作品：晚于亚里士多德去世约 1871 年，反映后世对其形象的理解，并非写真。",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "开放许可：公有领域标记（PDM）（http://creativecommons.org/publicdomain/mark/1.0/）",
+    "existing3D": "未查",
+    "license": "公有领域标记（PDM）（http://creativecommons.org/publicdomain/mark/1.0/）",
+    "attribution": "The Albertina Museum",
+    "adapt": "允许（公有领域）",
+    "distribute": "允许",
+    "thumbnail": "条件允许，本版不内嵌，链接馆方页"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "Buste van Aristoteles（胸像，作者未载，1546）",
+     "institution": "Rijksmuseum",
+     "url": "http://hdl.handle.net/10934/RM0001.COLLECT.188425"
+    },
+    {
+     "work": "Aristotle with a Bust of Homer（画像，Rembrandt，1653）",
+     "institution": "Metropolitan Museum of Art，编号 61.198",
+     "url": "https://rkd.nl/explore/images/53707"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "lucretius",
+   "kind": "tradition",
+   "kindLabel": "据后世传统形象建模",
+   "status": "待考",
+   "work": "The Oath of Brutus",
+   "author": "Édouard Cabane",
+   "date": "1885 年，canvas",
+   "sitterDates": "卢克莱修 前 99—前 55 年",
+   "institution": "Musée des Beaux-Arts de Bordeaux",
+   "accession": "58",
+   "url": "https://www.wikidata.org/wiki/Q18818954",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘卢克莱修的作品 1 件；此件为画像，收藏机构与编号齐全，未找到可打开的馆方页面。",
+   "relation": "身后作品：晚于卢克莱修去世约 1940 年，反映后世对其形象的理解，并非写真。",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "馆方图像的使用条件未核",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "Musée des Beaux-Arts de Bordeaux, 58",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "找到该作品的馆方藏品页（目前只有 Wikidata 线索）",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "epictetus",
+   "kind": "none",
+   "kindLabel": "原型待查",
+   "status": "待考",
+   "work": "未找到有馆藏记录的原型",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "爱比克泰德 50—135 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q183144",
+   "reason": "Wikidata、Europeana 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
+   "relation": "未载",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在找到原型之前，全部造型均为推定"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "未载",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "在博物馆、图书馆、档案馆中查找有明确馆藏记录的画像或雕塑"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "marcusaurelius",
+   "kind": "sculpture",
+   "kindLabel": "据雕塑建模",
+   "status": "待考",
+   "work": "Musée Fenaille, inv 845 1 1",
+   "author": "未载",
+   "date": "121 年，marble",
+   "sitterDates": "马可·奥勒留 121—180 年",
+   "institution": "Musée Fenaille",
+   "accession": "845.1.1",
+   "url": "https://musee-fenaille.rodezagglo.fr/chefs-doeuvres/buste-de-marc-aurele/",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘马可·奥勒留的作品 25 件；此件为雕塑，作于人物生前，收藏机构与编号齐全，馆方页面可以打开。",
+   "relation": "生前作品：作于 121 年，马可·奥勒留时年约 0 岁。",
+   "features": [
+    {
+     "name": "头部外轮廓与面部比例",
+     "state": "待对照"
+    },
+    {
+     "name": "发型",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与胸像截断方式",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "馆方图像的使用条件未核",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "Musée Fenaille, 845.1.1",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "Ruins of Ancient Rome with a Bas-relief Showing the Sacrifice of Marcus Aurelius（画像，Cornelius van Poelenburgh，1620）",
+     "institution": "Department of Paintings of the Louvre，编号 MR 581",
+     "url": "https://rkd.nl/explore/images/231597"
+    },
+    {
+     "work": "Cameo with Marcus Aurelius and Faustina minor as Jupiter and Juno（雕塑，作者未载，0200）",
+     "institution": "Ancient art in the Landesmuseum Württemberg，编号 Arch 62/3",
+     "url": "http://www.museum-digital.de/bawue/index.php?t=objekt&oges=124"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "augustine",
+   "kind": "tradition",
+   "kindLabel": "据后世传统形象建模",
+   "status": "待考",
+   "work": "Portrait of Augustine Taylor",
+   "author": "John Ramage",
+   "date": "1777 年，Watercolor on ivory",
+   "sitterDates": "奥古斯丁 354—430 年",
+   "institution": "Art Institute of Chicago",
+   "accession": "1964.141",
+   "url": "https://www.artic.edu/artworks/20475",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘奥古斯丁的作品 87 件；此件为画像，收藏机构与编号齐全，馆方页面可以打开。",
+   "relation": "身后作品：晚于奥古斯丁去世约 1347 年，反映后世对其形象的理解，并非写真。",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "开放许可：CC0（芝加哥艺术博物馆开放获取）",
+    "existing3D": "未查",
+    "license": "CC0（芝加哥艺术博物馆开放获取）",
+    "attribution": "Art Institute of Chicago, 1964.141",
+    "adapt": "允许（公有领域）",
+    "distribute": "允许",
+    "thumbnail": "条件允许，本版不内嵌，链接馆方页"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "Portrait of Madame Jules Ricard, née Augustine Bulteau（素描，Fernand Khnopff (Belgian, 1858–1921)，1888）",
+     "institution": "Cleveland Museum of Art，编号 2018.206",
+     "url": "https://clevelandart.org/art/2018.206"
+    },
+    {
+     "work": "Middelburg Altarpiece（画像，Rogier van der Weyden，1440）",
+     "institution": "Gemäldegalerie Berlin，编号 535",
+     "url": "https://www.wga.hu/frames-e.html?/html/w/weyden/rogier/07bladel/0bladel.html"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "aquinas",
+   "kind": "tradition",
+   "kindLabel": "据后世传统形象建模",
+   "status": "待考",
+   "work": "San Pietro Martire Triptych",
+   "author": "Fra Angelico",
+   "date": "1420 年，panel",
+   "sitterDates": "阿奎那 1225—1274 年",
+   "institution": "Museum of San Marco",
+   "accession": "P.1966.GP.10.2",
+   "url": "https://web.archive.org/web/20241217164146/https://catalogo.uffizi.it/it/29/ricerca/detailiccd/1175455/",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘阿奎那的作品 57 件；此件为画像，收藏机构与编号齐全，馆方页面可以打开。",
+   "relation": "身后作品：晚于阿奎那去世约 146 年，反映后世对其形象的理解，并非写真。",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "馆方图像的使用条件未核",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "Museum of San Marco, P.1966.GP.10.2",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "Saint Thomas Aquinas（画像，Juan de Peñalosa y Sandoval，1610）",
+     "institution": "Museum of Fine Arts of Córdoba，编号 CE2433P",
+     "url": "http://ceres.mcu.es/pages/Main?idt=125767&inventary=CE2433P&table=FMUS&museum=MBACO"
+    },
+    {
+     "work": "Saint Thomas Aquinas（画像，Giovanni Battista Bertucci，1514）",
+     "institution": "Museum of Fine Arts, Houston，编号 64.34",
+     "url": "https://rkd.nl/explore/images/219313"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "machiavelli",
+   "kind": "tradition",
+   "kindLabel": "据后世传统形象建模",
+   "status": "待考",
+   "work": "Portret van Niccolò Machiavelli",
+   "author": "未载",
+   "date": "1807 年",
+   "sitterDates": "马基雅维利 1469—1527 年",
+   "institution": "Rijksmuseum",
+   "accession": "未载",
+   "url": "http://hdl.handle.net/10934/RM0001.COLLECT.95577",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘马基雅维利的作品 7 件；此件为肖像图像，收藏信息不全，馆方页面可以打开。",
+   "relation": "身后作品：晚于马基雅维利去世约 280 年，反映后世对其形象的理解，并非写真。",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "开放许可：公有领域标记（PDM）（http://creativecommons.org/publicdomain/mark/1.0/）",
+    "existing3D": "未查",
+    "license": "公有领域标记（PDM）（http://creativecommons.org/publicdomain/mark/1.0/）",
+    "attribution": "Rijksmuseum",
+    "adapt": "允许（公有领域）",
+    "distribute": "允许",
+    "thumbnail": "条件允许，本版不内嵌，链接馆方页"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "Portret van Niccolò Machiavelli（肖像图像，作者未载，年代未载）",
+     "institution": "Rijksmuseum",
+     "url": "http://hdl.handle.net/10934/RM0001.COLLECT.185778"
+    },
+    {
+     "work": "Porträts Nicolo di Bernardo Machiavelli（肖像图像，GalganoCipriani，年代未载）",
+     "institution": "The Albertina Museum",
+     "url": "https://sammlungenonline.albertina.at/objects/445632"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "hobbes",
+   "kind": "portrait",
+   "kindLabel": "据画像建模",
+   "status": "待考",
+   "work": "Porträt Thomas Hobbes",
+   "author": "http://data.europeana.eu/agent/71293",
+   "date": "1665 年",
+   "sitterDates": "霍布斯 1588—1679 年",
+   "institution": "The Albertina Museum",
+   "accession": "未载",
+   "url": "https://sammlungenonline.albertina.at/objects/401755",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘霍布斯的作品 15 件；此件为肖像图像，作于人物生前，收藏信息不全，馆方页面可以打开。",
+   "relation": "生前作品：作于 1665 年，霍布斯时年约 77 岁。",
+   "features": [
+    {
+     "name": "头部外轮廓与面部比例",
+     "state": "待对照"
+    },
+    {
+     "name": "发型或头饰",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "开放许可：公有领域标记（PDM）（http://creativecommons.org/publicdomain/mark/1.0/）",
+    "existing3D": "未查",
+    "license": "公有领域标记（PDM）（http://creativecommons.org/publicdomain/mark/1.0/）",
+    "attribution": "The Albertina Museum",
+    "adapt": "允许（公有领域）",
+    "distribute": "允许",
+    "thumbnail": "条件允许，本版不内嵌，链接馆方页"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "Porträt Thomas Hobbes（肖像图像，http://data.europeana.eu/agent/153386，年代未载）",
+     "institution": "The Albertina Museum",
+     "url": "https://sammlungenonline.albertina.at/objects/599051"
+    },
+    {
+     "work": "Bildnis des Thom. Hobbes（肖像图像，作者未载，年代未载）",
+     "institution": "Leipzig University Library",
+     "url": "http://www.portraitindex.de/documents/obj/33203668"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "descartes",
+   "kind": "portrait",
+   "kindLabel": "据画像建模",
+   "status": "待考",
+   "work": "Portrait of René Descartes",
+   "author": "Frans Hals",
+   "date": "1649 年，oak panel",
+   "sitterDates": "笛卡尔 1596—1650 年",
+   "institution": "Statens Museum for Kunst",
+   "accession": "DEP7",
+   "url": "https://open.smk.dk/en/artwork/image/DEP7",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘笛卡尔的作品 28 件；此件为画像，作于人物生前，收藏机构与编号齐全，馆方页面可以打开。",
+   "relation": "生前作品：作于 1649 年，笛卡尔时年约 53 岁。",
+   "features": [
+    {
+     "name": "头部外轮廓与面部比例",
+     "state": "待对照"
+    },
+    {
+     "name": "发型或头饰",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "馆方图像的使用条件未核",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "Statens Museum for Kunst, DEP7",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "Portrait of René Descartes（画像，作者未载，1649）",
+     "institution": "Department of Paintings of the Louvre，编号 INV 1317",
+     "url": "https://rkd.nl/explore/images/181018"
+    },
+    {
+     "work": "Portrait of René Descartes（画像，Jan Baptist Weenix，1647）",
+     "institution": "Museum Catharijneconvent，编号 7386",
+     "url": "https://rkd.nl/explore/images/172768"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "pascal",
+   "kind": "portrait",
+   "kindLabel": "据画像建模",
+   "status": "待考",
+   "work": "Blaise Pascal, philosopher and mathematician",
+   "author": "未载",
+   "date": "1690 年，canvas",
+   "sitterDates": "帕斯卡 1623—1662 年",
+   "institution": "Palace of Versailles",
+   "accession": "MV 5527",
+   "url": "https://collections.chateauversailles.fr/#/query/ba8dcda2-ed70-44f4-8eaa-de646f19e1db",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘帕斯卡的作品 88 件；此件为画像，收藏机构与编号齐全，馆方页面可以打开。",
+   "relation": "身后作品：晚于帕斯卡去世约 28 年，反映后世对其形象的理解，并非写真。",
+   "features": [
+    {
+     "name": "头部外轮廓与面部比例",
+     "state": "待对照"
+    },
+    {
+     "name": "发型或头饰",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "馆方图像的使用条件未核",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "Palace of Versailles, MV 5527",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "Porträt Pascal Paoli（肖像图像，http://data.europeana.eu/agent/41663，1768）",
+     "institution": "The Albertina Museum",
+     "url": "https://sammlungenonline.albertina.at/objects/553222"
+    },
+    {
+     "work": "Porträt Pascal Paoli（肖像图像，RichardHouston，1769）",
+     "institution": "The Albertina Museum",
+     "url": "https://sammlungenonline.albertina.at/objects/606097"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "spinoza",
+   "kind": "portrait",
+   "kindLabel": "据画像建模",
+   "status": "待考",
+   "work": "未载",
+   "author": "未载",
+   "date": "1659 年，oil paint",
+   "sitterDates": "斯宾诺莎 1632—1677 年",
+   "institution": "Museum Catharijneconvent",
+   "accession": "StCC s44",
+   "url": "https://rkd.nl/explore/images/60703",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘斯宾诺莎的作品 13 件；此件为画像，作于人物生前，收藏机构与编号齐全，馆方页面可以打开。",
+   "relation": "生前作品：作于 1659 年，斯宾诺莎时年约 27 岁。",
+   "features": [
+    {
+     "name": "头部外轮廓与面部比例",
+     "state": "待对照"
+    },
+    {
+     "name": "发型或头饰",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "馆方图像的使用条件未核",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "Museum Catharijneconvent, StCC s44",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "Portrait of Benedictus (Baruch) Spinoza (1632-1677)（画像，作者未载，1665）",
+     "institution": "Kunstmuseum Den Haag，编号 MB01920",
+     "url": "https://rkd.nl/explore/images/16530"
+    },
+    {
+     "work": "Portret van Baruch de Spinoza（肖像图像，作者未载，年代未载）",
+     "institution": "Rijksmuseum",
+     "url": "http://hdl.handle.net/10934/RM0001.COLLECT.508110"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "locke",
+   "kind": "portrait",
+   "kindLabel": "据画像建模",
+   "status": "待考",
+   "work": "John Locke",
+   "author": "Herman Verelst",
+   "date": "1689 年，canvas",
+   "sitterDates": "洛克 1632—1704 年",
+   "institution": "National Portrait Gallery",
+   "accession": "NPG 3846",
+   "url": "https://rkd.nl/explore/images/287456",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘洛克的作品 26 件；此件为画像，作于人物生前，收藏机构与编号齐全，馆方页面可以打开。",
+   "relation": "生前作品：作于 1689 年，洛克时年约 57 岁。",
+   "features": [
+    {
+     "name": "头部外轮廓与面部比例",
+     "state": "待对照"
+    },
+    {
+     "name": "发型或头饰",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "馆方图像的使用条件未核",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "National Portrait Gallery, NPG 3846",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "Bildnis des Joh. Locke（肖像图像，https://d-nb.info/gnd/11661451X，年代未载）",
+     "institution": "Leipzig University Library",
+     "url": "http://www.portraitindex.de/documents/obj/33205209"
+    },
+    {
+     "work": "Bildnis des Iean Locke（肖像图像，https://d-nb.info/gnd/128821779，年代未载）",
+     "institution": "Leipzig University Library",
+     "url": "http://www.portraitindex.de/documents/obj/33205206"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "leibniz",
+   "kind": "sculpture",
+   "kindLabel": "据雕塑建模",
+   "status": "待考",
+   "work": "die Büsten von Leibniz, Friedrich dem Großen, Kopernikus, Kant, Luther und Klopstock",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "莱布尼茨 1646—1716 年",
+   "institution": "Art Collection of the University Göttingen",
+   "accession": "未载",
+   "url": "https://hdl.handle.net/21.11107/414c4b7c-c010-4918-a4bc-41e54202976f",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘莱布尼茨的作品 13 件；此件为胸像，收藏信息不全，馆方页面可以打开。",
+   "relation": "作品年代未载，与人物本人的关系待查。",
+   "features": [
+    {
+     "name": "头部外轮廓与面部比例",
+     "state": "待对照"
+    },
+    {
+     "name": "发型",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与胸像截断方式",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "开放许可：CC0（http://creativecommons.org/publicdomain/zero/1.0/）",
+    "existing3D": "未查",
+    "license": "CC0（http://creativecommons.org/publicdomain/zero/1.0/）",
+    "attribution": "Art Collection of the University Göttingen",
+    "adapt": "允许（公有领域）",
+    "distribute": "允许",
+    "thumbnail": "条件允许，本版不内嵌，链接馆方页"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "Portrait of Gottfried Wilhelm Leibniz（画像，Christoph Bernhard Francke，1695）",
+     "institution": "Herzog Anton Ulrich Museum，编号 GG 558",
+     "url": "https://rkd.nl/explore/images/284162"
+    },
+    {
+     "work": "Büste des Gottfried Wilhelm von Leibniz（胸像，作者未载，年代未载）",
+     "institution": "Art Collection of the University Göttingen",
+     "url": "https://hdl.handle.net/21.11107/cf7ba5c5-3369-4fcb-8815-813a8636f89d"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "berkeley",
+   "kind": "portrait",
+   "kindLabel": "据画像建模",
+   "status": "待考",
+   "work": "George Berkeley",
+   "author": "John Smibert",
+   "date": "1730 年，oil paint",
+   "sitterDates": "贝克莱 1685—1753 年",
+   "institution": "National Portrait Gallery",
+   "accession": "NPG 653",
+   "url": "https://www.wikidata.org/wiki/Q28045221",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘贝克莱的作品 5 件；此件为画像，作于人物生前，收藏机构与编号齐全，未找到可打开的馆方页面。",
+   "relation": "生前作品：作于 1730 年，贝克莱时年约 45 岁。",
+   "features": [
+    {
+     "name": "头部外轮廓与面部比例",
+     "state": "待对照"
+    },
+    {
+     "name": "发型或头饰",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "馆方图像的使用条件未核",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "National Portrait Gallery, NPG 653",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "找到该作品的馆方藏品页（目前只有 Wikidata 线索）",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "Bishop George Berkeley（画像，John Smibert，1727）",
+     "institution": "National Portrait Gallery，编号 NPG.89.25",
+     "url": "https://www.wikidata.org/wiki/Q28796808"
+    },
+    {
+     "work": "Bishop George Berkeley（画像，作者未载，1727）",
+     "institution": "National Portrait Gallery，编号 S/NPG.77.11",
+     "url": "https://www.wikidata.org/wiki/Q47512656"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "hume",
+   "kind": "portrait",
+   "kindLabel": "据画像建模",
+   "status": "待考",
+   "work": "Bildnis des David Hume",
+   "author": "Richards,? (1756) (Designing), 1756-1756 (Silhouettenschneider)",
+   "date": "未载",
+   "sitterDates": "休谟 1711—1776 年",
+   "institution": "Leipzig University Library",
+   "accession": "未载",
+   "url": "http://www.portraitindex.de/documents/obj/33203919",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘休谟的作品 13 件；此件为肖像图像，收藏信息不全，馆方页面可以打开。",
+   "relation": "作品年代未载，与人物本人的关系待查。",
+   "features": [
+    {
+     "name": "头部外轮廓与面部比例",
+     "state": "待对照"
+    },
+    {
+     "name": "发型或头饰",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "开放许可：公有领域标记（PDM）（http://creativecommons.org/publicdomain/mark/1.0/）",
+    "existing3D": "未查",
+    "license": "公有领域标记（PDM）（http://creativecommons.org/publicdomain/mark/1.0/）",
+    "attribution": "Leipzig University Library",
+    "adapt": "允许（公有领域）",
+    "distribute": "允许",
+    "thumbnail": "条件允许，本版不内嵌，链接馆方页"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "Bildnis des David Hume（肖像图像，Page,? Production (unsecured) (eraser)，1825）",
+     "institution": "Leipzig University Library",
+     "url": "http://www.portraitindex.de/documents/obj/33211212"
+    },
+    {
+     "work": "Bildnis des David Hume（肖像图像，David Martin，年代未载）",
+     "institution": "Leipzig University Library",
+     "url": "http://www.portraitindex.de/documents/obj/33213605"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "rousseau",
+   "kind": "portrait",
+   "kindLabel": "据画像建模",
+   "status": "待考",
+   "work": "未载",
+   "author": "Maurice Quentin de La Tour",
+   "date": "1753 年，oil paint",
+   "sitterDates": "卢梭 1712—1778 年",
+   "institution": "Musée Carnavalet",
+   "accession": "P210",
+   "url": "http://parismuseescollections.paris.fr/en/node/152630",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘卢梭的作品 21 件；此件为画像，作于人物生前，收藏机构与编号齐全，馆方页面可以打开。",
+   "relation": "生前作品：作于 1753 年，卢梭时年约 41 岁。",
+   "features": [
+    {
+     "name": "头部外轮廓与面部比例",
+     "state": "待对照"
+    },
+    {
+     "name": "发型或头饰",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "馆方图像的使用条件未核",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "Musée Carnavalet, P210",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "Bildnis des Rousseau（肖像图像，Heinrich Pfenninger，年代未载）",
+     "institution": "Leipzig University Library",
+     "url": "http://www.portraitindex.de/documents/obj/33212897"
+    },
+    {
+     "work": "Bildnis des Rousseau（肖像图像，Johann Elias Haid，年代未载）",
+     "institution": "Leipzig University Library",
+     "url": "http://www.portraitindex.de/documents/obj/33213371"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
   },
   {
    "id": "kant",
@@ -54,11 +2336,22 @@
    "reason": "Hagemann 受 Schadow 委派于 1801 年赴柯尼斯堡，据康德本人塑泥稿，再据此制作大理石像；是少数“对着真人”完成的康德胸像，且原作现存、馆藏编号明确。",
    "relation": "写生胸像：据 1801 年对康德本人所作泥塑模型完成（见美因茨大学康德图像志、Naragon 2024《Kant's Image》）。",
    "features": [
-    {"name": "头部外轮廓与面部比例", "state": "待对照"},
-    {"name": "发型（洛可可式发辫）", "state": "待对照"},
-    {"name": "衣领与胸像截断方式", "state": "待对照"}
+    {
+     "name": "头部外轮廓与面部比例",
+     "state": "待对照"
+    },
+    {
+     "name": "发型（洛可可式发辫）",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与胸像截断方式",
+     "state": "待对照"
+    }
    ],
-   "inferred": ["在取得同一件原作的多角度照片之前，侧面与背面均为推定"],
+   "inferred": [
+    "在取得同一件原作的多角度照片之前，侧面与背面均为推定"
+   ],
    "usage": {
     "original": "1801 年作品，著作权早已届满",
     "reference": "馆方藏品照片的使用条件未载；本次请求馆方页面失败，未能核对",
@@ -70,11 +2363,442 @@
     "thumbnail": "待核"
    },
    "model": null,
-   "pending": ["打开馆方藏品页核对图像与图片授权", "向汉堡美术馆申请多角度照片或扫描的使用许可", "取得同一件原作的三个以上角度后再建模"],
+   "pending": [
+    "打开馆方藏品页核对图像与图片授权",
+    "向汉堡美术馆申请多角度照片或扫描的使用许可",
+    "取得同一件原作的三个以上角度后再建模"
+   ],
    "alternates": [
-    {"work": "Bildnis des Immanuel Kant（Emanuel Bardou，1798，大理石，古罗马式样）", "institution": "柏林国立博物馆雕塑收藏，编号 8321", "url": "https://smb.museum-digital.de/object/140066"},
-    {"work": "Büste des Immanuel Kant（1801 原作的后期石膏翻模）", "institution": "德国历史博物馆，编号 1989/1157.105", "url": "https://www.deutsche-digitale-bibliothek.de/item/AVE7AXXUI2F4RSP36GDPS7IQK4GTMYRK"}
-   ]
+    {
+     "work": "Bildnis des Immanuel Kant（Emanuel Bardou，1798，大理石，古罗马式样）",
+     "institution": "柏林国立博物馆雕塑收藏，编号 8321",
+     "url": "https://smb.museum-digital.de/object/140066"
+    },
+    {
+     "work": "Büste des Immanuel Kant（1801 原作的后期石膏翻模）",
+     "institution": "德国历史博物馆，编号 1989/1157.105",
+     "url": "https://www.deutsche-digitale-bibliothek.de/item/AVE7AXXUI2F4RSP36GDPS7IQK4GTMYRK"
+    }
+   ],
+   "verification": "人工打开馆方藏品页核对（2026-11-26）"
+  },
+  {
+   "id": "hegel",
+   "kind": "portrait",
+   "kindLabel": "据画像建模",
+   "status": "待考",
+   "work": "Bildnis des Hegel",
+   "author": "Ernst Ludwig Riepenhausen",
+   "date": "未载",
+   "sitterDates": "黑格尔 1770—1831 年",
+   "institution": "Leipzig University Library",
+   "accession": "未载",
+   "url": "http://www.portraitindex.de/documents/obj/33212475",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘黑格尔的作品 5 件；此件为肖像图像，收藏信息不全，馆方页面可以打开。",
+   "relation": "作品年代未载，与人物本人的关系待查。",
+   "features": [
+    {
+     "name": "头部外轮廓与面部比例",
+     "state": "待对照"
+    },
+    {
+     "name": "发型或头饰",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "开放许可：公有领域标记（PDM）（http://creativecommons.org/publicdomain/mark/1.0/）",
+    "existing3D": "未查",
+    "license": "公有领域标记（PDM）（http://creativecommons.org/publicdomain/mark/1.0/）",
+    "attribution": "Leipzig University Library",
+    "adapt": "允许（公有领域）",
+    "distribute": "允许",
+    "thumbnail": "条件允许，本版不内嵌，链接馆方页"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "Bildnis des G. W. F. Hegel（肖像图像，https://d-nb.info/gnd/117466034，年代未载）",
+     "institution": "Leipzig University Library",
+     "url": "http://www.portraitindex.de/documents/obj/33203650"
+    },
+    {
+     "work": "Bildnis des Georg Wilh. Friedr. Hegel（肖像图像，Winckelmann & Söhne <Berlin> (Production) (Verlag)，年代未载）",
+     "institution": "Leipzig University Library",
+     "url": "http://www.portraitindex.de/documents/obj/33203604"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "schopenhauer",
+   "kind": "portrait",
+   "kindLabel": "据画像建模",
+   "status": "待考",
+   "work": "Porträt von Johanna Schopenhauer",
+   "author": "Guibert, Gus.",
+   "date": "未载",
+   "sitterDates": "叔本华 1788—1860 年",
+   "institution": "Archive of the German Women’s Movement",
+   "accession": "未载",
+   "url": "https://meta-katalog.eu/Record/6556addf",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘叔本华的作品 4 件；此件为肖像图像，收藏信息不全，馆方页面可以打开。",
+   "relation": "作品年代未载，与人物本人的关系待查。",
+   "features": [
+    {
+     "name": "头部外轮廓与面部比例",
+     "state": "待对照"
+    },
+    {
+     "name": "发型或头饰",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "开放许可：公有领域标记（PDM）（http://creativecommons.org/publicdomain/mark/1.0/）",
+    "existing3D": "未查",
+    "license": "公有领域标记（PDM）（http://creativecommons.org/publicdomain/mark/1.0/）",
+    "attribution": "Archive of the German Women’s Movement",
+    "adapt": "允许（公有领域）",
+    "distribute": "允许",
+    "thumbnail": "条件允许，本版不内嵌，链接馆方页"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "Presentation by Jochen Stollberg, Head of the Schopenhauer Archives of the University Library Johann Christian Senckenberg Frankfurt/Main（肖像图像，Rous, André (Herstellung) (Fotograf)，年代未载）",
+     "institution": "Deutsche Fotothek",
+     "url": "http://www.deutschefotothek.de/documents/obj/80813330"
+    },
+    {
+     "work": "Presentation by Jochen Stollberg, head of the Schopenhauer Archive of the University Library Johann Christian Senckenberg Frankfurt/Main. Dr. Citizens thanks（肖像图像，Rous, André (Herstellung) (Fotograf)，年代未载）",
+     "institution": "Deutsche Fotothek",
+     "url": "http://www.deutschefotothek.de/documents/obj/80813410"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "kierkegaard",
+   "kind": "sculpture",
+   "kindLabel": "据雕塑建模",
+   "status": "待考",
+   "work": "Søren Kierkegaard",
+   "author": "Louis Hasselriis",
+   "date": "未载，bronze",
+   "sitterDates": "克尔凯郭尔 1813—1855 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q60771877",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘克尔凯郭尔的作品 1 件；此件为立像，收藏信息不全，未找到可打开的馆方页面。",
+   "relation": "作品年代未载，与人物本人的关系待查。",
+   "features": [
+    {
+     "name": "头部外轮廓与面部比例",
+     "state": "待对照"
+    },
+    {
+     "name": "发型",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与胸像截断方式",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "馆方图像的使用条件未核",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "找到该作品的馆方藏品页（目前只有 Wikidata 线索）",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "mill",
+   "kind": "portrait",
+   "kindLabel": "据画像建模",
+   "status": "待考",
+   "work": "John Stuart Mill (1806–1873)",
+   "author": "George Frederic Watts",
+   "date": "1873 年，canvas",
+   "sitterDates": "密尔 1806—1873 年",
+   "institution": "Westminster Archives Centre",
+   "accession": "P086",
+   "url": "https://www.wikidata.org/wiki/Q119116927",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘密尔的作品 6 件；此件为画像，作于人物生前，收藏机构与编号齐全，未找到可打开的馆方页面。",
+   "relation": "生前作品：作于 1873 年，密尔时年约 67 岁。",
+   "features": [
+    {
+     "name": "头部外轮廓与面部比例",
+     "state": "待对照"
+    },
+    {
+     "name": "发型或头饰",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "馆方图像的使用条件未核",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "Westminster Archives Centre, P086",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "找到该作品的馆方藏品页（目前只有 Wikidata 线索）",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "John Stuart Mill (1806–1873)（画像，George Frederic Watts，1873）",
+     "institution": "Watts Gallery，编号 COMWG 86",
+     "url": "https://www.wikidata.org/wiki/Q119118236"
+    },
+    {
+     "work": "John Stuart Mill（画像，作者未载，1873）",
+     "institution": "National Portrait Gallery，编号 NPG 1009",
+     "url": "https://www.wikidata.org/wiki/Q28050298"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "marx",
+   "kind": "photo",
+   "kindLabel": "据历史影像重建",
+   "status": "待考",
+   "work": "未载",
+   "author": "未载",
+   "date": "1900 年，albumin paper",
+   "sitterDates": "马克思 1818—1883 年",
+   "institution": "Vienna Museum",
+   "accession": "111621/3",
+   "url": "https://sammlung.wienmuseum.at/en/object/591236-karl-marx-1818-1883-philosoph-oekonom-politischer-denker/",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘马克思的作品 24 件；此件为照片，收藏机构与编号齐全，馆方页面可以打开。",
+   "relation": "身后作品：晚于马克思去世约 17 年，反映后世对其形象的理解，并非写真。",
+   "features": [
+    {
+     "name": "发际线与发型",
+     "state": "待对照"
+    },
+    {
+     "name": "头部侧影",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "馆方图像的使用条件未核",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "Vienna Museum, 111621/3",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "Marxism Will Give Health to the Sick（画像，Frida Kahlo，1954）",
+     "institution": "Frida Kahlo Museum",
+     "url": "https://www.fridakahlo.org/marxism-will-give-health-to-the-sick.jsp"
+    },
+    {
+     "work": "Karl Marx（画像，Cecilia Vicuña，1972）",
+     "institution": "Solomon R. Guggenheim Museum",
+     "url": "https://www.guggenheim.org/audio/track/karl-marx-1972"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "nietzsche",
+   "kind": "sculpture",
+   "kindLabel": "据雕塑建模",
+   "status": "待考",
+   "work": "Male portrait (caricature), pencil drawing, undated, unmarked, and text by Otto Dix on a centrally folded cartonal leaf transverse 4 °; on this (turned 180 °) 2 photographs (Dix, Otto: Büste Friedrich Nietzsche, 1912)",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "尼采 1844—1900 年",
+   "institution": "Deutsche Fotothek",
+   "accession": "未载",
+   "url": "http://www.deutschefotothek.de/documents/obj/90050982",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘尼采的作品 10 件；此件为胸像，收藏信息不全，馆方页面可以打开。",
+   "relation": "作品年代未载，与人物本人的关系待查。",
+   "features": [
+    {
+     "name": "头部外轮廓与面部比例",
+     "state": "待对照"
+    },
+    {
+     "name": "发型",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与胸像截断方式",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "开放许可：公有领域标记（PDM）（http://creativecommons.org/publicdomain/mark/1.0/）",
+    "existing3D": "未查",
+    "license": "公有领域标记（PDM）（http://creativecommons.org/publicdomain/mark/1.0/）",
+    "attribution": "Deutsche Fotothek",
+    "adapt": "允许（公有领域）",
+    "distribute": "允许",
+    "thumbnail": "条件允许，本版不内嵌，链接馆方页"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "2 photographs: (Dix, Otto: Bust Friedrich Nietzsche. Plaster, green tinted, 1912) à 16.3 x 11.8 cm. Mounted on centrally folded carton leaf quer-4 °, on this (turned 180 °) a pencil drawing and a text by Otto Dix（胸像，作者未载，年代未载）",
+     "institution": "Deutsche Fotothek",
+     "url": "http://www.deutschefotothek.de/documents/obj/90050981"
+    },
+    {
+     "work": "Friedrich Nietzsche（画像，Edvard Munch，1906）",
+     "institution": "Thiel Gallery，编号 TG 292",
+     "url": "https://thielska.zetcom.net/en/collection/item/318/"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "james",
+   "kind": "photo",
+   "kindLabel": "据历史影像重建",
+   "status": "待考",
+   "work": "Portrait of William James Mayo from a photograph in the possession of Dr. E.A. Underwood.",
+   "author": "Moffett",
+   "date": "未载",
+   "sitterDates": "威廉·詹姆斯 1842—1910 年",
+   "institution": "Wellcome Collection",
+   "accession": "未载",
+   "url": "https://wellcomecollection.org/works/wchq9jc8",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘威廉·詹姆斯的作品 2 件；此件为照片，收藏信息不全，馆方页面可以打开。",
+   "relation": "作品年代未载，与人物本人的关系待查。",
+   "features": [
+    {
+     "name": "发际线与发型",
+     "state": "待对照"
+    },
+    {
+     "name": "头部侧影",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "开放许可：CC BY（http://creativecommons.org/licenses/by/4.0/）",
+    "existing3D": "未查",
+    "license": "CC BY（http://creativecommons.org/licenses/by/4.0/）",
+    "attribution": "Wellcome Collection",
+    "adapt": "允许，须署名",
+    "distribute": "允许",
+    "thumbnail": "条件允许，本版不内嵌，链接馆方页"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "William James（画像，John La Farge，1859）",
+     "institution": "National Portrait Gallery，编号 NPG.91.6",
+     "url": "https://www.wikidata.org/wiki/Q47512115"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
   },
   {
    "id": "russell",
@@ -91,11 +2815,22 @@
    "reason": "档案馆目录给出年份与盒号，同一阶段另有 1916 年照片（同系列第 2 盒第 5 项，Hugh Cecil 摄）可用作年龄相近的验证照片。",
    "relation": "本人照片：直接拍摄罗素本人。",
    "features": [
-    {"name": "发际线与发型", "state": "待对照"},
-    {"name": "头部侧影", "state": "待对照"},
-    {"name": "高立领与领结", "state": "待对照"}
+    {
+     "name": "发际线与发型",
+     "state": "待对照"
+    },
+    {
+     "name": "头部侧影",
+     "state": "待对照"
+    },
+    {
+     "name": "高立领与领结",
+     "state": "待对照"
+    }
    ],
-   "inferred": ["只有正面或四分之三角度时，侧面与背面为推定"],
+   "inferred": [
+    "只有正面或四分之三角度时，侧面与背面为推定"
+   ],
    "usage": {
     "original": "1907 年照片，摄影者未载；英国法下的保护期取决于摄影者身份与首次发表时间，未能确认",
     "reference": "档案馆复制须获书面许可（未申请）",
@@ -107,11 +2842,1649 @@
     "thumbnail": "待核"
    },
    "model": null,
-   "pending": ["向罗素档案馆确认 1907 年与 1916 年照片的权利状态并申请使用", "确认摄影者身份", "选定主参考后再建模"],
+   "pending": [
+    "向罗素档案馆确认 1907 年与 1916 年照片的权利状态并申请使用",
+    "确认摄影者身份",
+    "选定主参考后再建模"
+   ],
    "alternates": [
-    {"work": "Bertrand Russell（Jacob Epstein，1953，铜像）", "institution": "麦克马斯特艺术博物馆，1980.012.0001（复制须书面授权）", "url": "https://emuseum.mcmaster.ca/emuseum/objects/256/bertrand-russell"},
-    {"work": "Bertrand Russell（Roger Fry，约 1923，油画）", "institution": "英国国家肖像馆，NPG 4832", "url": "https://www.npg.org.uk/collections/search/portrait/mw05518"}
-   ]
+    {
+     "work": "Bertrand Russell（Jacob Epstein，1953，铜像）",
+     "institution": "麦克马斯特艺术博物馆，1980.012.0001（复制须书面授权）",
+     "url": "https://emuseum.mcmaster.ca/emuseum/objects/256/bertrand-russell"
+    },
+    {
+     "work": "Bertrand Russell（Roger Fry，约 1923，油画）",
+     "institution": "英国国家肖像馆，NPG 4832",
+     "url": "https://www.npg.org.uk/collections/search/portrait/mw05518"
+    }
+   ],
+   "verification": "人工打开馆方藏品页核对（2026-11-26）"
+  },
+  {
+   "id": "wittgenstein",
+   "kind": "none",
+   "kindLabel": "原型待查",
+   "status": "待考",
+   "work": "未找到有馆藏记录的原型",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "维特根斯坦 1889—1951 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q9391",
+   "reason": "Wikidata、Europeana 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
+   "relation": "未载",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在找到原型之前，全部造型均为推定"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "未载",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "在博物馆、图书馆、档案馆中查找有明确馆藏记录的画像或雕塑"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "heidegger",
+   "kind": "none",
+   "kindLabel": "原型待查",
+   "status": "待考",
+   "work": "未找到有馆藏记录的原型",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "海德格尔 1889—1976 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q48301",
+   "reason": "Wikidata、Europeana 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
+   "relation": "未载",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在找到原型之前，全部造型均为推定"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "未载",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "在博物馆、图书馆、档案馆中查找有明确馆藏记录的画像或雕塑"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "sartre",
+   "kind": "tradition",
+   "kindLabel": "据后世传统形象建模",
+   "status": "待考",
+   "work": "Windward",
+   "author": "Klaudijus Pūdymas",
+   "date": "2018 年，bronze",
+   "sitterDates": "萨特 1905—1980 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q122500091",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘萨特的作品 1 件；此件为立像，收藏信息不全，未找到可打开的馆方页面。",
+   "relation": "身后作品：晚于萨特去世约 38 年，反映后世对其形象的理解，并非写真。",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "馆方图像的使用条件未核",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "找到该作品的馆方藏品页（目前只有 Wikidata 线索）",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "camus",
+   "kind": "portrait",
+   "kindLabel": "据画像建模",
+   "status": "待考",
+   "work": "Bildnis des M. le Camus",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "加缪 1913—1960 年",
+   "institution": "Leipzig University Library",
+   "accession": "未载",
+   "url": "http://www.portraitindex.de/documents/obj/33214271",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘加缪的作品 2 件；此件为肖像图像，收藏信息不全，馆方页面可以打开。",
+   "relation": "作品年代未载，与人物本人的关系待查。",
+   "features": [
+    {
+     "name": "头部外轮廓与面部比例",
+     "state": "待对照"
+    },
+    {
+     "name": "发型或头饰",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "开放许可：公有领域标记（PDM）（http://creativecommons.org/publicdomain/mark/1.0/）",
+    "existing3D": "未查",
+    "license": "公有领域标记（PDM）（http://creativecommons.org/publicdomain/mark/1.0/）",
+    "attribution": "Leipzig University Library",
+    "adapt": "允许（公有领域）",
+    "distribute": "允许",
+    "thumbnail": "条件允许，本版不内嵌，链接馆方页"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "Bildnis des Jean Pierre Camus（肖像图像，Jacques Lubin，1696）",
+     "institution": "Leipzig University Library",
+     "url": "http://www.portraitindex.de/documents/obj/33200959"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "euclid",
+   "kind": "tradition",
+   "kindLabel": "据后世传统形象建模",
+   "status": "待考",
+   "work": "Euclid",
+   "author": "Jusepe de Ribera",
+   "date": "1630 年，canvas",
+   "sitterDates": "欧几里得 前 325—前 265 年",
+   "institution": "J. Paul Getty Museum",
+   "accession": "2001.26",
+   "url": "https://rkd.nl/explore/images/295801",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘欧几里得的作品 5 件；此件为画像，收藏机构与编号齐全，馆方页面可以打开。",
+   "relation": "身后作品：晚于欧几里得去世约 1895 年，反映后世对其形象的理解，并非写真。",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "馆方图像的使用条件未核",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "J. Paul Getty Museum, 2001.26",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "Titelkupfer, Porträts von Pythagoras (links), Georg Meichsner (Mitte) und Euklid (rechts), Ansicht von Rothenburg ob der Tauber (unten)（肖像图像，作者未载，年代未载）",
+     "institution": "Deutsche Fotothek",
+     "url": "http://www.deutschefotothek.de/documents/obj/88964310"
+    },
+    {
+     "work": "Portrait of Euclid, in oval cartouche on pedestal（肖像图像，作者未载，年代未载）",
+     "institution": "Wellcome Collection",
+     "url": "https://wellcomecollection.org/works/cbf9mgrv"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "liuhui",
+   "kind": "none",
+   "kindLabel": "原型待查",
+   "status": "待考",
+   "work": "未找到有馆藏记录的原型",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "刘徽 225—295 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q316304",
+   "reason": "Wikidata、Europeana 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
+   "relation": "未载",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在找到原型之前，全部造型均为推定"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "未载",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "在博物馆、图书馆、档案馆中查找有明确馆藏记录的画像或雕塑"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "archimedes",
+   "kind": "tradition",
+   "kindLabel": "据后世传统形象建模",
+   "status": "待考",
+   "work": "Cicero discovering the tomb of Archimedes",
+   "author": "Pierre-Henri de Valenciennes",
+   "date": "1787 年，canvas",
+   "sitterDates": "阿基米德 前 287—前 212 年",
+   "institution": "Department of Paintings of the Louvre",
+   "accession": "D 1962 1",
+   "url": "https://www.augustins.org/fr/search-notice/detail/d-1962-1-cicero-b38e5",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘阿基米德的作品 12 件；此件为画像，收藏机构与编号齐全，馆方页面可以打开。",
+   "relation": "身后作品：晚于阿基米德去世约 1999 年，反映后世对其形象的理解，并非写真。",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "馆方图像的使用条件未核",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "Department of Paintings of the Louvre, D 1962 1",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "Archimedes（画像，Johann Heinrich Tischbein，1786）",
+     "institution": "Grand ducal collection, Oldenburg，编号 LMO 15.723",
+     "url": "https://landesmuseum-ol-collection.zetcom.net/de/collection/item/15115"
+    },
+    {
+     "work": "Fetti, Bildnis eins Gelehrten (Archimedes?)（肖像图像，Fetti, Domenico (1589-1623) (Künstler/Hersteller)，年代未载）",
+     "institution": "Media library of Art and Visual History of Humboldt University of Berlin",
+     "url": "https://rs.cms.hu-berlin.de/ikb_mediathek/pages/view.php?ref=15361"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "zhaoshuang",
+   "kind": "none",
+   "kindLabel": "原型待查",
+   "status": "待考",
+   "work": "未找到有馆藏记录的原型",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "赵爽 182—250 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q706283",
+   "reason": "Wikidata、Europeana 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
+   "relation": "未载",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在找到原型之前，全部造型均为推定"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "未载",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "在博物馆、图书馆、档案馆中查找有明确馆藏记录的画像或雕塑"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "newton",
+   "kind": "portrait",
+   "kindLabel": "据画像建模",
+   "status": "待考",
+   "work": "Sir Isaac Newton",
+   "author": "Godfrey Kneller",
+   "date": "1702 年，canvas",
+   "sitterDates": "牛顿 1643—1727 年",
+   "institution": "National Portrait Gallery",
+   "accession": "NPG 2881",
+   "url": "https://rkd.nl/explore/images/303654",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘牛顿的作品 49 件；此件为画像，作于人物生前，收藏机构与编号齐全，馆方页面可以打开。",
+   "relation": "生前作品：作于 1702 年，牛顿时年约 59 岁。",
+   "features": [
+    {
+     "name": "头部外轮廓与面部比例",
+     "state": "待对照"
+    },
+    {
+     "name": "发型或头饰",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "馆方图像的使用条件未核",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "National Portrait Gallery, NPG 2881",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "Sir Isaac Newton (1642–1727)（画像，Godfrey Kneller，1702）",
+     "institution": "Hunterian Museum and Art Gallery，编号 GLAHA_43742",
+     "url": "https://www.gla.ac.uk/collections/#/details?irn=39276&catType=C&referrer=/"
+    },
+    {
+     "work": "Bildnis des Isaacus Newton（肖像图像，https://d-nb.info/gnd/122027248，1715）",
+     "institution": "Leipzig University Library",
+     "url": "http://www.portraitindex.de/documents/obj/33211045"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "descartes-geometry",
+   "kind": "portrait",
+   "kindLabel": "据画像建模",
+   "status": "待考",
+   "work": "Portrait of René Descartes",
+   "author": "Frans Hals",
+   "date": "1649 年，oak panel",
+   "sitterDates": "笛卡尔（数学） 1596—1650 年",
+   "institution": "Statens Museum for Kunst",
+   "accession": "DEP7",
+   "url": "https://open.smk.dk/en/artwork/image/DEP7",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘笛卡尔的作品 28 件；此件为画像，作于人物生前，收藏机构与编号齐全，馆方页面可以打开。",
+   "relation": "生前作品：作于 1649 年，笛卡尔时年约 53 岁。",
+   "features": [
+    {
+     "name": "头部外轮廓与面部比例",
+     "state": "待对照"
+    },
+    {
+     "name": "发型或头饰",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "馆方图像的使用条件未核",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "Statens Museum for Kunst, DEP7",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "Portrait of René Descartes（画像，作者未载，1649）",
+     "institution": "Department of Paintings of the Louvre，编号 INV 1317",
+     "url": "https://rkd.nl/explore/images/181018"
+    },
+    {
+     "work": "Portrait of René Descartes（画像，Jan Baptist Weenix，1647）",
+     "institution": "Museum Catharijneconvent，编号 7386",
+     "url": "https://rkd.nl/explore/images/172768"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "pythagoras",
+   "kind": "tradition",
+   "kindLabel": "据后世传统形象建模",
+   "status": "待考",
+   "work": "Pythagoras Advocating Vegetarianism",
+   "author": "Frans Snyders",
+   "date": "1624 年，canvas",
+   "sitterDates": "毕达哥拉斯 前 570—前 495 年",
+   "institution": "Royal Collection",
+   "accession": "RCIN 403500",
+   "url": "https://rkd.nl/explore/images/274208",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘毕达哥拉斯的作品 6 件；此件为画像，收藏机构与编号齐全，馆方页面可以打开。",
+   "relation": "身后作品：晚于毕达哥拉斯去世约 2119 年，反映后世对其形象的理解，并非写真。",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "馆方图像的使用条件未核",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "Royal Collection, RCIN 403500",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "Portrait of Pythagoras（胸像，作者未载，年代未载）",
+     "institution": "Capitoline Museums",
+     "url": "https://www.museicapitolini.org/it/collezioni/percorsi_per_sale/palazzo_nuovo/sala_dei_filosofi/erma_di_pitagora"
+    },
+    {
+     "work": "Philosophers (?) Ra 116 Ra 95（雕塑，作者未载，0200）",
+     "institution": "Musée Saint-Raymond，编号 30343 - 30152",
+     "url": "https://www.wikidata.org/wiki/Q28732591"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "apollonius",
+   "kind": "portrait",
+   "kindLabel": "据画像建模",
+   "status": "待考",
+   "work": "Portræt af Apollonius fra Tyana",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "阿波罗尼奥斯 前 262—前 190 年",
+   "institution": "National Gallery of Denmark",
+   "accession": "未载",
+   "url": "https://open.smk.dk/artwork/image/kas650",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘阿波罗尼奥斯的作品 3 件；此件为肖像图像，收藏信息不全，馆方页面可以打开。",
+   "relation": "作品年代未载，与人物本人的关系待查。",
+   "features": [
+    {
+     "name": "头部外轮廓与面部比例",
+     "state": "待对照"
+    },
+    {
+     "name": "发型或头饰",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "开放许可：公有领域标记（PDM）（http://creativecommons.org/publicdomain/mark/1.0/）",
+    "existing3D": "未查",
+    "license": "公有领域标记（PDM）（http://creativecommons.org/publicdomain/mark/1.0/）",
+    "attribution": "National Gallery of Denmark",
+    "adapt": "允许（公有领域）",
+    "distribute": "允许",
+    "thumbnail": "条件允许，本版不内嵌，链接馆方页"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "Porträt des Apollonius Teaneus.（肖像图像，http://data.europeana.eu/agent/122375，年代未载）",
+     "institution": "Herzog August Library",
+     "url": "http://diglib.hab.de?grafik=14-1-geom-00025"
+    },
+    {
+     "work": "Porträt des Apollonius Teaneus.（肖像图像，https://d-nb.info/gnd/11912081X，年代未载）",
+     "institution": "Herzog August Library",
+     "url": "http://diglib.hab.de?grafik=13-geom-00024"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "diophantus",
+   "kind": "none",
+   "kindLabel": "原型待查",
+   "status": "待考",
+   "work": "未找到有馆藏记录的原型",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "丢番图 200—284 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q178217",
+   "reason": "Wikidata、Europeana 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
+   "relation": "未载",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在找到原型之前，全部造型均为推定"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "未载",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "在博物馆、图书馆、档案馆中查找有明确馆藏记录的画像或雕塑"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "zuchongzhi",
+   "kind": "none",
+   "kindLabel": "原型待查",
+   "status": "待考",
+   "work": "未找到有馆藏记录的原型",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "祖冲之 429—500 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q227444",
+   "reason": "Wikidata、Europeana 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
+   "relation": "未载",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在找到原型之前，全部造型均为推定"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "未载",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "在博物馆、图书馆、档案馆中查找有明确馆藏记录的画像或雕塑"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "alkhwarizmi",
+   "kind": "none",
+   "kindLabel": "原型待查",
+   "status": "待考",
+   "work": "未找到有馆藏记录的原型",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "花拉子米 780—850 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q9038",
+   "reason": "Wikidata、Europeana 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
+   "relation": "未载",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在找到原型之前，全部造型均为推定"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "未载",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "在博物馆、图书馆、档案馆中查找有明确馆藏记录的画像或雕塑"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "fibonacci",
+   "kind": "sculpture",
+   "kindLabel": "据雕塑建模",
+   "status": "待考",
+   "work": "Monument of Leonardo Fibonacci",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "斐波那契 1170—1250 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q126287925",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘斐波那契的作品 1 件；此件为立像，收藏信息不全，未找到可打开的馆方页面。",
+   "relation": "作品年代未载，与人物本人的关系待查。",
+   "features": [
+    {
+     "name": "头部外轮廓与面部比例",
+     "state": "待对照"
+    },
+    {
+     "name": "发型",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与胸像截断方式",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "馆方图像的使用条件未核",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "找到该作品的馆方藏品页（目前只有 Wikidata 线索）",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "liye",
+   "kind": "none",
+   "kindLabel": "原型待查",
+   "status": "待考",
+   "work": "未找到有馆藏记录的原型",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "李冶 1192—1279 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q716964",
+   "reason": "Wikidata、Europeana 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
+   "relation": "未载",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在找到原型之前，全部造型均为推定"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "未载",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "在博物馆、图书馆、档案馆中查找有明确馆藏记录的画像或雕塑"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "qinjiushao",
+   "kind": "none",
+   "kindLabel": "原型待查",
+   "status": "待考",
+   "work": "未找到有馆藏记录的原型",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "秦九韶 1208—1268 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q565225",
+   "reason": "Wikidata、Europeana 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
+   "relation": "未载",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在找到原型之前，全部造型均为推定"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "未载",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "在博物馆、图书馆、档案馆中查找有明确馆藏记录的画像或雕塑"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "yanghui",
+   "kind": "none",
+   "kindLabel": "原型待查",
+   "status": "待考",
+   "work": "未找到有馆藏记录的原型",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "杨辉 1238—1298 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q574521",
+   "reason": "Wikidata、Europeana 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
+   "relation": "未载",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在找到原型之前，全部造型均为推定"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "未载",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "在博物馆、图书馆、档案馆中查找有明确馆藏记录的画像或雕塑"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "zhushijie",
+   "kind": "none",
+   "kindLabel": "原型待查",
+   "status": "待考",
+   "work": "未找到有馆藏记录的原型",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "朱世杰 1249—1314 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q198126",
+   "reason": "Wikidata、Europeana 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
+   "relation": "未载",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在找到原型之前，全部造型均为推定"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "未载",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "在博物馆、图书馆、档案馆中查找有明确馆藏记录的画像或雕塑"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "xuguangqi",
+   "kind": "none",
+   "kindLabel": "原型待查",
+   "status": "待考",
+   "work": "未找到有馆藏记录的原型",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "徐光启 1562—1633 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q420427",
+   "reason": "Wikidata、Europeana 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
+   "relation": "未载",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在找到原型之前，全部造型均为推定"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "未载",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "在博物馆、图书馆、档案馆中查找有明确馆藏记录的画像或雕塑"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "fermat",
+   "kind": "portrait",
+   "kindLabel": "据画像建模",
+   "status": "待考",
+   "work": "Portrait of Pierre de Fermat",
+   "author": "Rolland Lefebvre",
+   "date": "1657 年，canvas",
+   "sitterDates": "费马 1601—1665 年",
+   "institution": "Musée d'art et d'histoire de Narbonne",
+   "accession": "851.3.3",
+   "url": "https://www.wikidata.org/wiki/Q107153335",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘费马的作品 2 件；此件为画像，作于人物生前，收藏机构与编号齐全，未找到可打开的馆方页面。",
+   "relation": "生前作品：作于 1657 年，费马时年约 56 岁。",
+   "features": [
+    {
+     "name": "头部外轮廓与面部比例",
+     "state": "待对照"
+    },
+    {
+     "name": "发型或头饰",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "馆方图像的使用条件未核",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "Musée d'art et d'histoire de Narbonne, 851.3.3",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "找到该作品的馆方藏品页（目前只有 Wikidata 线索）",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "未载（立像，Alexandre Falguière，1881）",
+     "institution": "Musée des Augustins，编号 89 7 1",
+     "url": "https://www.wikidata.org/wiki/Q17583999"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "meiwending",
+   "kind": "none",
+   "kindLabel": "原型待查",
+   "status": "待考",
+   "work": "未找到有馆藏记录的原型",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "梅文鼎 1633—1721 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q11114865",
+   "reason": "Wikidata、Europeana 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
+   "relation": "未载",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在找到原型之前，全部造型均为推定"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "未载",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "在博物馆、图书馆、档案馆中查找有明确馆藏记录的画像或雕塑"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "euler",
+   "kind": "portrait",
+   "kindLabel": "据画像建模",
+   "status": "待考",
+   "work": "Bildnis des Leonard Euler",
+   "author": "Thomas Cook",
+   "date": "1787 年",
+   "sitterDates": "欧拉 1707—1783 年",
+   "institution": "Leipzig University Library",
+   "accession": "未载",
+   "url": "http://www.portraitindex.de/documents/obj/33211839",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘欧拉的作品 5 件；此件为肖像图像，作于人物生前，收藏信息不全，馆方页面可以打开。",
+   "relation": "生前作品：作于 1787 年，欧拉时年约 80 岁。",
+   "features": [
+    {
+     "name": "头部外轮廓与面部比例",
+     "state": "待对照"
+    },
+    {
+     "name": "发型或头饰",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "开放许可：公有领域标记（PDM）（http://creativecommons.org/publicdomain/mark/1.0/）",
+    "existing3D": "未查",
+    "license": "公有领域标记（PDM）（http://creativecommons.org/publicdomain/mark/1.0/）",
+    "attribution": "Leipzig University Library",
+    "adapt": "允许（公有领域）",
+    "distribute": "允许",
+    "thumbnail": "条件允许，本版不内嵌，链接馆方页"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "Bildnis des Leonhard Euler（肖像图像，Darchow, C. (Production), 1782-1796 (Radierer)，年代未载）",
+     "institution": "Leipzig University Library",
+     "url": "http://www.portraitindex.de/documents/obj/33211838"
+    },
+    {
+     "work": "Bildnis des Leonhard Euler（肖像图像，Kuetner, Samuel Gottlob，年代未载）",
+     "institution": "Leipzig University Library",
+     "url": "http://www.portraitindex.de/documents/obj/33211983"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "gauss",
+   "kind": "portrait",
+   "kindLabel": "据画像建模",
+   "status": "待考",
+   "work": "Portrait of Carl Friedrich Gauß (1777-1855)",
+   "author": "Christian Albrecht Jensen",
+   "date": "1840 年，oil paint",
+   "sitterDates": "高斯 1777—1855 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q136687213",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘高斯的作品 2 件；此件为画像，作于人物生前，收藏信息不全，未找到可打开的馆方页面。",
+   "relation": "生前作品：作于 1840 年，高斯时年约 63 岁。",
+   "features": [
+    {
+     "name": "头部外轮廓与面部比例",
+     "state": "待对照"
+    },
+    {
+     "name": "发型或头饰",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "馆方图像的使用条件未核",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "找到该作品的馆方藏品页（目前只有 Wikidata 线索）",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [
+    {
+     "work": "未载（纪念像，Fritz Schaper，1880）",
+     "institution": "收藏未载",
+     "url": "https://www.wikidata.org/wiki/Q118459905"
+    }
+   ],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "boole",
+   "kind": "none",
+   "kindLabel": "原型待查",
+   "status": "待考",
+   "work": "未找到有馆藏记录的原型",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "布尔 1815—1864 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q134661",
+   "reason": "Wikidata、Europeana 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
+   "relation": "未载",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在找到原型之前，全部造型均为推定"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "未载",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "在博物馆、图书馆、档案馆中查找有明确馆藏记录的画像或雕塑"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "riemann",
+   "kind": "none",
+   "kindLabel": "原型待查",
+   "status": "待考",
+   "work": "未找到有馆藏记录的原型",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "黎曼 1826—1866 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q42299",
+   "reason": "Wikidata、Europeana 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
+   "relation": "未载",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在找到原型之前，全部造型均为推定"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "未载",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "在博物馆、图书馆、档案馆中查找有明确馆藏记录的画像或雕塑"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "dedekind",
+   "kind": "none",
+   "kindLabel": "原型待查",
+   "status": "待考",
+   "work": "未找到有馆藏记录的原型",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "戴德金 1831—1916 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q76556",
+   "reason": "Wikidata、Europeana 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
+   "relation": "未载",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在找到原型之前，全部造型均为推定"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "未载",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "在博物馆、图书馆、档案馆中查找有明确馆藏记录的画像或雕塑"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "cantor",
+   "kind": "photo",
+   "kindLabel": "据历史影像重建",
+   "status": "待考",
+   "work": "Georg Cantor",
+   "author": "未载",
+   "date": "1880 年，albumin paper",
+   "sitterDates": "康托尔 1845—1918 年",
+   "institution": "Kunstbibliothek Berlin",
+   "accession": "1992,32/003a.112",
+   "url": "http://smb-digital.de/eMuseumPlus?service=ExternalInterface&module=collection&objectId=1817811&viewType=detailView",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘康托尔的作品 1 件；此件为照片，作于人物生前，收藏机构与编号齐全，馆方页面可以打开。",
+   "relation": "生前作品：作于 1880 年，康托尔时年约 35 岁。",
+   "features": [
+    {
+     "name": "发际线与发型",
+     "state": "待对照"
+    },
+    {
+     "name": "头部侧影",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "公有领域（据 Wikidata 版权状态）",
+    "reference": "馆方图像的使用条件未核",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "Kunstbibliothek Berlin, 1992,32/003a.112",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "hilbert",
+   "kind": "none",
+   "kindLabel": "原型待查",
+   "status": "待考",
+   "work": "未找到有馆藏记录的原型",
+   "author": "未载",
+   "date": "未载",
+   "sitterDates": "希尔伯特 1862—1943 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://www.wikidata.org/wiki/Q41585",
+   "reason": "Wikidata、Europeana 与大都会、芝加哥、克利夫兰三家开放馆藏接口中，都没有找到标题含此人名字、且带收藏信息的胸像、雕塑、画像或照片。",
+   "relation": "未载",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在找到原型之前，全部造型均为推定"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "未载",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "在博物馆、图书馆、档案馆中查找有明确馆藏记录的画像或雕塑"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
+  },
+  {
+   "id": "godel",
+   "kind": "tradition",
+   "kindLabel": "据后世传统形象建模",
+   "status": "待考",
+   "work": "Brnobudka \"Gödel\"",
+   "author": "Klaudie Švrčková",
+   "date": "2023 年",
+   "sitterDates": "哥德尔 1906—1978 年",
+   "institution": "未载",
+   "accession": "未载",
+   "url": "https://brnenska.drbna.cz/zpravy/kultura/28196-v-centru-brna-ozily-telefonni-budky-nesou-portrety-slavnych-osobnosti.html",
+   "reason": "在 Wikidata、Europeana 与开放馆藏接口中找到描绘哥德尔的作品 1 件；此件为画像，收藏信息不全，馆方页面可以打开。",
+   "relation": "身后作品：晚于哥德尔去世约 45 年，反映后世对其形象的理解，并非写真。",
+   "features": [
+    {
+     "name": "冠饰或发型",
+     "state": "待对照"
+    },
+    {
+     "name": "须发与面部轮廓",
+     "state": "待对照"
+    },
+    {
+     "name": "衣领与服饰",
+     "state": "待对照"
+    }
+   ],
+   "inferred": [
+    "在取得同一件原作的多角度资料之前，侧面与背面为推定",
+    "材质统一为白石，属视觉简化"
+   ],
+   "usage": {
+    "original": "未载",
+    "reference": "馆方图像的使用条件未核",
+    "existing3D": "未查",
+    "license": "未载",
+    "attribution": "未载",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": [
+    "人工打开馆方藏品页，核对作品身份、年代与图像",
+    "确认图像或扫描的使用许可",
+    "逐项对照三项造型特征"
+   ],
+   "alternates": [],
+   "verification": "Wikidata、Europeana 与开放馆藏接口检索 + 馆方链接可达性校验（2026-11-26），尚未逐件人工核对作品身份与图像"
   }
  ]
 }

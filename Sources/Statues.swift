@@ -38,6 +38,7 @@ struct StatueRecord: Codable, Identifiable {
     let model: String?
     let pending: [String]
     let alternates: [StatueAlt]
+    var verification: String? = nil
 
     /// 只有“可展示”、且模型文件真的随 App 打包时才显示雕像
     var modelURL: URL? {
@@ -117,10 +118,11 @@ struct PrototypeSheet: View {
                         row("机构", record.institution)
                         row("编号", record.accession)
                         row("查询日期", statueDoc?.queried ?? "未载")
+                        if let v = record.verification { row("查证方式", v) }
                     }
                     if let u = URL(string: record.url) {
                         Link(destination: u) {
-                            Label("打开馆方藏品页", systemImage: "building.columns")
+                            Label(record.url.contains("wikidata.org") ? "打开 Wikidata 线索页" : "打开馆方藏品页", systemImage: "building.columns")
                                 .frame(maxWidth: .infinity)
                         }
                         .buttonStyle(.glassProminent)
@@ -244,7 +246,9 @@ private enum Toy {
         x.emissiveColor = .init(color: UIColor(red: 0.84, green: 0.95, blue: 1.0, alpha: 1)); x.emissiveIntensity = 0.35
         return x
     }()
-    static func tier(_ t: FameTier) -> PhysicallyBasedMaterial { t == .pure ? champagneM : (t == .fine ? goldM : diamondM) }
+    static func tier(_ t: FameTier) -> PhysicallyBasedMaterial {
+        switch t { case .pure: champagneM; case .fine: goldM; case .plain: diamondM; case .unrated: white }
+    }
     static let disc = MeshResource.generateCylinder(height: 0.002, radius: 0.012)
     static let black = m(UIColor(white: 0.12, alpha: 1), rough: 0.4)
     static let white = m(UIColor(white: 0.96, alpha: 1), rough: 0.7)

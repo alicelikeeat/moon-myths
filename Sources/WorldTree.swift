@@ -57,7 +57,8 @@ func treeLayout(width W: Double) -> TreeLayout {
     for (i, t) in all.enumerated() {
         let deep = t.libraryId != nil
         // 有评分时叶子大小随分数：46（低分）到 64（高分）
-        let sc = fameOf(t).map { 46 + min(18, max(0, Double($0.total - 45) / 50 * 18)) }
+        let ft = fameTotal(t)
+        let sc: Double? = ft > 0 ? 46 + min(18, max(0, Double(ft - 45) / 50 * 18)) : (ScoreMode.blind ? 52 : nil)
         L.nodes.append(TreeNode(thinker: t, x: xs[t.id]!, y: y(fromBottom[t.id]!), size: sc ?? (deep ? 60 : 50), order: i))
     }
     L.trunkBottom = L.height - 70
@@ -334,10 +335,11 @@ struct WorldTreeView: View {
                 Text("\(t.approx ? "约" : "")\(yearText(t.born))–\(yearText(t.died))")
                     .font(.footnote.monospacedDigit()).foregroundStyle(Color.primary.opacity(0.55))
                 Spacer()
-                if let s = fameOf(t) {
-                    Button { detail = t } label: { FameRing(score: s.total, size: 34) }
+                if true {
+                    let st = fameTotal(t)
+                    Button { detail = t } label: { FameRing(score: st, size: 34) }
                         .buttonStyle(.plain)
-                        .accessibilityLabel("评分 \(s.total)，查看证据")
+                        .accessibilityLabel(st > 0 ? "评分 \(st)，查看详情" : "未评，查看详情")
                 }
                 Button {
                     withAnimation(.spring(duration: 0.45, bounce: 0.2)) { selected = nil }

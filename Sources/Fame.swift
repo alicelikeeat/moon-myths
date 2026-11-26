@@ -29,25 +29,54 @@ let fame: FameDoc? = {
 }()
 
 func fameOf(_ t: Thinker) -> FameScore? { fame?.scores[t.id] }
-func fameTotal(_ t: Thinker) -> Int { fameOf(t)?.total ?? 0 }
 
-/// 按总分从高到低
-let rankedThinkers: [Thinker] = thinkers.sorted { (fameTotal($0), -$0.born) > (fameTotal($1), -$1.born) }
+// MARK: - 未评分模式：隐藏官方分数、排名与等级，由用户自己打分
+
+enum ScoreMode {
+    static var blind: Bool { UserDefaults.standard.bool(forKey: "blindMode") }
+}
+
+/// 用户自己的评分：人物 0–100 分，作品 1–5 星（存在本机）
+enum UserRatings {
+    private static func dict(_ key: String) -> [String: Int] {
+        (UserDefaults.standard.dictionary(forKey: key) as? [String: Int]) ?? [:]
+    }
+    static func score(_ id: String) -> Int? { dict("userScores")[id] }
+    static func setScore(_ id: String, _ v: Int?) {
+        var d = dict("userScores"); d[id] = v
+        UserDefaults.standard.set(d, forKey: "userScores")
+        UserDefaults.standard.set(UserDefaults.standard.integer(forKey: "ratingsRev") + 1, forKey: "ratingsRev")
+    }
+    static func stars(_ bookId: String) -> Int { dict("workStars")[bookId] ?? 0 }
+    static func setStars(_ bookId: String, _ v: Int) {
+        var d = dict("workStars"); d[bookId] = v == 0 ? nil : v
+        UserDefaults.standard.set(d, forKey: "workStars")
+    }
+}
+
+/// 当前模式下的分数：官方模式为评分结果；未评分模式为用户自己打的分（没打为 0，即“未评”）
+func fameTotal(_ t: Thinker) -> Int {
+    ScoreMode.blind ? (UserRatings.score(t.id) ?? 0) : (fameOf(t)?.total ?? 0)
+}
+
+/// 按当前模式的分数从高到低（未评的人按年代排在最后）
+var rankedThinkers: [Thinker] { thinkers.sorted { (fameTotal($0), -$0.born) > (fameTotal($1), -$1.born) } }
 
 let fameGold = Color(red: 0.80, green: 0.63, blue: 0.30)
 
 enum FameTier {
-    case pure, fine, plain
-    init(_ s: Int) { self = s >= 85 ? .pure : (s >= 75 ? .fine : .plain) }
-    var name: String { switch self { case .pure: "至纯"; case .fine: "精致"; case .plain: "专业" } }
-    /// 至纯 = 香槟金；精致 = 纯金；专业 = 钻石
-    var color: Color { switch self { case .pure: champagne; case .fine: pureGold; case .plain: diamond } }
-    var deep: Color { switch self { case .pure: champagneDeep; case .fine: pureGoldDeep; case .plain: diamondDeep } }
+    case pure, fine, plain, unrated
+    init(_ s: Int) { self = s <= 0 ? .unrated : (s >= 85 ? .pure : (s >= 75 ? .fine : .plain)) }
+    var name: String { switch self { case .pure: "至纯"; case .fine: "精致"; case .plain: "专业"; case .unrated: "未评" } }
+    /// 至纯 = 香槟金；精致 = 纯金；专业 = 钻石；未评 = 素白
+    var color: Color { switch self { case .pure: champagne; case .fine: pureGold; case .plain: diamond; case .unrated: Color(white: 0.9) } }
+    var deep: Color { switch self { case .pure: champagneDeep; case .fine: pureGoldDeep; case .plain: diamondDeep; case .unrated: Color(white: 0.5) } }
     var sheen: [Color] {
         switch self {
+        case .unrated: [Color(white: 0.92), .white, Color(white: 0.75), Color(white: 0.92)]
         case .pure: [champagne, Color(red: 1, green: 0.97, blue: 0.9), champagneDeep, champagne]
         case .fine: [pureGold, Color(red: 1, green: 0.9, blue: 0.5), pureGoldDeep, pureGold]
-        case .plain: [diamond, .white, diamondDeep, .white, diamond]
+        case .plain, .unrated: [diamond, .white, diamondDeep, .white, diamond]
         }
     }
 }
@@ -81,7 +110,7 @@ struct FameRing: View {
                 .stroke(AngularGradient(colors: tier.sheen, center: .center),
                         style: StrokeStyle(lineWidth: size * 0.08, lineCap: .round))
                 .rotationEffect(.degrees(-90))
-            Text("\(score)").font(.system(size: size * 0.36, weight: .semibold, design: .serif)).monospacedDigit()
+            Text(score > 0 ? "\(score)" : "未评").font(.system(size: size * (score > 0 ? 0.36 : 0.24), weight: .semibold, design: .serif)).monospacedDigit()
         }
         .frame(width: size, height: size)
     }
@@ -122,10 +151,14 @@ struct FameCardStyle: ViewModifier {
 struct FameSheet: View {
     let thinker: Thinker
     @Environment(\.dismiss) private var dismiss
+    @State private var my: Double = 70
+    @State private var rated = false
+    @State private var stars: [String: Int] = [:]
 
     var body: some View {
-        let s = fameOf(thinker)
-        let tier = FameTier(s?.total ?? 0)
+        let blind = ScoreMode.blind
+        let s = blind ? nil : fameOf(thinker)
+        let tier = FameTier(fameTotal(thinker))
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
@@ -146,10 +179,18 @@ struct FameSheet: View {
                                 FameRing(score: s.total, size: tier == .pure ? 70 : 60)
                                 Text("第 \(s.rank) / \(thinkers.count)").font(.caption2.monospacedDigit()).foregroundStyle(Color.primary.opacity(0.55))
                             }
+                        } else if blind {
+                            FameRing(score: rated ? Int(my) : 0, size: 60)
                         }
                     }
                     Text(thinker.thesis).font(.subheadline).foregroundStyle(Color.primary.opacity(0.8))
                         .fixedSize(horizontal: false, vertical: true)
+                    if blind {
+                        Text("未评分模式：官方分数、排名、等级与评分证据都已隐藏，请按你自己的判断打分。")
+                            .font(.caption).foregroundStyle(Color.primary.opacity(0.6))
+                            .padding(10).background(Color.primary.opacity(0.05), in: .rect(cornerRadius: 12))
+                    }
+                    myRating(blind)
 
                     if let s, let doc = fame {
                         // 五项得分
@@ -193,6 +234,7 @@ struct FameSheet: View {
                                     Image(systemName: "book.closed")
                                     Text("《\(b.title)》").font(.system(size: 15, weight: .semibold))
                                     Spacer()
+                                    starRow(b.id)
                                     Image(systemName: "chevron.right").font(.caption2).foregroundStyle(Moon.dim)
                                 }
                                 .foregroundStyle(Color.primary)
@@ -202,7 +244,7 @@ struct FameSheet: View {
                             .buttonStyle(.plain)
                         }
                     }
-                    if let note = fame?.note {
+                    if !blind, let note = fame?.note {
                         Text(note).font(.caption2).foregroundStyle(Color.primary.opacity(0.4)).padding(.top, 6)
                     }
                 }
@@ -215,6 +257,55 @@ struct FameSheet: View {
             }
         }
         .presentationDetents([.medium, .large])
+    }
+
+    /// 我的评分：人物 1–100 分（存在本机，不影响官方评分）
+    private func myRating(_ blind: Bool) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Text("我的评分").font(.headline)
+                if !blind { Text("只存在本机，不影响官方评分").font(.caption2).foregroundStyle(Color.primary.opacity(0.45)) }
+                Spacer()
+                Text(rated ? "\(Int(my))" : "未评").font(.system(size: 20, weight: .semibold, design: .serif).monospacedDigit())
+                if rated {
+                    Button("清除") { rated = false; UserRatings.setScore(thinker.id, nil) }.font(.caption)
+                }
+            }
+            Slider(value: $my, in: 1...100, step: 1) { editing in
+                if !editing { rated = true; UserRatings.setScore(thinker.id, Int(my)) }
+            }
+            .tint(FameTier(rated ? Int(my) : 0).deep)
+            Text("作品可以在下方逐部打 1–5 星").font(.caption2).foregroundStyle(Color.primary.opacity(0.45))
+        }
+        .padding(14)
+        .background(Color.primary.opacity(0.04), in: .rect(cornerRadius: 18))
+        .onAppear {
+            if let v = UserRatings.score(thinker.id) { my = Double(v); rated = true }
+            for b in booksFor(thinker) { stars[b.id] = UserRatings.stars(b.id) }
+        }
+    }
+
+    /// 作品的 1–5 星
+    private func starRow(_ id: String) -> some View {
+        HStack(spacing: 2) {
+            ForEach(1...5, id: \.self) { k in
+                Image(systemName: k <= (stars[id] ?? 0) ? "star.fill" : "star")
+                    .font(.system(size: 12))
+                    .foregroundStyle(k <= (stars[id] ?? 0) ? pureGold : Color.primary.opacity(0.3))
+                    .onTapGesture {
+                        let v = (stars[id] ?? 0) == k ? 0 : k
+                        stars[id] = v
+                        UserRatings.setStars(id, v)
+                    }
+            }
+        }
+        .accessibilityElement()
+        .accessibilityLabel("我的星级")
+        .accessibilityValue("\(stars[id] ?? 0) 星")
+        .accessibilityAdjustableAction { dir in
+            let v = max(0, min(5, (stars[id] ?? 0) + (dir == .increment ? 1 : -1)))
+            stars[id] = v; UserRatings.setStars(id, v)
+        }
     }
 
     @ViewBuilder
@@ -295,7 +386,7 @@ struct FamePlate: View {
             Text(shortName(thinker))
                 .font(.system(size: compact ? 11 : (tier == .pure ? 15 : 13), weight: .semibold, design: .serif))
                 .lineLimit(2).minimumScaleFactor(0.7).multilineTextAlignment(.center)
-            Text("\(s)").font(.system(size: compact ? 9 : 10, weight: .medium).monospacedDigit())
+            Text(s > 0 ? "\(s)" : "未评").font(.system(size: compact ? 9 : 10, weight: .medium).monospacedDigit())
                 .foregroundStyle(tier.deep)
         }
         .foregroundStyle(Color.primary)
@@ -478,7 +569,7 @@ struct RoundTableView: View {
         VStack(spacing: 10) {
             if let id = focus, let t = thinkers.first(where: { $0.id == id }) {
                 Text(fullName(t)).font(.system(size: 30, weight: .semibold, design: .serif))
-                if let s = fameOf(t) { FameRing(score: s.total, size: 64) }
+                FameRing(score: fameTotal(t), size: 64)
                 Text(t.thesis).font(.footnote).foregroundStyle(Color.primary.opacity(0.7))
                     .multilineTextAlignment(.center).frame(width: 250)
                 Button("评分与证据") { detail = t }.buttonStyle(.glassProminent)
@@ -662,15 +753,15 @@ struct TempleView: View {
             DomeShape(lit: lit).aspectRatio(2, contentMode: .fit)
             Button { detail = t } label: {
                 VStack(spacing: 6) {
-                    Text("至 纯").font(.system(size: 10, weight: .semibold, design: .serif)).tracking(4).foregroundStyle(champagneDeep)
+                    Text(FameTier(fameTotal(t)).name.map(String.init).joined(separator: " ")).font(.system(size: 10, weight: .semibold, design: .serif)).tracking(4).foregroundStyle(FameTier(fameTotal(t)).deep)
                     Text(fullName(t)).font(.system(size: 26, weight: .semibold, design: .serif))
-                    if let s = fameOf(t) { FameRing(score: s.total, size: 46) }
+                    FameRing(score: fameTotal(t), size: 46)
                 }
                 .foregroundStyle(Color.primary)
                 .padding(.horizontal, 26).padding(.vertical, 14)
             }
             .buttonStyle(.plain)
-            .modifier(FameCardStyle(tier: .pure, region: t.region, radius: 26))
+            .modifier(FameCardStyle(tier: FameTier(fameTotal(t)), region: t.region, radius: 26))
             .padding(.bottom, 18)
             .scaleEffect(lit ? 1 : 0.9)
             .opacity(lit ? 1 : 0)

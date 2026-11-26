@@ -47,6 +47,7 @@ private func colorFor(_ t: Thinker) -> UIColor {
     case .pure: return champagne3D
     case .fine: return pureGold3D
     case .plain: return diamond3D
+    case .unrated: return ivory
     }
 }
 
@@ -56,6 +57,7 @@ private func tierMat(_ t: Thinker) -> PhysicallyBasedMaterial {
     case .pure: return mat(champagne3D, rough: 0.28, metal: 0.85)
     case .fine: return mat(pureGold3D, rough: 0.12, metal: 1)
     case .plain: return mat(diamond3D, opacity: 0.72, rough: 0.02, glow: 0.35)
+    case .unrated: return mat(ivory, rough: 0.6)
     }
 }
 
@@ -904,7 +906,7 @@ struct Heaven3DView: View {
 
 struct Temple3DView: View {
     private static let motes = 16
-    private static let order: [Thinker] = Region.allCases.flatMap { r in rankedThinkers.filter { $0.region == r } }
+    private static var order: [Thinker] { Region.allCases.flatMap { r in rankedThinkers.filter { $0.region == r } } }
 
     var body: some View {
         let n = Self.order.count

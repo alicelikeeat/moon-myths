@@ -67,6 +67,8 @@ struct HomeView: View {
     @AppStorage("homeStyle") private var style = "tree"
     @AppStorage("home3D") private var home3D = false
     @AppStorage("nameLang") private var nameLang = "zh"
+    @AppStorage("blindMode") private var blindMode = false
+    @AppStorage("ratingsRev") private var ratingsRev = 0
     private var has3D: Bool { ["tree", "pyramid", "table", "heaven", "temple"].contains(style) }
     private let styles: [(String, String, String)] = [
         ("tree", "世界树", "tree"), ("pyramid", "金字塔", "triangle"), ("table", "圆桌", "circle.circle"),
@@ -87,7 +89,7 @@ struct HomeView: View {
                     default: if home3D { WorldTree3DView() } else { WorldTreeView() }
                     }
                 }
-                .id(style + (home3D ? "3d" : "") + nameLang)
+                .id(style + (home3D ? "3d" : "") + nameLang + (blindMode ? "b\(ratingsRev)" : ""))
                 .transition(.opacity)
             }
             .toolbar {
@@ -95,6 +97,9 @@ struct HomeView: View {
                     Menu {
                         Picker("首页", selection: Binding(get: { style }, set: { v in withAnimation(.smooth(duration: 0.4)) { style = v } })) {
                             ForEach(styles, id: \.0) { s in Label(s.1, systemImage: s.2).tag(s.0) }
+                        }
+                        Toggle(isOn: $blindMode) {
+                            Label("未评分模式（自己打分）", systemImage: "eye.slash")
                         }
                         Menu {
                             Picker("名字语言", selection: $nameLang) {
