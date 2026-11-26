@@ -1,0 +1,14 @@
+name: Fame metrics
+on: workflow_dispatch
+permissions: { contents: write }
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tools/fame/fetch.py
+      - run: if [ -f tools/fame/links.txt ]; then python3 tools/fame/checklinks.py tools/fame/links.txt > links.json; fi
+      - run: |
+          git config user.name "fame-bot"; git config user.email "bot@users.noreply.github.com"
+          mkdir -p /tmp/o && cp fame.json /tmp/o/ && ([ -f links.json ] && cp links.json /tmp/o/ || true)
+          git checkout --orphan fame-data && git rm -rfq . && cp /tmp/o/* . && git add *.json && git commit -qm "fame data" && git push -f origin fame-data
