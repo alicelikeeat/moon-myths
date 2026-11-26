@@ -1,0 +1,14 @@
+name: Statue prototypes
+on: workflow_dispatch
+permissions: { contents: write }
+jobs:
+  find:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - run: git fetch origin fame-data && git show FETCH_HEAD:fame.json > fame.json
+      - run: python3 tools/statues/find.py
+      - run: |
+          git config user.name "statue-bot"; git config user.email "bot@users.noreply.github.com"
+          cp candidates.json /tmp/ && git checkout --orphan statues-data && git rm -rfq . && cp /tmp/candidates.json . && git add candidates.json && git commit -qm "candidates" && git push -f origin statues-data
