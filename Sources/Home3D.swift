@@ -295,6 +295,14 @@ struct HomeStage3D: View {
         }
         .animation(.spring(duration: 0.4, bounce: 0.2), value: selected)
         .animation(.spring(duration: 0.3, bounce: 0.2), value: candidates)
+        .onAppear {
+            // 截图用：-stageSelect <人物 id> 在入场后自动聚焦
+            let args = ProcessInfo.processInfo.arguments
+            if let i = args.firstIndex(of: "-stageSelect"), i + 1 < args.count {
+                let id = args[i + 1]
+                DispatchQueue.main.asyncAfter(deadline: .now() + 4) { if refs.people[id] != nil { select(id) } }
+            }
+        }
         .sheet(item: $detail) { FameSheet(thinker: $0) }
         .sheet(item: $prototype) { t in
             if let r = statueRecord(t.id) { PrototypeSheet(record: r, thinker: t) }
