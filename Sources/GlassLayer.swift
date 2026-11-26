@@ -113,7 +113,7 @@ final class PlaybackClock {
 }
 
 /// 动画画布：线条、粒子用 Canvas；圆、方框用原生玻璃；文字在最上层。
-/// 左上角可切换 2D / 3D；点按画面查看名称，拖动可推开微粒、拖动节点（数据场景），3D 下拖动旋转、双指缩放，双击复原。
+/// 左上角可切换 2D / 3D；点按画面查看名称，拖动可推开微粒、拖动节点（数据场景），3D 下拖动旋转、双指缩放；左上角复原按钮还原视角。
 struct LiveCanvas: View {
     var clock: PlaybackClock? = nil
     var surface: DragSurface? = nil
@@ -178,8 +178,7 @@ struct LiveCanvas: View {
             if camStart == nil { camStart = cam }
             cam.zoom = min(2.2, max(0.6, (camStart?.zoom ?? 1) * v.magnification))
         }.onEnded { _ in camStart = nil })
-        .onTapGesture(count: 2) { reset() }
-        .onTapGesture { p in inspect(p) }
+        .simultaneousGesture(SpatialTapGesture().onEnded { v in inspect(v.location) })
     }
 
     /// 2D：原来的两遍绘制（线条 + 原生玻璃叠加层）
