@@ -189,7 +189,7 @@
     "influenced": 1,
     "len": 5812
    },
-   "rank": 59
+   "rank": 78
   },
   "mozi": {
    "total": 71,
@@ -251,13 +251,13 @@
     "len": 29285,
     "sep": 20802
    },
-   "rank": 30
+   "rank": 33
   },
   "liezi": {
-   "total": 58,
+   "total": 57,
    "parts": {
     "hist": 8,
-    "scholar": 20,
+    "scholar": 19,
     "popular": 13,
     "official": 7,
     "time": 10
@@ -281,7 +281,7 @@
     "influenced": 0,
     "len": 14819
    },
-   "rank": 56
+   "rank": 71
   },
   "xunzi": {
    "total": 69,
@@ -317,7 +317,7 @@
     "len": 75350,
     "sep": 8348
    },
-   "rank": 33
+   "rank": 36
   },
   "hanfei": {
    "total": 73,
@@ -348,7 +348,7 @@
     "len": 19916,
     "sep": 15394
    },
-   "rank": 21
+   "rank": 22
   },
   "dongzhongshu": {
    "total": 78,
@@ -408,7 +408,7 @@
     "influenced": 0,
     "len": 53051
    },
-   "rank": 22
+   "rank": 23
   },
   "zhuxi": {
    "total": 78,
@@ -473,7 +473,7 @@
     "influenced": 0,
     "len": 13774
    },
-   "rank": 50
+   "rank": 60
   },
   "zhangzai": {
    "total": 65,
@@ -503,7 +503,7 @@
     "influenced": 0,
     "len": 53209
    },
-   "rank": 45
+   "rank": 52
   },
   "ercheng": {
    "total": 66,
@@ -533,7 +533,7 @@
     "influenced": 0,
     "len": 11754
    },
-   "rank": 39
+   "rank": 45
   },
   "luxiangshan": {
    "total": 60,
@@ -563,13 +563,13 @@
     "influenced": 0,
     "len": 9591
    },
-   "rank": 53
+   "rank": 64
   },
   "wangyangming": {
-   "total": 68,
+   "total": 67,
    "parts": {
     "hist": 21,
-    "scholar": 16,
+    "scholar": 15,
     "popular": 15,
     "official": 8,
     "time": 8
@@ -594,7 +594,7 @@
     "len": 48151,
     "sep": 8257
    },
-   "rank": 36
+   "rank": 42
   },
   "wangfuzhi": {
    "total": 60,
@@ -624,7 +624,7 @@
     "influenced": 0,
     "len": 35812
    },
-   "rank": 54
+   "rank": 65
   },
   "guyanwu": {
    "total": 63,
@@ -654,7 +654,7 @@
     "influenced": 0,
     "len": 50890
    },
-   "rank": 49
+   "rank": 58
   },
   "wangchong": {
    "total": 57,
@@ -678,7 +678,7 @@
     "influenced": 0,
     "len": 26012
    },
-   "rank": 57
+   "rank": 72
   },
   "gongsunlong": {
    "total": 54,
@@ -699,11 +699,10 @@
    "metrics": {
     "langs": 22,
     "views": 11711,
-    "influenced": 0,
     "len": 15616,
     "sep": 16674
    },
-   "rank": 60
+   "rank": 79
   },
   "guanzhong": {
    "total": 66,
@@ -733,7 +732,7 @@
     "influenced": 0,
     "len": 16773
    },
-   "rank": 40
+   "rank": 46
   },
   "sunwu": {
    "total": 70,
@@ -763,7 +762,7 @@
     "influenced": 2,
     "len": 32885
    },
-   "rank": 31
+   "rank": 34
   },
   "zhouyi": {
    "total": 84,
@@ -823,13 +822,13 @@
     "influenced": 0,
     "len": 11454
    },
-   "rank": 46
+   "rank": 53
   },
   "zhaoshuang": {
-   "total": 46,
+   "total": 56,
    "parts": {
     "hist": 11,
-    "scholar": 8,
+    "scholar": 18,
     "popular": 9,
     "official": 8,
     "time": 10
@@ -850,9 +849,10 @@
    "metrics": {
     "langs": 9,
     "views": 1232,
-    "influenced": 0
+    "influenced": 0,
+    "len": 6171
    },
-   "rank": 61
+   "rank": 74
   },
   "socrates": {
    "total": 76,
@@ -958,7 +958,7 @@
     "len": 158602,
     "sep": 23556
    },
-   "rank": 2
+   "rank": 3
   },
   "lucretius": {
    "total": 60,
@@ -983,7 +983,7 @@
     "len": 19513,
     "sep": 15260
    },
-   "rank": 55
+   "rank": 66
   },
   "epictetus": {
    "total": 56,
@@ -1007,7 +1007,7 @@
     "influenced": 1,
     "len": 21877
    },
-   "rank": 58
+   "rank": 75
   },
   "marcusaurelius": {
    "total": 70,
@@ -1038,7 +1038,7 @@
     "len": 143070,
     "sep": 8903
    },
-   "rank": 32
+   "rank": 35
   },
   "augustine": {
    "total": 84,
@@ -1167,7 +1167,7 @@
     "len": 73045,
     "sep": 10654
    },
-   "rank": 48
+   "rank": 56
   },
   "descartes": {
    "total": 79,
@@ -1206,10 +1206,10 @@
    "rank": 12
   },
   "descartes-geometry": {
-   "total": 69,
+   "total": 67,
    "parts": {
     "hist": 22,
-    "scholar": 23,
+    "scholar": 21,
     "popular": 12,
     "official": 4,
     "time": 8
@@ -1225,9 +1225,10 @@
     "langs": 19,
     "views": 11862,
     "influenced": 0,
+    "len": 10658,
     "sep": 15327
    },
-   "rank": 34
+   "rank": 43
   },
   "pascal": {
    "total": 71,
@@ -1299,7 +1300,7 @@
     "len": 127006,
     "sep": 15408
    },
-   "rank": 41
+   "rank": 47
   },
   "locke": {
    "total": 76,
@@ -1395,7 +1396,7 @@
     "len": 107153,
     "sep": 17616
    },
-   "rank": 51
+   "rank": 61
   },
   "hume": {
    "total": 72,
@@ -1431,7 +1432,7 @@
     "len": 196189,
     "sep": 19496
    },
-   "rank": 23
+   "rank": 24
   },
   "rousseau": {
    "total": 78,
@@ -1559,7 +1560,7 @@
     "len": 166781,
     "sep": 13669
    },
-   "rank": 47
+   "rank": 54
   },
   "kierkegaard": {
    "total": 66,
@@ -1584,7 +1585,7 @@
     "len": 157989,
     "sep": 18332
    },
-   "rank": 42
+   "rank": 48
   },
   "mill": {
    "total": 68,
@@ -1615,13 +1616,13 @@
     "len": 127989,
     "sep": 19270
    },
-   "rank": 37
+   "rank": 39
   },
   "marx": {
-   "total": 89,
+   "total": 88,
    "parts": {
     "hist": 28,
-    "scholar": 25,
+    "scholar": 24,
     "popular": 20,
     "official": 10,
     "time": 6
@@ -1714,7 +1715,7 @@
     "len": 94964,
     "sep": 8914
    },
-   "rank": 52
+   "rank": 62
   },
   "russell": {
    "total": 71,
@@ -1744,7 +1745,7 @@
     },
     {
      "t": "1940 年纽约法院撤销其纽约城市学院教职任命",
-     "u": "https://en.wikipedia.org/wiki/Bertrand_Russell_case",
+     "u": "https://en.wikipedia.org/wiki/Kay_v._Board_of_Higher_Education",
      "p": -1
     }
    ],
@@ -1780,7 +1781,7 @@
     "len": 208780,
     "sep": 16019
    },
-   "rank": 38
+   "rank": 44
   },
   "heidegger": {
    "total": 66,
@@ -1815,7 +1816,7 @@
     "len": 124821,
     "sep": 30205
    },
-   "rank": 43
+   "rank": 49
   },
   "sartre": {
    "total": 69,
@@ -1846,7 +1847,7 @@
     "len": 105524,
     "sep": 18239
    },
-   "rank": 35
+   "rank": 37
   },
   "camus": {
    "total": 66,
@@ -1877,7 +1878,7 @@
     "len": 66225,
     "sep": 13411
    },
-   "rank": 44
+   "rank": 50
   },
   "euclid": {
    "total": 74,
@@ -1908,10 +1909,10 @@
    "rank": 20
   },
   "archimedes": {
-   "total": 72,
+   "total": 71,
    "parts": {
     "hist": 19,
-    "scholar": 15,
+    "scholar": 14,
     "popular": 19,
     "official": 9,
     "time": 10
@@ -1935,13 +1936,13 @@
     "influenced": 3,
     "len": 76873
    },
-   "rank": 24
+   "rank": 30
   },
   "newton": {
-   "total": 90,
+   "total": 91,
    "parts": {
     "hist": 29,
-    "scholar": 20,
+    "scholar": 21,
     "popular": 20,
     "official": 14,
     "time": 7
@@ -1977,9 +1978,569 @@
     "langs": 239,
     "views": 2493372,
     "influenced": 28,
+    "len": 230901,
     "sep": 6983
    },
-   "rank": 3
+   "rank": 2
+  },
+  "pythagoras": {
+   "total": 71,
+   "parts": {
+    "hist": 20,
+    "scholar": 19,
+    "popular": 18,
+    "official": 4,
+    "time": 10
+   },
+   "hist": [
+    {
+     "t": "毕达哥拉斯学派“万物皆数”的思想深刻影响柏拉图与西方数学哲学",
+     "u": "https://en.wikipedia.org/wiki/Pythagoreanism"
+    }
+   ],
+   "off": [],
+   "metrics": {
+    "langs": 163,
+    "views": 554868,
+    "influenced": 7,
+    "len": 105342,
+    "sep": 19073
+   },
+   "rank": 31
+  },
+  "apollonius": {
+   "total": 66,
+   "parts": {
+    "hist": 15,
+    "scholar": 22,
+    "popular": 15,
+    "official": 4,
+    "time": 10
+   },
+   "hist": [
+    {
+     "t": "《圆锥曲线论》为开普勒的椭圆轨道与牛顿的引力理论提供了现成的几何工具",
+     "u": "https://en.wikipedia.org/wiki/Apollonius_of_Perga"
+    }
+   ],
+   "off": [],
+   "metrics": {
+    "langs": 71,
+    "views": 34385,
+    "influenced": 0,
+    "len": 59104
+   },
+   "rank": 51
+  },
+  "diophantus": {
+   "total": 56,
+   "parts": {
+    "hist": 15,
+    "scholar": 13,
+    "popular": 15,
+    "official": 4,
+    "time": 9
+   },
+   "hist": [
+    {
+     "t": "费马在《算术》拉丁文译本页边写下“费马大定理”，引出三百多年的数论研究",
+     "u": "https://en.wikipedia.org/wiki/Arithmetica"
+    }
+   ],
+   "off": [],
+   "metrics": {
+    "langs": 74,
+    "views": 43262,
+    "influenced": 2,
+    "len": 30231
+   },
+   "rank": 76
+  },
+  "zuchongzhi": {
+   "total": 69,
+   "parts": {
+    "hist": 17,
+    "scholar": 20,
+    "popular": 14,
+    "official": 9,
+    "time": 9
+   },
+   "hist": [
+    {
+     "t": "所求圆周率精确到小数点后七位，这一纪录保持了近千年",
+     "u": "https://zh.wikipedia.org/wiki/祖沖之"
+    }
+   ],
+   "off": [
+    {
+     "t": "1955 年中国邮政发行“中国古代科学家”纪念邮票，祖冲之为其中之一",
+     "u": "https://zh.wikipedia.org/wiki/祖沖之",
+     "p": 3
+    },
+    {
+     "t": "紫金山天文台发现的小行星 1888 号以其命名",
+     "u": "https://en.wikipedia.org/wiki/1888_Zu_Chong-Zhi",
+     "p": 2
+    }
+   ],
+   "metrics": {
+    "langs": 38,
+    "views": 45133,
+    "influenced": 0,
+    "len": 15768
+   },
+   "rank": 38
+  },
+  "alkhwarizmi": {
+   "total": 68,
+   "parts": {
+    "hist": 24,
+    "scholar": 13,
+    "popular": 18,
+    "official": 4,
+    "time": 9
+   },
+   "hist": [
+    {
+     "t": "其著作经拉丁译本把代数与印度—阿拉伯数字传入欧洲，“algebra”“algorithm”由此得名",
+     "u": "https://en.wikipedia.org/wiki/Al-Khwarizmi"
+    }
+   ],
+   "off": [],
+   "metrics": {
+    "langs": 154,
+    "views": 369678,
+    "influenced": 1,
+    "len": 81157
+   },
+   "rank": 40
+  },
+  "fibonacci": {
+   "total": 60,
+   "parts": {
+    "hist": 20,
+    "scholar": 11,
+    "popular": 17,
+    "official": 4,
+    "time": 8
+   },
+   "hist": [
+    {
+     "t": "《算盘书》推动欧洲商业与会计改用印度—阿拉伯数字",
+     "u": "https://en.wikipedia.org/wiki/Liber_Abaci"
+    }
+   ],
+   "off": [],
+   "metrics": {
+    "langs": 118,
+    "views": 242828,
+    "influenced": 1,
+    "len": 25643
+   },
+   "rank": 67
+  },
+  "liye": {
+   "total": 56,
+   "parts": {
+    "hist": 12,
+    "scholar": 21,
+    "popular": 11,
+    "official": 4,
+    "time": 8
+   },
+   "hist": [
+    {
+     "t": "《测圆海镜》是现存最早系统讲天元术（以未知数列方程）的著作",
+     "u": "https://zh.wikipedia.org/wiki/測圓海鏡"
+    }
+   ],
+   "off": [],
+   "metrics": {
+    "langs": 12,
+    "views": 4428,
+    "influenced": 0,
+    "len": 32722
+   },
+   "rank": 77
+  },
+  "qinjiushao": {
+   "total": 57,
+   "parts": {
+    "hist": 14,
+    "scholar": 19,
+    "popular": 12,
+    "official": 4,
+    "time": 8
+   },
+   "hist": [
+    {
+     "t": "“大衍求一术”比欧洲高斯的同类方法早五百多年，西方称“中国剩余定理”",
+     "u": "https://zh.wikipedia.org/wiki/數書九章"
+    }
+   ],
+   "off": [],
+   "metrics": {
+    "langs": 25,
+    "views": 9179,
+    "influenced": 0,
+    "len": 10322
+   },
+   "rank": 73
+  },
+  "yanghui": {
+   "total": 53,
+   "parts": {
+    "hist": 11,
+    "scholar": 18,
+    "popular": 12,
+    "official": 4,
+    "time": 8
+   },
+   "hist": [
+    {
+     "t": "所录贾宪三角（杨辉三角）比欧洲帕斯卡三角早约四百年",
+     "u": "https://zh.wikipedia.org/wiki/楊輝三角形"
+    }
+   ],
+   "off": [],
+   "metrics": {
+    "langs": 20,
+    "views": 9058,
+    "influenced": 0,
+    "len": 7870
+   },
+   "rank": 81
+  },
+  "zhushijie": {
+   "total": 54,
+   "parts": {
+    "hist": 12,
+    "scholar": 18,
+    "popular": 12,
+    "official": 4,
+    "time": 8
+   },
+   "hist": [
+    {
+     "t": "《四元玉鉴》的四元术把天元术推广到多元高次方程组，被视为宋元数学的高峰",
+     "u": "https://zh.wikipedia.org/wiki/四元玉鑑"
+    }
+   ],
+   "off": [],
+   "metrics": {
+    "langs": 23,
+    "views": 6292,
+    "influenced": 0,
+    "len": 6411
+   },
+   "rank": 80
+  },
+  "xuguangqi": {
+   "total": 68,
+   "parts": {
+    "hist": 17,
+    "scholar": 22,
+    "popular": 14,
+    "official": 7,
+    "time": 8
+   },
+   "hist": [
+    {
+     "t": "合译《几何原本》，所定译名沿用至今；主持编修《崇祯历书》引入西方天文学",
+     "u": "https://zh.wikipedia.org/wiki/徐光啓"
+    }
+   ],
+   "off": [
+    {
+     "t": "官至礼部尚书兼东阁大学士；死后追赠太保，谥“文定”",
+     "u": "https://zh.wikipedia.org/wiki/徐光啓",
+     "p": 3
+    }
+   ],
+   "metrics": {
+    "langs": 30,
+    "views": 55374,
+    "influenced": 0,
+    "len": 47030
+   },
+   "rank": 41
+  },
+  "fermat": {
+   "total": 58,
+   "parts": {
+    "hist": 18,
+    "scholar": 13,
+    "popular": 16,
+    "official": 4,
+    "time": 7
+   },
+   "hist": [
+    {
+     "t": "费马大定理激发了三百多年的数论研究，1994 年由怀尔斯证明",
+     "u": "https://en.wikipedia.org/wiki/Fermat's_Last_Theorem"
+    }
+   ],
+   "off": [],
+   "metrics": {
+    "langs": 97,
+    "views": 104284,
+    "influenced": 3,
+    "len": 22936
+   },
+   "rank": 69
+  },
+  "meiwending": {
+   "total": 52,
+   "parts": {
+    "hist": 11,
+    "scholar": 18,
+    "popular": 9,
+    "official": 7,
+    "time": 7
+   },
+   "hist": [
+    {
+     "t": "会通中西历算，开清代历算学风气",
+     "u": "https://zh.wikipedia.org/wiki/梅文鼎"
+    }
+   ],
+   "off": [
+    {
+     "t": "1705 年康熙南巡时召见，御书“绩学参微”赐之",
+     "u": "https://zh.wikipedia.org/wiki/梅文鼎",
+     "p": 3
+    }
+   ],
+   "metrics": {
+    "langs": 5,
+    "views": 2392,
+    "influenced": 0,
+    "len": 6273
+   },
+   "rank": 82
+  },
+  "euler": {
+   "total": 71,
+   "parts": {
+    "hist": 23,
+    "scholar": 16,
+    "popular": 18,
+    "official": 7,
+    "time": 7
+   },
+   "hist": [
+    {
+     "t": "确立了现代数学的大量记号与分析学体系，被称为“所有人的老师”",
+     "u": "https://en.wikipedia.org/wiki/Leonhard_Euler"
+    }
+   ],
+   "off": [
+    {
+     "t": "瑞士第六套 10 法郎纸币印其肖像",
+     "u": "https://en.wikipedia.org/wiki/Leonhard_Euler",
+     "p": 3
+    }
+   ],
+   "metrics": {
+    "langs": 167,
+    "views": 720590,
+    "influenced": 6,
+    "len": 105161
+   },
+   "rank": 32
+  },
+  "gauss": {
+   "total": 74,
+   "parts": {
+    "hist": 23,
+    "scholar": 17,
+    "popular": 18,
+    "official": 9,
+    "time": 7
+   },
+   "hist": [
+    {
+     "t": "《算术研究》奠定现代数论；最小二乘法与正态分布成为统计学基础",
+     "u": "https://en.wikipedia.org/wiki/Carl_Friedrich_Gauss"
+    }
+   ],
+   "off": [
+    {
+     "t": "德国 10 马克纸币（1989–2001）印其肖像",
+     "u": "https://en.wikipedia.org/wiki/Carl_Friedrich_Gauss",
+     "p": 3
+    },
+    {
+     "t": "国际数学联盟与德国数学会设立“高斯奖”",
+     "u": "https://en.wikipedia.org/wiki/Carl_Friedrich_Gauss_Prize",
+     "p": 2
+    }
+   ],
+   "metrics": {
+    "langs": 165,
+    "views": 497054,
+    "influenced": 6,
+    "len": 209244
+   },
+   "rank": 21
+  },
+  "boole": {
+   "total": 63,
+   "parts": {
+    "hist": 20,
+    "scholar": 17,
+    "popular": 16,
+    "official": 4,
+    "time": 6
+   },
+   "hist": [
+    {
+     "t": "布尔代数经香农 1937 年的论文用于开关电路，成为数字计算机的逻辑基础",
+     "u": "https://en.wikipedia.org/wiki/Boolean_algebra"
+    }
+   ],
+   "off": [],
+   "metrics": {
+    "langs": 83,
+    "views": 150186,
+    "influenced": 3,
+    "len": 66033,
+    "sep": 14958
+   },
+   "rank": 59
+  },
+  "riemann": {
+   "total": 58,
+   "parts": {
+    "hist": 19,
+    "scholar": 13,
+    "popular": 16,
+    "official": 4,
+    "time": 6
+   },
+   "hist": [
+    {
+     "t": "黎曼几何成为爱因斯坦广义相对论的数学语言",
+     "u": "https://en.wikipedia.org/wiki/Riemannian_geometry"
+    },
+    {
+     "t": "黎曼猜想被列为克雷研究所千禧年大奖难题",
+     "u": "https://en.wikipedia.org/wiki/Riemann_hypothesis"
+    }
+   ],
+   "off": [],
+   "metrics": {
+    "langs": 102,
+    "views": 149997,
+    "influenced": 2,
+    "len": 27001
+   },
+   "rank": 70
+  },
+  "dedekind": {
+   "total": 61,
+   "parts": {
+    "hist": 14,
+    "scholar": 22,
+    "popular": 15,
+    "official": 4,
+    "time": 6
+   },
+   "hist": [
+    {
+     "t": "戴德金分割与理想理论奠定了实数论与现代代数",
+     "u": "https://en.wikipedia.org/wiki/Dedekind_cut"
+    }
+   ],
+   "off": [],
+   "metrics": {
+    "langs": 65,
+    "views": 41527,
+    "influenced": 0,
+    "len": 18324,
+    "sep": 15867
+   },
+   "rank": 63
+  },
+  "cantor": {
+   "total": 60,
+   "parts": {
+    "hist": 19,
+    "scholar": 15,
+    "popular": 16,
+    "official": 4,
+    "time": 6
+   },
+   "hist": [
+    {
+     "t": "集合论成为几乎全部现代数学的基础语言",
+     "u": "https://en.wikipedia.org/wiki/Set_theory"
+    }
+   ],
+   "off": [],
+   "metrics": {
+    "langs": 93,
+    "views": 167650,
+    "influenced": 3,
+    "len": 83181
+   },
+   "rank": 68
+  },
+  "hilbert": {
+   "total": 65,
+   "parts": {
+    "hist": 21,
+    "scholar": 17,
+    "popular": 17,
+    "official": 4,
+    "time": 6
+   },
+   "hist": [
+    {
+     "t": "1900 年巴黎国际数学家大会提出 23 个问题，主导了 20 世纪数学研究",
+     "u": "https://en.wikipedia.org/wiki/Hilbert's_problems"
+    }
+   ],
+   "off": [],
+   "metrics": {
+    "langs": 137,
+    "views": 220128,
+    "influenced": 2,
+    "len": 61672,
+    "sep": 10745
+   },
+   "rank": 55
+  },
+  "godel": {
+   "total": 64,
+   "parts": {
+    "hist": 19,
+    "scholar": 16,
+    "popular": 17,
+    "official": 7,
+    "time": 5
+   },
+   "hist": [
+    {
+     "t": "不完备定理终结了希尔伯特计划，深刻影响逻辑学、计算理论与哲学",
+     "u": "https://en.wikipedia.org/wiki/Gödel's_incompleteness_theorems"
+    }
+   ],
+   "off": [
+    {
+     "t": "1951 年获首届爱因斯坦奖；1974 年获美国国家科学奖章",
+     "u": "https://en.wikipedia.org/wiki/Kurt_Gödel",
+     "p": 3
+    }
+   ],
+   "metrics": {
+    "langs": 100,
+    "views": 382707,
+    "influenced": 1,
+    "len": 59733,
+    "sep": 19675
+   },
+   "rank": 57
   }
  },
  "note": "说明：学者评价与民间热度的数据源以英文世界为主，会低估部分中国思想家，因此民间热度同时计入中文维基浏览量。评分只反映可量化的影响力与可查证的事实，不代表对其学说是非的判断。数据抓取于 2026 年 11 月。"

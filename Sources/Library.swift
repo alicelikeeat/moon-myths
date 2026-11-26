@@ -65,6 +65,8 @@ struct HomeView: View {
     @State private var showSettings = false
     @State private var demoSheet: Thinker?
     @AppStorage("homeStyle") private var style = "tree"
+    @AppStorage("home3D") private var home3D = false
+    private var has3D: Bool { ["pyramid", "table", "heaven", "temple"].contains(style) }
     private let styles: [(String, String, String)] = [
         ("tree", "世界树", "tree"), ("pyramid", "金字塔", "triangle"), ("table", "圆桌", "circle.circle"),
         ("heaven", "天堂", "sun.max"), ("temple", "罗马神殿", "building.columns"), ("list", "书目", "list.bullet"),
@@ -77,14 +79,14 @@ struct HomeView: View {
                 Group {
                     switch style {
                     case "list": list
-                    case "pyramid": PyramidView()
-                    case "table": RoundTableView()
-                    case "heaven": HeavenView()
-                    case "temple": TempleView()
+                    case "pyramid": if home3D { Pyramid3DView() } else { PyramidView() }
+                    case "table": if home3D { RoundTable3DView() } else { RoundTableView() }
+                    case "heaven": if home3D { Heaven3DView() } else { HeavenView() }
+                    case "temple": if home3D { Temple3DView() } else { TempleView() }
                     default: WorldTreeView()
                     }
                 }
-                .id(style)
+                .id(style + (home3D ? "3d" : ""))
                 .transition(.opacity)
             }
             .toolbar {
@@ -97,6 +99,14 @@ struct HomeView: View {
                         Label("首页样式", systemImage: styles.first { $0.0 == style }?.2 ?? "tree")
                     }
                     .accessibilityIdentifier("home.style")
+                }
+                if has3D {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button { withAnimation(.smooth(duration: 0.4)) { home3D.toggle() } } label: {
+                            Text(home3D ? "3D" : "2D").font(.system(size: 13, weight: .bold, design: .rounded))
+                        }
+                        .accessibilityIdentifier("home.3d")
+                    }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("外观", systemImage: "paintpalette") { showSettings = true }
