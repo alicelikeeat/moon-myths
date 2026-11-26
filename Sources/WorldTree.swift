@@ -378,10 +378,11 @@ struct WorldTreeView: View {
         .glassEffectID(t.id, in: glassNS)
         .glassEffectTransition(.matchedGeometry)
         .overlay {
-            // 至纯：金色细线双框
-            if FameTier(fameTotal(t)) == .pure {
-                RoundedRectangle(cornerRadius: 28).strokeBorder(fameGold.opacity(0.8), lineWidth: 0.8)
-                RoundedRectangle(cornerRadius: 23).strokeBorder(fameGold.opacity(0.25), lineWidth: 0.5).padding(5)
+            // 分级边框：至纯香槟金双线、精致纯金、专业钻石
+            let tier = FameTier(fameTotal(t))
+            RoundedRectangle(cornerRadius: 28).strokeBorder(LinearGradient(colors: tier.sheen, startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 0.9)
+            if tier == .pure {
+                RoundedRectangle(cornerRadius: 23).strokeBorder(champagne.opacity(0.4), lineWidth: 0.5).padding(5)
             }
         }
         .position(x: f.midX, y: f.midY)

@@ -45,11 +45,24 @@ private func tappable(_ e: ModelEntity, id: String) {
     e.components.set(InputTargetComponent())
 }
 
+private let champagne3D = UIColor(red: 0.93, green: 0.84, blue: 0.68, alpha: 1)
+private let pureGold3D = UIColor(red: 0.92, green: 0.72, blue: 0.18, alpha: 1)
+private let diamond3D = UIColor(red: 0.84, green: 0.95, blue: 1.0, alpha: 1)
+
 private func colorFor(_ t: Thinker) -> UIColor {
     switch FameTier(fameTotal(t)) {
-    case .pure: return gold3D
-    case .fine: return ivory
-    case .plain: return UIColor(white: 0.9, alpha: 1)
+    case .pure: return champagne3D
+    case .fine: return pureGold3D
+    case .plain: return diamond3D
+    }
+}
+
+/// 分级材质：至纯香槟金（缎面金属）、精致纯金（亮面金属）、专业钻石（清透、带一点光）
+private func tierMat(_ t: Thinker) -> PhysicallyBasedMaterial {
+    switch FameTier(fameTotal(t)) {
+    case .pure: return mat(champagne3D, rough: 0.28, metal: 0.85)
+    case .fine: return mat(pureGold3D, rough: 0.12, metal: 1)
+    case .plain: return mat(diamond3D, opacity: 0.72, rough: 0.02, glow: 0.35)
     }
 }
 
@@ -147,7 +160,7 @@ struct Pyramid3DView: View {
                 let side: Float = 0.10 + Float(layer) * 0.068
                 let y: Float = 0.42 - Float(layer) * H
                 let slab = model(.generateBox(size: [side, H, side], cornerRadius: 0.004),
-                                 mat(layer == 0 ? gold3D : ivory, rough: layer == 0 ? 0.3 : 0.75, metal: layer == 0 ? 0.6 : 0), at: [0, y - H / 2, 0])
+                                 mat(layer == 0 ? champagne3D : ivory, rough: layer == 0 ? 0.3 : 0.75, metal: layer == 0 ? 0.8 : 0), at: [0, y - H / 2, 0])
                 root.addChild(slab)
                 let people = Array(rankedThinkers[i..<min(rankedThinkers.count, i + n)])
                 i += n
@@ -166,7 +179,7 @@ struct Pyramid3DView: View {
                     let pos = SIMD3<Float>(layer == 0 ? 0 : px, y + 0.016, layer == 0 ? 0 : pz)
                     let tier = FameTier(fameTotal(t))
                     let block = model(.generateBox(size: .init(repeating: tier == .pure ? 0.03 : 0.022), cornerRadius: 0.004),
-                                      mat(colorFor(t), opacity: tier == .plain ? 0.85 : 1, rough: 0.25, metal: tier == .pure ? 0.7 : 0), at: pos)
+                                      tierMat(t), at: pos)
                     tappable(block, id: t.id)
                     let label = text3D(shortName(t), size: tier == .pure ? 0.024 : 0.016)
                     label.position = [0, tier == .pure ? 0.04 : 0.028, 0]
@@ -197,7 +210,7 @@ struct RoundTable3DView: View {
                 pos[t.id] = p
                 let tier = FameTier(fameTotal(t))
                 let seat = model(.generateSphere(radius: tier == .pure ? 0.022 : 0.016),
-                                 mat(colorFor(t), rough: 0.15, metal: tier == .pure ? 0.6 : 0), at: p)
+                                 tierMat(t), at: p)
                 tappable(seat, id: t.id)
                 let label = text3D(shortName(t), size: 0.017)
                 label.position = [0, 0.04, 0]
@@ -259,7 +272,7 @@ struct Heaven3DView: View {
                     let a = Float(k) / Float(people.count) * 2 * .pi
                     let tier = FameTier(fameTotal(t))
                     let soul = model(.generateSphere(radius: tier == .pure ? 0.02 : 0.014),
-                                     mat(colorFor(t), opacity: 0.92, rough: 0.05, glow: tier == .pure ? 1.2 : 0.2), at: [cos(a) * rad, 0, sin(a) * rad])
+                                     tierMat(t), at: [cos(a) * rad, 0, sin(a) * rad])
                     tappable(soul, id: t.id)
                     let label = text3D(shortName(t), size: 0.016)
                     label.position = [0, 0.032, 0]
@@ -305,7 +318,7 @@ struct Temple3DView: View {
                     let h: Float = 0.12 + max(0, s - 30) * 0.0042
                     let p = SIMD3<Float>(cos(a) * R, -0.01 + h / 2, sin(a) * R)
                     let col = model(.generateCylinder(height: h, radius: 0.0085),
-                                    mat(tier == .pure ? gold3D : tint, rough: tier == .pure ? 0.3 : 0.55, metal: tier == .pure ? 0.6 : 0), at: p)
+                                    tierMat(t), at: p)
                     tappable(col, id: t.id)
                     // 柱头
                     col.addChild(model(.generateBox(size: [0.022, 0.006, 0.022], cornerRadius: 0.001), stone, at: [0, h / 2 + 0.003, 0]))
@@ -331,7 +344,7 @@ struct Temple3DView: View {
             // 光柱与光里的人
             root.addChild(model(.generateCylinder(height: 0.66, radius: 0.06), mat(UIColor(red: 1, green: 0.96, blue: 0.85, alpha: 1), opacity: 0.16, glow: 2.5), at: [0, 0.32, 0]))
             if let top = rankedThinkers.first {
-                let cube = model(.generateBox(size: .init(repeating: 0.05), cornerRadius: 0.006), mat(gold3D, rough: 0.2, metal: 0.8), at: [0, 0.0, 0])
+                let cube = model(.generateBox(size: .init(repeating: 0.05), cornerRadius: 0.006), tierMat(top), at: [0, 0.0, 0])
                 tappable(cube, id: top.id)
                 let label = text3D(top.name, size: 0.03)
                 label.position = [0, 0.07, 0]

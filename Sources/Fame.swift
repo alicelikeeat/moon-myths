@@ -39,8 +39,25 @@ let fameGold = Color(red: 0.80, green: 0.63, blue: 0.30)
 enum FameTier {
     case pure, fine, plain
     init(_ s: Int) { self = s >= 85 ? .pure : (s >= 75 ? .fine : .plain) }
-    var name: String { switch self { case .pure: "至纯"; case .fine: "精致"; case .plain: "常规" } }
+    var name: String { switch self { case .pure: "至纯"; case .fine: "精致"; case .plain: "专业" } }
+    /// 至纯 = 香槟金；精致 = 纯金；专业 = 钻石
+    var color: Color { switch self { case .pure: champagne; case .fine: pureGold; case .plain: diamond } }
+    var deep: Color { switch self { case .pure: champagneDeep; case .fine: pureGoldDeep; case .plain: diamondDeep } }
+    var sheen: [Color] {
+        switch self {
+        case .pure: [champagne, Color(red: 1, green: 0.97, blue: 0.9), champagneDeep, champagne]
+        case .fine: [pureGold, Color(red: 1, green: 0.9, blue: 0.5), pureGoldDeep, pureGold]
+        case .plain: [diamond, .white, diamondDeep, .white, diamond]
+        }
+    }
 }
+
+let champagne = Color(red: 0.91, green: 0.82, blue: 0.66)
+let champagneDeep = Color(red: 0.70, green: 0.58, blue: 0.40)
+let pureGold = Color(red: 0.88, green: 0.68, blue: 0.14)
+let pureGoldDeep = Color(red: 0.68, green: 0.50, blue: 0.06)
+let diamond = Color(red: 0.80, green: 0.93, blue: 1.0)
+let diamondDeep = Color(red: 0.40, green: 0.64, blue: 0.82)
 
 func fameRegionTint(_ r: Region) -> Color {
     switch r {
@@ -63,8 +80,7 @@ struct FameRing: View {
         ZStack {
             Circle().stroke(Color.primary.opacity(0.08), lineWidth: size * 0.08)
             Circle().trim(from: 0, to: CGFloat(score) / 100)
-                .stroke(tier == .pure ? AnyShapeStyle(AngularGradient(colors: [fameGold, Color(red: 1, green: 0.9, blue: 0.65), fameGold], center: .center))
-                                      : AnyShapeStyle(Color.primary.opacity(tier == .fine ? 0.7 : 0.45)),
+                .stroke(AngularGradient(colors: tier.sheen, center: .center),
                         style: StrokeStyle(lineWidth: size * 0.08, lineCap: .round))
                 .rotationEffect(.degrees(-90))
             Text("\(score)").font(.system(size: size * 0.36, weight: .semibold, design: .serif)).monospacedDigit()
@@ -73,27 +89,32 @@ struct FameRing: View {
     }
 }
 
-/// 卡片的分级外观：至纯 = 素白（夜间素黑）+ 金色细线；精致 = 染色玻璃 + 细白线；常规 = 普通玻璃
+/// 卡片的分级外观：至纯 = 香槟金；精致 = 纯金；专业 = 钻石
 struct FameCardStyle: ViewModifier {
     let tier: FameTier
     let region: Region
     var radius: CGFloat = 28
     @Environment(\.colorScheme) private var scheme
     func body(content: Content) -> some View {
+        let border = LinearGradient(colors: tier.sheen, startPoint: .topLeading, endPoint: .bottomTrailing)
         switch tier {
         case .pure:
+            // 至纯：素白（夜间素黑）底，香槟金双线
             content
                 .background((scheme == .dark ? Color.black : Color.white).opacity(0.86), in: .rect(cornerRadius: radius))
                 .glassEffect(.regular, in: .rect(cornerRadius: radius))
-                .overlay(RoundedRectangle(cornerRadius: radius).strokeBorder(
-                    LinearGradient(colors: [fameGold, fameGold.opacity(0.25), fameGold], startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 0.8))
-                .overlay(RoundedRectangle(cornerRadius: radius - 5).strokeBorder(fameGold.opacity(0.25), lineWidth: 0.5).padding(5))
+                .overlay(RoundedRectangle(cornerRadius: radius).strokeBorder(border, lineWidth: 0.9))
+                .overlay(RoundedRectangle(cornerRadius: radius - 5).strokeBorder(champagne.opacity(0.4), lineWidth: 0.5).padding(5))
         case .fine:
+            // 精致：纯金染色玻璃，金色细线
             content
-                .glassEffect(Glass.regular.tint(fameRegionTint(region).opacity(0.16)), in: .rect(cornerRadius: radius))
-                .overlay(RoundedRectangle(cornerRadius: radius).strokeBorder(Color.white.opacity(0.45), lineWidth: 0.6))
+                .glassEffect(Glass.regular.tint(pureGold.opacity(0.16)), in: .rect(cornerRadius: radius))
+                .overlay(RoundedRectangle(cornerRadius: radius).strokeBorder(border, lineWidth: 0.8))
         case .plain:
-            content.glassEffect(.regular, in: .rect(cornerRadius: radius))
+            // 专业：钻石般清透的玻璃，冷白细线
+            content
+                .glassEffect(Glass.regular.tint(diamond.opacity(0.22)), in: .rect(cornerRadius: radius))
+                .overlay(RoundedRectangle(cornerRadius: radius).strokeBorder(border.opacity(0.8), lineWidth: 0.6))
         }
     }
 }
@@ -112,9 +133,8 @@ struct FameSheet: View {
                 VStack(alignment: .leading, spacing: 16) {
                     HStack(alignment: .center, spacing: 14) {
                         VStack(alignment: .leading, spacing: 4) {
-                            if tier == .pure {
-                                Text("至 纯").font(.system(size: 11, weight: .semibold, design: .serif)).tracking(4).foregroundStyle(fameGold)
-                            }
+                            Text(tier.name.map(String.init).joined(separator: " "))
+                                .font(.system(size: 11, weight: .semibold, design: .serif)).tracking(4).foregroundStyle(tier.deep)
                             Text(thinker.name).font(.system(size: tier == .pure ? 34 : 28, weight: .semibold, design: .serif))
                             Text("\(thinker.region.title) · \(thinker.approx ? "约" : "")\(yearText(thinker.born))–\(yearText(thinker.died))")
                                 .font(.footnote).foregroundStyle(Color.primary.opacity(0.55))
@@ -144,7 +164,7 @@ struct FameSheet: View {
                                     GeometryReader { g in
                                         Capsule().fill(Color.primary.opacity(0.07))
                                             .overlay(alignment: .leading) {
-                                                Capsule().fill(tier == .pure ? fameGold : fameRegionTint(thinker.region).opacity(0.8))
+                                                Capsule().fill(LinearGradient(colors: [tier.color, tier.deep], startPoint: .leading, endPoint: .trailing))
                                                     .frame(width: g.size.width * CGFloat(v) / CGFloat(max(1, r.max)))
                                             }
                                     }
@@ -274,7 +294,7 @@ struct FamePlate: View {
                 .font(.system(size: compact ? 11 : (tier == .pure ? 15 : 13), weight: .semibold, design: .serif))
                 .lineLimit(2).minimumScaleFactor(0.7).multilineTextAlignment(.center)
             Text("\(s)").font(.system(size: compact ? 9 : 10, weight: .medium).monospacedDigit())
-                .foregroundStyle(tier == .pure ? fameGold : Color.primary.opacity(0.55))
+                .foregroundStyle(tier.deep)
         }
         .foregroundStyle(Color.primary)
         .padding(.horizontal, 4)
@@ -348,8 +368,10 @@ struct PyramidView: View {
 
     private var legend: some View {
         HStack(spacing: 14) {
-            ForEach([("至纯", "≥ 85"), ("精致", "75–84"), ("常规", "< 75")], id: \.0) { a, b in
+            ForEach([(FameTier.pure, "≥ 85"), (.fine, "75–84"), (.plain, "< 75")], id: \.1) { tier, b in
+                let a = tier.name
                 HStack(spacing: 4) {
+                    Circle().fill(LinearGradient(colors: tier.sheen, startPoint: .topLeading, endPoint: .bottomTrailing)).frame(width: 9, height: 9)
                     Text(a).font(.caption.weight(.semibold))
                     Text(b).font(.caption2.monospacedDigit()).foregroundStyle(Color.primary.opacity(0.5))
                 }
@@ -483,9 +505,9 @@ struct RoundTableView: View {
                 .frame(width: 38, height: 38)
         }
         .buttonStyle(.plain)
-        .glassEffect(tier == .pure ? Glass.regular.tint(fameGold.opacity(0.35)).interactive()
-                                   : Glass.regular.tint(fameRegionTint(t.region).opacity(0.25)).interactive(), in: .circle)
-        .background(Circle().fill(RadialGradient(colors: [fameGold.opacity(glow), .clear], center: .center, startRadius: 10, endRadius: 28)).frame(width: 56, height: 56))
+        .glassEffect(Glass.regular.tint(tier.color.opacity(0.4)).interactive(), in: .circle)
+        .overlay(Circle().strokeBorder(LinearGradient(colors: tier.sheen, startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 0.8))
+        .background(Circle().fill(RadialGradient(colors: [tier.color.opacity(glow), .clear], center: .center, startRadius: 10, endRadius: 28)).frame(width: 56, height: 56))
         .scaleEffect(on ? 1.25 : 1)
         .position(p)
     }
@@ -559,9 +581,8 @@ struct HeavenView: View {
                 .frame(width: size, height: size)
         }
         .buttonStyle(.plain)
-        .glassEffect(tier == .pure ? Glass.regular.tint(fameGold.opacity(0.4)).interactive()
-                                   : Glass.regular.tint(fameRegionTint(t.region).opacity(tier == .fine ? 0.25 : 0.12)).interactive(), in: .circle)
-        .overlay(Circle().strokeBorder(tier == .pure ? fameGold.opacity(0.8) : .clear, lineWidth: 0.8))
+        .glassEffect(Glass.regular.tint(tier.color.opacity(0.4)).interactive(), in: .circle)
+        .overlay(Circle().strokeBorder(LinearGradient(colors: tier.sheen, startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 0.8))
     }
 }
 
@@ -632,7 +653,7 @@ struct TempleView: View {
             DomeShape(lit: lit).aspectRatio(2, contentMode: .fit)
             Button { detail = t } label: {
                 VStack(spacing: 6) {
-                    Text("至 纯").font(.system(size: 10, weight: .semibold, design: .serif)).tracking(4).foregroundStyle(fameGold)
+                    Text("至 纯").font(.system(size: 10, weight: .semibold, design: .serif)).tracking(4).foregroundStyle(champagneDeep)
                     Text(t.name).font(.system(size: 26, weight: .semibold, design: .serif))
                     if let s = fameOf(t) { FameRing(score: s.total, size: 46) }
                 }
@@ -691,9 +712,9 @@ struct TempleView: View {
             VStack(spacing: 0) {
                 // 柱头
                 Text("\(s)").font(.system(size: 11, weight: .semibold, design: .serif).monospacedDigit())
-                    .foregroundStyle(tier == .pure ? fameGold : Color.primary.opacity(0.7))
+                    .foregroundStyle(tier.deep)
                     .frame(width: 46, height: 18)
-                    .background(fameGold.opacity(tier == .pure ? 0.3 : 0.12), in: .rect(cornerRadius: 3))
+                    .background(tier.color.opacity(0.35), in: .rect(cornerRadius: 3))
                 // 柱身：凹槽线 + 竖排名字
                 ZStack {
                     HStack(spacing: 6) { ForEach(0..<4, id: \.self) { _ in Rectangle().fill(Color.primary.opacity(0.06)).frame(width: 1) } }
@@ -704,9 +725,8 @@ struct TempleView: View {
                     }
                 }
                 .frame(width: 36, height: h)
-                .glassEffect(tier == .pure ? Glass.regular.tint(fameGold.opacity(0.3)) : Glass.regular.tint(fameRegionTint(t.region).opacity(tier == .fine ? 0.22 : 0.1)),
-                             in: .rect(cornerRadius: 6))
-                .overlay(RoundedRectangle(cornerRadius: 6).strokeBorder(tier == .pure ? fameGold.opacity(0.7) : .clear, lineWidth: 0.8))
+                .glassEffect(Glass.regular.tint(tier.color.opacity(0.35)), in: .rect(cornerRadius: 6))
+                .overlay(RoundedRectangle(cornerRadius: 6).strokeBorder(LinearGradient(colors: tier.sheen, startPoint: .top, endPoint: .bottom), lineWidth: 0.8))
                 // 柱础
                 RoundedRectangle(cornerRadius: 2).fill(fameGold.opacity(0.2)).frame(width: 46, height: 7)
             }
