@@ -1,0 +1,117 @@
+{
+ "queried": "2026-11-26",
+ "rule": "只有模型可加载、来源可定位、使用条件已记录且完成对照的条目（状态“可展示”）才显示雕像；其余显示刻名基座。",
+ "records": [
+  {
+   "id": "kongzi",
+   "kind": "tradition",
+   "kindLabel": "据后世传统形象建模",
+   "status": "待考",
+   "work": "孔子像（Portrait of Confucius）",
+   "author": "狩野探幽 画；林鹅峰 题赞",
+   "date": "约 1658 年（日本江户时代）",
+   "sitterDates": "孔子约前 551—前 479 年；作品晚于人物约两千一百年",
+   "institution": "大都会艺术博物馆（The Met），亚洲艺术部",
+   "accession": "2025.981.8",
+   "url": "https://www.metmuseum.org/art/collection/search/916536",
+   "reason": "馆藏页给出作者、年代、编号与“Public Domain”标注，来源与图像使用条件是三位中最清楚的；属于东亚流传的孔子标准像传统。",
+   "relation": "后世想象像：孔子没有同时代画像传世，此作反映十七世纪东亚对孔子形象的传统理解，并非写真。",
+   "features": [
+    {"name": "冠饰的形制与高度", "state": "待对照"},
+    {"name": "长须与面部轮廓", "state": "待对照"},
+    {"name": "交领宽袖的衣领走向", "state": "待对照"}
+   ],
+   "inferred": ["背面与侧面全部为推定（原作为单幅正面或四分之三侧画像）", "冠服的厚度与体积为推定", "材质改为白石，属视觉简化"],
+   "usage": {
+    "original": "原作年代约 1658 年，著作权早已届满",
+    "reference": "馆藏页标注 Public Domain，提供下载",
+    "existing3D": "未找到与本作对应的现成 3D 模型",
+    "license": "https://www.metmuseum.org/policies/image-resources",
+    "attribution": "The Metropolitan Museum of Art, 2025.981.8",
+    "adapt": "允许（公有领域）",
+    "distribute": "允许（公有领域）",
+    "thumbnail": "条件允许，但本版不内嵌图像，改为链接馆藏页"
+   },
+   "model": null,
+   "pending": ["在馆藏页高清图上逐项核对三项特征", "按正面与四分之三角度制作简化胸像并输出 USDZ", "与参考图按相同角度出对照截图"],
+   "alternates": [
+    {"work": "至圣先师像（清雍正十二年刻石，允礼绘）", "institution": "西安碑林博物馆（据华盛顿大学东亚图书馆拓片说明）", "url": "https://depts.washington.edu/ealclir/wordpress/?p=279"},
+    {"work": "至圣先贤半身像册（120 人，元代以后）", "institution": "国立故宫博物院（台北），编号 中-畫-000329-00000", "url": "https://theme.npm.edu.tw/exh106/Confucius/en/index.html"}
+   ]
+  },
+  {
+   "id": "kant",
+   "kind": "sculpture",
+   "kindLabel": "据雕塑建模",
+   "status": "待考",
+   "work": "Bildnis Immanuel Kant（康德胸像）",
+   "author": "Friedrich Hagemann（1773—1806）",
+   "date": "1801 年，大理石；尺寸 51.5 × 23 × 26.5 cm",
+   "sitterDates": "康德 1724—1804 年；作品制作时康德约 76—77 岁",
+   "institution": "汉堡美术馆（Hamburger Kunsthalle），19 世纪收藏",
+   "accession": "S-1939-82",
+   "url": "https://www.hamburger-kunsthalle.de/sammlung-online/friedrich-hagemann/bildnis-immanuel-kant",
+   "reason": "Hagemann 受 Schadow 委派于 1801 年赴柯尼斯堡，据康德本人塑泥稿，再据此制作大理石像；是少数“对着真人”完成的康德胸像，且原作现存、馆藏编号明确。",
+   "relation": "写生胸像：据 1801 年对康德本人所作泥塑模型完成（见美因茨大学康德图像志、Naragon 2024《Kant's Image》）。",
+   "features": [
+    {"name": "头部外轮廓与面部比例", "state": "待对照"},
+    {"name": "发型（洛可可式发辫）", "state": "待对照"},
+    {"name": "衣领与胸像截断方式", "state": "待对照"}
+   ],
+   "inferred": ["在取得同一件原作的多角度照片之前，侧面与背面均为推定"],
+   "usage": {
+    "original": "1801 年作品，著作权早已届满",
+    "reference": "馆方藏品照片的使用条件未载；本次请求馆方页面失败，未能核对",
+    "existing3D": "未找到可核实来源与许可的该原作扫描",
+    "license": "未载",
+    "attribution": "Hamburger Kunsthalle, Inv. S-1939-82",
+    "adapt": "待核（需馆方照片或扫描的授权）",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": ["打开馆方藏品页核对图像与图片授权", "向汉堡美术馆申请多角度照片或扫描的使用许可", "取得同一件原作的三个以上角度后再建模"],
+   "alternates": [
+    {"work": "Bildnis des Immanuel Kant（Emanuel Bardou，1798，大理石，古罗马式样）", "institution": "柏林国立博物馆雕塑收藏，编号 8321", "url": "https://smb.museum-digital.de/object/140066"},
+    {"work": "Büste des Immanuel Kant（1801 原作的后期石膏翻模）", "institution": "德国历史博物馆，编号 1989/1157.105", "url": "https://www.deutsche-digitale-bibliothek.de/item/AVE7AXXUI2F4RSP36GDPS7IQK4GTMYRK"}
+   ]
+  },
+  {
+   "id": "russell",
+   "kind": "photo",
+   "kindLabel": "据历史影像重建",
+   "status": "待考",
+   "work": "罗素肖像照片（1907 年）",
+   "author": "摄影者未载",
+   "date": "1907 年（罗素约 35 岁）",
+   "sitterDates": "罗素 1872—1970 年",
+   "institution": "麦克马斯特大学 罗素档案馆，照片系列 950，第 2 盒第 4 项",
+   "accession": "Series 950, Box 2, item 4",
+   "url": "https://library.mcmaster.ca/finding-aid/br950",
+   "reason": "档案馆目录给出年份与盒号，同一阶段另有 1916 年照片（同系列第 2 盒第 5 项，Hugh Cecil 摄）可用作年龄相近的验证照片。",
+   "relation": "本人照片：直接拍摄罗素本人。",
+   "features": [
+    {"name": "发际线与发型", "state": "待对照"},
+    {"name": "头部侧影", "state": "待对照"},
+    {"name": "高立领与领结", "state": "待对照"}
+   ],
+   "inferred": ["只有正面或四分之三角度时，侧面与背面为推定"],
+   "usage": {
+    "original": "1907 年照片，摄影者未载；英国法下的保护期取决于摄影者身份与首次发表时间，未能确认",
+    "reference": "档案馆复制须获书面许可（未申请）",
+    "existing3D": "未找到；Jacob Epstein 1953 年铜像（麦克马斯特艺术博物馆 1980.012.0001）仍受著作权保护至 2029 年底，不能据其建模",
+    "license": "未载",
+    "attribution": "McMaster University, Bertrand Russell Archives",
+    "adapt": "待核",
+    "distribute": "待核",
+    "thumbnail": "待核"
+   },
+   "model": null,
+   "pending": ["向罗素档案馆确认 1907 年与 1916 年照片的权利状态并申请使用", "确认摄影者身份", "选定主参考后再建模"],
+   "alternates": [
+    {"work": "Bertrand Russell（Jacob Epstein，1953，铜像）", "institution": "麦克马斯特艺术博物馆，1980.012.0001（复制须书面授权）", "url": "https://emuseum.mcmaster.ca/emuseum/objects/256/bertrand-russell"},
+    {"work": "Bertrand Russell（Roger Fry，约 1923，油画）", "institution": "英国国家肖像馆，NPG 4832", "url": "https://www.npg.org.uk/collections/search/portrait/mw05518"}
+   ]
+  }
+ ]
+}

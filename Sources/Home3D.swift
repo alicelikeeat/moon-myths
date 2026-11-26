@@ -185,6 +185,8 @@ struct HomeStage3D: View {
     @State private var candidates: [String] = []
     @State private var candidateAt: CGPoint = .zero
     @State private var detail: Thinker?
+    @State private var prototype: Thinker?
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private var initial: CamState { CamState(eye: eye, target: target) }
 
@@ -244,7 +246,7 @@ struct HomeStage3D: View {
                     .onChanged { v in
                         var g = goal ?? initial
                         if pinchBase == nil { pinchBase = g.dist }
-                        let lo: Float = selected == nil ? initial.dist * 0.3 : 0.1
+                        let lo: Float = selected == nil ? initial.dist * 0.3 : 0.14   // 聚焦时不穿入人物
                         g.dist = max(lo, min(initial.dist * 1.8, (pinchBase ?? g.dist) / Float(v.magnification)))
                         goal = g
                     }
@@ -252,6 +254,19 @@ struct HomeStage3D: View {
             )
             .simultaneousGesture(SpatialTapGesture().onEnded { v in tap(v.location) })
             .overlay(alignment: .topLeading) { candidatePicker }
+            // VoiceOver：上下滑动切换人物，另有“返回全景”“人物详情”“查看原型”操作
+            .accessibilityElement()
+            .accessibilityLabel(title)
+            .accessibilityValue(selected.flatMap { id in thinkers.first { $0.id == id }?.name } ?? "未选中人物，上下滑动选择")
+            .accessibilityAdjustableAction { dir in
+                let list = rankedThinkers.map(\.id)
+                let i = selected.flatMap { list.firstIndex(of: $0) } ?? -1
+                let j = dir == .increment ? min(list.count - 1, i + 1) : max(0, i - 1)
+                select(list[j])
+            }
+            .accessibilityAction(named: "返回全景") { overview() }
+            .accessibilityAction(named: "人物详情") { if let id = selected { detail = thinkers.first { $0.id == id } } }
+            .accessibilityAction(named: "查看原型") { if let id = selected, statueRecord(id) != nil { prototype = thinkers.first { $0.id == id } } }
         }
         .safeAreaInset(edge: .top, spacing: 0) {
             HomeTitle(title: title, subtitle: subtitle).padding(.bottom, 8)
@@ -281,6 +296,9 @@ struct HomeStage3D: View {
         .animation(.spring(duration: 0.4, bounce: 0.2), value: selected)
         .animation(.spring(duration: 0.3, bounce: 0.2), value: candidates)
         .sheet(item: $detail) { FameSheet(thinker: $0) }
+        .sheet(item: $prototype) { t in
+            if let r = statueRecord(t.id) { PrototypeSheet(record: r, thinker: t) }
+        }
     }
 
     // MARK: 逐帧
@@ -290,12 +308,16 @@ struct HomeStage3D: View {
         rt.last = now
         refs.now = now
         // 触摸、选中人或组时暂停自转（入场动画照常播完），被看的东西不会从镜头里转走
-        if (selected == nil && group == nil && dragBase == nil && pinchBase == nil) || rt.t < entrance { rt.t += dt }
+        if reduceMotion { rt.t = max(rt.t, entrance) }   // 减少动态效果：跳过入场与自转
+        else if (selected == nil && group == nil && dragBase == nil && pinchBase == nil) || rt.t < entrance { rt.t += dt }
         animate?(refs, rt.t)
         var g = goal ?? initial
-        if let id = selected, let e = refs.people[id] { g.target = e.position(relativeTo: nil) }
+        if let id = selected, let e = refs.people[id] {
+            // 目标点略低于人物：人物落在画面偏上，避开底部信息条
+            g.target = e.position(relativeTo: nil) - SIMD3<Float>(0, g.dist * 0.16, 0)
+        }
         var c = rt.cur ?? g
-        let k: Float = 0.12
+        let k: Float = reduceMotion ? 1 : 0.12
         c.target += (g.target - c.target) * k
         c.yaw += wrapAngle(g.yaw - c.yaw) * k
         c.pitch += (g.pitch - c.pitch) * k
@@ -471,9 +493,17 @@ struct HomeStage3D: View {
                     Text(t.name).font(.system(size: 19, weight: .semibold, design: .serif))
                     Text("\(tier.name) · \(t.region.title) · \(t.approx ? "约" : "")\(yearText(t.born))–\(yearText(t.died))")
                         .font(.caption2).foregroundStyle(tier.deep)
+                    if relations {
+                        Text(seatDisclaimer(t.id)).font(.system(size: 10)).foregroundStyle(Color.primary.opacity(0.45)).lineLimit(1)
+                    }
                 }
                 Spacer(minLength: 4)
-                Button("查看详情") { detail = t }.buttonStyle(.glassProminent)
+                VStack(spacing: 6) {
+                    Button("人物详情") { detail = t }.buttonStyle(.glassProminent)
+                    if statueRecord(t.id) != nil {
+                        Button("查看原型") { prototype = t }.buttonStyle(.glass).font(.caption)
+                    }
+                }
                 if let nb {
                     Button { if let n = nb.1 { select(n, keepDistance: true) } } label: { Image(systemName: "chevron.right").frame(width: 22, height: 30) }
                         .buttonStyle(.plain).disabled(nb.1 == nil).opacity(nb.1 == nil ? 0.3 : 1)
@@ -640,7 +670,8 @@ struct RoundTable3DView: View {
 
     var body: some View {
         let n = Self.order.count
-        HomeStage3D(title: "圆桌", subtitle: "按年代围坐，人人平等；点一个人，只看与他相连的关系", eye: [0, 1.75, 2.35], target: [0, 0, 0],
+        let count = statueCount(Self.order.map(\.id))
+        HomeStage3D(title: "圆桌", subtitle: "按年代围坐，人人平等；点一个人，只看与他相连的关系 · 正式雕像 \(count.statues) 尊，卡通示意 \(count.plaques) 席（不代表真实相貌）", eye: [0, 1.75, 2.35], target: [0, 0, 0],
                     entrance: Double(n) * 0.025 + 1.8, relations: true, hint: "点一个人看他的关系 · 拖动环绕 · 双指拉近",
                     hooks: StageHooks(
                         neighbors: { id in
@@ -672,11 +703,21 @@ struct RoundTable3DView: View {
                 let p = SIMD3<Float>(cos(a) * r, 0.015, sin(a) * r)
                 pos[t.id] = p
                 let tier = FameTier(fameTotal(t))
-                let seat = model(.generateSphere(radius: tier == .pure ? 0.019 : 0.013), tierMat(t))
+                // 刻名基座：白石座身，顶沿是评分对应的金属色；有合格雕像时，雕像立在座顶的槽位上
+                let r: Float = tier == .pure ? 0.017 : 0.013
+                let h: Float = 0.026
+                let seat = model(.generateCylinder(height: h, radius: r), mat(ivory, rough: 0.7))
+                seat.addChild(model(.generateCylinder(height: 0.003, radius: r + 0.0015), tierMat(t), at: [0, h / 2, 0]))
+                let slot = Entity()
+                slot.position = [0, h / 2 + 0.0015, 0]
+                // 没有合格雕像时先放卡通示意小人；雕像加载成功会替换它
+                slot.addChild(cartoonFigure(for: t))
+                seat.addChild(slot)
                 let label = text3D(shortName(t), size: 0.014)
-                label.position = [0, i % 2 == 0 ? 0.034 : 0.05, 0]
+                label.position = [0, h / 2 + (i % 2 == 0 ? 0.062 : 0.078), 0]
                 seat.addChild(label)
                 tappable(seat, id: t.id, refs)
+                StatueLoader.shared.load(t.id, into: slot)
                 seat.components.set(OpacityComponent(opacity: 0))
                 let holder = Entity()
                 holder.position = p
