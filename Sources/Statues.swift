@@ -239,11 +239,35 @@ private enum Toy {
     static let white = m(UIColor(white: 0.96, alpha: 1), rough: 0.7)
     static let grey = m(UIColor(white: 0.62, alpha: 1))
     static let blush = m(UIColor(red: 1, green: 0.62, blue: 0.62, alpha: 1))
+    static let c0 = m(UIColor(red: 0.2, green: 0.24, blue: 0.42, alpha: 1))
+    static let c1 = m(UIColor(red: 0.22, green: 0.25, blue: 0.32, alpha: 1))
+    static let c2 = m(UIColor(red: 0.35, green: 0.25, blue: 0.18, alpha: 1))
+    static let c3 = m(UIColor(red: 0.4, green: 0.25, blue: 0.15, alpha: 1))
+    static let c4 = m(UIColor(red: 0.42, green: 0.3, blue: 0.22, alpha: 1))
+    static let c5 = m(UIColor(red: 0.62, green: 0.25, blue: 0.22, alpha: 1))
+    static let c6 = m(UIColor(red: 0.7, green: 0.18, blue: 0.2, alpha: 1))
+    static let c7 = m(UIColor(red: 0.85, green: 0.7, blue: 0.35, alpha: 1))
     static let head = MeshResource.generateSphere(radius: 0.0085)
     static let eye = MeshResource.generateSphere(radius: 0.0011)
     static let cheek = MeshResource.generateSphere(radius: 0.0016)
     static let robe = MeshResource.generateCone(height: 0.026, radius: 0.0115)
     static let suit = MeshResource.generateBox(size: [0.017, 0.022, 0.012], cornerRadius: 0.005)
+    static let g0 = MeshResource.generateBox(size: [0.002, 0.007, 0.002])
+    static let g1 = MeshResource.generateBox(size: [0.0022, 0.009, 0.0015])
+    static let g2 = MeshResource.generateBox(size: [0.003, 0.022, 0.0015])
+    static let g3 = MeshResource.generateBox(size: [0.005, 0.004, 0.002])
+    static let g4 = MeshResource.generateBox(size: [0.006, 0.006, 0.002])
+    static let g5 = MeshResource.generateBox(size: [0.007, 0.008, 0.009], cornerRadius: 0.0015)
+    static let g6 = MeshResource.generateBox(size: [0.012, 0.0015, 0.004])
+    static let g7 = MeshResource.generateBox(size: [0.022, 0.0015, 0.003])
+    static let g8 = MeshResource.generateCone(height: 0.009, radius: 0.0035)
+    static let g9 = MeshResource.generateCylinder(height: 0.003, radius: 0.0016)
+    static let g10 = MeshResource.generateCylinder(height: 0.006, radius: 0.0006)
+    static let g11 = MeshResource.generateSphere(radius: 0.0032)
+    static let g12 = MeshResource.generateSphere(radius: 0.0055)
+    static let g13 = MeshResource.generateSphere(radius: 0.0088)
+    static let g14 = MeshResource.generateSphere(radius: 0.009)
+    static let g15 = MeshResource.generateSphere(radius: 0.0102)
 }
 
 func cartoonFigure(for t: Thinker) -> Entity {
@@ -261,21 +285,21 @@ func cartoonFigure(for t: Thinker) -> Entity {
     let headY: Float = style == .modern ? 0.030 : 0.034
     switch style {
     case .modern:
-        add(Toy.suit, Toy.m(UIColor(red: 0.22, green: 0.25, blue: 0.32, alpha: 1)), [0, 0.011, 0])
-        add(.generateBox(size: [0.006, 0.006, 0.002]), Toy.white, [0, 0.019, 0.0058])
-        add(.generateBox(size: [0.0022, 0.009, 0.0015]), Toy.m(UIColor(red: 0.7, green: 0.18, blue: 0.2, alpha: 1)), [0, 0.016, 0.0066])
+        add(Toy.suit, Toy.c1, [0, 0.011, 0])
+        add(Toy.g4, Toy.white, [0, 0.019, 0.0058])
+        add(Toy.g1, Toy.c6, [0, 0.016, 0.0066])
     case .classical:
         add(Toy.robe, Toy.white, [0, 0.013, 0])
-        add(.generateBox(size: [0.003, 0.022, 0.0015]), Toy.m(UIColor(red: 0.62, green: 0.25, blue: 0.22, alpha: 1)), [0.002, 0.014, 0.0062])
+        add(Toy.g2, Toy.c5, [0.002, 0.014, 0.0062])
     case .medieval:
-        add(Toy.robe, Toy.m(UIColor(red: 0.42, green: 0.3, blue: 0.22, alpha: 1)), [0, 0.013, 0])
+        add(Toy.robe, Toy.c4, [0, 0.013, 0])
     case .earlyModern:
-        add(Toy.robe, Toy.m(UIColor(red: 0.2, green: 0.24, blue: 0.42, alpha: 1)), [0, 0.013, 0])
-        add(.generateBox(size: [0.005, 0.004, 0.002]), Toy.white, [0, 0.023, 0.0045])
+        add(Toy.robe, Toy.c0, [0, 0.013, 0])
+        add(Toy.g3, Toy.white, [0, 0.023, 0.0045])
     case .sinoAncient, .sinoLater:
         let robeColor = style == .sinoAncient ? UIColor(red: 0.55, green: 0.42, blue: 0.62, alpha: 1) : UIColor(red: 0.3, green: 0.45, blue: 0.55, alpha: 1)
         add(Toy.robe, Toy.m(robeColor), [0, 0.013, 0])
-        add(.generateBox(size: [0.012, 0.0015, 0.004]), Toy.m(UIColor(red: 0.85, green: 0.7, blue: 0.35, alpha: 1)), [0, 0.012, 0.0055])
+        add(Toy.g6, Toy.c7, [0, 0.012, 0.0055])
     }
     // 头与脸（大头、圆眼、腮红）
     add(Toy.head, Toy.skin, [0, headY, 0])
@@ -286,28 +310,28 @@ func cartoonFigure(for t: Thinker) -> Entity {
     // 头饰与发型
     switch style {
     case .modern:
-        add(.generateSphere(radius: 0.0088), Toy.grey, [0, headY + 0.0022, -0.0012], scale: [1, 0.7, 1])
+        add(Toy.g13, Toy.grey, [0, headY + 0.0022, -0.0012], scale: [1, 0.7, 1])
     case .classical:
-        add(.generateSphere(radius: 0.0088), Toy.grey, [0, headY + 0.0025, -0.001], scale: [1.02, 0.65, 1])
-        add(.generateSphere(radius: 0.0055), Toy.grey, [0, headY - 0.0065, 0.004], scale: [1, 0.9, 0.6])   // 胡须
+        add(Toy.g13, Toy.grey, [0, headY + 0.0025, -0.001], scale: [1.02, 0.65, 1])
+        add(Toy.g12, Toy.grey, [0, headY - 0.0065, 0.004], scale: [1, 0.9, 0.6])   // 胡须
     case .medieval:
-        add(.generateSphere(radius: 0.0102), Toy.m(UIColor(red: 0.35, green: 0.25, blue: 0.18, alpha: 1)), [0, headY + 0.001, -0.0025])
+        add(Toy.g15, Toy.c2, [0, headY + 0.001, -0.0025])
     case .earlyModern:
-        add(.generateSphere(radius: 0.009), Toy.white, [0, headY + 0.0025, -0.0012], scale: [1.03, 0.7, 1])
-        add(.generateSphere(radius: 0.0032), Toy.white, [-0.0082, headY - 0.001, -0.001])
-        add(.generateSphere(radius: 0.0032), Toy.white, [0.0082, headY - 0.001, -0.001])
-        add(.generateBox(size: [0.002, 0.007, 0.002]), Toy.black, [0, headY - 0.004, -0.0088])     // 发辫
+        add(Toy.g14, Toy.white, [0, headY + 0.0025, -0.0012], scale: [1.03, 0.7, 1])
+        add(Toy.g11, Toy.white, [-0.0082, headY - 0.001, -0.001])
+        add(Toy.g11, Toy.white, [0.0082, headY - 0.001, -0.001])
+        add(Toy.g0, Toy.black, [0, headY - 0.004, -0.0088])     // 发辫
     case .sinoAncient:
-        add(.generateBox(size: [0.007, 0.008, 0.009], cornerRadius: 0.0015), Toy.black, [0, headY + 0.0105, -0.0005])   // 冠
-        add(.generateCone(height: 0.009, radius: 0.0035), Toy.black, [0, headY - 0.0105, 0.0055], scale: [1, 1, 0.6], flip: true)  // 长须
+        add(Toy.g5, Toy.black, [0, headY + 0.0105, -0.0005])   // 冠
+        add(Toy.g8, Toy.black, [0, headY - 0.0105, 0.0055], scale: [1, 1, 0.6], flip: true)  // 长须
     case .sinoLater:
-        add(.generateSphere(radius: 0.0088), Toy.black, [0, headY + 0.0028, -0.0008], scale: [1.02, 0.75, 1])   // 幞头
-        add(.generateBox(size: [0.022, 0.0015, 0.003]), Toy.black, [0, headY + 0.003, -0.006])                  // 展脚
+        add(Toy.g13, Toy.black, [0, headY + 0.0028, -0.0008], scale: [1.02, 0.75, 1])   // 幞头
+        add(Toy.g7, Toy.black, [0, headY + 0.003, -0.006])                  // 展脚
     }
     // 个别人物的小道具
     if t.id == "russell" {
-        add(.generateCylinder(height: 0.006, radius: 0.0006), Toy.black, [0.0035, headY - 0.0035, 0.0105])
-        add(.generateCylinder(height: 0.003, radius: 0.0016), Toy.m(UIColor(red: 0.4, green: 0.25, blue: 0.15, alpha: 1)), [0.0055, headY - 0.0045, 0.0128])
+        add(Toy.g10, Toy.black, [0.0035, headY - 0.0035, 0.0105])
+        add(Toy.g9, Toy.c3, [0.0055, headY - 0.0045, 0.0128])
     }
     return fig
 }

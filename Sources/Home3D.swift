@@ -304,7 +304,7 @@ struct HomeStage3D: View {
     // MARK: 逐帧
 
     private func step(_ now: Double) {
-        let dt = rt.last == 0 ? 0 : min(0.05, now - rt.last)
+        let dt = rt.last == 0 ? 0 : min(0.2, now - rt.last)
         rt.last = now
         refs.now = now
         // 触摸、选中人或组时暂停自转（入场动画照常播完），被看的东西不会从镜头里转走
