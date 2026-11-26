@@ -29,7 +29,7 @@ private func model(_ mesh: MeshResource, _ m: any RealityKit.Material, at p: SIM
 
 private func text3D(_ s: String, size: CGFloat, color: UIColor = UIColor(white: 0.12, alpha: 1)) -> Entity {
     let holder = Entity()
-    let mesh = MeshResource.generateText(s, extrusionDepth: Float(size) * 0.1, font: .systemFont(ofSize: size, weight: .medium),
+    let mesh = MeshResource.generateText(s, extrusionDepth: Float(size) * 0.1, font: .systemFont(ofSize: size * 1.35, weight: .medium),
                                          containerFrame: .zero, alignment: .center, lineBreakMode: .byWordWrapping)
     let t = ModelEntity(mesh: mesh, materials: [UnlitMaterial(color: color)])
     t.position = -mesh.bounds.center
@@ -140,7 +140,7 @@ private let pyramidRows = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 16]
 
 struct Pyramid3DView: View {
     var body: some View {
-        HomeStage3D(title: "金字塔", subtitle: "按总分分层：越高越少，塔尖是得分最高者", eye: [0, 0.62, 1.55], target: [0, 0.12, 0]) { root in
+        HomeStage3D(title: "金字塔", subtitle: "按总分分层：越高越少，塔尖是得分最高者", eye: [0, 1.0, 2.7], target: [0, 0.12, 0]) { root in
             var i = 0
             let H: Float = 0.042
             for (layer, n) in pyramidRows.enumerated() where i < rankedThinkers.count {
@@ -185,7 +185,7 @@ struct Pyramid3DView: View {
 
 struct RoundTable3DView: View {
     var body: some View {
-        HomeStage3D(title: "圆桌", subtitle: "按年代围坐一圈，人人平等；金线为继承，红线为批判", eye: [0, 0.95, 1.25], target: [0, 0, 0]) { root in
+        HomeStage3D(title: "圆桌", subtitle: "按年代围坐一圈，人人平等；金线为继承，红线为批判", eye: [0, 1.7, 2.1], target: [0, 0, 0]) { root in
             let order = thinkers.sorted { $0.born < $1.born }
             let R: Float = 0.5
             root.addChild(model(.generateCylinder(height: 0.02, radius: R - 0.06), mat(.white, opacity: 0.55, rough: 0.05), at: [0, -0.01, 0]))
@@ -233,9 +233,9 @@ struct RoundTable3DView: View {
 struct Heaven3DView: View {
     private static let ringSizes = [2, 3, 5, 7, 8, 10, 12, 15, 20]
     var body: some View {
-        HomeStage3D(title: "天堂", subtitle: "仿但丁《天堂篇》九重天：分数越高，越靠近中心的光", eye: [0, 0.75, 1.45], target: [0, 0, 0]) { root in
-            root.addChild(model(.generateSphere(radius: 0.07), mat(UIColor(red: 1, green: 0.97, blue: 0.88, alpha: 1), glow: 9), name: "sun"))
-            root.addChild(model(.generateSphere(radius: 0.12), mat(gold3D, opacity: 0.18, rough: 0.02, glow: 2)))
+        HomeStage3D(title: "天堂", subtitle: "仿但丁《天堂篇》九重天：分数越高，越靠近中心的光", eye: [0, 1.3, 2.5], target: [0, 0, 0]) { root in
+            root.addChild(model(.generateSphere(radius: 0.045), mat(UIColor(red: 1, green: 0.97, blue: 0.88, alpha: 1), glow: 9), name: "sun"))
+            root.addChild(model(.generateSphere(radius: 0.075), mat(gold3D, opacity: 0.15, rough: 0.02, glow: 2)))
             let light = PointLight()
             light.light.intensity = 5000
             light.light.color = UIColor(red: 1, green: 0.9, blue: 0.7, alpha: 1)
@@ -285,7 +285,7 @@ struct Heaven3DView: View {
 struct Temple3DView: View {
     var body: some View {
         HomeStage3D(title: "罗马神殿", subtitle: "仿万神殿：圆形柱廊按学科分三段，柱高即分数；最高分者立在穹顶圆孔落下的光里",
-                    eye: [0, 0.5, 1.45], target: [0, 0.16, 0]) { root in
+                    eye: [0, 0.75, 2.7], target: [0, 0.2, 0]) { root in
             let stone = mat(ivory, rough: 0.8)
             // 台基：三级圆台
             for s in 0..<3 {
@@ -324,7 +324,7 @@ struct Temple3DView: View {
             // 阶梯状穹顶（像万神殿外部的阶环），顶上留圆孔
             for k in 0..<7 {
                 let r = (R + 0.01) * cos(Float(k) / 7 * .pi / 2 * 0.95)
-                let ring = model(.generateCylinder(height: 0.012, radius: r), mat(ivory, opacity: 0.35, rough: 0.4), at: [0, 0.44 + Float(k) * 0.03, 0])
+                let ring = model(.generateCylinder(height: 0.012, radius: r), mat(ivory, opacity: 0.16, rough: 0.4), at: [0, 0.44 + Float(k) * 0.03, 0])
                 root.addChild(ring)
             }
             root.addChild(model(.generateCylinder(height: 0.014, radius: 0.075), mat(.white, glow: 6), at: [0, 0.655, 0]))
