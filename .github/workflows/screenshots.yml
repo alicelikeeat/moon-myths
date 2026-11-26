@@ -66,6 +66,7 @@ jobs:
             run_shot "home-dark" -appearance dark
             for st in pyramid table heaven temple; do run_shot "home-$st" -homeStyle $st -appearance light; done
             run_shot "home-heaven-dark" -homeStyle heaven -appearance dark
+            for st in pyramid table heaven temple; do run_shot "home3d-$st" -homeStyle $st -home3D YES -appearance light; done
             run_shot "home-fame-sheet" -homeStyle tree -fameSheet kongzi -appearance light
             exit_early=1
           fi
