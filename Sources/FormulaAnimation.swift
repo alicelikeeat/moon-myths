@@ -98,6 +98,9 @@ struct FormulaAnimationView: View {
                     tokenView(i, tok)
                 }
             }
+            // 3D 只转动公式本身；玻璃底板保持平放（玻璃在三维变换下会失去质感）
+            .rotation3DEffect(.degrees(is3D ? tilt.width : 0), axis: (x: 0, y: 1, z: 0), perspective: 0.55)
+            .rotation3DEffect(.degrees(is3D ? tilt.height : 0), axis: (x: 1, y: 0, z: 0), perspective: 0.55)
             .frame(maxWidth: .infinity)
             .padding(.vertical, 18)
             .padding(.horizontal, 10)
@@ -109,8 +112,6 @@ struct FormulaAnimationView: View {
                     .animation(.easeInOut(duration: 1.2), value: finished)
             }
             .glassEffect(.regular, in: .rect(cornerRadius: 22))
-            .rotation3DEffect(.degrees(is3D ? tilt.width : 0), axis: (x: 0, y: 1, z: 0), perspective: 0.55)
-            .rotation3DEffect(.degrees(is3D ? tilt.height : 0), axis: (x: 1, y: 0, z: 0), perspective: 0.55)
             .gesture(DragGesture(minimumDistance: 6).onChanged { v in
                 guard is3D else { return }
                 if tiltStart == nil { tiltStart = tilt }
