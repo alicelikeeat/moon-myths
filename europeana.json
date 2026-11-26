@@ -1,0 +1,1675 @@
+{
+ "laozi": [],
+ "kongzi": [
+  {
+   "title": "Bildnis des Confucius",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "Unknown Artist (Production)",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_LHYSNX37GYVQMWUHOFXS6BI44YWS3BXH?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33201407",
+   "url_status": 200
+  }
+ ],
+ "mozi": [],
+ "mengzi": [
+  {
+   "title": "Portrait of Fridericus Menzius",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": "1735",
+   "creator": "https://d-nb.info/gnd/116146826",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_G27UJEZL7O4IQFZNMSY5734KUN3GHNQU?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33205817",
+   "url_status": 200
+  }
+ ],
+ "zhuangzi": [],
+ "xunzi": [],
+ "hanfei": [],
+ "dongzhongshu": [],
+ "huineng": [],
+ "zhuxi": [
+  {
+   "title": "Målning, Bildkonst, Porträtt av Zhu Xi, Painting, Graphics",
+   "provider": "Museum of Far Eastern Antiquities",
+   "country": "Sweden",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/zero/1.0/",
+   "europeana": "https://www.europeana.eu/item/91643/SMVK_OM_objekt_104523?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://collections.smvk.se/carlotta-om/web/object/104523",
+   "url_status": 200
+  }
+ ],
+ "wangyangming": [],
+ "wangfuzhi": [],
+ "guanzhong": [],
+ "sunwu": [],
+ "zisi": [],
+ "liezi": [],
+ "gongsunlong": [],
+ "wangchong": [],
+ "zhoudunyi": [],
+ "zhangzai": [],
+ "luxiangshan": [],
+ "guyanwu": [],
+ "socrates": [
+  {
+   "title": "Antieke buste van Socrates",
+   "provider": "Rijksmuseum",
+   "country": "Netherlands",
+   "year": "1638",
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/90402/RP_P_OB_16_423?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://hdl.handle.net/10934/RM0001.COLLECT.166029",
+   "url_status": 200
+  },
+  {
+   "title": "Portretbuste van Socrates",
+   "provider": "Rijksmuseum",
+   "country": "Netherlands",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/90402/RP_P_1907_4018?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://hdl.handle.net/10934/RM0001.collect.80850",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des Socrates",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_K4AWC2HOFEIMNQRRYRND3V6RRTP4UMB4?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33208569",
+   "url_status": 200
+  },
+  {
+   "title": "Portret van Socrates",
+   "provider": "Rijksmuseum",
+   "country": "Netherlands",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/90402/RP_P_1907_4885?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://hdl.handle.net/10934/RM0001.collect.174929",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des Socrates",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_AMMEBCTX7FSTBBX35AJCPILRDBXKT5WZ?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33208431",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des Socrates",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_6TWECH5LBKNUDOLTYUJN4M5DOPZMGFWK?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33208570",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des Socrates",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_DWJKVNRDYOPPGSZICD2D6YYE7U7WSODI?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33208333",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des Socrates",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "https://d-nb.info/gnd/102417296",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_JIK7N6QEUCNLTYQG7OB4NC5YDRLENX6G?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33208571",
+   "url_status": 200
+  }
+ ],
+ "plato": [
+  {
+   "title": "Porträt des Plato.",
+   "provider": "Herzog August Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "https://d-nb.info/gnd/11912081X",
+   "rights": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "europeana": "https://www.europeana.eu/item/168/item_PN4ITFTFNKAXERF5AOJKA4FM7VIAEFQX?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://diglib.hab.de?grafik=13-geom-00112",
+   "url_status": 200
+  },
+  {
+   "title": "Porträt des Plato.",
+   "provider": "Herzog August Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "http://data.europeana.eu/agent/122375",
+   "rights": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "europeana": "https://www.europeana.eu/item/168/item_ZVSPPOFJBUDGTLEZEGH3D2YGLNDWFTYR?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://diglib.hab.de?grafik=14-1-geom-00112",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des Plato",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_2TLCKKJNFFKTOL2WBR44DQUTHN67ZXOV?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33206920",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des Plato",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_HAYCDRHYV3ZZRT22EMLF7K53IVMTJ3V4?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33207042",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des Plato",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "https://d-nb.info/gnd/132350947",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_CFOHPR2G67NUVAQ6BJPZVLWJPWTMMLGU?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33206974",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des Plato",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": "1574",
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_PGJAGNLBKM76ZBLGHLA755MCMIWRKVLT?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33207082",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des Plato",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_Y3UXH4OWUYSPF4XL4WHVMKQLELYCKBYQ?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33209817",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des Platon",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "Krüger, ? (Production), 1801-1850 (Zeichner, Radierer)",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_GHZCUPDET5D7QGLLYCV5OCHEPW6DPAU7?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33207081",
+   "url_status": 200
+  }
+ ],
+ "aristotle": [
+  {
+   "title": "Porträt des Aristoteles.",
+   "provider": "Herzog August Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "http://data.europeana.eu/agent/122375",
+   "rights": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "europeana": "https://www.europeana.eu/item/168/item_GMGSJB6HPAGKWOBKX2VGXGULMH2AL5W3?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://diglib.hab.de?grafik=13-geom-00027",
+   "url_status": 200
+  },
+  {
+   "title": "Porträt des Aristoteles.",
+   "provider": "Herzog August Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "http://data.europeana.eu/agent/122375",
+   "rights": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "europeana": "https://www.europeana.eu/item/168/item_JG4HTAIVBHS4C5EPMDA6DFRDHSNCU27S?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://diglib.hab.de?grafik=14-1-geom-00036",
+   "url_status": 200
+  },
+  {
+   "title": "Büste des Aristoteles",
+   "provider": "The Albertina Museum",
+   "country": "Austria",
+   "year": "1549",
+   "creator": "https://d-nb.info/gnd/104242337",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/15508/https___id_kulturpool_at_8f7319c2_53d8_466b_aa91_d2c1764344a3_cho?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://sammlungenonline.albertina.at/objects/383909",
+   "url_status": 200
+  },
+  {
+   "title": "Porträt des Aristoteles.",
+   "provider": "Herzog August Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "https://d-nb.info/gnd/124498302",
+   "rights": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "europeana": "https://www.europeana.eu/item/168/item_NG34BEISRQYOL2IROUTB7AMS7FT5YPLX?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://diglib.hab.de?grafik=ud-gr-2f-15-00087",
+   "url_status": 200
+  },
+  {
+   "title": "Porträt des Aristoteles.",
+   "provider": "Herzog August Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "https://d-nb.info/gnd/124498302",
+   "rights": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "europeana": "https://www.europeana.eu/item/168/item_VYOERCCI6FLCSFDESN5S4A2FXOE45M5R?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://diglib.hab.de?grafik=e-1-1-geom-2f-00193",
+   "url_status": 200
+  },
+  {
+   "title": "Buste van Aristoteles",
+   "provider": "Rijksmuseum",
+   "country": "Netherlands",
+   "year": "1546",
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/90402/RP_P_1905_4834?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://hdl.handle.net/10934/RM0001.COLLECT.188425",
+   "url_status": 200
+  },
+  {
+   "title": "Porträt Aristoteles im Profil",
+   "provider": "The Albertina Museum",
+   "country": "Austria",
+   "year": null,
+   "creator": "unbestimmt",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/15508/https___id_kulturpool_at_0aa94c4f_2435_4af0_956f_363de36fc482_cho?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://sammlungenonline.albertina.at/objects/413249",
+   "url_status": 200
+  },
+  {
+   "title": "Porträt Aristoteles im Profil",
+   "provider": "The Albertina Museum",
+   "country": "Austria",
+   "year": "1546",
+   "creator": "http://data.europeana.eu/agent/169981",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/15508/https___id_kulturpool_at_1a39bf39_2a9d_4840_a783_bdb0d2c8903c_cho?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://sammlungenonline.albertina.at/objects/413248",
+   "url_status": 200
+  }
+ ],
+ "lucretius": [],
+ "epictetus": [],
+ "marcusaurelius": [
+  {
+   "title": "Portrait of Marcus Aurelius Antonius",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "Christian Fritsch",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_ZANY43QYO7KHDKKLNBII4SP2ITCGRH5A?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33205408",
+   "url_status": 200
+  },
+  {
+   "title": "Portrait of Marcus Aurelius Seuerinus",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "https://d-nb.info/gnd/129073601",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_S3ZKPJI2CSRRP7X5EENECMOTQNV22QO6?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33208390",
+   "url_status": 200
+  }
+ ],
+ "augustine": [
+  {
+   "title": "Porträt Thomas Augustine Arne (Karikatur)",
+   "provider": "The Albertina Museum",
+   "country": "Austria",
+   "year": "1782",
+   "creator": "https://d-nb.info/gnd/118849549",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/15508/https___id_kulturpool_at_2f1795b7_a390_46e3_956e_cabc2c84527c_cho?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://sammlungenonline.albertina.at/objects/436260",
+   "url_status": 200
+  },
+  {
+   "title": "Porträt Thomas Augustine Arne (Karikatur)",
+   "provider": "The Albertina Museum",
+   "country": "Austria",
+   "year": "1782",
+   "creator": "https://d-nb.info/gnd/118849549",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/15508/https___id_kulturpool_at_705c7a7b_dbe3_45cb_89fa_52f2ed1df553_cho?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://sammlungenonline.albertina.at/objects/436259",
+   "url_status": 200
+  },
+  {
+   "title": "Porträt Thomas Augustine Arne (Karikatur)",
+   "provider": "The Albertina Museum",
+   "country": "Austria",
+   "year": "1782",
+   "creator": "https://d-nb.info/gnd/118849549",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/15508/https___id_kulturpool_at_fbd168a3_78e3_4386_88f7_39b9b9c8570b_cho?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://sammlungenonline.albertina.at/objects/436258",
+   "url_status": 200
+  },
+  {
+   "title": "Portret van Augustine-Célestine Schriwaneck",
+   "provider": "Rijksmuseum",
+   "country": "Netherlands",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/90402/RP_F_F25481_K?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://hdl.handle.net/10934/RM0001.COLLECT.280151",
+   "url_status": 200
+  },
+  {
+   "title": "Portrait of Augustine Leyserus",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": "1729",
+   "creator": "https://d-nb.info/gnd/122027248",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_GWX57KXYKVQLIV2PQAIM3FWGZDV4QNGM?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33211311",
+   "url_status": 200
+  }
+ ],
+ "aquinas": [],
+ "machiavelli": [
+  {
+   "title": "Portret van Niccolò Machiavelli",
+   "provider": "Rijksmuseum",
+   "country": "Netherlands",
+   "year": "1807",
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/90402/RP_P_OB_35_926?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://hdl.handle.net/10934/RM0001.COLLECT.95577",
+   "url_status": 200
+  },
+  {
+   "title": "Portret van Niccolò Machiavelli",
+   "provider": "Rijksmuseum",
+   "country": "Netherlands",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/90402/RP_P_1909_5432?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://hdl.handle.net/10934/RM0001.COLLECT.185778",
+   "url_status": 200
+  },
+  {
+   "title": "Porträts Nicolo di Bernardo Machiavelli",
+   "provider": "The Albertina Museum",
+   "country": "Austria",
+   "year": null,
+   "creator": "GalganoCipriani",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/15508/https___id_kulturpool_at_6b73e22b_d645_413d_96fe_6e9c58ba16d8_cho?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://sammlungenonline.albertina.at/objects/445632",
+   "url_status": 200
+  },
+  {
+   "title": "Portret van Niccolò Machiavelli",
+   "provider": "Rijksmuseum",
+   "country": "Netherlands",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/90402/RP_P_1909_5093?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://hdl.handle.net/10934/RM0001.collect.150116",
+   "url_status": 200
+  }
+ ],
+ "hobbes": [
+  {
+   "title": "Porträt Thomas Hobbes",
+   "provider": "The Albertina Museum",
+   "country": "Austria",
+   "year": "1665",
+   "creator": "http://data.europeana.eu/agent/71293",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/15508/https___id_kulturpool_at_933e92a3_65af_4dea_8704_cbaea2742cd8_cho?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://sammlungenonline.albertina.at/objects/401755",
+   "url_status": 200
+  },
+  {
+   "title": "Porträt Thomas Hobbes",
+   "provider": "The Albertina Museum",
+   "country": "Austria",
+   "year": null,
+   "creator": "http://data.europeana.eu/agent/153386",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/15508/https___id_kulturpool_at_95cdaf7a_2b08_4a02_a69d_b2f5c411aef2_cho?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://sammlungenonline.albertina.at/objects/599051",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des Thom. Hobbes",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_QQ3LAXICNQHPGQHEKVK2PP5EUQWI53NO?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33203668",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des Thomas Hobbes",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_C6JTNPMQMHJNKIXW4M7ZFARS4F5773T6?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33203831",
+   "url_status": 200
+  },
+  {
+   "title": "Portrait from \"The English Works of Thomas Hobbes, now first collected and edited by Sir W. Molesworth\".",
+   "provider": "The British Library",
+   "country": "United Kingdom",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/2059209/5532_11016863935_d813c565bf_o_jpg?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://flickr.com/photos/britishlibrary/11016863935",
+   "url_status": 200
+  }
+ ],
+ "descartes": [
+  {
+   "title": "Portret van René Descartes",
+   "provider": "Rijksmuseum",
+   "country": "Netherlands",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/90402/RP_P_1910_4702?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://hdl.handle.net/10934/RM0001.collect.90722",
+   "url_status": 200
+  },
+  {
+   "title": "Descartes: Portrait",
+   "provider": "Wellcome Collection",
+   "country": "United Kingdom",
+   "year": null,
+   "creator": "http://data.europeana.eu/agent/58808",
+   "rights": "http://creativecommons.org/licenses/by/4.0/",
+   "europeana": "https://www.europeana.eu/item/9200579/ab545afs?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://wellcomecollection.org/works/ab545afs",
+   "url_status": 200
+  },
+  {
+   "title": "Portrait of Renatus Descartes",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "Tangena, Johannes (1687) (Production), 1687-1692 (Verleger)",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_CCUF5K4DDCUKPMLNAVNUGGCMYMQBAZA5?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33201672",
+   "url_status": 200
+  },
+  {
+   "title": "Porträts René Descartes",
+   "provider": "The Albertina Museum",
+   "country": "Austria",
+   "year": null,
+   "creator": "PieterSchenk",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/15508/https___id_kulturpool_at_69d56368_1920_4d70_84f5_c901bfc75a6a_cho?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://sammlungenonline.albertina.at/objects/491889",
+   "url_status": 200
+  },
+  {
+   "title": "Porträt René Descartes",
+   "provider": "The Albertina Museum",
+   "country": "Austria",
+   "year": null,
+   "creator": "https://d-nb.info/gnd/123303362",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/15508/https___id_kulturpool_at_03ccd162_e093_41ac_bd9d_823712e6236c_cho?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://sammlungenonline.albertina.at/objects/488797",
+   "url_status": 200
+  },
+  {
+   "title": "Porträt René Descartes",
+   "provider": "The Albertina Museum",
+   "country": "Austria",
+   "year": null,
+   "creator": "https://d-nb.info/gnd/118681613",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/15508/https___id_kulturpool_at_3caa55af_18f6_4aa0_ab66_88cf24357f4e_cho?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://sammlungenonline.albertina.at/objects/492886",
+   "url_status": 200
+  },
+  {
+   "title": "Porträt René Descartes",
+   "provider": "The Albertina Museum",
+   "country": "Austria",
+   "year": null,
+   "creator": "https://d-nb.info/gnd/12466587X",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/15508/https___id_kulturpool_at_125e3a03_cc4f_4d1d_9f43_e2b3f4bd86df_cho?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://sammlungenonline.albertina.at/objects/488605",
+   "url_status": 200
+  },
+  {
+   "title": "Portret van René Descartes",
+   "provider": "Rijksmuseum",
+   "country": "Netherlands",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/90402/RP_P_OB_60_717?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://hdl.handle.net/10934/RM0001.COLLECT.181485",
+   "url_status": 200
+  }
+ ],
+ "pascal": [
+  {
+   "title": "Porträt Pascal Paoli",
+   "provider": "The Albertina Museum",
+   "country": "Austria",
+   "year": "1768",
+   "creator": "http://data.europeana.eu/agent/41663",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/15508/https___id_kulturpool_at_050b3f34_4e5b_49d3_b057_b13cf277ede2_cho?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://sammlungenonline.albertina.at/objects/553222",
+   "url_status": 200
+  },
+  {
+   "title": "Porträt Pascal Paoli",
+   "provider": "The Albertina Museum",
+   "country": "Austria",
+   "year": "1769",
+   "creator": "RichardHouston",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/15508/https___id_kulturpool_at_b77674a7_d74b_43c2_b566_63128f9a765e_cho?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://sammlungenonline.albertina.at/objects/606097",
+   "url_status": 200
+  },
+  {
+   "title": "Porträt Blaise Pascal",
+   "provider": "The Albertina Museum",
+   "country": "Austria",
+   "year": null,
+   "creator": "http://data.europeana.eu/agent/58808",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/15508/https___id_kulturpool_at_87040d49_f94c_43d5_8477_a524d723fbfa_cho?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://sammlungenonline.albertina.at/objects/492884",
+   "url_status": 200
+  },
+  {
+   "title": "Porträt Pascal Paoli",
+   "provider": "The Albertina Museum",
+   "country": "Austria",
+   "year": null,
+   "creator": "RichardHouston",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/15508/https___id_kulturpool_at_d1b00eb7_6224_4e0b_a1e6_6be1b624bce7_cho?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://sammlungenonline.albertina.at/objects/606096",
+   "url_status": 200
+  },
+  {
+   "title": "Portret van Pascal Paoli",
+   "provider": "Rijksmuseum",
+   "country": "Netherlands",
+   "year": "1770",
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/90402/RP_P_OB_48_414?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://hdl.handle.net/10934/RM0001.COLLECT.126328",
+   "url_status": 200
+  },
+  {
+   "title": "Portret van Blaise Pascal",
+   "provider": "Rijksmuseum",
+   "country": "Netherlands",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/90402/RP_P_1911_797?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://hdl.handle.net/10934/RM0001.COLLECT.92955",
+   "url_status": 200
+  },
+  {
+   "title": "Portret van Pascal Paoli",
+   "provider": "Rijksmuseum",
+   "country": "Netherlands",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/90402/RP_P_1908_312?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://hdl.handle.net/10934/RM0001.collect.44332",
+   "url_status": 200
+  },
+  {
+   "title": "Portret van Pascal Paoli",
+   "provider": "Rijksmuseum",
+   "country": "Netherlands",
+   "year": "1769",
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/90402/RP_P_1906_2191?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://hdl.handle.net/10934/RM0001.COLLECT.113348",
+   "url_status": 200
+  }
+ ],
+ "spinoza": [
+  {
+   "title": "Portret van Baruch de Spinoza",
+   "provider": "Rijksmuseum",
+   "country": "Netherlands",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/90402/RP_P_OB_103_332?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://hdl.handle.net/10934/RM0001.COLLECT.508110",
+   "url_status": 200
+  },
+  {
+   "title": "Portrait of Benedictus Spinoza",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "Gebrüder Schumann (Production) (Publisher)",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_RRLDKUI5J5SP2XTLRM75D4MYSCPHCEWV?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33208595",
+   "url_status": 200
+  },
+  {
+   "title": "Portrait of Benedictus Spinoza",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "Gebrüder Schumann (Production) (Publisher)",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_RZEGTFJRY3MQFXSF3Z55XDGMYJQZCXCP?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33208594",
+   "url_status": 200
+  },
+  {
+   "title": "Portret van Spinoza",
+   "provider": "Rijksmuseum",
+   "country": "Netherlands",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/90402/RP_P_1885_A_9201?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://hdl.handle.net/10934/RM0001.collect.72177",
+   "url_status": 200
+  },
+  {
+   "title": "Portrait of Benedictvs de Spinoza",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_VQJDXTG5M6Y3OVE4SGMSSW372QF2UVSG?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33208593",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des Benedictus de Spinoza",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_Z2E3WXEO3UXWKXZEKSISXERS6EK56MEX?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33211736",
+   "url_status": 200
+  },
+  {
+   "title": "Portrait of Benedictus de Spinoza",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_CC5G6WX4HHSM2IFJ6FDQZNLHRLHXZGOT?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33208677",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des Benedict von Spinoza",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "https://d-nb.info/gnd/130493562",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_ROXS7CJ66OLDVR7KZDA4W6Y5LY6IS2GU?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33208596",
+   "url_status": 200
+  }
+ ],
+ "locke": [
+  {
+   "title": "Bildnis des Joh. Locke",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "https://d-nb.info/gnd/11661451X",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_OUZQPYFCOAZPMAOMBV2OLBJCBQYHUV3W?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33205209",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des Iean Locke",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "https://d-nb.info/gnd/128821779",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_YOOISDMASTXGKMVYFVSBS2CLQX2JCDC5?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33205206",
+   "url_status": 200
+  },
+  {
+   "title": "portrait from \"[The Works of John Locke, etc. (The Remains of John Locke ... Published from his original manuscripts.-An account of the life and writings of John Locke [by J. Le Clerc]. The third edition, etc.) [With a portrait.]]\".",
+   "provider": "The British Library",
+   "country": "United Kingdom",
+   "year": "1722",
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/2059209/3783_10997335936_8a76990a05_o_jpg?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://flickr.com/photos/britishlibrary/10997335936",
+   "url_status": 200
+  },
+  {
+   "title": "portrait from \"The Works of John Locke, etc. (The Remains of John Locke ... Published from his original manuscripts.-An account of the life and writings of John Locke [by J. Le Clerc]. The third edition, etc.) [With a portrait.]\".",
+   "provider": "The British Library",
+   "country": "United Kingdom",
+   "year": "1714",
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/2059209/7420_10997220835_c6205ca5e2_o_jpg?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://flickr.com/photos/britishlibrary/10997220835",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des I. Locke",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_HWG3WNVWYYJPKMWMIB35WHPQI4H3N63P?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33210915",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des Iean Locke",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "http://data.europeana.eu/agent/157562",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_ELWRD755MOOYEHZC44AXA2CD34VCPA64?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33205207",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des Jean Locke",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "Unknown Artist (Production)",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_IA3HOSMCKRIGAQR7ABY46DLXIRCGHZ4E?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33205289",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des John Locke",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "Unknown Artist (Production)",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_CETMOOY7MYGOYOXHI46LPYGXCAQUEPUN?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33205291",
+   "url_status": 200
+  }
+ ],
+ "leibniz": [
+  {
+   "title": "[Bildnis Leibniz].",
+   "provider": "Herzog August Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "Unbekannt  (Drucker)",
+   "rights": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "europeana": "https://www.europeana.eu/item/168/item_4KFNTSM5TEVHKPXXNNXJNEYYCWSJA63T?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://diglib.hab.de?grafik=top-1b-40",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des G. G. Leibniz",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "unbekannter Künstler (Production)",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_R2Z3WCKSUJSYELXHQ5OMG7BX63AFEVF5?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33205069",
+   "url_status": 200
+  },
+  {
+   "title": "Portrait des Gottfried Wilhelm Leibniz",
+   "provider": "Art Collection of the University Göttingen",
+   "country": "Germany",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/licenses/by-sa/4.0/",
+   "europeana": "https://www.europeana.eu/item/990/item_GODVNNQ2I4UVRPFTIPYUCYFTRZXMURXT?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://hdl.handle.net/21.11107/4cc0c187-e30f-4b4a-93e3-b8123d38c362",
+   "url_status": 200
+  },
+  {
+   "title": "Büste des Gottfried Wilhelm von Leibniz",
+   "provider": "Art Collection of the University Göttingen",
+   "country": "Germany",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/licenses/by-sa/4.0/",
+   "europeana": "https://www.europeana.eu/item/990/item_7FWAF5V3EQ3YKZEZ42HYVHFUQTNPWIXC?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://hdl.handle.net/21.11107/cf7ba5c5-3369-4fcb-8815-813a8636f89d",
+   "url_status": 200
+  },
+  {
+   "title": "Porträt Gottfried Wilhelm Leibniz; Immanuel Kant",
+   "provider": "The Albertina Museum",
+   "country": "Austria",
+   "year": null,
+   "creator": "https://d-nb.info/gnd/116096438",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/15508/https___id_kulturpool_at_32ba8333_278f_4047_9a57_57e75f18fc39_cho?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://sammlungenonline.albertina.at/objects/398483",
+   "url_status": 200
+  },
+  {
+   "title": "die Büsten von Leibniz, Friedrich dem Großen, Kopernikus, Kant, Luther und Klopstock",
+   "provider": "Art Collection of the University Göttingen",
+   "country": "Germany",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/zero/1.0/",
+   "europeana": "https://www.europeana.eu/item/990/item_PRCCTWRIASTFOWJBRCKR4YLZBCQ6ZSW6?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://hdl.handle.net/21.11107/414c4b7c-c010-4918-a4bc-41e54202976f",
+   "url_status": 200
+  },
+  {
+   "title": "Engraved portrait of Gottfried Wilhelm Leibniz by B. Holl after an unknown artist",
+   "provider": "University of Edinburgh",
+   "country": "United Kingdom",
+   "year": "1853",
+   "creator": "Holl, Benjamin",
+   "rights": "http://creativecommons.org/licenses/by/3.0/",
+   "europeana": "https://www.europeana.eu/item/9200267/BibliographicResource_3000059119999?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://images.is.ed.ac.uk/luna/servlet/detail/UoEwal~1~1~65051~100779",
+   "url_status": 200
+  }
+ ],
+ "berkeley": [],
+ "hume": [
+  {
+   "title": "Bildnis des David Hume",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "Richards,? (1756) (Designing), 1756-1756 (Silhouettenschneider)",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_OBWSKSVVHTVRC7HDFBFTGJHYWV2NIS3L?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33203919",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des David Hume",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": "1825",
+   "creator": "Page,? Production (unsecured) (eraser)",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_NI6DRVYR2VWXIN2E6MCOFJM77MUDSF6Z?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33211212",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des David Hume",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "David Martin",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_L3FRALA27DUWBQIOON2WRWRHFFSQA45W?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33213605",
+   "url_status": 200
+  },
+  {
+   "title": "portrait from \"[The History of England by Hume and Smollett. (The History of England, from the invasion of Julius Caesar to the Revolution in 1688. By D. Hume. Regent's edition.-The History of England, from the Revolution in 1688, to the death of George the Second. Designed as a continuation of Hume. By T. Smollett. Regent's edition.)]\".",
+   "provider": "The British Library",
+   "country": "United Kingdom",
+   "year": "1822",
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/2059209/2815_11005515783_0337d51dee_o_jpg?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://flickr.com/photos/britishlibrary/11005515783",
+   "url_status": 200
+  },
+  {
+   "title": "portrait from \"[The History of England by Hume and Smollett. (The History of England, from the invasion of Julius Caesar to the Revolution in 1688. By D. Hume. Regent's edition.-The History of England, from the Revolution in 1688, to the death of George the Second. Designed as a continuation of Hume. By T. Smollett. Regent's edition.)]\".",
+   "provider": "The British Library",
+   "country": "United Kingdom",
+   "year": "1822",
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/2059209/5485_11220818914_2704a74a2c_o_jpg?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://flickr.com/photos/britishlibrary/11220818914",
+   "url_status": 200
+  },
+  {
+   "title": "portrait from \"[The History of England by Hume and Smollett. (The History of England, from the invasion of Julius Caesar to the Revolution in 1688. By D. Hume. Regent's edition.-The History of England, from the Revolution in 1688, to the death of George the Second. Designed as a continuation of Hume. By T. Smollett. Regent's edition.)]\".",
+   "provider": "The British Library",
+   "country": "United Kingdom",
+   "year": "1822",
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/2059209/5528_11220793836_93e1fc267f_o_jpg?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://flickr.com/photos/britishlibrary/11220793836",
+   "url_status": 200
+  },
+  {
+   "title": "portrait from \"[The History of England by Hume and Smollett. (The History of England, from the invasion of Julius Caesar to the Revolution in 1688. By D. Hume. Regent's edition.-The History of England, from the Revolution in 1688, to the death of George the Second. Designed as a continuation of Hume. By T. Smollett. Regent's edition.)]\".",
+   "provider": "The British Library",
+   "country": "United Kingdom",
+   "year": "1822",
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/2059209/7314_11220813745_6c05ded317_o_jpg?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://flickr.com/photos/britishlibrary/11220813745",
+   "url_status": 200
+  },
+  {
+   "title": "portrait from \"[The History of England by Hume and Smollett. (The History of England, from the invasion of Julius Caesar to the Revolution in 1688. By D. Hume. Regent's edition.-The History of England, from the Revolution in 1688, to the death of George the Second. Designed as a continuation of Hume. By T. Smollett. Regent's edition.)]\".",
+   "provider": "The British Library",
+   "country": "United Kingdom",
+   "year": "1822",
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/2059209/7367_11220812224_131cdedbb5_o_jpg?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://flickr.com/photos/britishlibrary/11220812224",
+   "url_status": 200
+  }
+ ],
+ "rousseau": [
+  {
+   "title": "Bildnis des Rousseau",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "Heinrich Pfenninger",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_HAGLN4AJSLFKULV4M7R2BKRJ7EEZDZWY?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33212897",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des Rousseau",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "Johann Elias Haid",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_FCQWNDDABWGZUAC5HKRSVBFJOTKAQKYM?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33213371",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des Jean Baptiste Rousseau",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "https://d-nb.info/gnd/123338581",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_36IJIWZ73QJ44GXQS4J2UDQ3ZHXJHRDI?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33213373",
+   "url_status": 200
+  }
+ ],
+ "kant": [
+  {
+   "title": "Porträt von Immanuel Kant",
+   "provider": "Berlin-Dahlem Botanical Garden and Botanical Museum",
+   "country": "Germany",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/licenses/by-sa/4.0/",
+   "europeana": "https://www.europeana.eu/item/1443/item_KIT4NU4UUBDF6VNA6TTCTMO4WBMD24DB?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://berlin.museum-digital.de/object/136446",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des Jmmanuel Kant",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "https://d-nb.info/gnd/123045347",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_HQAXDJOAVEJP65CQJSNHMO2TCTMOIL7H?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33204579",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des Immanuel Kant",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "https://d-nb.info/gnd/144023199",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_ZBDEA55ETGGXWPCQ5JIUJK44HARR6T2P?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33204528",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des Immanuel Kant",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "https://d-nb.info/gnd/11623685X",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_46LX7NU67HR7PPK2XGGUDIUB4MQG2FR3?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33204578",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des Immanuel Kant",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "Gottlob August Liebe",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_WEWDXVCRHXJVA2XFATSQP6FCMKCZFKWA?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33204408",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des Immanuel Kant",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "https://d-nb.info/gnd/115752870",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_JXTHYXIX3TF4V56IYV5OSAIJCJW562D5?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33204581",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des I. Kant",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "https://d-nb.info/gnd/116866365",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_XPFLDRZ2X57676UBDBUEJMLUQV3MHTF2?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33204529",
+   "url_status": 200
+  },
+  {
+   "title": "Porträtt av Ernst Georg Kant, löjtnant vid Uplands regemente I 8.",
+   "provider": "Army Museum",
+   "country": "Sweden",
+   "year": null,
+   "creator": "Osti, Henri",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/91616/arme_photo_AMA0007699?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://digitaltmuseum.se/021016513564",
+   "url_status": 200
+  }
+ ],
+ "hegel": [
+  {
+   "title": "Bildnis des Hegel",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "Ernst Ludwig Riepenhausen",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_HGIPUINMZ5WZ4OXXB3DU44ZJERAXS36U?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33212475",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des G. W. F. Hegel",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "https://d-nb.info/gnd/117466034",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_A2JQCYAS7SSJZT6TKXBEUKHBA3FHWJXN?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33203650",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des Georg Wilh. Friedr. Hegel",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "Winckelmann & Söhne <Berlin> (Production) (Verlag)",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_3MWPPZOD4522HYCWVW7W2CBLH7JJKPGZ?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33203604",
+   "url_status": 200
+  }
+ ],
+ "schopenhauer": [
+  {
+   "title": "Porträt von Johanna Schopenhauer",
+   "provider": "Archive of the German Women’s Movement",
+   "country": "Germany",
+   "year": null,
+   "creator": "Guibert, Gus.",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/769/item_2NTUQSG3ATW7MD4K3SDKDJYRCKG3P3NY?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://meta-katalog.eu/Record/6556addf",
+   "url_status": 200
+  },
+  {
+   "title": "Presentation by Jochen Stollberg, Head of the Schopenhauer Archives of the University Library Johann Christian Senckenberg Frankfurt/Main",
+   "provider": "Deutsche Fotothek",
+   "country": "Germany",
+   "year": null,
+   "creator": "Rous, André (Herstellung) (Fotograf)",
+   "rights": "http://creativecommons.org/licenses/by-sa/4.0/",
+   "europeana": "https://www.europeana.eu/item/440/item_TMWEM4HXFJULQE45AJ65PWPCO5C4PU7Y?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.deutschefotothek.de/documents/obj/80813330",
+   "url_status": 200
+  },
+  {
+   "title": "Presentation by Jochen Stollberg, head of the Schopenhauer Archive of the University Library Johann Christian Senckenberg Frankfurt/Main. Dr. Citizens thanks",
+   "provider": "Deutsche Fotothek",
+   "country": "Germany",
+   "year": null,
+   "creator": "Rous, André (Herstellung) (Fotograf)",
+   "rights": "http://creativecommons.org/licenses/by-sa/4.0/",
+   "europeana": "https://www.europeana.eu/item/440/item_YBIAWTMITLCQOLCGJIDTOZKKGEPEUK3O?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.deutschefotothek.de/documents/obj/80813410",
+   "url_status": 200
+  }
+ ],
+ "kierkegaard": [],
+ "mill": [],
+ "marx": [
+  {
+   "title": "Bildnis des Adolph Bernhard Marx",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "https://d-nb.info/gnd/1024836118",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_3MDNNOXBDWK3LPCBWXPXGXTEXBVPHJVY?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33205670",
+   "url_status": 200
+  }
+ ],
+ "nietzsche": [
+  {
+   "title": "Portrait Elisabeth Förster-Nietzsche’ s",
+   "provider": "Archive of the German Women’s Movement",
+   "country": "Germany",
+   "year": null,
+   "creator": "Hero, Louis",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/769/item_7JGLVHLIJIXX5YNU2D45BMLIJA4KK2WQ?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://meta-katalog.eu/Record/6359addf",
+   "url_status": 200
+  },
+  {
+   "title": "Male portrait (caricature), pencil drawing, undated, unmarked, and text by Otto Dix on a centrally folded cartonal leaf transverse 4 °; on this (turned 180 °) 2 photographs (Dix, Otto: Büste Friedrich Nietzsche, 1912)",
+   "provider": "Deutsche Fotothek",
+   "country": "Germany",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/188/item_WHWVPF26CWE6K3LEKVPNJPMR6HVFYRZQ?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.deutschefotothek.de/documents/obj/90050982",
+   "url_status": 200
+  },
+  {
+   "title": "2 photographs: (Dix, Otto: Bust Friedrich Nietzsche. Plaster, green tinted, 1912) à 16.3 x 11.8 cm. Mounted on centrally folded carton leaf quer-4 °, on this (turned 180 °) a pencil drawing and a text by Otto Dix",
+   "provider": "Deutsche Fotothek",
+   "country": "Germany",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/188/item_A7SRVQVKQCXO7ZTUAGU226SS25JC2ZV2?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.deutschefotothek.de/documents/obj/90050981",
+   "url_status": 200
+  }
+ ],
+ "james": [
+  {
+   "title": "Portrait of William James Mayo from a photograph in the possession of Dr. E.A. Underwood.",
+   "provider": "Wellcome Collection",
+   "country": "United Kingdom",
+   "year": null,
+   "creator": "Moffett",
+   "rights": "http://creativecommons.org/licenses/by/4.0/",
+   "europeana": "https://www.europeana.eu/item/9200579/wchq9jc8?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://wellcomecollection.org/works/wchq9jc8",
+   "url_status": 200
+  }
+ ],
+ "russell": [
+  {
+   "title": "Portret van William Russell, Lord Russell",
+   "provider": "Rijksmuseum",
+   "country": "Netherlands",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/90402/RP_P_OB_48_194?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://hdl.handle.net/10934/RM0001.COLLECT.126757",
+   "url_status": 200
+  },
+  {
+   "title": "Portret van Charles Russell",
+   "provider": "Rijksmuseum",
+   "country": "Netherlands",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/90402/RP_F_2001_7_509_58?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://hdl.handle.net/10934/RM0001.COLLECT.655066",
+   "url_status": 200
+  },
+  {
+   "title": "Porträt Lord Russell",
+   "provider": "The Albertina Museum",
+   "country": "Austria",
+   "year": "1796",
+   "creator": "http://data.europeana.eu/agent/147947",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/15508/https___id_kulturpool_at_40545d7f_8825_4b83_8714_cb2daf163067_cho?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://sammlungenonline.albertina.at/objects/436589",
+   "url_status": 200
+  },
+  {
+   "title": "Porträt Lord Russell",
+   "provider": "The Albertina Museum",
+   "country": "Austria",
+   "year": "1796",
+   "creator": "https://d-nb.info/gnd/118849549",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/15508/https___id_kulturpool_at_434b0c52_6157_4efd_a87a_fd1953269152_cho?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://sammlungenonline.albertina.at/objects/436588",
+   "url_status": 200
+  }
+ ],
+ "wittgenstein": [
+  {
+   "title": "Portrait of Wittgenstein",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "Ernst Ludwig Riepenhausen",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_EQOMDVGEEZA3WQS5MD2HZ2OIIEZX7KKK?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33209959",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des Wittgenstein",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "https://d-nb.info/gnd/118745239",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_63NDN6ES6L3KB7HFRDI56APW4FDHBUP3?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33211833",
+   "url_status": 200
+  },
+  {
+   "title": "Klimt, Portrait der Margaret Stonborough-Wittgenstein",
+   "provider": "Media library of Art and Visual History of Humboldt University of Berlin",
+   "country": "Germany",
+   "year": null,
+   "creator": "Klimt, Gustav (1862-1918) (Künstler/Hersteller)",
+   "rights": "http://creativecommons.org/licenses/by-sa/4.0/",
+   "europeana": "https://www.europeana.eu/item/626/item_ILVZEJQUOKGYZKJKFDBJBUZRTXX3SH5Z?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://rs.cms.hu-berlin.de/ikb_mediathek/pages/view.php?ref=18394",
+   "url_status": 200
+  },
+  {
+   "title": "Studie für „Bildnis Margarethe Stonborough-Wittgenstein“",
+   "provider": "The Albertina Museum",
+   "country": "Austria",
+   "year": "1904",
+   "creator": "http://data.europeana.eu/agent/59999",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/15508/https___id_kulturpool_at_5a7e3648_fced_41ae_8579_a4f3dbfd84ea_cho?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://sammlungenonline.albertina.at/objects/34343",
+   "url_status": 200
+  },
+  {
+   "title": "Studie für „Bildnis Margarethe Stonborough-Wittgenstein“",
+   "provider": "The Albertina Museum",
+   "country": "Austria",
+   "year": "1904",
+   "creator": "https://d-nb.info/gnd/118563289",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/15508/https___id_kulturpool_at_b03c1e03_be76_42a1_9a6b_54009ee2def1_cho?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://sammlungenonline.albertina.at/objects/1879",
+   "url_status": 200
+  },
+  {
+   "title": "Studie für „Bildnis Margarethe Stonborough-Wittgenstein“",
+   "provider": "The Albertina Museum",
+   "country": "Austria",
+   "year": "1904",
+   "creator": "https://d-nb.info/gnd/118563289",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/15508/https___id_kulturpool_at_fdabde35_517f_4307_96ed_20d1be34e9f8_cho?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://sammlungenonline.albertina.at/objects/7226",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des Iohannes Comes in Sayn et Wittgenstein",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "https://d-nb.info/gnd/122019687",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_CCC37FJZSIQ55RX3GCELWTKH44LS5KII?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33207556",
+   "url_status": 200
+  },
+  {
+   "title": "Studie für „Bildnis Margarethe Stonborough-Wittgenstein“",
+   "provider": "The Albertina Museum",
+   "country": "Austria",
+   "year": "1904",
+   "creator": "http://data.europeana.eu/agent/59999",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/15508/https___id_kulturpool_at_b4ce9cef_4991_4e37_9d71_44e0c4000ca0_cho?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://sammlungenonline.albertina.at/objects/1863",
+   "url_status": 200
+  }
+ ],
+ "heidegger": [
+  {
+   "title": "Portrait of Philip. Conr. Heidegger.",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "David Herrliberger",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_QTUCAINZDJHBIQLZOAGOYTRSGFPKNOUW?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33203582",
+   "url_status": 200
+  }
+ ],
+ "sartre": [],
+ "camus": [
+  {
+   "title": "Bildnis des M. le Camus",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_SJYJFVBQNVB6PFIIQTYKJ3FXT5BZXYVE?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33214271",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des Jean Pierre Camus",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": "1696",
+   "creator": "Jacques Lubin",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_HAPRYOSDEHLTL6GONTITMYILED5KNZQE?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33200959",
+   "url_status": 200
+  }
+ ],
+ "euclid": [
+  {
+   "title": "Portrait of Euclid, in oval cartouche on pedestal",
+   "provider": "Wellcome Collection",
+   "country": "United Kingdom",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/licenses/by/4.0/",
+   "europeana": "https://www.europeana.eu/item/9200579/cbf9mgrv?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://wellcomecollection.org/works/cbf9mgrv",
+   "url_status": 200
+  },
+  {
+   "title": "Titelkupfer, Porträts von Pythagoras (links), Georg Meichsner (Mitte) und Euklid (rechts), Ansicht von Rothenburg ob der Tauber (unten)",
+   "provider": "Deutsche Fotothek",
+   "country": "Germany",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/188/item_4N652SJAH2B5RWB3BKTZFCC26M2IHAK3?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.deutschefotothek.de/documents/obj/88964310",
+   "url_status": 200
+  }
+ ],
+ "liuhui": [],
+ "archimedes": [
+  {
+   "title": "Fetti, Bildnis eins Gelehrten (Archimedes?)",
+   "provider": "Media library of Art and Visual History of Humboldt University of Berlin",
+   "country": "Germany",
+   "year": null,
+   "creator": "Fetti, Domenico (1589-1623) (Künstler/Hersteller)",
+   "rights": "http://creativecommons.org/licenses/by-sa/4.0/",
+   "europeana": "https://www.europeana.eu/item/626/item_76QP23FURVWUNA3LE5RIZBUJFKQJU2Z4?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://rs.cms.hu-berlin.de/ikb_mediathek/pages/view.php?ref=15361",
+   "url_status": 200
+  }
+ ],
+ "zhaoshuang": [],
+ "newton": [
+  {
+   "title": "Bildnis des Isaacus Newton",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": "1715",
+   "creator": "https://d-nb.info/gnd/122027248",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_RKPRFZIXCP6LRKAUY2ED4QEJ3B35W3LW?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33211045",
+   "url_status": 200
+  },
+  {
+   "title": "Portrait of Isaacus Newton",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": "1715",
+   "creator": "https://d-nb.info/gnd/122027248",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_IU7E5C5P7AZ3Q6D222K4T3KTSSTHS7XJ?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33206177",
+   "url_status": 200
+  },
+  {
+   "title": "Portret Isaac Newton",
+   "provider": "Rijksmuseum",
+   "country": "Netherlands",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/90402/RP_P_OB_32_808?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://hdl.handle.net/10934/RM0001.COLLECT.176878",
+   "url_status": 200
+  },
+  {
+   "title": "Porträt Isaac Newton",
+   "provider": "The Albertina Museum",
+   "country": "Austria",
+   "year": null,
+   "creator": "https://d-nb.info/gnd/122076354",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/15508/https___id_kulturpool_at_480e41c4_cc81_4447_aa8c_737c97b8fde7_cho?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://sammlungenonline.albertina.at/objects/493998",
+   "url_status": 200
+  },
+  {
+   "title": "Porträt Thomas Newton",
+   "provider": "The Albertina Museum",
+   "country": "Austria",
+   "year": "1775",
+   "creator": "ThomasWatson",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/15508/https___id_kulturpool_at_69897d70_f8de_44fc_bec6_d8d9f1dd52fe_cho?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://sammlungenonline.albertina.at/objects/608379",
+   "url_status": 200
+  },
+  {
+   "title": "Porträt Isaac Newton",
+   "provider": "The Albertina Museum",
+   "country": "Austria",
+   "year": null,
+   "creator": "https://d-nb.info/gnd/121772551",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/15508/https___id_kulturpool_at_dbd2ab36_5a9e_491a_b2ca_832c8d9aa829_cho?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://sammlungenonline.albertina.at/objects/599680",
+   "url_status": 200
+  }
+ ],
+ "pythagoras": [],
+ "apollonius": [
+  {
+   "title": "Porträt des Apollonius Teaneus.",
+   "provider": "Herzog August Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "http://data.europeana.eu/agent/122375",
+   "rights": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "europeana": "https://www.europeana.eu/item/168/item_XQXWMR6YGLOEOAK3XEAS4SCDBPVNRTFP?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://diglib.hab.de?grafik=14-1-geom-00025",
+   "url_status": 200
+  },
+  {
+   "title": "Porträt des Apollonius Teaneus.",
+   "provider": "Herzog August Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "https://d-nb.info/gnd/11912081X",
+   "rights": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "europeana": "https://www.europeana.eu/item/168/item_WIDUQBALRRZQBGTXFZTUNZMG4VE4PMMU?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://diglib.hab.de?grafik=13-geom-00024",
+   "url_status": 200
+  },
+  {
+   "title": "Portræt af Apollonius fra Tyana",
+   "provider": "National Gallery of Denmark",
+   "country": "Denmark",
+   "year": null,
+   "creator": null,
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/2020903/KAS650?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "https://open.smk.dk/artwork/image/kas650",
+   "url_status": 200
+  }
+ ],
+ "diophantus": [],
+ "zuchongzhi": [],
+ "alkhwarizmi": [],
+ "fibonacci": [],
+ "liye": [],
+ "qinjiushao": [],
+ "yanghui": [],
+ "zhushijie": [],
+ "xuguangqi": [],
+ "fermat": [],
+ "meiwending": [],
+ "euler": [
+  {
+   "title": "Bildnis des Leonhard Euler",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "Darchow, C. (Production), 1782-1796 (Radierer)",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_4SEW676RADBLFQTVIVBTBT4HHJCT2EER?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33211838",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des Leonhard Euler",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": null,
+   "creator": "Kuetner, Samuel Gottlob",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_2CAZ6LI44R4TYOOTGKVD5LZX7V3K3KOM?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33211983",
+   "url_status": 200
+  },
+  {
+   "title": "Bildnis des Leonard Euler",
+   "provider": "Leipzig University Library",
+   "country": "Germany",
+   "year": "1787",
+   "creator": "Thomas Cook",
+   "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+   "europeana": "https://www.europeana.eu/item/783/item_K234NZYVROZ7D47FFES2TW5XQ7ZOF4FI?utm_source=api&utm_medium=api&utm_campaign=api2demo",
+   "url": "http://www.portraitindex.de/documents/obj/33211839",
+   "url_status": 200
+  }
+ ],
+ "gauss": [],
+ "boole": [],
+ "riemann": [],
+ "dedekind": [],
+ "cantor": [],
+ "hilbert": [],
+ "godel": []
+}
