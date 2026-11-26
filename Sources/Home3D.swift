@@ -500,7 +500,7 @@ struct HomeStage3D: View {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(t.name).font(.system(size: 19, weight: .semibold, design: .serif))
                     Text("\(tier.name) · \(t.region.title) · \(t.approx ? "约" : "")\(yearText(t.born))–\(yearText(t.died))")
-                        .font(.caption2).foregroundStyle(tier.deep)
+                        .font(.caption2).foregroundStyle(tier.deep).lineLimit(1).minimumScaleFactor(0.75)
                     if relations {
                         Text(seatDisclaimer(t.id)).font(.system(size: 10)).foregroundStyle(Color.primary.opacity(0.45)).lineLimit(1)
                     }

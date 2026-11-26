@@ -113,7 +113,7 @@
 | 项目 | 结果 |
 | --- | --- |
 | 构建 | GitHub Actions：Xcode，iOS SDK，Release，无签名。结果见发布页 |
-| 模拟器 | 只做了截图检查，见 screenshots 分支 |
+| 模拟器 | 截图检查（screenshots 分支 `home3d-table.png`、`home3d-table-focus-late.png`）：82 个席位的刻名基座与卡通小人正常显示；以 `-stageSelect russell` 自动聚焦后，信息条显示姓名、分级、卡通说明、“人物详情”“查看原型”以及承自/影响关系。模拟器帧率低，入场动画明显偏慢 |
 | 真机 | **未测** |
 | 首次进入耗时、峰值内存、P95 帧时间 | **未测**，需要在真机上用 Instruments 测量 |
 | 安装包增量 | 本次只新增 JSON 与代码，没有模型文件；增量以发布页 IPA 大小对比为准 |
