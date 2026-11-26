@@ -48,6 +48,8 @@ let bookEditions: [String: BookEditions] = {
 struct EditionsSection: View {
     let editions: BookEditions
     @State private var viewing: EditionImage?
+    @State private var scan: EditionScan?
+    @Namespace private var zoom
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -60,26 +62,90 @@ struct EditionsSection: View {
                         Button { viewing = img } label: {
                             EditionCard(url: img.thumbURL, caption: img.caption, source: "Wikimedia Commons · \(img.license)", badge: "书影")
                         }
-                        .buttonStyle(.plain)
+                        .buttonStyle(PressCardStyle())
+                        .matchedTransitionSource(id: img.file, in: zoom)
                     }
                     ForEach(editions.scans, id: \.self) { s in
-                        Menu {
-                            if let u = s.detailsURL { Link(destination: u) { Label("在线翻阅扫描本", systemImage: "book.pages") } }
-                            if let u = s.pdfURL { Link(destination: u) { Label("下载 PDF", systemImage: "arrow.down.doc") } }
-                        } label: {
+                        // 不用 Menu：菜单在横向滚动条里展开时卡片会先消失、再从别处冒出来，很突兀。
+                        // 改成点开后从卡片放大成详情页，里面再选“在线翻阅”或“下载 PDF”。
+                        Button { scan = s } label: {
                             EditionCard(url: s.coverURL, caption: s.caption,
                                         source: "Internet Archive" + (s.publisher.isEmpty ? "" : " · \(s.publisher)"), badge: "扫描本 · \(s.kind ?? "封面")")
                         }
-                        .buttonStyle(.plain)
+                        .buttonStyle(PressCardStyle())
+                        .matchedTransitionSource(id: s.ia, in: zoom)
                     }
                 }
                 .padding(.vertical, 2)
             }
             .scrollClipDisabled()
-            Text("图像与扫描本来自公共馆藏，均为公有领域或开放授权；点开书影可看大图和出处。")
+            Text("图像与扫描本来自公共馆藏，均为公有领域或开放授权；点开可看大图、出处，扫描本可在线翻阅或下载 PDF。")
                 .font(.caption2).foregroundStyle(Color.primary.opacity(0.45))
         }
-        .sheet(item: $viewing) { img in EditionViewer(image: img) }
+        .sheet(item: $viewing) { img in
+            EditionViewer(image: img).navigationTransition(.zoom(sourceID: img.file, in: zoom))
+        }
+        .sheet(item: $scan) { s in
+            ScanViewer(scan: s).navigationTransition(.zoom(sourceID: s.ia, in: zoom))
+        }
+    }
+}
+
+/// 卡片按下时轻轻缩小，松手弹回
+private struct PressCardStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? 0.95 : 1)
+            .animation(.spring(duration: 0.25, bounce: 0.35), value: configuration.isPressed)
+    }
+}
+
+extension EditionScan: Identifiable { var id: String { ia } }
+
+/// 扫描本详情：大图 + 出处 + 在线翻阅 / 下载 PDF
+private struct ScanViewer: View {
+    let scan: EditionScan
+    @Environment(\.dismiss) private var dismiss
+
+    private var big: URL? { scan.coverURL.flatMap { URL(string: $0.absoluteString.replacingOccurrences(of: "_w400", with: "_w800")) } }
+
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 14) {
+                    AsyncImage(url: big, transaction: Transaction(animation: .easeOut(duration: 0.35))) { phase in
+                        switch phase {
+                        case .success(let image): image.resizable().scaledToFit().transition(.opacity)
+                        case .failure:
+                            AsyncImage(url: scan.coverURL) { $0.resizable().scaledToFit() } placeholder: { ProgressView() }
+                        default: ProgressView().frame(maxWidth: .infinity, minHeight: 320)
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
+                    .clipShape(.rect(cornerRadius: 14))
+                    Text(scan.caption).font(.headline)
+                    Text(scan.title).font(.subheadline).foregroundStyle(.secondary)
+                    if !scan.publisher.isEmpty {
+                        Text(scan.publisher).font(.caption).foregroundStyle(.secondary)
+                    }
+                    HStack(spacing: 10) {
+                        if let u = scan.detailsURL {
+                            Link(destination: u) { Label("在线翻阅", systemImage: "book.pages").frame(maxWidth: .infinity) }
+                                .buttonStyle(.glassProminent)
+                        }
+                        if let u = scan.pdfURL {
+                            Link(destination: u) { Label("下载 PDF", systemImage: "arrow.down.doc").frame(maxWidth: .infinity) }
+                                .buttonStyle(.glass)
+                        }
+                    }
+                    .controlSize(.large)
+                    Text("来源：Internet Archive（\(scan.ia)）").font(.caption2).foregroundStyle(.tertiary)
+                }
+                .padding(20)
+            }
+            .navigationTitle("扫描本").navigationBarTitleDisplayMode(.inline)
+            .toolbar { ToolbarItem(placement: .confirmationAction) { Button("完成", systemImage: "checkmark") { dismiss() } } }
+        }
     }
 }
 
