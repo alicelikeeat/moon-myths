@@ -1070,6 +1070,14 @@ struct WorldTree3DView: View {
         return [x, y, z]
     }
 
+    /// 主枝的中线：从树干（x = 0）出发，约 0.3 的高度内平缓弯到这一枝的位置
+    private static func spine(_ r: Region, _ y: Float, _ y0: Float) -> SIMD3<Float> {
+        let (bx, bz): (Float, Float) = r == .china ? (-0.34, 0.1) : (r == .west ? (0.34, -0.1) : (0.0, 0.26))
+        let u = min(1, max(0, (y - y0) / 0.3))
+        let k = u * u * (3 - 2 * u)
+        return [bx * k, y, bz * k]
+    }
+
     private static func segment(_ a: SIMD3<Float>, _ b: SIMD3<Float>, _ r: Float, _ m: any RealityKit.Material) -> ModelEntity {
         let d = b - a
         let e = model(.generateCylinder(height: max(0.001, simd_length(d)), radius: r), m, at: (a + b) / 2)
@@ -1108,20 +1116,23 @@ struct WorldTree3DView: View {
                     last = p
                 }
             }
-            // 三条枝：同一地域按年代从低到高连成一条，最低一片叶子连回树干
+            // 三条枝：从树干上分出，平缓地弯向各自的一侧向上生长；每片叶子用一根短枝接到主枝上
             for region in Region.allCases {
                 let ns = nodes.filter { $0.thinker.region == region }.sorted { $0.y > $1.y }
-                guard let first = ns.first else { continue }
-                let col = UIColor(fameRegionTint(region)).withAlphaComponent(1)
-                let branch = mat(col, rough: 0.55)
-                var last = SIMD3<Float>(0, Self.place(first).y - 0.08, 0)
+                guard let first = ns.first, let last = ns.last else { continue }
+                let branch = mat(UIColor(fameRegionTint(region)).withAlphaComponent(1), rough: 0.55)
+                let y0 = Self.place(first).y - 0.12, y1 = Self.place(last).y + 0.02
+                var prev = Self.spine(region, y0, y0)
+                var y = y0
+                while y < y1 {
+                    y = min(y1, y + 0.04)
+                    let p = Self.spine(region, y, y0)
+                    tree.addChild(Self.segment(prev, p, 0.0075 - 0.003 * (y - y0) / max(0.01, y1 - y0), branch))
+                    prev = p
+                }
                 for n in ns {
-                    let p = Self.place(n)
-                    // 中途加一个弯折点，让枝条不是直线
-                    let mid = (last + p) / 2 + SIMD3<Float>(0, 0.02, 0)
-                    tree.addChild(Self.segment(last, mid, 0.006, branch))
-                    tree.addChild(Self.segment(mid, p, 0.006, branch))
-                    last = p
+                    let leaf = Self.place(n)
+                    tree.addChild(Self.segment(Self.spine(region, leaf.y - 0.03, y0), leaf, 0.0028, branch))
                 }
             }
             root.addChild(tree)
