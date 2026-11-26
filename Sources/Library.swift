@@ -63,19 +63,39 @@ private var appVersion: String {
 
 struct HomeView: View {
     @State private var showSettings = false
-    @AppStorage("homeList") private var listMode = false
+    @AppStorage("homeStyle") private var style = "tree"
+    private let styles: [(String, String, String)] = [
+        ("tree", "世界树", "tree"), ("pyramid", "金字塔", "triangle"), ("table", "圆桌", "circle.circle"),
+        ("heaven", "天堂", "sun.max"), ("temple", "罗马神殿", "building.columns"), ("list", "书目", "list.bullet"),
+    ]
 
     var body: some View {
         NavigationStack {
             ZStack {
                 Backdrop()
-                if listMode { list.transition(.opacity) } else { WorldTreeView().transition(.opacity) }
+                Group {
+                    switch style {
+                    case "list": list
+                    case "pyramid": PyramidView()
+                    case "table": RoundTableView()
+                    case "heaven": HeavenView()
+                    case "temple": TempleView()
+                    default: WorldTreeView()
+                    }
+                }
+                .id(style)
+                .transition(.opacity)
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button(listMode ? "哲学之树" : "书目", systemImage: listMode ? "tree" : "list.bullet") {
-                        withAnimation(.smooth(duration: 0.4)) { listMode.toggle() }
+                    Menu {
+                        Picker("首页", selection: Binding(get: { style }, set: { v in withAnimation(.smooth(duration: 0.4)) { style = v } })) {
+                            ForEach(styles, id: \.0) { s in Label(s.1, systemImage: s.2).tag(s.0) }
+                        }
+                    } label: {
+                        Label("首页样式", systemImage: styles.first { $0.0 == style }?.2 ?? "tree")
                     }
+                    .accessibilityIdentifier("home.style")
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("外观", systemImage: "paintpalette") { showSettings = true }

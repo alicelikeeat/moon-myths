@@ -56,7 +56,9 @@ func treeLayout(width W: Double) -> TreeLayout {
     func y(_ h: Double) -> Double { L.height - rootSpace - h }
     for (i, t) in all.enumerated() {
         let deep = t.libraryId != nil
-        L.nodes.append(TreeNode(thinker: t, x: xs[t.id]!, y: y(fromBottom[t.id]!), size: deep ? 60 : 50, order: i))
+        // 有评分时叶子大小随分数：46（低分）到 64（高分）
+        let sc = fameOf(t).map { 46 + min(18, max(0, Double($0.total - 45) / 50 * 18)) }
+        L.nodes.append(TreeNode(thinker: t, x: xs[t.id]!, y: y(fromBottom[t.id]!), size: sc ?? (deep ? 60 : 50), order: i))
     }
     L.trunkBottom = L.height - 70
     L.trunkTop = crownSpace * 0.45
@@ -175,6 +177,7 @@ struct WorldTreeView: View {
     @State private var width: Double = 390
     /// 卡片底衬的不透明度（可在卡片里调节）：越高越不透出后面的叶子
     @AppStorage("treeCardOpacity") private var cardOpacity = 0.75
+    @State private var detail: Thinker?
 
     var body: some View {
         let L = treeLayout(width: width)
@@ -215,6 +218,7 @@ struct WorldTreeView: View {
         .scrollIndicators(.hidden)
         .onGeometryChange(for: Double.self) { Double($0.size.width) } action: { width = $0 }
         .safeAreaInset(edge: .top, spacing: 0) { header }
+        .sheet(item: $detail) { FameSheet(thinker: $0) }
         .onAppear {
             guard !grown else { return }
             start = Date()
@@ -325,6 +329,11 @@ struct WorldTreeView: View {
                 Text("\(t.approx ? "约" : "")\(yearText(t.born))–\(yearText(t.died))")
                     .font(.footnote.monospacedDigit()).foregroundStyle(Color.primary.opacity(0.55))
                 Spacer()
+                if let s = fameOf(t) {
+                    Button { detail = t } label: { FameRing(score: s.total, size: 34) }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel("评分 \(s.total)，查看证据")
+                }
                 Button {
                     withAnimation(.spring(duration: 0.45, bounce: 0.2)) { selected = nil }
                 } label: { Image(systemName: "xmark").font(.system(size: 12, weight: .bold)).frame(width: 28, height: 28) }
@@ -365,9 +374,16 @@ struct WorldTreeView: View {
         .padding(16)
         .frame(width: f.width)
         .background(Color(uiColor: .systemBackground).opacity(cardOpacity * 0.92), in: .rect(cornerRadius: 28))
-        .glassEffect(Glass.regular.tint(regionColor(t.region).opacity(0.14)), in: .rect(cornerRadius: 28))
+        .glassEffect(Glass.regular.tint(regionColor(t.region).opacity(FameTier(fameTotal(t)) == .pure ? 0.04 : 0.14)), in: .rect(cornerRadius: 28))
         .glassEffectID(t.id, in: glassNS)
         .glassEffectTransition(.matchedGeometry)
+        .overlay {
+            // 至纯：金色细线双框
+            if FameTier(fameTotal(t)) == .pure {
+                RoundedRectangle(cornerRadius: 28).strokeBorder(fameGold.opacity(0.8), lineWidth: 0.8)
+                RoundedRectangle(cornerRadius: 23).strokeBorder(fameGold.opacity(0.25), lineWidth: 0.5).padding(5)
+            }
+        }
         .position(x: f.midX, y: f.midY)
         .zIndex(10)
     }

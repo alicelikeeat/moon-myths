@@ -8,10 +8,10 @@ https://en.wikipedia.org/wiki/Bans_on_communist_symbols
 https://en.wikipedia.org/wiki/Baruch_Spinoza
 https://en.wikipedia.org/wiki/Berkeley,_California
 https://en.wikipedia.org/wiki/Bertrand_Russell
-https://en.wikipedia.org/wiki/Bertrand_Russell_Case
+https://en.wikipedia.org/wiki/Bertrand_Russell_case
 https://en.wikipedia.org/wiki/Blaise_Pascal
 https://en.wikipedia.org/wiki/British_empiricism
-https://en.wikipedia.org/wiki/Condemnations_of_1210–1277_at_Paris
+https://en.wikipedia.org/wiki/Condemnations_of_1210–1277
 https://en.wikipedia.org/wiki/Das_Kapital
 https://en.wikipedia.org/wiki/David_Hume
 https://en.wikipedia.org/wiki/De_rerum_natura
@@ -59,7 +59,6 @@ https://en.wikipedia.org/wiki/Santa_Croce,_Florence
 https://en.wikipedia.org/wiki/Scholasticism
 https://en.wikipedia.org/wiki/Socratic_method
 https://en.wikipedia.org/wiki/Søren_Kierkegaard
-https://en.wikipedia.org/wiki/Søren_Kierkegaard_Research_Centre
 https://en.wikipedia.org/wiki/The_Prince
 https://en.wikipedia.org/wiki/The_School_of_Athens
 https://en.wikipedia.org/wiki/The_Social_Contract
@@ -70,13 +69,11 @@ https://en.wikipedia.org/wiki/UNESCO_Confucius_Prize_for_Literacy
 https://en.wikipedia.org/wiki/University_of_Paris
 https://en.wikipedia.org/wiki/William_James
 https://whc.unesco.org/en/list/704
-https://zh.wikipedia.org/wiki/2002年國際數學家大會
 https://zh.wikipedia.org/wiki/中庸
 https://zh.wikipedia.org/wiki/五經
 https://zh.wikipedia.org/wiki/儒家文化圈
 https://zh.wikipedia.org/wiki/公孫龍
 https://zh.wikipedia.org/wiki/列子
-https://zh.wikipedia.org/wiki/列子_(書)
 https://zh.wikipedia.org/wiki/劉徽
 https://zh.wikipedia.org/wiki/周敦頤
 https://zh.wikipedia.org/wiki/四書
@@ -86,9 +83,7 @@ https://zh.wikipedia.org/wiki/墨經
 https://zh.wikipedia.org/wiki/太上老君
 https://zh.wikipedia.org/wiki/子思
 https://zh.wikipedia.org/wiki/孔廟
-https://zh.wikipedia.org/wiki/孔廟從祀制度
 https://zh.wikipedia.org/wiki/孟子
-https://zh.wikipedia.org/wiki/孟子節文
 https://zh.wikipedia.org/wiki/孫子兵法
 https://zh.wikipedia.org/wiki/幾何原本
 https://zh.wikipedia.org/wiki/張載

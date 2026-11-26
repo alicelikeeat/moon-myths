@@ -142,7 +142,7 @@ struct Stage3D: View {
                     .foregroundStyle(Color.primary)
                     .padding(.horizontal, 16).padding(.vertical, 8)
                     .glassEffect(.regular, in: .capsule)
-                    .padding(.top, 14)
+                    .padding(.top, 58)
                     .id(ph)
                     .transition(.opacity)
                     .animation(.easeInOut(duration: 0.5), value: ph)
@@ -167,7 +167,7 @@ struct Cave3D: View {
     var body: some View {
         Stage3D(clock: clock, durations: [7, 7, 7],
                 captions: ["囚徒只看得见墙上的影子", "转过身：火光与被搬运的器物", "走出洞穴：看见太阳"],
-                eye: [0, 0.32, 1.45], target: [0, 0.04, 0.1]) { root in
+                eye: [0, 0.5, 1.85], target: [0, 0.02, 0.15]) { root in
             let stone = pbr(UIColor(red: 0.42, green: 0.38, blue: 0.34, alpha: 1), rough: 0.95)
             root.addChild(ent(.generateBox(size: [1.7, 0.012, 1.6]), stone, at: [0, -0.15, 0.25]))
             root.addChild(ent(.generateBox(size: [1.7, 0.62, 0.03], cornerRadius: 0.01),
