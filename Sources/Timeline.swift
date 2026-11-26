@@ -223,6 +223,9 @@ let influences: [Influence] = [
 
 private let minYear = -1100
 private let maxYear = 2000
+private let leftPad = 70.0          // 左侧留给泳道名称
+private let rulerH = 44.0           // 顶部年代尺
+private let rowH = 42.0
 
 private struct Placed {
     let thinker: Thinker
@@ -236,104 +239,238 @@ private struct Layout {
     var total = 0.0
 }
 
+private func xOf(_ year: Double, _ s: Double) -> Double { (year - Double(minYear)) * s + leftPad }
+
 /// 每条泳道按需要的行数自动加高，人物胶囊互不重叠
 private func layout(scale: Double) -> Layout {
     var L = Layout()
-    var top = 70.0
+    var top = rulerH + 12
     for region in Region.allCases {
         var rowEnds: [Double] = []
         for t in thinkers.filter({ $0.region == region }).sorted(by: { $0.born < $1.born }) {
-            let x = Double(t.born - minYear) * scale
-            let w = max(Double(t.died - t.born) * scale, 78)
-            let row = rowEnds.firstIndex { $0 + 8 <= x } ?? rowEnds.count
+            let x = xOf(Double(t.born), scale)
+            let w = max(Double(t.died - t.born) * scale, 64)
+            let row = rowEnds.firstIndex { $0 + 6 <= x } ?? rowEnds.count
             if row == rowEnds.count { rowEnds.append(x + w) } else { rowEnds[row] = x + w }
-            L.placed.append(Placed(thinker: t, x: x, y: top + 44 + Double(row) * 44, w: w))
+            L.placed.append(Placed(thinker: t, x: x, y: top + 40 + Double(row) * rowH, w: w))
         }
-        let h = 60 + Double(rowEnds.count) * 44 + 24
+        let h = 40 + Double(max(1, rowEnds.count)) * rowH + 26
         L.tops[region] = top
         L.heights[region] = h
-        top += h + 20
+        top += h + 14
     }
-    L.total = top + 10
+    L.total = top + 70
     return L
+}
+
+private func regionTint(_ r: Region) -> Color {
+    switch r {
+    case .china: return Moon.violet
+    case .west: return Moon.silver
+    case .math: return Color(red: 0.35, green: 0.72, blue: 0.62)
+    }
 }
 
 // MARK: - 视图
 
+/// 时间轴：可上下左右自由拖动；双指缩放时以手指处的年代为中心；
+/// 顶部年代尺、左侧泳道名始终可见；可一键跳到某个时代。
 struct HistoryTimelineView: View {
-    @State private var scale = 0.8           // 每年多少点
-    @GestureState private var pinch = 1.0
+    @State private var scale = 0.9               // 每年多少点
+    @State private var pinchStart: (scale: Double, year: Double, screenX: Double)?
+    @State private var position = ScrollPosition(edge: .leading)
+    @State private var offset: CGPoint = .zero
+    @State private var viewport: CGSize = .zero
     @State private var selected: Thinker?
+    @State private var focus: String?            // 高亮某人的影响关系
+    @State private var didStart = false
+
+    private static let jumps: [(String, Int)] = [
+        ("西周", -1000), ("轴心时代", -550), ("秦汉 · 希腊化", -200), ("魏晋 · 罗马", 250), ("隋唐 · 中世纪", 800),
+        ("宋明 · 经院哲学", 1150), ("文艺复兴 · 明", 1500), ("启蒙 · 清", 1720), ("19 世纪", 1850), ("20 世纪", 1930),
+    ]
 
     var body: some View {
-        let s = min(4, max(0.12, scale * pinch))
+        let s = scale
         let L = layout(scale: s)
-        let placed = L.placed
-        let width = Double(maxYear - minYear) * s + 60
-        ZStack {
+        let width = xOf(Double(maxYear), s) + 60
+        ZStack(alignment: .topLeading) {
             Backdrop()
-            ScrollView(.horizontal) {
+            ScrollView([.horizontal, .vertical]) {
                 ZStack(alignment: .topLeading) {
-                    lanes(s, L)
-                    links(placed)
-                    ForEach(placed, id: \.thinker.id) { p in
-                        Button { selected = p.thinker } label: {
-                            capsule(p)
-                        }
-                        .buttonStyle(.plain)
-                        .position(x: p.x + p.w / 2 + 30, y: p.y)
+                    lanes(s, L, width)
+                    links(L.placed)
+                    ForEach(L.placed, id: \.thinker.id) { p in
+                        capsule(p, s)
+                            .position(x: p.x + p.w / 2, y: p.y)
+                            .onTapGesture { selected = p.thinker }
+                            .onLongPressGesture(minimumDuration: 0.35) {
+                                withAnimation(.snappy) { focus = focus == p.thinker.id ? nil : p.thinker.id }
+                            }
                     }
                 }
                 .frame(width: width, height: L.total, alignment: .topLeading)
             }
+            .scrollPosition($position)
             .scrollIndicators(.hidden)
+            .onScrollGeometryChange(for: CGPoint.self) { $0.contentOffset } action: { _, new in offset = new }
+            .onGeometryChange(for: CGSize.self) { $0.size } action: { viewport = $0 }
             .simultaneousGesture(
                 MagnifyGesture()
-                    .updating($pinch) { v, st, _ in st = v.magnification }
-                    .onEnded { v in scale = min(4, max(0.12, scale * v.magnification)) }
+                    .onChanged { v in
+                        if pinchStart == nil {
+                            let sx = Double(v.startLocation.x)
+                            let year = (Double(offset.x) + sx - leftPad) / scale + Double(minYear)
+                            pinchStart = (scale, year, sx)
+                        }
+                        guard let st = pinchStart else { return }
+                        zoom(to: st.scale * v.magnification, keeping: st.year, at: st.screenX)
+                    }
+                    .onEnded { _ in pinchStart = nil }
             )
+            ruler(s)
+            regionLabels(L)
         }
         .navigationTitle("时间轴")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Menu {
+                    ForEach(Self.jumps, id: \.1) { j in
+                        Button("\(j.0)（\(yearText(j.1))）") { jump(to: j.1) }
+                    }
+                } label: { Image(systemName: "calendar.badge.clock") }
+                .accessibilityLabel("跳到某个时代")
+            }
+        }
         .safeAreaInset(edge: .bottom) {
-            Text("双指缩放 · 左右滑动 · 点人物看详情")
-                .font(.caption).foregroundStyle(Color.primary.opacity(0.6))
-                .padding(.horizontal, 16).padding(.vertical, 8)
-                .glassEffect(.regular, in: .capsule)
-                .padding(.bottom, 6)
+            HStack(spacing: 10) {
+                Button { zoomCenter(by: 1 / 1.4) } label: { Image(systemName: "minus.magnifyingglass") }
+                    .buttonStyle(.glass)
+                Text(focus == nil ? "拖动浏览 · 双指缩放 · 点人物看详情 · 长按看影响" : "已高亮影响关系，长按同一人取消")
+                    .font(.caption).foregroundStyle(Color.primary.opacity(0.65))
+                    .lineLimit(1).minimumScaleFactor(0.8)
+                    .padding(.horizontal, 12).padding(.vertical, 8)
+                    .glassEffect(.regular, in: .capsule)
+                Button { zoomCenter(by: 1.4) } label: { Image(systemName: "plus.magnifyingglass") }
+                    .buttonStyle(.glass)
+            }
+            .padding(.bottom, 6)
         }
         .sheet(item: $selected) { t in ThinkerSheet(thinker: t) }
+        .onAppear {
+            guard !didStart else { return }
+            didStart = true
+            Task { @MainActor in
+                try? await Task.sleep(for: .milliseconds(60))
+                jump(to: -620, animated: false)
+            }
+        }
     }
 
-    private func lanes(_ s: Double, _ L: Layout) -> some View {
+    // MARK: 缩放与跳转
+
+    private func zoom(to newScale: Double, keeping year: Double, at screenX: Double) {
+        let ns = min(5, max(0.15, newScale))
+        scale = ns
+        let x = max(0, xOf(year, ns) - screenX)
+        position.scrollTo(point: CGPoint(x: x, y: offset.y))
+    }
+
+    private func zoomCenter(by k: Double) {
+        let cx = Double(viewport.width) / 2
+        let year = (Double(offset.x) + cx - leftPad) / scale + Double(minYear)
+        withAnimation(.snappy) { zoom(to: scale * k, keeping: year, at: cx) }
+    }
+
+    private func jump(to year: Int, animated: Bool = true) {
+        let x = max(0, xOf(Double(year), scale) - 40)
+        if animated { withAnimation(.smooth(duration: 0.6)) { position.scrollTo(point: CGPoint(x: x, y: offset.y)) } }
+        else { position.scrollTo(point: CGPoint(x: x, y: 0)) }
+    }
+
+    // MARK: 固定在屏幕上的年代尺与泳道名
+
+    private func ruler(_ s: Double) -> some View {
+        Canvas { ctx, size in
+            let w = Double(size.width)
+            let step = s > 2.5 ? 25 : (s > 1.2 ? 50 : (s > 0.5 ? 100 : 200))
+            let firstYear = Int((Double(offset.x) - leftPad) / s) + minYear
+            var y = (firstYear / step - 1) * step
+            while true {
+                let x = xOf(Double(y), s) - Double(offset.x)
+                if x > w + 40 { break }
+                if x > -40 && y >= minYear && y <= maxYear {
+                    let major = y % (step * 2) == 0
+                    ctx.stroke(Path { p in p.move(to: CGPoint(x: x, y: rulerH - (major ? 12 : 7))); p.addLine(to: CGPoint(x: x, y: rulerH - 2)) },
+                               with: .color(Color.primary.opacity(major ? 0.45 : 0.25)), lineWidth: 1)
+                    if major || s > 1.2 {
+                        ctx.draw(Text(y == 0 ? "公元" : yearText(y)).font(.system(size: 10, weight: .medium).monospacedDigit())
+                                    .foregroundColor(Color.primary.opacity(0.6)), at: CGPoint(x: x, y: 14))
+                    }
+                }
+                y += step
+            }
+            // 公元元年那条线
+            let x0 = xOf(0, s) - Double(offset.x)
+            if x0 > 0 && x0 < w {
+                ctx.stroke(Path { p in p.move(to: CGPoint(x: x0, y: 24)); p.addLine(to: CGPoint(x: x0, y: rulerH)) },
+                           with: .color(Moon.gold.opacity(0.8)), lineWidth: 1.5)
+            }
+        }
+        .frame(height: rulerH)
+        .frame(maxWidth: .infinity)
+        .background(.ultraThinMaterial.opacity(0.85))
+        .overlay(alignment: .bottom) { Rectangle().fill(Color.primary.opacity(0.08)).frame(height: 0.5) }
+        .allowsHitTesting(false)
+    }
+
+    private func regionLabels(_ L: Layout) -> some View {
+        ZStack(alignment: .topLeading) {
+            ForEach(Region.allCases, id: \.self) { r in
+                let y = (L.tops[r] ?? 0) - Double(offset.y) + 6
+                if y > rulerH - 4 && y < Double(viewport.height) {
+                    Text(r.title)
+                        .font(.system(size: 13, weight: .bold))
+                        .foregroundStyle(regionTint(r) == Moon.silver ? Color.primary.opacity(0.75) : regionTint(r))
+                        .padding(.horizontal, 10).padding(.vertical, 5)
+                        .glassEffect(.regular, in: .capsule)
+                        .offset(x: 8, y: y)
+                }
+            }
+        }
+        .allowsHitTesting(false)
+    }
+
+    // MARK: 画布
+
+    private func lanes(_ s: Double, _ L: Layout, _ width: Double) -> some View {
         Canvas { ctx, size in
             for region in Region.allCases {
                 let top = L.tops[region] ?? 0
                 let height = L.heights[region] ?? 200
-                let lane = Path(roundedRect: CGRect(x: 10, y: top, width: Double(size.width) - 20, height: height), cornerRadius: 24)
-                ctx.fill(lane, with: .color(Color.primary.opacity(0.04)))
-                ctx.draw(Text(region.title).font(.system(size: 13, weight: .semibold)).foregroundColor(Moon.silver),
-                         at: CGPoint(x: 40, y: top + 14))
+                let lane = Path(roundedRect: CGRect(x: 6, y: top, width: Double(size.width) - 12, height: height), cornerRadius: 24)
+                ctx.fill(lane, with: .color(regionTint(region).opacity(0.05)))
                 for (ei, e) in eras.filter({ $0.region == region }).enumerated() {
-                    let x0 = Double(e.start - minYear) * s + 30, x1 = Double(e.end - minYear) * s + 30
-                    let r = CGRect(x: x0, y: top + 24, width: max(1, x1 - x0), height: height - 30)
-                    ctx.fill(Path(r), with: .color((ei % 2 == 0 ? Moon.violet : Moon.silver).opacity(0.06)))
-                    if x1 - x0 > 30 {
-                        ctx.draw(Text(e.name).font(.system(size: 11)).foregroundColor(Color.primary.opacity(0.45)),
-                                 at: CGPoint(x: (x0 + x1) / 2, y: top + height - 14))
+                    let x0 = xOf(Double(e.start), s), x1 = xOf(Double(e.end), s)
+                    let r = CGRect(x: x0, y: top + 30, width: max(1, x1 - x0), height: height - 36)
+                    ctx.fill(Path(roundedRect: r, cornerRadius: 10), with: .color((ei % 2 == 0 ? Moon.violet : Moon.silver).opacity(0.06)))
+                    if x1 - x0 > 40 {
+                        // 时代名放在泳道顶部，靠左；很宽时在可见区域内跟随
+                        let visibleL = max(x0 + 8, Double(offset.x) + leftPad + 40)
+                        let lx = min(visibleL, x1 - 8)
+                        ctx.draw(Text(e.name).font(.system(size: 11, weight: .medium)).foregroundColor(Color.primary.opacity(0.45)),
+                                 at: CGPoint(x: lx, y: top + 18), anchor: .leading)
                     }
                 }
             }
-            // 年代刻度
-            let step = s > 1.5 ? 50 : (s > 0.5 ? 100 : 200)
+            // 竖向网格
+            let step = s > 2.5 ? 25 : (s > 1.2 ? 50 : (s > 0.5 ? 100 : 200))
             var y = (minYear / step) * step
             while y <= maxYear {
-                let x = Double(y - minYear) * s + 30
-                ctx.stroke(Path { p in p.move(to: CGPoint(x: x, y: 40)); p.addLine(to: CGPoint(x: x, y: 50)) },
-                           with: .color(Color.primary.opacity(0.35)), lineWidth: 1)
-                ctx.draw(Text(y == 0 ? "公元" : yearText(y)).font(.system(size: 10).monospacedDigit())
-                            .foregroundColor(Color.primary.opacity(0.5)),
-                         at: CGPoint(x: x, y: 30))
+                let x = xOf(Double(y), s)
+                ctx.stroke(Path { p in p.move(to: CGPoint(x: x, y: rulerH)); p.addLine(to: CGPoint(x: x, y: L.total)) },
+                           with: .color(y == 0 ? Moon.gold.opacity(0.25) : Color.primary.opacity(0.04)), lineWidth: y == 0 ? 1 : 0.5)
                 y += step
             }
         }
@@ -345,28 +482,44 @@ struct HistoryTimelineView: View {
             let pos = Dictionary(uniqueKeysWithValues: placed.map { ($0.thinker.id, $0) })
             for inf in influences {
                 guard let a = pos[inf.from], let b = pos[inf.to] else { continue }
-                let p0 = CGPoint(x: a.x + a.w / 2 + 30, y: a.y)
-                let p1 = CGPoint(x: b.x + b.w / 2 + 30, y: b.y)
+                let on = focus == nil || focus == inf.from || focus == inf.to
+                let p0 = CGPoint(x: a.x + a.w / 2, y: a.y)
+                let p1 = CGPoint(x: b.x + b.w / 2, y: b.y)
                 var path = Path()
                 path.move(to: p0)
                 path.addQuadCurve(to: p1, control: CGPoint(x: (p0.x + p1.x) / 2, y: min(p0.y, p1.y) - 30))
-                ctx.stroke(path, with: .color((inf.critical ? Moon.violet : Moon.gold).opacity(0.55)),
-                           style: StrokeStyle(lineWidth: 1.2, dash: inf.critical ? [4, 4] : []))
+                let base = (inf.critical ? Moon.violet : Moon.gold)
+                ctx.stroke(path, with: .color(base.opacity(focus == nil ? 0.35 : (on ? 0.95 : 0.06))),
+                           style: StrokeStyle(lineWidth: on && focus != nil ? 2.2 : 1.1, dash: inf.critical ? [4, 4] : []))
+                if on && focus != nil {
+                    // 箭头：表示影响的方向
+                    let ang = atan2(p1.y - ((p0.y + p1.y) / 2 - 15), p1.x - (p0.x + p1.x) / 2)
+                    var head = Path()
+                    head.move(to: p1)
+                    head.addLine(to: CGPoint(x: p1.x - 9 * cos(ang - 0.4), y: p1.y - 9 * sin(ang - 0.4)))
+                    head.move(to: p1)
+                    head.addLine(to: CGPoint(x: p1.x - 9 * cos(ang + 0.4), y: p1.y - 9 * sin(ang + 0.4)))
+                    ctx.stroke(head, with: .color(base), lineWidth: 2)
+                }
             }
         }
         .allowsHitTesting(false)
     }
 
-    private func capsule(_ p: Placed) -> some View {
+    private func capsule(_ p: Placed, _ s: Double) -> some View {
         let t = p.thinker
         let deep = t.libraryId != nil
+        let dim = focus != nil && focus != t.id && !influences.contains { ($0.from == focus && $0.to == t.id) || ($0.to == focus && $0.from == t.id) }
         return VStack(spacing: 0) {
-            Text(t.name).font(.system(size: 13, weight: .semibold))
-            Text("\(t.approx ? "约" : "")\(yearText(t.born))–\(yearText(t.died))")
-                .font(.system(size: 9).monospacedDigit()).opacity(0.7)
+            Text(t.name).font(.system(size: 13, weight: .semibold)).lineLimit(1).minimumScaleFactor(0.75)
+            if p.w >= 84 {
+                Text("\(t.approx ? "约" : "")\(yearText(t.born))–\(yearText(t.died))")
+                    .font(.system(size: 9).monospacedDigit()).opacity(0.7)
+            }
         }
         .foregroundStyle(Color.primary)
-        .frame(width: p.w, height: 36)
+        .padding(.horizontal, 4)
+        .frame(width: p.w, height: 34)
         .mask {
             // 生卒年不确定时两端渐隐
             LinearGradient(stops: t.approx
@@ -375,8 +528,14 @@ struct HistoryTimelineView: View {
                            : [.init(color: .black, location: 0), .init(color: .black, location: 1)],
                            startPoint: .leading, endPoint: .trailing)
         }
-        .glassEffect(Glass.regular.tint((deep ? Moon.gold : (t.region == .china ? Moon.violet : t.region == .math ? Color(red: 0.35, green: 0.72, blue: 0.62) : Moon.silver)).opacity(deep ? 0.35 : 0.18)).interactive(),
-                     in: .capsule)
+        .glassEffect(Glass.regular.tint((deep ? Moon.gold : regionTint(t.region)).opacity(deep ? 0.35 : 0.18)), in: .capsule)
+        .overlay {
+            if focus == t.id { Capsule().strokeBorder(Moon.gold, lineWidth: 2) }
+        }
+        .opacity(dim ? 0.3 : 1)
+        .contentShape(.capsule)
+        .accessibilityAddTraits(.isButton)
+        .accessibilityLabel("\(t.name)，\(yearText(t.born)) 至 \(yearText(t.died))")
     }
 }
 
