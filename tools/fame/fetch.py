@@ -29,21 +29,22 @@ T = {
  "descartes-geometry": ("La Géométrie", "descartes-mathematics"),
 }
 
-def get(url, tries=3):
+def get(url, tries=2, timeout=20):
     for k in range(tries):
         try:
-            with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=40) as r:
+            with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=timeout) as r:
                 return r.read()
         except Exception as e:
-            err = e; time.sleep(2 + k * 3)
+            err = e; time.sleep(1 + k * 2)
     print("FAIL", url, err, file=sys.stderr)
     return None
 
-def jget(url):
-    b = get(url)
+def jget(url, **kw):
+    b = get(url, **kw)
     return json.loads(b) if b else None
 
 out = {}
+pantheon_ok = True
 for tid, (en, sep) in T.items():
     rec = {"en": en}
     q = jget("https://en.wikipedia.org/w/api.php?action=query&format=json&redirects=1&prop=pageprops&titles=" + urllib.parse.quote(en))
@@ -69,15 +70,17 @@ for tid, (en, sep) in T.items():
     s = jget("https://query.wikidata.org/sparql?format=json&query=" + urllib.parse.quote(sparql))
     try: rec["influenced"] = int(s["results"]["bindings"][0]["c"]["value"])
     except Exception: rec["influenced"] = None
-    p = jget(f"https://api.pantheon.world/person?wd_id=eq.{qid}&select=name,hpi,l,occupation")
-    if p: rec["pantheon"] = p[0] if p else None
+    if pantheon_ok:
+        p = jget(f"https://api.pantheon.world/person?wd_id=eq.{qid}&select=name,hpi,l,occupation", tries=1, timeout=12)
+        if p is None: pantheon_ok = False
+        elif p: rec["pantheon"] = p[0]
     if sep:
-        h = get(f"https://plato.stanford.edu/entries/{sep}/")
+        h = get(f"https://plato.stanford.edu/entries/{sep}/", tries=1, timeout=20)
         if h:
             txt = re.sub(r"<[^>]+>", " ", h.decode("utf-8", "ignore"))
             rec["sep"] = {"slug": sep, "words": len(txt.split())}
     out[tid] = rec
     print(tid, json.dumps(rec, ensure_ascii=False), flush=True)
-    time.sleep(0.5)
+    time.sleep(0.2)
 
 json.dump(out, open("fame.json", "w"), ensure_ascii=False, indent=1)

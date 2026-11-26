@@ -7,6 +7,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: python3 tools/fame/fetch.py
+        timeout-minutes: 25
       - run: if [ -f tools/fame/links.txt ]; then python3 tools/fame/checklinks.py tools/fame/links.txt > links.json; fi
       - run: |
           git config user.name "fame-bot"; git config user.email "bot@users.noreply.github.com"

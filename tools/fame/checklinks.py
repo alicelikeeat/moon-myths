@@ -4,7 +4,7 @@ UA = {"User-Agent": "PureApp/1.0 (https://github.com/alicelikeeat/moon-myths) li
 res = {}
 for u in sorted(set(l.strip() for l in open(sys.argv[1]) if l.strip())):
     try:
-        with urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=30) as r: res[u] = r.status
+        with urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=12) as r: res[u] = r.status
     except urllib.error.HTTPError as e: res[u] = e.code
     except Exception as e: res[u] = str(e)[:80]
 print(json.dumps(res, ensure_ascii=False, indent=1))
