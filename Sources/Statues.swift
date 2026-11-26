@@ -235,6 +235,17 @@ private enum Toy {
         return x
     }
     static let skin = m(UIColor(red: 0.98, green: 0.86, blue: 0.74, alpha: 1), rough: 0.5)
+    /// 等级材质：至纯香槟金（缎面金属）、精致纯金（亮面金属）、专业钻石（清透带光）
+    static let champagneM: PhysicallyBasedMaterial = { var x = m(UIColor(red: 0.93, green: 0.84, blue: 0.68, alpha: 1), rough: 0.28); x.metallic = .init(floatLiteral: 0.85); return x }()
+    static let goldM: PhysicallyBasedMaterial = { var x = m(UIColor(red: 0.92, green: 0.72, blue: 0.18, alpha: 1), rough: 0.12); x.metallic = .init(floatLiteral: 1); return x }()
+    static let diamondM: PhysicallyBasedMaterial = {
+        var x = m(UIColor(red: 0.84, green: 0.95, blue: 1.0, alpha: 1), rough: 0.02)
+        x.blending = .transparent(opacity: .init(floatLiteral: 0.75))
+        x.emissiveColor = .init(color: UIColor(red: 0.84, green: 0.95, blue: 1.0, alpha: 1)); x.emissiveIntensity = 0.35
+        return x
+    }()
+    static func tier(_ t: FameTier) -> PhysicallyBasedMaterial { t == .pure ? champagneM : (t == .fine ? goldM : diamondM) }
+    static let disc = MeshResource.generateCylinder(height: 0.002, radius: 0.012)
     static let black = m(UIColor(white: 0.12, alpha: 1), rough: 0.4)
     static let white = m(UIColor(white: 0.96, alpha: 1), rough: 0.7)
     static let grey = m(UIColor(white: 0.62, alpha: 1))
@@ -274,6 +285,7 @@ func cartoonFigure(for t: Thinker) -> Entity {
     let fig = Entity()
     fig.name = "cartoon"
     let style = CartoonStyle.of(t)
+    let trim = Toy.tier(FameTier(fameTotal(t)))
     func add(_ mesh: MeshResource, _ mat: any RealityKit.Material, _ p: SIMD3<Float>, scale: SIMD3<Float> = .one, flip: Bool = false) {
         let e = ModelEntity(mesh: mesh, materials: [mat])
         e.position = p
@@ -287,10 +299,10 @@ func cartoonFigure(for t: Thinker) -> Entity {
     case .modern:
         add(Toy.suit, Toy.c1, [0, 0.011, 0])
         add(Toy.g4, Toy.white, [0, 0.019, 0.0058])
-        add(Toy.g1, Toy.c6, [0, 0.016, 0.0066])
+        add(Toy.g1, trim, [0, 0.016, 0.0066])
     case .classical:
         add(Toy.robe, Toy.white, [0, 0.013, 0])
-        add(Toy.g2, Toy.c5, [0.002, 0.014, 0.0062])
+        add(Toy.g2, trim, [0.002, 0.014, 0.0062])
     case .medieval:
         add(Toy.robe, Toy.c4, [0, 0.013, 0])
     case .earlyModern:
@@ -299,8 +311,12 @@ func cartoonFigure(for t: Thinker) -> Entity {
     case .sinoAncient, .sinoLater:
         let robeColor = style == .sinoAncient ? UIColor(red: 0.55, green: 0.42, blue: 0.62, alpha: 1) : UIColor(red: 0.3, green: 0.45, blue: 0.55, alpha: 1)
         add(Toy.robe, Toy.m(robeColor), [0, 0.013, 0])
-        add(Toy.g6, Toy.c7, [0, 0.012, 0.0055])
+        add(Toy.g6, trim, [0, 0.012, 0.0055])
     }
+    // 中世纪与近代早期：胸前一道等级色的饰带
+    if style == .medieval || style == .earlyModern { add(Toy.g1, trim, [0, 0.014, 0.0075], scale: [1.4, 1.3, 1]) }
+    // 脚下的等级光盘
+    add(Toy.disc, trim, [0, 0.001, 0])
     // 头与脸（大头、圆眼、腮红）
     add(Toy.head, Toy.skin, [0, headY, 0])
     add(Toy.eye, Toy.black, [-0.003, headY + 0.0008, 0.0078])
@@ -341,4 +357,113 @@ func seatDisclaimer(_ id: String) -> String {
     if statueRecord(id)?.modelURL != nil { return "考据雕像" }
     guard let t = thinkers.first(where: { $0.id == id }) else { return "" }
     return "卡通示意 · \(CartoonStyle.of(t).rawValue) · 不代表真实相貌"
+}
+
+// MARK: - 2D 卡通头像（与 3D 小人同一套造型，用在世界树、2D 金字塔、圆桌、天堂、神殿和评分页）
+
+struct CartoonPalette {
+    static func cloth(_ s: CartoonStyle) -> Color {
+        switch s {
+        case .modern: Color(red: 0.22, green: 0.25, blue: 0.32)
+        case .classical: Color(white: 0.96)
+        case .medieval: Color(red: 0.42, green: 0.3, blue: 0.22)
+        case .earlyModern: Color(red: 0.2, green: 0.24, blue: 0.42)
+        case .sinoAncient: Color(red: 0.55, green: 0.42, blue: 0.62)
+        case .sinoLater: Color(red: 0.3, green: 0.45, blue: 0.55)
+        }
+    }
+    static let skin = Color(red: 0.98, green: 0.86, blue: 0.74)
+    static let ink = Color(white: 0.12)
+    static let grey = Color(white: 0.62)
+}
+
+struct CartoonAvatar: View {
+    let thinker: Thinker
+    var size: CGFloat = 32
+
+    var body: some View {
+        let style = CartoonStyle.of(thinker)
+        let tier = FameTier(fameTotal(thinker))
+        Canvas { ctx, sz in
+            let s = min(sz.width, sz.height)
+            let cx = sz.width / 2
+            func circle(_ x: CGFloat, _ y: CGFloat, _ r: CGFloat) -> Path { Path(ellipseIn: CGRect(x: x - r, y: y - r, width: r * 2, height: r * 2)) }
+            func ellipse(_ x: CGFloat, _ y: CGFloat, _ rx: CGFloat, _ ry: CGFloat) -> Path { Path(ellipseIn: CGRect(x: x - rx, y: y - ry, width: rx * 2, height: ry * 2)) }
+            let trim = GraphicsContext.Shading.linearGradient(Gradient(colors: tier.sheen), startPoint: .zero, endPoint: CGPoint(x: s, y: s))
+            // 身体
+            var body = Path()
+            let top = s * 0.62, w = style == .modern ? s * 0.62 : s * 0.78
+            body.move(to: CGPoint(x: cx - w * 0.32, y: top))
+            body.addQuadCurve(to: CGPoint(x: cx + w * 0.32, y: top), control: CGPoint(x: cx, y: top - s * 0.06))
+            body.addLine(to: CGPoint(x: cx + w / 2, y: s))
+            body.addLine(to: CGPoint(x: cx - w / 2, y: s))
+            body.closeSubpath()
+            ctx.fill(body, with: .color(CartoonPalette.cloth(style)))
+            // 点缀：按等级取材质颜色（至纯香槟金 · 精致纯金 · 专业钻石）
+            switch style {
+            case .modern:
+                var collar = Path(); collar.move(to: CGPoint(x: cx - s * 0.09, y: top)); collar.addLine(to: CGPoint(x: cx, y: top + s * 0.1)); collar.addLine(to: CGPoint(x: cx + s * 0.09, y: top)); collar.closeSubpath()
+                ctx.fill(collar, with: .color(.white))
+                var tie = Path(); tie.move(to: CGPoint(x: cx - s * 0.025, y: top + s * 0.08)); tie.addLine(to: CGPoint(x: cx + s * 0.025, y: top + s * 0.08)); tie.addLine(to: CGPoint(x: cx + s * 0.035, y: s * 0.95)); tie.addLine(to: CGPoint(x: cx - s * 0.035, y: s * 0.95)); tie.closeSubpath()
+                ctx.fill(tie, with: trim)
+            case .classical:
+                var sash = Path(); sash.move(to: CGPoint(x: cx - s * 0.2, y: top + s * 0.02)); sash.addLine(to: CGPoint(x: cx + s * 0.28, y: s)); sash.addLine(to: CGPoint(x: cx + s * 0.18, y: s)); sash.addLine(to: CGPoint(x: cx - s * 0.26, y: top + s * 0.08)); sash.closeSubpath()
+                ctx.fill(sash, with: trim)
+            case .sinoAncient, .sinoLater:
+                var lapel = Path(); lapel.move(to: CGPoint(x: cx - s * 0.16, y: top)); lapel.addLine(to: CGPoint(x: cx + s * 0.08, y: top + s * 0.2)); lapel.addLine(to: CGPoint(x: cx + s * 0.02, y: top + s * 0.24)); lapel.addLine(to: CGPoint(x: cx - s * 0.2, y: top + s * 0.04)); lapel.closeSubpath()
+                ctx.fill(lapel, with: .color(.white.opacity(0.85)))
+                ctx.fill(Path(CGRect(x: cx - w * 0.42, y: s * 0.86, width: w * 0.84, height: s * 0.05)), with: trim)
+            case .medieval, .earlyModern:
+                ctx.fill(Path(CGRect(x: cx - s * 0.05, y: top, width: s * 0.1, height: s * 0.38)), with: trim)
+            }
+            // 头
+            let hy = s * 0.4, hr = s * 0.24
+            if style == .medieval { ctx.fill(circle(cx, hy - s * 0.01, hr * 1.22), with: .color(Color(red: 0.35, green: 0.25, blue: 0.18))) }
+            if style == .earlyModern {
+                ctx.fill(circle(cx - hr * 0.95, hy + hr * 0.15, hr * 0.38), with: .color(.white))
+                ctx.fill(circle(cx + hr * 0.95, hy + hr * 0.15, hr * 0.38), with: .color(.white))
+            }
+            ctx.fill(circle(cx, hy, hr), with: .color(CartoonPalette.skin))
+            // 发型与冠帽
+            switch style {
+            case .modern: ctx.fill(ellipse(cx, hy - hr * 0.62, hr * 0.95, hr * 0.45), with: .color(CartoonPalette.grey))
+            case .classical:
+                ctx.fill(ellipse(cx, hy - hr * 0.66, hr * 0.98, hr * 0.42), with: .color(CartoonPalette.grey))
+                ctx.fill(ellipse(cx, hy + hr * 0.72, hr * 0.55, hr * 0.42), with: .color(CartoonPalette.grey))
+            case .earlyModern: ctx.fill(ellipse(cx, hy - hr * 0.6, hr * 1.02, hr * 0.48), with: .color(.white))
+            case .medieval: break
+            case .sinoAncient:
+                ctx.fill(Path(roundedRect: CGRect(x: cx - hr * 0.38, y: hy - hr * 1.75, width: hr * 0.76, height: hr * 0.95), cornerRadius: hr * 0.15), with: .color(CartoonPalette.ink))
+                ctx.fill(ellipse(cx, hy - hr * 0.7, hr * 0.9, hr * 0.35), with: .color(CartoonPalette.ink))
+                var beard = Path(); beard.move(to: CGPoint(x: cx - hr * 0.35, y: hy + hr * 0.6)); beard.addLine(to: CGPoint(x: cx + hr * 0.35, y: hy + hr * 0.6)); beard.addLine(to: CGPoint(x: cx, y: hy + hr * 1.5)); beard.closeSubpath()
+                ctx.fill(beard, with: .color(CartoonPalette.ink))
+            case .sinoLater:
+                ctx.fill(ellipse(cx, hy - hr * 0.62, hr * 1.0, hr * 0.5), with: .color(CartoonPalette.ink))
+                ctx.fill(Path(CGRect(x: cx - hr * 1.6, y: hy - hr * 0.55, width: hr * 3.2, height: hr * 0.14)), with: .color(CartoonPalette.ink))
+            }
+            // 眼睛、腮红
+            ctx.fill(circle(cx - hr * 0.36, hy + hr * 0.05, hr * 0.11), with: .color(CartoonPalette.ink))
+            ctx.fill(circle(cx + hr * 0.36, hy + hr * 0.05, hr * 0.11), with: .color(CartoonPalette.ink))
+            ctx.fill(ellipse(cx - hr * 0.58, hy + hr * 0.35, hr * 0.17, hr * 0.1), with: .color(Color(red: 1, green: 0.6, blue: 0.6).opacity(0.8)))
+            ctx.fill(ellipse(cx + hr * 0.58, hy + hr * 0.35, hr * 0.17, hr * 0.1), with: .color(Color(red: 1, green: 0.6, blue: 0.6).opacity(0.8)))
+            if thinker.id == "russell" {
+                var pipe = Path(); pipe.move(to: CGPoint(x: cx + hr * 0.2, y: hy + hr * 0.55)); pipe.addLine(to: CGPoint(x: cx + hr * 0.85, y: hy + hr * 0.75))
+                ctx.stroke(pipe, with: .color(CartoonPalette.ink), lineWidth: max(1, s * 0.03))
+                ctx.fill(Path(roundedRect: CGRect(x: cx + hr * 0.78, y: hy + hr * 0.5, width: hr * 0.3, height: hr * 0.35), cornerRadius: 1), with: .color(Color(red: 0.4, green: 0.25, blue: 0.15)))
+            }
+        }
+        .frame(width: size, height: size)
+        .accessibilityHidden(true)
+    }
+}
+
+// MARK: - 3D：所有场景共用的人物槽位（先放卡通小人，考据雕像“可展示”后自动替换）
+
+/// 一个站在等级小底盘上的人物；scale 为整体缩放
+func figureSlot(for t: Thinker, scale: Float = 1) -> Entity {
+    let slot = Entity()
+    slot.scale = .init(repeating: scale)
+    slot.addChild(cartoonFigure(for: t))
+    StatueLoader.shared.load(t.id, into: slot)
+    return slot
 }

@@ -66,6 +66,7 @@ struct HomeView: View {
     @State private var demoSheet: Thinker?
     @AppStorage("homeStyle") private var style = "tree"
     @AppStorage("home3D") private var home3D = false
+    @AppStorage("nameLang") private var nameLang = "zh"
     private var has3D: Bool { ["pyramid", "table", "heaven", "temple"].contains(style) }
     private let styles: [(String, String, String)] = [
         ("tree", "世界树", "tree"), ("pyramid", "金字塔", "triangle"), ("table", "圆桌", "circle.circle"),
@@ -86,7 +87,7 @@ struct HomeView: View {
                     default: WorldTreeView()
                     }
                 }
-                .id(style + (home3D ? "3d" : ""))
+                .id(style + (home3D ? "3d" : "") + nameLang)
                 .transition(.opacity)
             }
             .toolbar {
@@ -95,6 +96,11 @@ struct HomeView: View {
                         Picker("首页", selection: Binding(get: { style }, set: { v in withAnimation(.smooth(duration: 0.4)) { style = v } })) {
                             ForEach(styles, id: \.0) { s in Label(s.1, systemImage: s.2).tag(s.0) }
                         }
+                        Menu {
+                            Picker("名字语言", selection: $nameLang) {
+                                ForEach(NameLang.allCases) { l in Text(l.title).tag(l.rawValue) }
+                            }
+                        } label: { Label("名字语言 · \(NameLang(rawValue: nameLang)?.title ?? "中文")", systemImage: "character.bubble") }
                     } label: {
                         Label("首页样式", systemImage: styles.first { $0.0 == style }?.2 ?? "tree")
                     }

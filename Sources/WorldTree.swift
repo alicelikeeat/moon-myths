@@ -289,14 +289,18 @@ struct WorldTreeView: View {
             Button {
                 withAnimation(.spring(duration: 0.5, bounce: 0.25)) { selected = t.id }
             } label: {
-                let short = String(t.name.split(separator: "（").first ?? Substring(t.name))
-                Text(short)
-                    .font(.system(size: short.count > 3 ? 11 : 13, weight: .semibold, design: .serif))
-                    .foregroundStyle(Color.primary)
-                    .lineLimit(2)
-                    .minimumScaleFactor(0.7)
-                    .multilineTextAlignment(.center)
-                    .frame(width: node.size, height: node.size)
+                let short = shortName(t)
+                // 叶子里：卡通头像 + 名字
+                VStack(spacing: 0) {
+                    CartoonAvatar(thinker: t, size: node.size * 0.52)
+                    Text(short)
+                        .font(.system(size: short.count > 4 ? 8.5 : 10, weight: .semibold, design: .serif))
+                        .foregroundStyle(Color.primary)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.6)
+                        .padding(.horizontal, 3)
+                }
+                .frame(width: node.size, height: node.size)
             }
             .buttonStyle(.plain)
             .glassEffect(Glass.regular.tint(regionColor(t.region).opacity(t.libraryId != nil ? 0.38 : 0.2)).interactive(), in: .circle)
@@ -305,7 +309,7 @@ struct WorldTreeView: View {
             .opacity(covered ? 0 : (dim ? 0.22 : 1))
             .allowsHitTesting(!covered)
             .position(x: node.x, y: node.y)
-            .accessibilityLabel("\(t.name)，\(yearText(t.born)) 至 \(yearText(t.died))")
+            .accessibilityLabel("\(fullName(t))，\(yearText(t.born)) 至 \(yearText(t.died))")
         }
     }
 
@@ -325,7 +329,8 @@ struct WorldTreeView: View {
         let f = cardFrame(node, L)
         return VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .firstTextBaseline, spacing: 8) {
-                Text(t.name).font(.system(size: 24, weight: .semibold, design: .serif))
+                CartoonAvatar(thinker: t, size: 36)
+                Text(fullName(t)).font(.system(size: 24, weight: .semibold, design: .serif)).lineLimit(1).minimumScaleFactor(0.7)
                 Text("\(t.approx ? "约" : "")\(yearText(t.born))–\(yearText(t.died))")
                     .font(.footnote.monospacedDigit()).foregroundStyle(Color.primary.opacity(0.55))
                 Spacer()

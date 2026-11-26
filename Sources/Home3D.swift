@@ -257,7 +257,7 @@ struct HomeStage3D: View {
             // VoiceOver：上下滑动切换人物，另有“返回全景”“人物详情”“查看原型”操作
             .accessibilityElement()
             .accessibilityLabel(title)
-            .accessibilityValue(selected.flatMap { id in thinkers.first { $0.id == id }?.name } ?? "未选中人物，上下滑动选择")
+            .accessibilityValue(selected.flatMap { id in thinkers.first { $0.id == id }.map(fullName) } ?? "未选中人物，上下滑动选择")
             .accessibilityAdjustableAction { dir in
                 let list = rankedThinkers.map(\.id)
                 let i = selected.flatMap { list.firstIndex(of: $0) } ?? -1
@@ -405,7 +405,7 @@ struct HomeStage3D: View {
                                 HStack(spacing: 8) {
                                     Circle().fill(LinearGradient(colors: FameTier(fameTotal(t)).sheen, startPoint: .topLeading, endPoint: .bottomTrailing))
                                         .frame(width: 9, height: 9)
-                                    Text(t.name).font(.system(size: 15, weight: .semibold, design: .serif))
+                                    Text(fullName(t)).font(.system(size: 15, weight: .semibold, design: .serif))
                                     Spacer(minLength: 8)
                                     Text("\(fameTotal(t))").font(.caption.monospacedDigit()).foregroundStyle(Color.primary.opacity(0.5))
                                 }
@@ -496,9 +496,10 @@ struct HomeStage3D: View {
                     Button { if let p = nb.0 { select(p, keepDistance: true) } } label: { Image(systemName: "chevron.left").frame(width: 22, height: 30) }
                         .buttonStyle(.plain).disabled(nb.0 == nil).opacity(nb.0 == nil ? 0.3 : 1)
                 }
-                FameRing(score: s, size: 38)
+                CartoonAvatar(thinker: t, size: 40)
+                FameRing(score: s, size: 34)
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(t.name).font(.system(size: 19, weight: .semibold, design: .serif))
+                    Text(fullName(t)).font(.system(size: 19, weight: .semibold, design: .serif)).lineLimit(1).minimumScaleFactor(0.7)
                     Text("\(tier.name) · \(t.region.title) · \(t.approx ? "约" : "")\(yearText(t.born))–\(yearText(t.died))")
                         .font(.caption2).foregroundStyle(tier.deep).lineLimit(1).minimumScaleFactor(0.75)
                     if relations {
@@ -614,9 +615,15 @@ struct Pyramid3DView: View {
                     default: px = -h; pz = -h + f * 2 * h
                     }
                     let tier = FameTier(fameTotal(t))
-                    let block = model(.generateBox(size: .init(repeating: tier == .pure ? 0.03 : 0.022), cornerRadius: 0.004), tierMat(t))
+                    // 卡通小人（或考据雕像）站在一块等级色小底座上
+                    let block = model(.generateBox(size: [0.024, 0.006, 0.024], cornerRadius: 0.002), tierMat(t))
+                    let fs: Float = tier == .pure ? 1.25 : 0.95
+                    let fig = figureSlot(for: t, scale: fs)
+                    fig.position = [0, 0.003, 0]
+                    fig.components.set(BillboardComponent())
+                    block.addChild(fig)
                     let label = text3D(shortName(t), size: tier == .pure ? 0.024 : 0.016)
-                    label.position = [0, tier == .pure ? 0.04 : 0.028, 0]
+                    label.position = [0, 0.05 * fs + 0.01, 0]
                     block.addChild(label)
                     tappable(block, id: t.id, refs)
                     // 父实体负责位置与动画，子实体负责点选
@@ -716,16 +723,15 @@ struct RoundTable3DView: View {
                 let h: Float = 0.026
                 let seat = model(.generateCylinder(height: h, radius: pr), mat(ivory, rough: 0.7))
                 seat.addChild(model(.generateCylinder(height: 0.003, radius: pr + 0.0015), tierMat(t), at: [0, h / 2, 0]))
-                let slot = Entity()
+                // 没有合格雕像时先放卡通示意小人；雕像“可展示”后自动替换
+                let slot = figureSlot(for: t)
                 slot.position = [0, h / 2 + 0.0015, 0]
-                // 没有合格雕像时先放卡通示意小人；雕像加载成功会替换它
-                slot.addChild(cartoonFigure(for: t))
+                slot.components.set(BillboardComponent())
                 seat.addChild(slot)
                 let label = text3D(shortName(t), size: 0.014)
                 label.position = [0, h / 2 + (i % 2 == 0 ? 0.062 : 0.078), 0]
                 seat.addChild(label)
                 tappable(seat, id: t.id, refs)
-                StatueLoader.shared.load(t.id, into: slot)
                 seat.components.set(OpacityComponent(opacity: 0))
                 let holder = Entity()
                 holder.position = p
@@ -853,9 +859,15 @@ struct Heaven3DView: View {
                 for (k, t) in people.enumerated() {
                     let a = Float(k) / Float(people.count) * 2 * .pi
                     let tier = FameTier(fameTotal(t))
-                    let soul = model(.generateSphere(radius: tier == .pure ? 0.02 : 0.014), tierMat(t), at: [cos(a) * rad, 0, sin(a) * rad])
+                    // 卡通小人站在一枚等级色的浮空小盘上
+                    let soul = model(.generateCylinder(height: 0.003, radius: tier == .pure ? 0.017 : 0.013), tierMat(t), at: [cos(a) * rad, 0, sin(a) * rad])
+                    let fs: Float = tier == .pure ? 1.05 : 0.8
+                    let fig = figureSlot(for: t, scale: fs)
+                    fig.position = [0, 0.0015, 0]
+                    fig.components.set(BillboardComponent())
+                    soul.addChild(fig)
                     let label = text3D(shortName(t), size: 0.016)
-                    label.position = [0, 0.032, 0]
+                    label.position = [0, 0.05 * fs + 0.01, 0]
                     soul.addChild(label)
                     tappable(soul, id: t.id, refs)
                     ring.addChild(soul)
@@ -941,8 +953,13 @@ struct Temple3DView: View {
                 base.position = [cos(a) * R, -0.01, sin(a) * R]
                 let col = model(.generateCylinder(height: h, radius: 0.0085), tierMat(t), at: [0, h / 2, 0])
                 col.addChild(model(.generateBox(size: [0.022, 0.006, 0.022], cornerRadius: 0.001), stone, at: [0, h / 2 + 0.003, 0]))
+                // 柱头上站着这位人物的卡通小人（或考据雕像）
+                let fig = figureSlot(for: t, scale: 0.7)
+                fig.position = [0, h / 2 + 0.006, 0]
+                fig.components.set(BillboardComponent())
+                col.addChild(fig)
                 let label = text3D(shortName(t), size: 0.015)
-                label.position = [0, h / 2 + 0.025, 0]
+                label.position = [0, h / 2 + 0.05, 0]
                 if tier == .plain { label.components.set(OpacityComponent(opacity: 0)) }
                 col.addChild(label)
                 refs["label:\(t.id)"] = label
@@ -972,9 +989,13 @@ struct Temple3DView: View {
                 refs["mote\(m)"] = mote
             }
             if let top = rankedThinkers.first {
-                let cube = model(.generateBox(size: .init(repeating: 0.05), cornerRadius: 0.006), tierMat(top))
-                let label = text3D(top.name, size: 0.03)
-                label.position = [0, 0.07, 0]
+                let cube = model(.generateBox(size: [0.05, 0.02, 0.05], cornerRadius: 0.004), tierMat(top))
+                let fig = figureSlot(for: top, scale: 1.8)
+                fig.position = [0, 0.01, 0]
+                fig.components.set(BillboardComponent())
+                cube.addChild(fig)
+                let label = text3D(shortName(top), size: 0.03)
+                label.position = [0, 0.11, 0]
                 cube.addChild(label)
                 let holder = Entity()
                 holder.addChild(cube)

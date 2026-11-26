@@ -67,8 +67,6 @@ func fameRegionTint(_ r: Region) -> Color {
     }
 }
 
-/// 名字去掉括号注释
-func shortName(_ t: Thinker) -> String { String(t.name.split(separator: "（").first ?? Substring(t.name)) }
 
 // MARK: - 分数圈
 
@@ -132,10 +130,13 @@ struct FameSheet: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
                     HStack(alignment: .center, spacing: 14) {
+                        CartoonAvatar(thinker: thinker, size: 64)
+                            .background(Circle().fill(tier.color.opacity(0.18)))
+                            .overlay(Circle().strokeBorder(LinearGradient(colors: tier.sheen, startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 1))
                         VStack(alignment: .leading, spacing: 4) {
                             Text(tier.name.map(String.init).joined(separator: " "))
                                 .font(.system(size: 11, weight: .semibold, design: .serif)).tracking(4).foregroundStyle(tier.deep)
-                            Text(thinker.name).font(.system(size: tier == .pure ? 34 : 28, weight: .semibold, design: .serif))
+                            Text(fullName(thinker)).font(.system(size: tier == .pure ? 34 : 28, weight: .semibold, design: .serif))
                             Text("\(thinker.region.title) · \(thinker.approx ? "约" : "")\(yearText(thinker.born))–\(yearText(thinker.died))")
                                 .font(.footnote).foregroundStyle(Color.primary.opacity(0.55))
                         }
@@ -290,6 +291,7 @@ struct FamePlate: View {
         let s = fameTotal(thinker)
         let tier = FameTier(s)
         VStack(spacing: 1) {
+            CartoonAvatar(thinker: thinker, size: compact ? 16 : 22)
             Text(shortName(thinker))
                 .font(.system(size: compact ? 11 : (tier == .pure ? 15 : 13), weight: .semibold, design: .serif))
                 .lineLimit(2).minimumScaleFactor(0.7).multilineTextAlignment(.center)
@@ -475,7 +477,7 @@ struct RoundTableView: View {
     private var center: some View {
         VStack(spacing: 10) {
             if let id = focus, let t = thinkers.first(where: { $0.id == id }) {
-                Text(t.name).font(.system(size: 30, weight: .semibold, design: .serif))
+                Text(fullName(t)).font(.system(size: 30, weight: .semibold, design: .serif))
                 if let s = fameOf(t) { FameRing(score: s.total, size: 64) }
                 Text(t.thesis).font(.footnote).foregroundStyle(Color.primary.opacity(0.7))
                     .multilineTextAlignment(.center).frame(width: 250)
@@ -498,18 +500,25 @@ struct RoundTableView: View {
         return Button {
             withAnimation(.spring(duration: 0.4, bounce: 0.3)) { focus = on ? nil : t.id }
         } label: {
-            Text(shortName(t))
-                .font(.system(size: 10, weight: .semibold, design: .serif))
-                .lineLimit(2).minimumScaleFactor(0.7).multilineTextAlignment(.center)
-                .foregroundStyle(Color.primary)
+            CartoonAvatar(thinker: t, size: 30)
                 .frame(width: 38, height: 38)
         }
         .buttonStyle(.plain)
         .glassEffect(Glass.regular.tint(tier.color.opacity(0.4)).interactive(), in: .circle)
         .overlay(Circle().strokeBorder(LinearGradient(colors: tier.sheen, startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 0.8))
         .background(Circle().fill(RadialGradient(colors: [tier.color.opacity(glow), .clear], center: .center, startRadius: 10, endRadius: 28)).frame(width: 56, height: 56))
+        .overlay(alignment: .bottom) {
+            Text(shortName(t))
+                .font(.system(size: 8.5, weight: .semibold, design: .serif))
+                .lineLimit(1).minimumScaleFactor(0.6)
+                .foregroundStyle(Color.primary)
+                .frame(width: 52)
+                .offset(y: 13)
+                .allowsHitTesting(false)
+        }
         .scaleEffect(on ? 1.25 : 1)
         .position(p)
+        .accessibilityLabel(fullName(t))
     }
 }
 
@@ -654,7 +663,7 @@ struct TempleView: View {
             Button { detail = t } label: {
                 VStack(spacing: 6) {
                     Text("至 纯").font(.system(size: 10, weight: .semibold, design: .serif)).tracking(4).foregroundStyle(champagneDeep)
-                    Text(t.name).font(.system(size: 26, weight: .semibold, design: .serif))
+                    Text(fullName(t)).font(.system(size: 26, weight: .semibold, design: .serif))
                     if let s = fameOf(t) { FameRing(score: s.total, size: 46) }
                 }
                 .foregroundStyle(Color.primary)
@@ -710,6 +719,7 @@ struct TempleView: View {
         let name = shortName(t).replacingOccurrences(of: "·", with: "")
         return Button { detail = t } label: {
             VStack(spacing: 0) {
+                CartoonAvatar(thinker: t, size: 26)
                 // 柱头
                 Text("\(s)").font(.system(size: 11, weight: .semibold, design: .serif).monospacedDigit())
                     .foregroundStyle(tier.deep)
@@ -718,10 +728,20 @@ struct TempleView: View {
                 // 柱身：凹槽线 + 竖排名字
                 ZStack {
                     HStack(spacing: 6) { ForEach(0..<4, id: \.self) { _ in Rectangle().fill(Color.primary.opacity(0.06)).frame(width: 1) } }
-                    VStack(spacing: 0) {
-                        ForEach(Array(name.prefix(6).enumerated()), id: \.offset) { _, ch in
-                            Text(String(ch)).font(.system(size: tier == .pure ? 15 : 13, weight: .semibold, design: .serif))
+                    if NameLang.current == .zh {
+                        VStack(spacing: 0) {
+                            ForEach(Array(name.prefix(6).enumerated()), id: \.offset) { _, ch in
+                                Text(String(ch)).font(.system(size: tier == .pure ? 15 : 13, weight: .semibold, design: .serif))
+                            }
                         }
+                    } else {
+                        // 西文名字：沿柱身竖排（旋转 90°）
+                        Text(name).font(.system(size: tier == .pure ? 13 : 11, weight: .semibold, design: .serif))
+                            .lineLimit(1).minimumScaleFactor(0.5)
+                            .fixedSize()
+                            .frame(width: h - 8)
+                            .rotationEffect(.degrees(-90))
+                            .frame(width: 30, height: h - 8)
                     }
                 }
                 .frame(width: 36, height: h)
