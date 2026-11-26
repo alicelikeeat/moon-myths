@@ -82,6 +82,7 @@ struct HomeStage3D: View {
     @GestureState private var drag: CGSize = .zero
     @GestureState private var pinch: CGFloat = 1
     @State private var detail: Thinker?
+    @State private var start = Date.now.timeIntervalSinceReferenceDate
 
     var body: some View {
         TimelineView(.animation(paused: detail != nil)) { tl in
@@ -110,7 +111,7 @@ struct HomeStage3D: View {
                 let x = max(-0.35, min(0.8, startPitch + pitch + Float(drag.height) * 0.005))
                 root.orientation = simd_quatf(angle: x, axis: [1, 0, 0]) * simd_quatf(angle: y, axis: [0, 1, 0])
                 root.scale = .init(repeating: max(0.6, min(2.6, zoom * Float(pinch))))
-                animate?(root, now)
+                animate?(root, now - start)
             }
             .gesture(
                 DragGesture(minimumDistance: 4)
@@ -147,7 +148,12 @@ struct HomeStage3D: View {
     }
 }
 
-// MARK: - 金字塔 3D：素白阶梯，每层边沿站着这一层的人；塔顶金色
+// MARK: - 动画小工具
+
+private func ease(_ x: Double) -> Float { let c = Float(min(1, max(0, x))); return c * c * (3 - 2 * c) }
+private func fade(_ e: Entity?, _ a: Float) { e?.components.set(OpacityComponent(opacity: max(0, min(1, a)))) }
+
+// MARK: - 金字塔 3D：素白阶梯自下而上逐层升起，人物落到各层边沿；塔尖缓缓旋转
 
 private let pyramidRows = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 16]
 
@@ -157,15 +163,15 @@ struct Pyramid3DView: View {
             var i = 0
             let H: Float = 0.042
             for (layer, n) in pyramidRows.enumerated() where i < rankedThinkers.count {
+                let L = Entity(); L.name = "L\(layer)"
                 let side: Float = 0.10 + Float(layer) * 0.068
                 let y: Float = 0.42 - Float(layer) * H
-                let slab = model(.generateBox(size: [side, H, side], cornerRadius: 0.004),
-                                 mat(layer == 0 ? champagne3D : ivory, rough: layer == 0 ? 0.3 : 0.75, metal: layer == 0 ? 0.8 : 0), at: [0, y - H / 2, 0])
-                root.addChild(slab)
+                L.addChild(model(.generateBox(size: [side, H, side], cornerRadius: 0.004),
+                                 mat(layer == 0 ? champagne3D : ivory, rough: layer == 0 ? 0.3 : 0.75, metal: layer == 0 ? 0.8 : 0), at: [0, y - H / 2, 0]))
                 let people = Array(rankedThinkers[i..<min(rankedThinkers.count, i + n)])
                 i += n
+                let crowd = Entity(); crowd.name = "P\(layer)"
                 for (k, t) in people.enumerated() {
-                    // 沿正方形边沿均匀排开
                     let u = (Float(k) + 0.5) / Float(people.count) * 4
                     let edge = Int(u), f = u - Float(edge)
                     let h = side / 2 + 0.012
@@ -176,79 +182,114 @@ struct Pyramid3DView: View {
                     case 2: px = h - f * 2 * h; pz = -h
                     default: px = -h; pz = -h + f * 2 * h
                     }
-                    let pos = SIMD3<Float>(layer == 0 ? 0 : px, y + 0.016, layer == 0 ? 0 : pz)
                     let tier = FameTier(fameTotal(t))
                     let block = model(.generateBox(size: .init(repeating: tier == .pure ? 0.03 : 0.022), cornerRadius: 0.004),
-                                      tierMat(t), at: pos)
+                                      tierMat(t), at: [layer == 0 ? 0 : px, y + 0.016, layer == 0 ? 0 : pz], name: layer == 0 ? "apex" : "")
                     tappable(block, id: t.id)
                     let label = text3D(shortName(t), size: tier == .pure ? 0.024 : 0.016)
                     label.position = [0, tier == .pure ? 0.04 : 0.028, 0]
                     block.addChild(label)
-                    root.addChild(block)
+                    crowd.addChild(block)
                 }
+                L.addChild(crowd)
+                root.addChild(L)
             }
-            // 沙地：一块极淡的大圆盘
             root.addChild(model(.generateCylinder(height: 0.004, radius: 1.1), mat(UIColor(red: 0.95, green: 0.92, blue: 0.86, alpha: 1), rough: 0.95),
                                 at: [0, 0.42 - Float(pyramidRows.count) * 0.042 - 0.002, 0]))
+        } animate: { root, t in
+            let n = pyramidRows.count
+            for layer in 0..<n {
+                // 从底层开始逐层升起，再让这一层的人落下
+                let k = ease((t - Double(n - 1 - layer) * 0.09) / 0.7)
+                let L = root.findEntity(named: "L\(layer)")
+                L?.position.y = -0.35 * (1 - k)
+                fade(L, k)
+                let pk = ease((t - Double(n - 1 - layer) * 0.09 - 0.45) / 0.5)
+                root.findEntity(named: "P\(layer)")?.position.y = 0.06 * (1 - pk)
+                fade(root.findEntity(named: "P\(layer)"), pk)
+            }
+            // 塔尖：缓缓自转、轻轻起伏
+            if let apex = root.findEntity(named: "apex") {
+                apex.orientation = simd_quatf(angle: Float(t) * 0.5, axis: [0, 1, 0])
+                apex.position.y = 0.436 + 0.006 * sin(Float(t) * 1.6)
+            }
         }
     }
 }
 
-// MARK: - 圆桌 3D：一张玻璃圆桌，按年代围坐；金线在桌面上方连起影响关系
+// MARK: - 圆桌 3D：两排交错落座；人物依次入座，影响关系的弧线随后亮起；桌面缓缓转动
 
 struct RoundTable3DView: View {
     var body: some View {
-        HomeStage3D(title: "圆桌", subtitle: "按年代围坐一圈，人人平等；金线为继承，红线为批判", eye: [0, 1.7, 2.1], target: [0, 0, 0]) { root in
+        HomeStage3D(title: "圆桌", subtitle: "按年代围坐，人人平等；金线为继承，红线为批判", eye: [0, 1.75, 2.35], target: [0, 0, 0]) { root in
+            let spin = Entity(); spin.name = "spin"
             let order = thinkers.sorted { $0.born < $1.born }
-            let R: Float = 0.5
-            root.addChild(model(.generateCylinder(height: 0.02, radius: R - 0.06), mat(.white, opacity: 0.55, rough: 0.05), at: [0, -0.01, 0]))
-            root.addChild(model(.generateCylinder(height: 0.004, radius: R - 0.055), mat(gold3D, rough: 0.3, metal: 0.8), at: [0, -0.022, 0]))
+            let R: Float = 0.64
+            spin.addChild(model(.generateCylinder(height: 0.02, radius: R - 0.16), mat(.white, opacity: 0.5, rough: 0.05), at: [0, -0.01, 0]))
+            spin.addChild(model(.generateCylinder(height: 0.004, radius: R - 0.155), mat(champagne3D, rough: 0.3, metal: 0.8), at: [0, -0.022, 0]))
             var pos: [String: SIMD3<Float>] = [:]
             for (i, t) in order.enumerated() {
                 let a = Float(i) / Float(order.count) * 2 * .pi
-                let p = SIMD3<Float>(cos(a) * R, 0.02, sin(a) * R)
+                // 内外两排交错：相邻两人一前一后，名字一高一低，互不遮挡
+                let r = i % 2 == 0 ? R : R - 0.1
+                let p = SIMD3<Float>(cos(a) * r, 0.015, sin(a) * r)
                 pos[t.id] = p
                 let tier = FameTier(fameTotal(t))
-                let seat = model(.generateSphere(radius: tier == .pure ? 0.022 : 0.016),
-                                 tierMat(t), at: p)
+                let seat = model(.generateSphere(radius: tier == .pure ? 0.019 : 0.013), tierMat(t), at: p, name: "")
                 tappable(seat, id: t.id)
-                let label = text3D(shortName(t), size: 0.017)
-                label.position = [0, 0.04, 0]
+                seat.components.set(OpacityComponent(opacity: 0))
+                let label = text3D(shortName(t), size: 0.014)
+                label.position = [0, i % 2 == 0 ? 0.034 : 0.05, 0]
                 seat.addChild(label)
-                root.addChild(seat)
+                let holder = Entity(); holder.name = "seat\(i)"
+                holder.addChild(seat)
+                spin.addChild(holder)
             }
-            // 影响关系：桌面上方的弧，由几段细杆连成
+            let arcs = Entity(); arcs.name = "arcs"
             for inf in influences {
                 guard let p = pos[inf.from], let q = pos[inf.to] else { continue }
-                let col = inf.critical ? UIColor(red: 0.8, green: 0.32, blue: 0.24, alpha: 1) : gold3D
-                let m = mat(col, opacity: 0.7, rough: 0.3, metal: 0.5)
-                let lift = 0.04 + 0.08 * simd_length(p - q)
+                let col = inf.critical ? UIColor(red: 0.8, green: 0.32, blue: 0.24, alpha: 1) : pureGold3D
+                let m = mat(col, opacity: 0.55, rough: 0.3, metal: 0.6)
+                let lift = 0.03 + 0.05 * simd_length(p - q)
                 var last = p
                 for s in 1...6 {
                     let u = Float(s) / 6
                     var c = p + (q - p) * u
                     c.y += 4 * lift * u * (1 - u)
-                    c.x *= 1 - 0.35 * 4 * u * (1 - u)
-                    c.z *= 1 - 0.35 * 4 * u * (1 - u)
+                    c.x *= 1 - 0.3 * 4 * u * (1 - u)
+                    c.z *= 1 - 0.3 * 4 * u * (1 - u)
                     let d = c - last
-                    let seg = model(.generateCylinder(height: simd_length(d), radius: 0.0016), m, at: (c + last) / 2)
+                    let seg = model(.generateCylinder(height: simd_length(d), radius: 0.0012), m, at: (c + last) / 2)
                     seg.orientation = simd_quatf(from: [0, 1, 0], to: simd_normalize(d))
-                    root.addChild(seg)
+                    arcs.addChild(seg)
                     last = c
                 }
             }
+            spin.addChild(arcs)
+            root.addChild(spin)
+        } animate: { root, t in
+            let n = thinkers.count
+            for i in 0..<n {
+                guard let h = root.findEntity(named: "seat\(i)"), let seat = h.children.first else { continue }
+                let k = ease((t - Double(i) * 0.025) / 0.5)
+                fade(seat, k)
+                h.position.y = 0.08 * (1 - k)
+            }
+            let arcsIn = ease((t - Double(n) * 0.025) / 1.2)
+            fade(root.findEntity(named: "arcs"), arcsIn * (0.75 + 0.25 * sin(Float(t) * 1.2)))
+            root.findEntity(named: "spin")?.orientation = simd_quatf(angle: Float(t) * 0.04, axis: [0, 1, 0])
         }
     }
 }
 
-// MARK: - 天堂 3D：九重天球，中心是光；分数越高越靠近中心，各重天缓缓转动
+// MARK: - 天堂 3D：九重天球由内向外展开，各自以不同速度转动；中心的光呼吸
 
 struct Heaven3DView: View {
     private static let ringSizes = [2, 3, 5, 7, 8, 10, 12, 15, 20]
     var body: some View {
         HomeStage3D(title: "天堂", subtitle: "仿但丁《天堂篇》九重天：分数越高，越靠近中心的光", eye: [0, 1.3, 2.5], target: [0, 0, 0]) { root in
             root.addChild(model(.generateSphere(radius: 0.045), mat(UIColor(red: 1, green: 0.97, blue: 0.88, alpha: 1), glow: 9), name: "sun"))
-            root.addChild(model(.generateSphere(radius: 0.075), mat(gold3D, opacity: 0.15, rough: 0.02, glow: 2)))
+            root.addChild(model(.generateSphere(radius: 0.075), mat(champagne3D, opacity: 0.15, rough: 0.02, glow: 2), name: "halo"))
             let light = PointLight()
             light.light.intensity = 5000
             light.light.color = UIColor(red: 1, green: 0.9, blue: 0.7, alpha: 1)
@@ -258,10 +299,8 @@ struct Heaven3DView: View {
             for (r, n) in Self.ringSizes.enumerated() where i < rankedThinkers.count {
                 let ring = Entity()
                 ring.name = "ring\(r)"
-                // 每一重天略微倾斜，像套在一起的天球
-                ring.orientation = simd_quatf(angle: Float(r % 3 - 1) * 0.12, axis: [1, 0, 0]) * simd_quatf(angle: Float(r) * 0.4, axis: [0, 1, 0])
                 let rad: Float = 0.17 + Float(r) * 0.065
-                let orbit = mat(gold3D, opacity: 0.35, rough: 0.3, metal: 0.6)
+                let orbit = mat(champagne3D, opacity: 0.35, rough: 0.3, metal: 0.6)
                 for j in 0..<72 {
                     let a = Float(j) / 72 * 2 * .pi
                     ring.addChild(model(.generateSphere(radius: 0.0018), orbit, at: [cos(a) * rad, 0, sin(a) * rad]))
@@ -271,8 +310,7 @@ struct Heaven3DView: View {
                 for (k, t) in people.enumerated() {
                     let a = Float(k) / Float(people.count) * 2 * .pi
                     let tier = FameTier(fameTotal(t))
-                    let soul = model(.generateSphere(radius: tier == .pure ? 0.02 : 0.014),
-                                     tierMat(t), at: [cos(a) * rad, 0, sin(a) * rad])
+                    let soul = model(.generateSphere(radius: tier == .pure ? 0.02 : 0.014), tierMat(t), at: [cos(a) * rad, 0, sin(a) * rad])
                     tappable(soul, id: t.id)
                     let label = text3D(shortName(t), size: 0.016)
                     label.position = [0, 0.032, 0]
@@ -281,75 +319,113 @@ struct Heaven3DView: View {
                 }
                 root.addChild(ring)
             }
-        } animate: { root, now in
+        } animate: { root, t in
             for r in 0..<Self.ringSizes.count {
                 guard let ring = root.findEntity(named: "ring\(r)") else { continue }
                 let dir: Float = r % 2 == 0 ? 1 : -1
                 let tilt = simd_quatf(angle: Float(r % 3 - 1) * 0.12, axis: [1, 0, 0])
-                ring.orientation = tilt * simd_quatf(angle: Float(r) * 0.4 + dir * Float(now) * 0.12 / (1 + Float(r) * 0.35), axis: [0, 1, 0])
+                ring.orientation = tilt * simd_quatf(angle: Float(r) * 0.4 + dir * Float(t) * 0.12 / (1 + Float(r) * 0.35), axis: [0, 1, 0])
+                // 由内向外依次展开
+                let k = ease((t - Double(r) * 0.15) / 0.9)
+                ring.scale = .init(repeating: 0.2 + 0.8 * k)
+                fade(ring, k)
             }
-            root.findEntity(named: "sun")?.scale = .init(repeating: 1 + 0.04 * sin(Float(now) * 1.3))
+            let b = 1 + 0.06 * sin(Float(t) * 1.3)
+            root.findEntity(named: "sun")?.scale = .init(repeating: b)
+            root.findEntity(named: "halo")?.scale = .init(repeating: 1 + 0.15 * sin(Float(t) * 0.9))
         }
     }
 }
 
-// MARK: - 罗马神殿 3D：圆形柱廊、阶梯状穹顶、圆孔落下的光柱，最高分者立在光里
+// MARK: - 罗马神殿 3D：柱子从台基上依次立起，光柱随后落下，光里有微尘缓缓上升；中央金块慢慢旋转
 
 struct Temple3DView: View {
+    private static let motes = 16
     var body: some View {
         HomeStage3D(title: "罗马神殿", subtitle: "仿万神殿：圆形柱廊按学科分三段，柱高即分数；最高分者立在穹顶圆孔落下的光里",
                     eye: [0, 0.75, 2.7], target: [0, 0.2, 0]) { root in
             let stone = mat(ivory, rough: 0.8)
-            // 台基：三级圆台
             for s in 0..<3 {
                 root.addChild(model(.generateCylinder(height: 0.02, radius: 0.62 - Float(s) * 0.03), stone, at: [0, -0.05 + Float(s) * 0.02, 0]))
             }
-            // 柱廊：中国、西方、数学各占一段弧，中间留门
             let groups = Region.allCases.map { r in rankedThinkers.filter { $0.region == r } }
             let gap: Float = 0.22
             let span = (2 * Float.pi - gap * 3) / Float(groups.map(\.count).reduce(0, +))
             var a: Float = -.pi / 2 + gap / 2
             let R: Float = 0.5
-            for (g, people) in groups.enumerated() {
-                let tint: UIColor = [UIColor(red: 0.9, green: 0.88, blue: 0.97, alpha: 1), ivory, UIColor(red: 0.86, green: 0.95, blue: 0.92, alpha: 1)][g]
+            var idx = 0
+            for people in groups {
                 for t in people {
                     let s = Float(fameTotal(t))
                     let tier = FameTier(Int(s))
                     let h: Float = 0.12 + max(0, s - 30) * 0.0042
-                    let p = SIMD3<Float>(cos(a) * R, -0.01 + h / 2, sin(a) * R)
-                    let col = model(.generateCylinder(height: h, radius: 0.0085),
-                                    tierMat(t), at: p)
+                    // 柱子挂在一个位于地面的支点上：缩放支点的高度，柱子就从地面“长”起来
+                    let base = Entity(); base.name = "col\(idx)"
+                    base.position = [cos(a) * R, -0.01, sin(a) * R]
+                    let col = model(.generateCylinder(height: h, radius: 0.0085), tierMat(t), at: [0, h / 2, 0])
                     tappable(col, id: t.id)
-                    // 柱头
                     col.addChild(model(.generateBox(size: [0.022, 0.006, 0.022], cornerRadius: 0.001), stone, at: [0, h / 2 + 0.003, 0]))
                     if tier != .plain {
                         let label = text3D(shortName(t), size: 0.015)
                         label.position = [0, h / 2 + 0.025, 0]
                         col.addChild(label)
                     }
-                    root.addChild(col)
+                    base.addChild(col)
+                    root.addChild(base)
                     a += span
+                    idx += 1
                 }
                 a += gap
             }
-            // 额枋：一圈细环
-            root.addChild(model(.generateCylinder(height: 0.006, radius: R + 0.015), mat(ivory, opacity: 0.5, rough: 0.6), at: [0, 0.43, 0]))
-            // 阶梯状穹顶（像万神殿外部的阶环），顶上留圆孔
+            let roof = Entity(); roof.name = "roof"
+            roof.addChild(model(.generateCylinder(height: 0.006, radius: R + 0.015), mat(ivory, opacity: 0.5, rough: 0.6), at: [0, 0.43, 0]))
             for k in 0..<7 {
                 let r = (R + 0.01) * cos(Float(k) / 7 * .pi / 2 * 0.95)
-                let ring = model(.generateCylinder(height: 0.012, radius: r), mat(ivory, opacity: 0.16, rough: 0.4), at: [0, 0.44 + Float(k) * 0.03, 0])
-                root.addChild(ring)
+                roof.addChild(model(.generateCylinder(height: 0.012, radius: r), mat(ivory, opacity: 0.16, rough: 0.4), at: [0, 0.44 + Float(k) * 0.03, 0]))
             }
-            root.addChild(model(.generateCylinder(height: 0.014, radius: 0.075), mat(.white, glow: 6), at: [0, 0.655, 0]))
-            // 光柱与光里的人
-            root.addChild(model(.generateCylinder(height: 0.66, radius: 0.06), mat(UIColor(red: 1, green: 0.96, blue: 0.85, alpha: 1), opacity: 0.16, glow: 2.5), at: [0, 0.32, 0]))
+            roof.addChild(model(.generateCylinder(height: 0.014, radius: 0.075), mat(.white, glow: 6), at: [0, 0.655, 0]))
+            root.addChild(roof)
+            root.addChild(model(.generateCylinder(height: 0.66, radius: 0.06), mat(UIColor(red: 1, green: 0.96, blue: 0.85, alpha: 1), opacity: 0.16, glow: 2.5),
+                                at: [0, 0.32, 0], name: "beam"))
+            for m in 0..<Self.motes {
+                root.addChild(model(.generateSphere(radius: 0.0025), mat(champagne3D, glow: 4), name: "mote\(m)"))
+            }
             if let top = rankedThinkers.first {
-                let cube = model(.generateBox(size: .init(repeating: 0.05), cornerRadius: 0.006), tierMat(top), at: [0, 0.0, 0])
+                let cube = model(.generateBox(size: .init(repeating: 0.05), cornerRadius: 0.006), tierMat(top), at: [0, 0.0, 0], name: "")
                 tappable(cube, id: top.id)
                 let label = text3D(top.name, size: 0.03)
                 label.position = [0, 0.07, 0]
                 cube.addChild(label)
-                root.addChild(cube)
+                let holder = Entity(); holder.name = "idol"
+                holder.addChild(cube)
+                root.addChild(holder)
+            }
+        } animate: { root, t in
+            let n = thinkers.count
+            for i in 0..<n {
+                guard let base = root.findEntity(named: "col\(i)") else { continue }
+                let k = ease((t - Double(i) * 0.018) / 0.6)
+                base.scale = [1, max(0.001, k), 1]
+                fade(base, k)
+            }
+            let after = Double(n) * 0.018 + 0.4
+            let roofIn = ease((t - after) / 0.8)
+            root.findEntity(named: "roof")?.position.y = 0.25 * (1 - roofIn)
+            fade(root.findEntity(named: "roof"), roofIn)
+            let beamIn = ease((t - after - 0.6) / 0.8)
+            fade(root.findEntity(named: "beam"), beamIn * (0.8 + 0.2 * sin(Float(t) * 1.1)))
+            for m in 0..<Self.motes {
+                let fm = Double(m)
+                let u = Float((t * 0.08 + fm / Double(Self.motes)).truncatingRemainder(dividingBy: 1))
+                let ang = Float(fm * 2.4 + t * 0.3)
+                let e = root.findEntity(named: "mote\(m)")
+                e?.position = [cos(ang) * 0.035, 0.02 + u * 0.6, sin(ang) * 0.035]
+                fade(e, beamIn * sin(u * .pi))
+            }
+            if let idol = root.findEntity(named: "idol") {
+                idol.orientation = simd_quatf(angle: Float(t) * 0.4, axis: [0, 1, 0])
+                idol.position.y = 0.008 * sin(Float(t) * 1.4)
+                fade(idol, beamIn)
             }
         }
     }
