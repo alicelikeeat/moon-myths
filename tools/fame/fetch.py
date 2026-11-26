@@ -7,13 +7,13 @@ UA = {"User-Agent": "PureApp/1.0 (https://github.com/alicelikeeat/moon-myths) re
 # id -> (英文维基条目, 斯坦福哲学百科条目 slug 或 None)
 T = {
  "laozi": ("Laozi", "laozi"), "kongzi": ("Confucius", "confucius"), "mozi": ("Mozi", "mohism"),
- "mengzi": ("Mencius", "mencius"), "zhuangzi": ("Zhuangzi (philosopher)", "zhuangzi"), "xunzi": ("Xunzi (philosopher)", "xunzi"),
+ "mengzi": ("Mencius", "mencius"), "zhuangzi": ("Zhuang Zhou", "zhuangzi"), "xunzi": ("Xunzi (philosopher)", "xunzi"),
  "hanfei": ("Han Fei", "chinese-legalism"), "dongzhongshu": ("Dong Zhongshu", None), "huineng": ("Huineng", None),
  "zhuxi": ("Zhu Xi", "zhu-xi"), "wangyangming": ("Wang Yangming", "wang-yangming"), "wangfuzhi": ("Wang Fuzhi", None),
  "zhouyi": ("I Ching", None), "guanzhong": ("Guan Zhong", None), "sunwu": ("Sun Tzu", None),
  "zisi": ("Zisi", None), "liezi": ("Liezi", None), "gongsunlong": ("Gongsun Long", "school-names"),
- "wangchong": ("Wang Chong", "wang-chong"), "zhoudunyi": ("Zhou Dunyi", None), "zhangzai": ("Zhang Zai", None),
- "ercheng": ("Cheng Yi (philosopher)", "cheng-yi"), "luxiangshan": ("Lu Jiuyuan", None), "guyanwu": ("Gu Yanwu", None),
+ "wangchong": ("Wang Chong", None), "zhoudunyi": ("Zhou Dunyi", None), "zhangzai": ("Zhang Zai", None),
+ "ercheng": ("Cheng Yi (philosopher)", "cheng-yi-cheng-hao"), "luxiangshan": ("Lu Jiuyuan", None), "guyanwu": ("Gu Yanwu", None),
  "socrates": ("Socrates", "socrates"), "plato": ("Plato", "plato"), "aristotle": ("Aristotle", "aristotle"),
  "lucretius": ("Lucretius", "lucretius"), "epictetus": ("Epictetus", None), "marcusaurelius": ("Marcus Aurelius", "marcus-aurelius"),
  "augustine": ("Augustine of Hippo", "augustine"), "aquinas": ("Thomas Aquinas", "aquinas"), "machiavelli": ("Niccolò Machiavelli", "machiavelli"),
@@ -47,10 +47,10 @@ out = {}
 pantheon_ok = True
 for tid, (en, sep) in T.items():
     rec = {"en": en}
-    q = jget("https://en.wikipedia.org/w/api.php?action=query&format=json&redirects=1&prop=pageprops&titles=" + urllib.parse.quote(en))
+    q = jget("https://en.wikipedia.org/w/api.php?action=query&format=json&redirects=1&prop=pageprops|info&titles=" + urllib.parse.quote(en))
     try:
         page = next(iter(q["query"]["pages"].values()))
-        rec["en"] = page["title"]; qid = page["pageprops"]["wikibase_item"]
+        rec["en"] = page["title"]; qid = page["pageprops"]["wikibase_item"]; rec["enlen"] = page.get("length")
     except Exception:
         print("no qid", tid, file=sys.stderr); out[tid] = rec; continue
     rec["qid"] = qid
@@ -66,16 +66,16 @@ for tid, (en, sep) in T.items():
         d = jget(u)
         views[lang] = sum(i["views"] for i in d["items"]) if d and "items" in d else None
     rec["views"] = views
+    if rec["zh"]:
+        z = jget("https://zh.wikipedia.org/w/api.php?action=query&format=json&prop=info&titles=" + urllib.parse.quote(rec["zh"]))
+        try: rec["zhlen"] = next(iter(z["query"]["pages"].values())).get("length")
+        except Exception: pass
     sparql = f"SELECT (COUNT(DISTINCT ?x) AS ?c) WHERE {{ {{ ?x wdt:P737 wd:{qid} }} UNION {{ wd:{qid} wdt:P1299 ?x }} }}"
     s = jget("https://query.wikidata.org/sparql?format=json&query=" + urllib.parse.quote(sparql))
     try: rec["influenced"] = int(s["results"]["bindings"][0]["c"]["value"])
     except Exception: rec["influenced"] = None
-    if pantheon_ok:
-        p = jget(f"https://api.pantheon.world/person?wd_id=eq.{qid}&select=name,hpi,l,occupation", tries=1, timeout=12)
-        if p is None: pantheon_ok = False
-        elif p: rec["pantheon"] = p[0]
     if sep:
-        h = get(f"https://plato.stanford.edu/entries/{sep}/", tries=1, timeout=20)
+        h = get(f"https://plato.stanford.edu/entries/{sep}/", tries=2, timeout=30)
         if h:
             txt = re.sub(r"<[^>]+>", " ", h.decode("utf-8", "ignore"))
             rec["sep"] = {"slug": sep, "words": len(txt.split())}
