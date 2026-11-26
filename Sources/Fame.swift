@@ -42,7 +42,7 @@ enum FameTier {
     var name: String { switch self { case .pure: "至纯"; case .fine: "精致"; case .plain: "常规" } }
 }
 
-func regionTint(_ r: Region) -> Color {
+func fameRegionTint(_ r: Region) -> Color {
     switch r {
     case .china: return Moon.violet
     case .west: return Moon.gold
@@ -90,7 +90,7 @@ struct FameCardStyle: ViewModifier {
                 .overlay(RoundedRectangle(cornerRadius: radius - 5).strokeBorder(fameGold.opacity(0.25), lineWidth: 0.5).padding(5))
         case .fine:
             content
-                .glassEffect(Glass.regular.tint(regionTint(region).opacity(0.16)), in: .rect(cornerRadius: radius))
+                .glassEffect(Glass.regular.tint(fameRegionTint(region).opacity(0.16)), in: .rect(cornerRadius: radius))
                 .overlay(RoundedRectangle(cornerRadius: radius).strokeBorder(Color.white.opacity(0.45), lineWidth: 0.6))
         case .plain:
             content.glassEffect(.regular, in: .rect(cornerRadius: radius))
@@ -144,7 +144,7 @@ struct FameSheet: View {
                                     GeometryReader { g in
                                         Capsule().fill(Color.primary.opacity(0.07))
                                             .overlay(alignment: .leading) {
-                                                Capsule().fill(tier == .pure ? fameGold : regionTint(thinker.region).opacity(0.8))
+                                                Capsule().fill(tier == .pure ? fameGold : fameRegionTint(thinker.region).opacity(0.8))
                                                     .frame(width: g.size.width * CGFloat(v) / CGFloat(max(1, r.max)))
                                             }
                                     }
@@ -480,7 +480,7 @@ struct RoundTableView: View {
         }
         .buttonStyle(.plain)
         .glassEffect(tier == .pure ? Glass.regular.tint(fameGold.opacity(0.35)).interactive()
-                                   : Glass.regular.tint(regionTint(t.region).opacity(0.25)).interactive(), in: .circle)
+                                   : Glass.regular.tint(fameRegionTint(t.region).opacity(0.25)).interactive(), in: .circle)
         .background(Circle().fill(RadialGradient(colors: [fameGold.opacity(glow), .clear], center: .center, startRadius: 10, endRadius: 34)).frame(width: 68, height: 68))
         .scaleEffect(on ? 1.25 : 1)
         .position(p)
@@ -556,7 +556,7 @@ struct HeavenView: View {
         }
         .buttonStyle(.plain)
         .glassEffect(tier == .pure ? Glass.regular.tint(fameGold.opacity(0.4)).interactive()
-                                   : Glass.regular.tint(regionTint(t.region).opacity(tier == .fine ? 0.25 : 0.12)).interactive(), in: .circle)
+                                   : Glass.regular.tint(fameRegionTint(t.region).opacity(tier == .fine ? 0.25 : 0.12)).interactive(), in: .circle)
         .overlay(Circle().strokeBorder(tier == .pure ? fameGold.opacity(0.8) : .clear, lineWidth: 0.8))
     }
 }
@@ -700,7 +700,7 @@ struct TempleView: View {
                     }
                 }
                 .frame(width: 36, height: h)
-                .glassEffect(tier == .pure ? Glass.regular.tint(fameGold.opacity(0.3)) : Glass.regular.tint(regionTint(t.region).opacity(tier == .fine ? 0.22 : 0.1)),
+                .glassEffect(tier == .pure ? Glass.regular.tint(fameGold.opacity(0.3)) : Glass.regular.tint(fameRegionTint(t.region).opacity(tier == .fine ? 0.22 : 0.1)),
                              in: .rect(cornerRadius: 6))
                 .overlay(RoundedRectangle(cornerRadius: 6).strokeBorder(tier == .pure ? fameGold.opacity(0.7) : .clear, lineWidth: 0.8))
                 // 柱础
