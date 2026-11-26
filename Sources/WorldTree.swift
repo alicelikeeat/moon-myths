@@ -27,9 +27,10 @@ private func column(_ r: Region, _ W: Double, _ k: Int) -> Double {
     // 同一枝里前后相邻的叶子左右错开，像真正的枝叶
     let wob = (k % 2 == 0 ? -1.0 : 1.0)
     switch r {
-    case .china: return W * 0.24 + wob * W * 0.085
-    case .west: return W * 0.76 - wob * W * 0.085
-    case .math: return W * 0.5 + wob * W * 0.06
+    // 三枝之间留足间距：相邻两列叶子中心至少相隔一片叶子的直径，不会互相压住
+    case .china: return W * 0.20 + wob * W * 0.07
+    case .west: return W * 0.80 - wob * W * 0.07
+    case .math: return W * 0.5 + wob * W * 0.05
     }
 }
 
@@ -172,6 +173,8 @@ struct WorldTreeView: View {
     @State private var grown = false
     @State private var start = Date()
     @State private var width: Double = 390
+    /// 卡片底衬的不透明度（可在卡片里调节）：越高越不透出后面的叶子
+    @AppStorage("treeCardOpacity") private var cardOpacity = 0.75
 
     var body: some View {
         let L = treeLayout(width: width)
@@ -276,6 +279,8 @@ struct WorldTreeView: View {
     private func leaf(_ node: TreeNode, _ L: TreeLayout) -> some View {
         let t = node.thinker
         let dim = filter != nil && filter != t.region
+        let covered = selected.flatMap { id in L.nodes.first { $0.id == id } }
+            .map { cardFrame($0, L).insetBy(dx: -node.size / 2 - 6, dy: -node.size / 2 - 6).contains(CGPoint(x: node.x, y: node.y)) } ?? false
         if selected != t.id && grown {
             Button {
                 withAnimation(.spring(duration: 0.5, bounce: 0.25)) { selected = t.id }
@@ -293,19 +298,27 @@ struct WorldTreeView: View {
             .glassEffect(Glass.regular.tint(regionColor(t.region).opacity(t.libraryId != nil ? 0.38 : 0.2)).interactive(), in: .circle)
             .glassEffectID(t.id, in: glassNS)
             .glassEffectTransition(.matchedGeometry)
-            .opacity(dim ? 0.22 : 1)
+            .opacity(covered ? 0 : (dim ? 0.22 : 1))
+            .allowsHitTesting(!covered)
             .position(x: node.x, y: node.y)
             .accessibilityLabel("\(t.name)，\(yearText(t.born)) 至 \(yearText(t.died))")
         }
     }
 
+    /// 卡片大致占据的区域：被它盖住的叶子会暂时隐去，文字不再互相叠压
+    private func cardFrame(_ node: TreeNode, _ L: TreeLayout) -> CGRect {
+        let w = min(width - 32, 420)
+        let below = node.y < L.height * 0.5
+        let estH = 190.0 + Double(booksFor(node.thinker).count) * 58
+        let cy0 = below ? node.y - 30 + estH / 2 : node.y + 30 - estH / 2
+        let cy = min(max(cy0, estH / 2 + 10), L.height - estH / 2 - 10)
+        return CGRect(x: width / 2 - w / 2, y: cy - estH / 2, width: w, height: estH)
+    }
+
     private func card(_ node: TreeNode, _ L: TreeLayout) -> some View {
         let t = node.thinker
         let books = booksFor(t)
-        let w = min(width - 32, 420)
-        let below = node.y < L.height * 0.5
-        let estH = 150.0 + Double(books.count) * 58
-        let cy = below ? node.y - 30 + estH / 2 : node.y + 30 - estH / 2
+        let f = cardFrame(node, L)
         return VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .firstTextBaseline, spacing: 8) {
                 Text(t.name).font(.system(size: 24, weight: .semibold, design: .serif))
@@ -339,13 +352,23 @@ struct WorldTreeView: View {
                 }
                 .buttonStyle(.plain)
             }
+            // 透明度：拖动调节卡片底衬，从通透的玻璃到几乎不透明
+            HStack(spacing: 8) {
+                Image(systemName: "circle.dotted").font(.system(size: 12)).foregroundStyle(Color.primary.opacity(0.5))
+                Slider(value: $cardOpacity, in: 0...1)
+                    .tint(regionColor(t.region))
+                    .accessibilityLabel("卡片不透明度")
+                Image(systemName: "circle.fill").font(.system(size: 12)).foregroundStyle(Color.primary.opacity(0.5))
+            }
+            .padding(.top, 2)
         }
         .padding(16)
-        .frame(width: w)
+        .frame(width: f.width)
+        .background(Color(uiColor: .systemBackground).opacity(cardOpacity * 0.92), in: .rect(cornerRadius: 28))
         .glassEffect(Glass.regular.tint(regionColor(t.region).opacity(0.14)), in: .rect(cornerRadius: 28))
         .glassEffectID(t.id, in: glassNS)
         .glassEffectTransition(.matchedGeometry)
-        .position(x: width / 2, y: min(max(cy, estH / 2 + 10), L.height - estH / 2 - 10))
+        .position(x: f.midX, y: f.midY)
         .zIndex(10)
     }
 }

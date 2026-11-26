@@ -72,6 +72,9 @@ jobs:
             run_shot "3d-ddj" -book daodejing -startChapter 0 -anim3D YES -appearance light
             for t in jihe-zh jiuzhang-zh daodejing-zh lunyu-zh; do run_shot "3d-grid-$t" -animGrid $t -animPage 0 -animBeat 3 -anim3D YES -appearance light; done
             run_shot "3d-formula" -formulaDemo -anim3D YES -appearance light
+            run_shot "3d-supreme-cave" -book republic -startChapter 0 -anim3D YES -appearance light
+            run_shot "3d-supreme-spiral" -book hegel-phen -startChapter 0 -anim3D YES -appearance dark
+            run_shot "3d-supreme-dao" -book daodejing -startChapter 2 -anim3D YES -appearance light
             exit_early=1
           fi
           if [ "${{ inputs.only }}" = "math" ]; then

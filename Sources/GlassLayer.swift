@@ -118,6 +118,7 @@ struct LiveCanvas: View {
     var clock: PlaybackClock? = nil
     var surface: DragSurface? = nil
     var custom3D: (() -> AnyView)? = nil
+    var tier: Tier3D = .refined
     let draw: (inout GraphicsContext, CGSize, Double) -> Void
     @State private var buffer = GlassBuffer()
     @State private var cache = InspectCache()
@@ -130,9 +131,10 @@ struct LiveCanvas: View {
     @State private var tipID = 0
     @State private var size: CGSize = .zero
 
-    init(clock: PlaybackClock? = nil, surface: DragSurface? = nil, custom3D: (() -> AnyView)? = nil,
+    init(clock: PlaybackClock? = nil, surface: DragSurface? = nil, custom3D: (() -> AnyView)? = nil, tier: Tier3D = .refined,
          draw: @escaping (inout GraphicsContext, CGSize, Double) -> Void) {
         self.clock = clock
+        self.tier = custom3D == nil ? tier : .supreme
         self.surface = surface
         self.custom3D = custom3D
         self.draw = draw
@@ -147,9 +149,15 @@ struct LiveCanvas: View {
                     let now = tl.date.timeIntervalSinceReferenceDate
                     let t = clock?.time(now) ?? now
                     // 没在拖动时，镜头缓缓摆动，让人看出纵深
-                    let sway = camStart == nil ? Cam3D(yaw: cam.yaw + 0.10 * sin(now * 0.35), pitch: cam.pitch + 0.04 * sin(now * 0.27), zoom: cam.zoom) : cam
+                    let fine = tier != .pro
+                    let shot = fine ? beatCamera(clock?.beat, t) : (yaw: 0, pitch: 0, zoom: 0)
+                    let amp = fine ? 0.13 : 0.10
+                    let sway = camStart == nil
+                        ? Cam3D(yaw: cam.yaw + amp * sin(now * 0.35) + shot.yaw, pitch: cam.pitch + 0.04 * sin(now * 0.27) + shot.pitch,
+                                zoom: cam.zoom * (1 + shot.zoom + (fine ? 0.015 * sin(now * 0.5) : 0)))
+                        : cam
                     Canvas { ctx, size in
-                        let beat = drawIn3D(draw, &ctx, size, t, cam: sway, cache: cache)
+                        let beat = drawIn3D(draw, &ctx, size, t, cam: sway, cache: cache, tier: tier)
                         clock?.beat = beat
                         drawHighlight(&ctx, cache, now)
                     }
@@ -230,6 +238,15 @@ struct LiveCanvas: View {
             }
             .buttonStyle(.glass)
             .accessibilityIdentifier("anim.3d")
+            if is3D {
+                Text(tier.label)
+                    .font(.system(size: 11, weight: .semibold, design: .serif))
+                    .foregroundStyle(tier == .supreme ? Moon.gold : Color.primary.opacity(0.75))
+                    .padding(.horizontal, 9).frame(minHeight: 28)
+                    .glassEffect(tier == .supreme ? .regular.tint(Moon.gold.opacity(0.25)) : .regular, in: .capsule)
+                    .accessibilityIdentifier("anim.tier")
+                    .transition(.scale.combined(with: .opacity))
+            }
             if cam != Cam3D() || (surface?.hasDrag ?? false) {
                 Button { reset() } label: {
                     Image(systemName: "arrow.counterclockwise").font(.system(size: 12, weight: .semibold)).frame(minHeight: 28)

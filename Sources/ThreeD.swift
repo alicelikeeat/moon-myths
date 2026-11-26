@@ -5,6 +5,9 @@ import UIKit
 /// 有 3D 版本的章节（键：书籍 id + ":" + 章节序号）
 let threeDScenes: [String: (PlaybackClock) -> AnyView] = [
     "kant-cpr:0": { clock in AnyView(Copernicus3D(clock: clock)) },
+    "republic:0": { clock in AnyView(Cave3D(clock: clock)) },
+    "hegel-phen:0": { clock in AnyView(Spiral3D(clock: clock)) },
+    "daodejing:2": { clock in AnyView(Dao3D(clock: clock)) },
 ]
 
 private func glass(_ color: UIColor, alpha: CGFloat) -> SimpleMaterial {

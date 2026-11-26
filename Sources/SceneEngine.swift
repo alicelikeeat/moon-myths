@@ -429,7 +429,7 @@ struct ParagraphAnimSheet: View {
                             .font(.system(size: 24, weight: .semibold, design: .serif))
                             .foregroundStyle(Color.primary)
                         Stage(height: 380) {
-                            LiveCanvas(clock: clock, surface: runtime) { ctx, size, t in
+                            LiveCanvas(clock: clock, surface: runtime, tier: scene.hasEffects ? .refined : .pro) { ctx, size, t in
                                 runtime.draw(&ctx, size, t)
                             }
                         }
@@ -474,7 +474,7 @@ struct AnimGridView: View {
                 VStack(spacing: 2) {
                     Canvas { ctx, size in
                         if ProcessInfo.processInfo.arguments.contains("-anim3D") {
-                            drawIn3D(rt.draw, &ctx, size, t, cam: Cam3D(), cache: nil)
+                            drawIn3D(rt.draw, &ctx, size, t, cam: Cam3D(), cache: nil, tier: s.hasEffects ? .refined : .pro)
                         } else {
                             rt.draw(&ctx, size, t)
                         }
