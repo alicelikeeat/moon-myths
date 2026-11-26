@@ -63,11 +63,29 @@ private var appVersion: String {
 
 struct HomeView: View {
     @State private var showSettings = false
+    @AppStorage("homeList") private var listMode = false
 
     var body: some View {
         NavigationStack {
             ZStack {
                 Backdrop()
+                if listMode { list.transition(.opacity) } else { WorldTreeView().transition(.opacity) }
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button(listMode ? "哲学之树" : "书目", systemImage: listMode ? "tree" : "list.bullet") {
+                        withAnimation(.smooth(duration: 0.4)) { listMode.toggle() }
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("外观", systemImage: "paintpalette") { showSettings = true }
+                }
+            }
+            .sheet(isPresented: $showSettings) { BackdropSettings() }
+        }
+    }
+
+    private var list: some View {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Pure")
@@ -110,14 +128,6 @@ struct HomeView: View {
                     }
                     .padding(20)
                 }
-            }
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("外观", systemImage: "paintpalette") { showSettings = true }
-                }
-            }
-            .sheet(isPresented: $showSettings) { BackdropSettings() }
-        }
     }
 }
 
