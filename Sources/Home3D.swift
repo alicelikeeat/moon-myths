@@ -1164,13 +1164,16 @@ struct WorldTree3DView: View {
                 }
             }
             for f in 0..<Self.fireflies {
-                let ff = Double(f)
-                let a = Float(ff * 2.4 + refs.now * (0.15 + 0.05 * sin(ff)))
-                let r = Float(0.35 + 0.3 * abs(sin(ff * 1.3)))
-                let y = Float(0.1 + fract(ff * 0.37 + refs.now * 0.02) * 1.4)
+                let ff: Double = Double(f)
+                let speed: Double = 0.15 + 0.05 * sin(ff)
+                let aD: Double = ff * 2.4 + refs.now * speed
+                let rD: Double = 0.35 + 0.3 * abs(sin(ff * 1.3))
+                let yD: Double = 0.1 + fract(ff * 0.37 + refs.now * 0.02) * 1.4
+                let a = Float(aD), r = Float(rD), y = Float(yD)
                 let e = refs["fly\(f)"]
-                e?.position = [cos(a) * r, y, sin(a) * r]
-                fade(e, ease(t - 1.5) * (0.4 + 0.6 * Float(abs(sin(refs.now * 1.5 + ff)))))
+                e?.position = SIMD3<Float>(cos(a) * r, y, sin(a) * r)
+                let tw: Double = 0.4 + 0.6 * abs(sin(refs.now * 1.5 + ff))
+                fade(e, ease(t - 1.5) * Float(tw))
             }
         }
     }
