@@ -67,6 +67,12 @@ jobs:
           mkdir -p Bundled && touch Bundled/.keep   # 普通版：空文件夹
           xcodegen generate
 
+      - name: Package Xcode project
+        run: |
+          # 生成好的 Pure.xcodeproj + 全部源码，解压后用 Xcode 直接打开即可编译
+          zip -qry Pure-v${{ env.VER }}-xcode.zip . -x '.git/*' 'build/*' 'Payload/*' '*.ipa' 'xcodebuild.log'
+          ls -lh Pure-v${{ env.VER }}-xcode.zip
+
       - name: Build (no signing)
         run: |
           set -o pipefail
@@ -111,6 +117,7 @@ jobs:
             echo; echo "---"
             if [ "${{ inputs.offline }}" = "true" ]; then echo "离线版：全部全文与动画已打包进 App，不用下载。"; fi
             echo "未签名 IPA，用 TrollStore / AltStore / Sideloadly 等自行签名安装。"
+            echo "Pure-v${VER}-xcode.zip：生成好的 Xcode 工程与全部源码，解压后打开 Pure.xcodeproj 即可编译。"
           } > release-body.md
           cat release-body.md
 
@@ -120,4 +127,6 @@ jobs:
           tag_name: v${{ env.VER }}
           name: Pure v${{ env.VER }}${{ inputs.offline && '（离线版）' || '' }}
           body_path: release-body.md
-          files: Pure-v${{ env.VER }}${{ env.SUFFIX }}-unsigned.ipa
+          files: |
+            Pure-v${{ env.VER }}${{ env.SUFFIX }}-unsigned.ipa
+            Pure-v${{ env.VER }}-xcode.zip
