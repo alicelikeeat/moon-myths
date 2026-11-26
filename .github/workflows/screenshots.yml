@@ -61,6 +61,11 @@ jobs:
             for s in 3 6 10 16 30 40; do sleep 2; xcrun simctl io "$UDID" screenshot "shots/formula-$s.png"; done
             exit_early=1
           fi
+          if [ "${{ inputs.only }}" = "home" ]; then
+            run_shot "home-light" -appearance light; sleep 2; xcrun simctl io "$UDID" screenshot shots/home-light-late.png
+            run_shot "home-dark" -appearance dark
+            exit_early=1
+          fi
           if [ "${{ inputs.only }}" = "3d" ]; then
             for c in 1 2 6; do run_shot "3d-kant-$c" -book kant-cpr -startChapter $c -anim3D YES -appearance light; done
             run_shot "3d-hegel-3" -book hegel-phen -startChapter 3 -anim3D YES -appearance light
