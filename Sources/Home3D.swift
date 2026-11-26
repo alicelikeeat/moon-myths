@@ -704,10 +704,10 @@ struct RoundTable3DView: View {
                 pos[t.id] = p
                 let tier = FameTier(fameTotal(t))
                 // 刻名基座：白石座身，顶沿是评分对应的金属色；有合格雕像时，雕像立在座顶的槽位上
-                let r: Float = tier == .pure ? 0.017 : 0.013
+                let pr: Float = tier == .pure ? 0.017 : 0.013
                 let h: Float = 0.026
-                let seat = model(.generateCylinder(height: h, radius: r), mat(ivory, rough: 0.7))
-                seat.addChild(model(.generateCylinder(height: 0.003, radius: r + 0.0015), tierMat(t), at: [0, h / 2, 0]))
+                let seat = model(.generateCylinder(height: h, radius: pr), mat(ivory, rough: 0.7))
+                seat.addChild(model(.generateCylinder(height: 0.003, radius: pr + 0.0015), tierMat(t), at: [0, h / 2, 0]))
                 let slot = Entity()
                 slot.position = [0, h / 2 + 0.0015, 0]
                 // 没有合格雕像时先放卡通示意小人；雕像加载成功会替换它
