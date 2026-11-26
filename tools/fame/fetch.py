@@ -27,6 +27,13 @@ T = {
  "camus": ("Albert Camus", "camus"), "euclid": ("Euclid", None), "liuhui": ("Liu Hui", None),
  "archimedes": ("Archimedes", None), "zhaoshuang": ("Zhao Shuang", None), "newton": ("Isaac Newton", "newton"),
  "descartes-geometry": ("La Géométrie", "descartes-mathematics"),
+ "pythagoras": ("Pythagoras", "pythagoras"), "apollonius": ("Apollonius of Perga", None), "diophantus": ("Diophantus", None),
+ "zuchongzhi": ("Zu Chongzhi", None), "alkhwarizmi": ("Al-Khwarizmi", None), "fibonacci": ("Fibonacci", None),
+ "liye": ("Li Ye (mathematician)", None), "qinjiushao": ("Qin Jiushao", None), "yanghui": ("Yang Hui", None),
+ "zhushijie": ("Zhu Shijie", None), "xuguangqi": ("Xu Guangqi", None), "fermat": ("Pierre de Fermat", None),
+ "meiwending": ("Mei Wending", None), "euler": ("Leonhard Euler", None), "gauss": ("Carl Friedrich Gauss", None),
+ "boole": ("George Boole", "boole"), "riemann": ("Bernhard Riemann", None), "dedekind": ("Richard Dedekind", "dedekind-foundations"),
+ "cantor": ("Georg Cantor", None), "hilbert": ("David Hilbert", "hilbert-program"), "godel": ("Kurt Gödel", "goedel"),
 }
 
 def get(url, tries=2, timeout=20):
