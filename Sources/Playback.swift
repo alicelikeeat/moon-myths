@@ -55,21 +55,26 @@ struct PlaybackControls: ViewModifier {
                         .transition(.opacity)
                     }
 
-                    Button {
-                        touch()
-                        withAnimation(.snappy(duration: 0.25)) { expanded.toggle() }
-                    } label: {
-                        Image(systemName: expanded ? "chevron.right" : (clock.playing ? "slider.horizontal.3" : "pause.fill"))
-                            .font(.system(size: 13, weight: .semibold))
-                            .frame(width: 30, height: 30)
-                            .contentShape(Circle())
-                    }
-                    .buttonStyle(.glass)
-                    .buttonBorderShape(.circle)
-                    .accessibilityIdentifier("playback.toggle")
-                    .accessibilityValue(expanded ? "expanded" : "collapsed")
                 }
-                .padding(8)
+                .padding(.vertical, 8)
+                .padding(.trailing, 50)
+            }
+            .overlay(alignment: .topTrailing) {
+                // 展开 / 收起按钮单独一层：旁边的控件出现、消失时它的位置和点按区域都不变
+                    Button {
+                    touch()
+                    withAnimation(.snappy(duration: 0.25)) { expanded.toggle() }
+                } label: {
+                    Image(systemName: expanded ? "chevron.right" : (clock.playing ? "slider.horizontal.3" : "pause.fill"))
+                        .font(.system(size: 13, weight: .semibold))
+                        .frame(width: 30, height: 30)
+                        .contentShape(Circle())
+                }
+                .buttonStyle(.glass)
+                .buttonBorderShape(.circle)
+                .accessibilityIdentifier("playback.toggle")
+                .accessibilityValue(expanded ? "expanded" : "collapsed")
+                    .padding(8)
             }
             .task(id: lastTouch) {
                 // 播放中 5 秒无操作自动收起；暂停时保持展开，方便拖动
