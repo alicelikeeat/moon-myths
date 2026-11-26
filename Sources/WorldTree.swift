@@ -104,19 +104,24 @@ private struct TreeBranches: View {
                     ctx.stroke(p.trimmedPath(from: 0, to: ease), with: .color(Color.primary.opacity(0.10)),
                                style: StrokeStyle(lineWidth: 5 - abs(a) * 3, lineCap: .round))
                 }
-                // 树干：自下而上逐渐变细，带一点弯
-                let n = 40
-                for i in 0..<n {
-                    let u0 = Double(i) / Double(n), u1 = Double(i + 1) / Double(n)
-                    guard u0 < ease else { break }
-                    let y0 = L.trunkBottom + (L.trunkTop - L.trunkBottom) * u0
-                    let y1 = L.trunkBottom + (L.trunkTop - L.trunkBottom) * min(u1, ease)
-                    let x0 = cx + sin(u0 * 7) * 6, x1 = cx + sin(min(u1, ease) * 7) * 6
-                    var p = Path(); p.move(to: CGPoint(x: x0, y: y0)); p.addLine(to: CGPoint(x: x1, y: y1))
-                    ctx.stroke(p, with: .linearGradient(Gradient(colors: [Color.primary.opacity(0.22), Color.primary.opacity(0.12)]),
-                                                        startPoint: CGPoint(x: x0 - 8, y: y0), endPoint: CGPoint(x: x0 + 8, y: y0)),
-                               style: StrokeStyle(lineWidth: 18 - 13 * u0, lineCap: .round))
+                // 树干：一整块自下而上逐渐变细的形状（不用分段描边，避免接缝处出现一颗颗的珠子）
+                let n = 48
+                let topU = ease
+                var left: [CGPoint] = [], right: [CGPoint] = []
+                for i in 0...n {
+                    let u = Double(i) / Double(n) * topU
+                    let y = L.trunkBottom + (L.trunkTop - L.trunkBottom) * u
+                    let x = cx + sin(u * 7) * 6
+                    let half = (18 - 13 * u) / 2
+                    left.append(CGPoint(x: x - half, y: y)); right.append(CGPoint(x: x + half, y: y))
                 }
+                var trunk = Path()
+                trunk.move(to: left[0])
+                for q in left.dropFirst() { trunk.addLine(to: q) }
+                for q in right.reversed() { trunk.addLine(to: q) }
+                trunk.closeSubpath()
+                ctx.fill(trunk, with: .linearGradient(Gradient(colors: [Color.primary.opacity(0.10), Color.primary.opacity(0.24), Color.primary.opacity(0.10)]),
+                                                      startPoint: CGPoint(x: cx - 10, y: 0), endPoint: CGPoint(x: cx + 10, y: 0)))
                 // 三根主枝：从树干出发，穿过每一片叶子
                 for r in Region.allCases {
                     let leaves = L.nodes.filter { $0.thinker.region == r }.sorted { $0.y > $1.y }
@@ -126,17 +131,20 @@ private struct TreeBranches: View {
                     let dim = filter != nil && filter != r
                     let col = regionColor(r).opacity(dim ? 0.08 : 0.38)
                     let total = Double(pts.count - 1)
+                    var path = Path()
+                    path.move(to: pts[0])
                     for i in 0..<(pts.count - 1) {
-                        let u = Double(i) / total
-                        guard u < ease else { break }
                         let p0 = pts[max(0, i - 1)], p1 = pts[i], p2 = pts[i + 1], p3 = pts[min(pts.count - 1, i + 2)]
                         let c1 = CGPoint(x: p1.x + (p2.x - p0.x) / 6, y: p1.y + (p2.y - p0.y) / 6)
                         let c2 = CGPoint(x: p2.x - (p3.x - p1.x) / 6, y: p2.y - (p3.y - p1.y) / 6)
-                        var seg = Path(); seg.move(to: p1); seg.addCurve(to: p2, control1: c1, control2: c2)
-                        let local = min(1, (ease - u) * total)
-                        ctx.stroke(seg.trimmedPath(from: 0, to: local), with: .color(col),
-                                   style: StrokeStyle(lineWidth: max(2, 9 - 7 * u), lineCap: .round))
+                        path.addCurve(to: p2, control1: c1, control2: c2)
                     }
+                    _ = total
+                    // 一整条路径描边：粗的底层只画到靠近树干的一段，细的上层画全长，看起来由粗到细
+                    let grown = path.trimmedPath(from: 0, to: ease)
+                    ctx.stroke(grown, with: .color(col), style: StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round))
+                    ctx.stroke(path.trimmedPath(from: 0, to: min(ease, 0.45)), with: .color(col.opacity(0.7)),
+                               style: StrokeStyle(lineWidth: 7, lineCap: .round, lineJoin: .round))
                 }
                 // 萤火：沿树缓缓上升的光点
                 for i in 0..<26 {
@@ -236,7 +244,14 @@ struct WorldTreeView: View {
         }
         .padding(.horizontal, 20)
         .padding(.top, 4)
-        .padding(.bottom, 10)
+        .padding(.bottom, 14)
+        .background {
+            // 顶部一层渐隐的磨砂，树枝滚到标题下面时不会和文字搅在一起
+            Rectangle().fill(.ultraThinMaterial)
+                .mask(LinearGradient(stops: [.init(color: .black, location: 0), .init(color: .black, location: 0.7), .init(color: .clear, location: 1)],
+                                     startPoint: .top, endPoint: .bottom))
+                .ignoresSafeArea(edges: .top)
+        }
     }
 
     private func chip(_ r: Region?, _ title: String) -> some View {
@@ -265,8 +280,9 @@ struct WorldTreeView: View {
             Button {
                 withAnimation(.spring(duration: 0.5, bounce: 0.25)) { selected = t.id }
             } label: {
-                Text(t.name)
-                    .font(.system(size: t.name.count > 3 ? 11 : 13, weight: .semibold, design: .serif))
+                let short = String(t.name.split(separator: "（").first ?? Substring(t.name))
+                Text(short)
+                    .font(.system(size: short.count > 3 ? 11 : 13, weight: .semibold, design: .serif))
                     .foregroundStyle(Color.primary)
                     .lineLimit(2)
                     .minimumScaleFactor(0.7)
