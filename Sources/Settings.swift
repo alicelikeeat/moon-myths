@@ -6,6 +6,7 @@ struct AppSettings: View {
     @AppStorage("blindMode") private var blindMode = false
     @AppStorage("nameLang") private var nameLang = "zh"
     @AppStorage("home3D") private var home3D = false
+    @AppStorage("nativeGlassAnim") private var nativeGlass = false
     @State private var showBackdrop = false
     @State private var confirmClear = false
     @State private var showMine = false
@@ -30,6 +31,11 @@ struct AppSettings: View {
                     .accessibilityIdentifier("settings.lang")
                 } header: { Text("人名") } footer: {
                     Text("只切换人物名字的语言（如 Konfuzius、Lao-tseu、Thomas d'Aquin）；界面文字仍为中文。")
+                }
+                Section {
+                    Toggle(isOn: $nativeGlass) { Label("动画使用原生 Liquid Glass 节点", systemImage: "drop") }
+                } header: { Text("动画") } footer: {
+                    Text("默认用单遍绘制的仿玻璃，流畅省电；打开后圆与方框改用系统原生玻璃，更通透但更耗电，旧机型可能卡顿。动画帧率上限 60 帧，低电量模式 30 帧。")
                 }
                 Section("首页") {
                     Toggle(isOn: $home3D) { Label("使用 3D 视图", systemImage: "cube") }

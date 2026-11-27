@@ -91,7 +91,7 @@ private struct TreeBranches: View {
     let start: Date
 
     var body: some View {
-        TimelineView(.animation) { tl in
+        TimelineView(.animation(minimumInterval: 1.0 / 30)) { tl in
             let now = tl.date.timeIntervalSince(start)
             let grow = min(1, now / 2.2)
             Canvas { ctx, size in
