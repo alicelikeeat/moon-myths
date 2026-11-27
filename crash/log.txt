@@ -1,0 +1,40 @@
+2026-11-27 01:47:01.717 Df Pure[7575:70cd] [com.apple.renderbox:error] RBLayer: full image queue, 0x104869b70
+2026-11-27 01:47:01.718 Df Pure[7575:70cd] [com.apple.renderbox:error] RBDrawable: no surface, dropping frame
+2026-11-27 01:47:04.607 Df Pure[7575:70cd] [com.apple.renderbox:error] RBLayer: full image queue, 0x104869b70
+2026-11-27 01:47:04.607 Df Pure[7575:70cd] [com.apple.renderbox:error] RBDrawable: no surface, dropping frame
+2026-11-27 01:47:07.892 Df Pure[7575:70cd] [com.apple.renderbox:error] RBLayer: full image queue, 0x104869b70
+2026-11-27 01:47:07.892 Df Pure[7575:70cd] [com.apple.renderbox:error] RBDrawable: no surface, dropping frame
+2026-11-27 01:47:11.007 Df Pure[7575:70cd] [com.apple.renderbox:error] RBLayer: full image queue, 0x104869b70
+2026-11-27 01:47:11.007 Df Pure[7575:70cd] [com.apple.renderbox:error] RBDrawable: no surface, dropping frame
+2026-11-27 01:47:17.816 Df Pure[7575:70cd] [com.apple.renderbox:error] RBLayer: full image queue, 0x104869b70
+2026-11-27 01:47:17.817 Df Pure[7575:70cd] [com.apple.renderbox:error] RBDrawable: no surface, dropping frame
+2026-11-27 01:47:18.233 Df Pure[7575:70cd] [com.apple.renderbox:error] RBLayer: full image queue, 0x104869b70
+2026-11-27 01:47:18.233 Df Pure[7575:70cd] [com.apple.renderbox:error] RBDrawable: no surface, dropping frame
+2026-11-27 01:47:21.341 Df Pure[7575:70cd] [com.apple.renderbox:error] RBLayer: full image queue, 0x104869b70
+2026-11-27 01:47:21.341 Df Pure[7575:70cd] [com.apple.renderbox:error] RBDrawable: no surface, dropping frame
+2026-11-27 01:47:23.475 Df Pure[8098:7713] [com.apple.BoardServices:XPCErrors] [C:1] Alloc com.apple.frontboard.systemappservices
+2026-11-27 01:47:23.569 Df Pure[8098:7713] [com.apple.BoardServices:XPCErrors] [C:2] Alloc com.apple.backboard.hid-services.xpc
+2026-11-27 01:47:28.473 Df Pure[8098:7713] [com.apple.renderbox:error] RBLayer: full image queue, 0x100c9d0c0
+2026-11-27 01:47:28.473 Df Pure[8098:7713] [com.apple.renderbox:error] RBDrawable: no surface, dropping frame
+2026-11-27 01:47:36.790 Df Pure[8229:78ff] [com.apple.BoardServices:XPCErrors] [C:1] Alloc com.apple.frontboard.systemappservices
+2026-11-27 01:47:36.861 Df Pure[8229:78e8] [com.apple.BoardServices:XPCErrors] [C:2] Alloc com.apple.backboard.hid-services.xpc
+2026-11-27 01:47:47.463 Df Pure[8757:7e45] [com.apple.BoardServices:XPCErrors] [C:1] Alloc com.apple.frontboard.systemappservices
+2026-11-27 01:47:47.533 Df Pure[8757:7dd5] [com.apple.BoardServices:XPCErrors] [C:2] Alloc com.apple.backboard.hid-services.xpc
+2026-11-27 01:47:58.109 Df Pure[8945:807a] [com.apple.BoardServices:XPCErrors] [C:1] Alloc com.apple.frontboard.systemappservices
+2026-11-27 01:47:58.192 Df Pure[8945:802c] [com.apple.BoardServices:XPCErrors] [C:2] Alloc com.apple.backboard.hid-services.xpc
+2026-11-27 01:48:01.242 Df Pure[8945:802c] [com.apple.renderbox:error] RBLayer: full image queue, 0x102f5f660
+2026-11-27 01:48:01.242 Df Pure[8945:802c] [com.apple.renderbox:error] RBDrawable: no surface, dropping frame
+2026-11-27 01:48:01.528 Df Pure[8945:802c] [com.apple.renderbox:error] RBLayer: full image queue, 0x102f5f660
+2026-11-27 01:48:01.528 Df Pure[8945:802c] [com.apple.renderbox:error] RBDrawable: no surface, dropping frame
+2026-11-27 01:48:02.576 Df Pure[8945:802c] [com.apple.renderbox:error] RBLayer: full image queue, 0x102f5f660
+2026-11-27 01:48:02.576 Df Pure[8945:802c] [com.apple.renderbox:error] RBDrawable: no surface, dropping frame
+2026-11-27 01:48:02.827 Df Pure[8945:802c] [com.apple.renderbox:error] RBLayer: full image queue, 0x102f5f660
+2026-11-27 01:48:02.828 Df Pure[8945:802c] [com.apple.renderbox:error] RBDrawable: no surface, dropping frame
+2026-11-27 01:48:05.397 Df Pure[8945:802c] [com.apple.renderbox:error] RBLayer: full image queue, 0x102f5f660
+2026-11-27 01:48:05.397 Df Pure[8945:802c] [com.apple.renderbox:error] RBDrawable: no surface, dropping frame
+2026-11-27 01:48:05.718 Df Pure[8945:802c] [com.apple.renderbox:error] RBLayer: full image queue, 0x102f5f660
+2026-11-27 01:48:05.718 Df Pure[8945:802c] [com.apple.renderbox:error] RBDrawable: no surface, dropping frame
+2026-11-27 01:48:18.292 Df Pure[9904:8927] [com.apple.BoardServices:XPCErrors] [C:1] Alloc com.apple.frontboard.systemappservices
+2026-11-27 01:48:18.369 Df Pure[9904:8904] [com.apple.BoardServices:XPCErrors] [C:2] Alloc com.apple.backboard.hid-services.xpc
+2026-11-27 01:48:27.686 Df Pure[10445:8ecd] [com.apple.BoardServices:XPCErrors] [C:1] Alloc com.apple.frontboard.systemappservices
+2026-11-27 01:48:27.761 Df Pure[10445:8e70] [com.apple.BoardServices:XPCErrors] [C:2] Alloc com.apple.backboard.hid-services.xpc
