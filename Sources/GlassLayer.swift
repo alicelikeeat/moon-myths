@@ -130,6 +130,13 @@ struct LiveCanvas: View {
     @State private var tip: (String, CGPoint)?
     @State private var tipID = 0
     @State private var size: CGSize = .zero
+    /// 原生 Liquid Glass 节点：逐帧重建玻璃视图，很耗电；默认关闭，改用单遍绘制的仿玻璃
+    @AppStorage("nativeGlassAnim") private var nativeGlass = false
+    /// 滚出屏幕或离开页面时暂停绘制
+    @State private var visible = true
+
+    /// 帧率上限：60 帧；低电量模式 30 帧（原来不设上限，Pro 机型上会跑到 120 帧）
+    private var frameInterval: Double { ProcessInfo.processInfo.isLowPowerModeEnabled ? 1.0 / 30 : 1.0 / 60 }
 
     init(clock: PlaybackClock? = nil, surface: DragSurface? = nil, custom3D: (() -> AnyView)? = nil, tier: Tier3D = .refined,
          draw: @escaping (inout GraphicsContext, CGSize, Double) -> Void) {
@@ -145,7 +152,7 @@ struct LiveCanvas: View {
             if is3D, let custom3D {
                 custom3D()
             } else if is3D {
-                TimelineView(.animation) { tl in
+                TimelineView(.animation(minimumInterval: frameInterval, paused: !visible)) { tl in
                     let now = tl.date.timeIntervalSinceReferenceDate
                     let t = clock?.time(now) ?? now
                     // 没在拖动时，镜头缓缓摆动，让人看出纵深
@@ -162,8 +169,10 @@ struct LiveCanvas: View {
                         drawHighlight(&ctx, cache, now)
                     }
                 }
-            } else {
+            } else if nativeGlass {
                 flat
+            } else {
+                fast
             }
             if let (text, p) = tip {
                 Text(text)
@@ -179,6 +188,9 @@ struct LiveCanvas: View {
             toggle
         }
         .onGeometryChange(for: CGSize.self) { $0.size } action: { size = $0 }
+        .onScrollVisibilityChange(threshold: 0.02) { visible = $0 }
+        .onAppear { visible = true }
+        .onDisappear { visible = false }
         .contentShape(.rect)
         .gesture(dragGesture, including: (is3D && custom3D != nil) ? .subviews : .all)
         .simultaneousGesture(MagnifyGesture().onChanged { v in
@@ -189,9 +201,40 @@ struct LiveCanvas: View {
         .simultaneousGesture(SpatialTapGesture().onEnded { v in inspect(v.location) })
     }
 
-    /// 2D：原来的两遍绘制（线条 + 原生玻璃叠加层）
+    /// 2D（默认）：一张画布一次画完——仿玻璃的圆与方框、线条、粒子、文字都在同一遍里，
+    /// 不再逐帧生成原生玻璃视图，主线程负担小得多
+    private var fast: some View {
+        TimelineView(.animation(minimumInterval: frameInterval, paused: !visible)) { tl in
+            let now = tl.date.timeIntervalSinceReferenceDate
+            let t = clock?.time(now) ?? now
+            Canvas { ctx, size in
+                drawAtmosphere(&ctx, size)
+                cache.labels.removeAll(keepingCapacity: true)
+                cache.nodes.removeAll(keepingCapacity: true)
+                DrawSink.cache = cache
+                DrawSink.beat = nil
+                draw(&ctx, size, t)
+                DrawSink.cache = nil
+                clock?.beat = DrawSink.beat
+                drawHighlight(&ctx, cache, now)
+            }
+        }
+    }
+
+    /// 画面氛围：顶部一束很淡的光，四角轻微压暗
+    private func drawAtmosphere(_ ctx: inout GraphicsContext, _ size: CGSize) {
+        let full = Path(CGRect(origin: .zero, size: size))
+        ctx.fill(full, with: .radialGradient(Gradient(colors: [Moon.gold.opacity(0.06), .clear]),
+                                             center: CGPoint(x: size.width / 2, y: -size.height * 0.1),
+                                             startRadius: 0, endRadius: size.height * 0.9))
+        ctx.fill(full, with: .radialGradient(Gradient(colors: [.clear, .clear, Color.black.opacity(0.06)]),
+                                             center: CGPoint(x: size.width / 2, y: size.height / 2),
+                                             startRadius: 0, endRadius: max(size.width, size.height) * 0.75))
+    }
+
+    /// 2D（可选）：原来的两遍绘制（线条 + 原生玻璃叠加层）
     private var flat: some View {
-        TimelineView(.animation) { tl in
+        TimelineView(.animation(minimumInterval: frameInterval, paused: !visible)) { tl in
             let now = tl.date.timeIntervalSinceReferenceDate
             let t = clock?.time(now) ?? now
             // 叠加层显示上一批记录；画布按那一批的时刻画线条，二者严格同步

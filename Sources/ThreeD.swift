@@ -24,7 +24,7 @@ struct Copernicus3D: View {
     private let count = 6
 
     var body: some View {
-        TimelineView(.animation) { tl in
+        TimelineView(.animation(minimumInterval: 1.0 / 60)) { tl in
             let t = clock.time(tl.date.timeIntervalSinceReferenceDate)
             let (ph, p) = beats(t, [7, 7])
             let k = ph == 0 ? 1 - smooth(p / 0.25) : smooth(p / 0.25)   // 0 = 旧, 1 = 新

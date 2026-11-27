@@ -33,6 +33,13 @@ func hash01(_ seed: Double) -> Double { fract(sin(seed * 12.9898) * 43758.5453) 
 func blob(_ ctx: inout GraphicsContext, _ x0: Double, _ y0: Double, _ r: Double, _ color: Color) {
     let (x, y) = TouchField.push(x0, y0)
     if let rec = PrimRecorder.current { rec.prims.append(.blob(x, y, r, color)); return }
+    // 粒子：外圈一层柔光，内核实色
+    if r >= 1.2 {
+        let h = r * 2.6
+        ctx.fill(Path(ellipseIn: CGRect(x: x - h, y: y - h, width: h * 2, height: h * 2)),
+                 with: .radialGradient(Gradient(colors: [color.opacity(0.22 * alphaOf(color)), color.opacity(0)]),
+                                       center: CGPoint(x: x, y: y), startRadius: r * 0.6, endRadius: h))
+    }
     ctx.fill(Path(ellipseIn: CGRect(x: x - r, y: y - r, width: r * 2, height: r * 2)), with: .color(color))
 }
 
@@ -52,19 +59,34 @@ func dot(_ ctx: inout GraphicsContext, _ x0: Double, _ y0: Double, _ r: Double, 
         ctx.fill(circle, with: .color(color))
         return
     }
+    DrawSink.cache?.nodes.append(CGPoint(x: x, y: y))
+    let a = alphaOf(color)
+    // 1. 落在下方的柔和投影
+    let sh = CGRect(x: x - r * 0.9, y: y + r * 0.72, width: r * 1.8, height: r * 0.5)
+    ctx.fill(Path(ellipseIn: sh), with: .radialGradient(Gradient(colors: [Color.black.opacity(0.16 * a), Color.black.opacity(0)]),
+                                                       center: CGPoint(x: sh.midX, y: sh.midY), startRadius: 0, endRadius: r * 0.9))
+    // 2. 玻璃球体：中心偏下透出颜色，边缘更浓
     ctx.fill(circle, with: .radialGradient(
-        Gradient(colors: [color.opacity(0.35), color.opacity(0.75)]),
-        center: CGPoint(x: x, y: y + r * 0.2), startRadius: 0, endRadius: r))
-    ctx.stroke(circle, with: .linearGradient(
-        Gradient(colors: [Color.white.opacity(0.85), Color.white.opacity(0.08), Color.white.opacity(0.45)]),
-        startPoint: CGPoint(x: x - r, y: y - r), endPoint: CGPoint(x: x + r, y: y + r)),
-        lineWidth: max(0.8, r * 0.07))
-    let hl = CGRect(x: x - r * 0.62, y: y - r * 0.9, width: r * 1.24, height: r * 0.62)
+        Gradient(colors: [color.opacity(0.22 * a), color.opacity(0.55 * a), color.opacity(0.85 * a)]),
+        center: CGPoint(x: x, y: y + r * 0.25), startRadius: 0, endRadius: r * 1.05))
     var inner = ctx
     inner.clip(to: circle)
+    // 3. 底部折射回光
+    let bounce = CGRect(x: x - r * 0.7, y: y + r * 0.35, width: r * 1.4, height: r * 0.7)
+    inner.fill(Path(ellipseIn: bounce), with: .radialGradient(Gradient(colors: [Color.white.opacity(0.35 * a), Color.white.opacity(0)]),
+                                                             center: CGPoint(x: x, y: y + r * 0.7), startRadius: 0, endRadius: r * 0.7))
+    // 4. 顶部高光
+    let hl = CGRect(x: x - r * 0.62, y: y - r * 0.92, width: r * 1.24, height: r * 0.66)
     inner.fill(Path(ellipseIn: hl), with: .linearGradient(
-        Gradient(colors: [Color.white.opacity(0.8), Color.white.opacity(0)]),
+        Gradient(colors: [Color.white.opacity(0.85 * a), Color.white.opacity(0)]),
         startPoint: CGPoint(x: x, y: hl.minY), endPoint: CGPoint(x: x, y: hl.maxY)))
+    // 5. 边缘反光与一个小亮点
+    ctx.stroke(circle, with: .linearGradient(
+        Gradient(colors: [Color.white.opacity(0.9 * a), color.opacity(0.25 * a), Color.white.opacity(0.5 * a)]),
+        startPoint: CGPoint(x: x - r, y: y - r), endPoint: CGPoint(x: x + r, y: y + r)),
+        lineWidth: max(0.8, r * 0.07))
+    let sp = r * 0.12
+    ctx.fill(Path(ellipseIn: CGRect(x: x + r * 0.38 - sp, y: y - r * 0.42 - sp, width: sp * 2, height: sp * 2)), with: .color(Color.white.opacity(0.85 * a)))
 }
 
 func label(_ ctx: inout GraphicsContext, _ s: String, _ x: Double, _ y: Double,
@@ -74,7 +96,9 @@ func label(_ ctx: inout GraphicsContext, _ s: String, _ x: Double, _ y: Double,
         buf.texts.append(GlassText(text: s, x: x, y: y, color: color, size: size, serif: serif))
         return
     }
-    ctx.draw(Text(s).font(.system(size: size, weight: serif ? .regular : .medium, design: serif ? .serif : .rounded)).foregroundColor(color),
+    DrawSink.cache?.labels.append((s, CGPoint(x: x, y: y)))
+    ctx.draw(Text(s).font(.system(size: size, weight: serif ? .semibold : .medium, design: serif ? .serif : .rounded))
+                .tracking(serif ? 0.6 : 0.2).foregroundColor(color),
              at: CGPoint(x: x, y: y))
 }
 

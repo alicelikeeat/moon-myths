@@ -69,7 +69,7 @@ struct Stage3D: View {
     @GestureState private var pinch: CGFloat = 1
 
     var body: some View {
-        TimelineView(.animation) { tl in
+        TimelineView(.animation(minimumInterval: 1.0 / 60)) { tl in
             let now = tl.date.timeIntervalSinceReferenceDate
             let t = clock.time(now)
             let (ph, p) = beats(t, durations)

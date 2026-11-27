@@ -268,7 +268,7 @@ struct HeavenView: View {
     var body: some View {
         let rings = makeRings()
         ScrollView([.horizontal, .vertical]) {
-            TimelineView(.animation(paused: detail != nil)) { tl in
+            TimelineView(.animation(minimumInterval: 1.0 / 30, paused: detail != nil)) { tl in
                 let now = tl.date.timeIntervalSinceReferenceDate
                 ZStack {
                     HeavenBackdrop(S: S, now: now, rings: rings.count)

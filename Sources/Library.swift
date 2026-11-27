@@ -63,6 +63,7 @@ private var appVersion: String {
 
 struct HomeView: View {
     @State private var showSettings = false
+    @State private var showMyRatings = false
     @State private var demoSheet: Thinker?
     @AppStorage("homeStyle") private var style = "tree"
     @AppStorage("home3D") private var home3D = false
@@ -98,6 +99,10 @@ struct HomeView: View {
                         Picker("首页", selection: Binding(get: { style }, set: { v in withAnimation(.smooth(duration: 0.4)) { style = v } })) {
                             ForEach(styles, id: \.0) { s in Label(s.1, systemImage: s.2).tag(s.0) }
                         }
+                        Section("个人评分") {
+                            Toggle(isOn: $blindMode) { Label("未评分模式（自己打分）", systemImage: "eye.slash") }
+                            Button { showMyRatings = true } label: { Label("我的评分", systemImage: "star.leadinghalf.filled") }
+                        }
                     } label: {
                         Label("首页样式", systemImage: styles.first { $0.0 == style }?.2 ?? "tree")
                     }
@@ -111,12 +116,22 @@ struct HomeView: View {
                         .accessibilityIdentifier("home.3d")
                     }
                 }
+                if blindMode {
+                    // 未评分模式下顶部常驻一枚标记：一眼看出当前是自己打分，点开就是“我的评分”
+                    ToolbarItem(placement: .principal) {
+                        Button { showMyRatings = true } label: {
+                            Label("未评分模式", systemImage: "eye.slash").font(.system(size: 12, weight: .semibold)).labelStyle(.titleAndIcon)
+                        }
+                        .accessibilityIdentifier("home.blindBadge")
+                    }
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("设置", systemImage: "gearshape") { showSettings = true }
                         .accessibilityIdentifier("home.settings")
                 }
             }
             .sheet(isPresented: $showSettings) { AppSettings() }
+            .sheet(isPresented: $showMyRatings) { MyRatingsView() }
             .sheet(item: $demoSheet) { FameSheet(thinker: $0) }
             .onAppear {
                 // 截图用：-fameSheet <人物 id> 直接打开评分页

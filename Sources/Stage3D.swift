@@ -238,7 +238,7 @@ struct HomeStage3D: View {
     private var initial: CamState { CamState(eye: eye, target: target) }
 
     var body: some View {
-        TimelineView(.animation(paused: detail != nil)) { tl in
+        TimelineView(.animation(minimumInterval: 1.0 / 60, paused: detail != nil)) { tl in
             let now = tl.date.timeIntervalSinceReferenceDate
             RealityView { content in
                 let root = Entity()

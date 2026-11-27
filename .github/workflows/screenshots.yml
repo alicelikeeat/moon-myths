@@ -82,6 +82,14 @@ jobs:
             run_shot "3d-supreme-dao" -book daodejing -startChapter 2 -anim3D YES -appearance light
             exit_early=1
           fi
+          if [ "${{ inputs.only }}" = "anim" ]; then
+            for c in 0 1 2; do run_shot "anim-kant-$c" -book kant-cpr -startChapter $c -anim3D NO -appearance light; done
+            run_shot "anim-hegel-3" -book hegel-phen -startChapter 3 -anim3D NO -appearance dark
+            run_shot "anim-ddj-0" -book daodejing -startChapter 0 -anim3D NO -appearance light
+            run_shot "anim-grid-ddj" -animGrid daodejing-zh -animPage 0 -animBeat 2 -anim3D NO -appearance light
+            run_shot "anim-grid-jihe" -animGrid jihe-zh -animPage 1 -animBeat 4 -anim3D NO -appearance dark
+            exit_early=1
+          fi
           if [ "${{ inputs.only }}" = "math" ]; then
             for b in 0 1 2 3 4; do run_shot "jihe-b$b" -animGrid jihe-zh -animPage 0 -animBeat $b -appearance light; done
             for b in 0 1 2 3 4; do run_shot "jz-b$b" -animGrid jiuzhang-zh -animPage 0 -animBeat $b -appearance light; done
