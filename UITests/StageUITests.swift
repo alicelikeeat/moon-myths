@@ -44,4 +44,20 @@ final class StageUITests: XCTestCase {
         app.launch()
         XCTAssertTrue(app.staticTexts["Konfuzius"].waitForExistence(timeout: 20), "德语人名")
     }
+
+    func testPersonalRatingEntryPoints() throws {
+        let app = XCUIApplication()
+        app.launchArguments = ["-homeStyle", "tree", "-home3D", "NO", "-blindMode", "YES", "-appearance", "light"]
+        app.launch()
+        // 未评分模式下顶部常驻标记，点开是“我的评分”
+        let badge = app.buttons["home.blindBadge"]
+        XCTAssertTrue(badge.waitForExistence(timeout: 20), "未评分模式标记应常驻顶部")
+        badge.tap()
+        XCTAssertTrue(app.navigationBars["我的评分"].waitForExistence(timeout: 10), "应打开我的评分")
+        XCTAssertTrue(app.switches["myratings.blind"].exists, "我的评分页里可以切换未评分模式")
+        app.buttons["完成"].tap()
+        // 左上角菜单里也有入口
+        app.buttons["home.style"].tap()
+        XCTAssertTrue(app.buttons["我的评分"].waitForExistence(timeout: 5), "左上角菜单里应有“我的评分”")
+    }
 }
