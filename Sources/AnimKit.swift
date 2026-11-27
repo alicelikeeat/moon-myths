@@ -112,7 +112,15 @@ func caption(_ ctx: inout GraphicsContext, _ s: String, _ size: CGSize) {
 func headline(_ ctx: inout GraphicsContext, _ s: String, _ size: CGSize, _ color: Color = Color.primary) {
     PrimRecorder.current?.hud = true
     defer { PrimRecorder.current?.hud = false }
-    label(&ctx, s, Double(size.width) / 2, 24, color, size: 15, serif: true)
+    // 标题夹在左上角“2D/3D”与右上角播放按钮之间：按可用宽度自动缩小字号，不被按钮挡住
+    let avail = max(120, Double(size.width) - 2 * 80)
+    var fs = 15.0
+    while fs > 10.5 {
+        let w = ctx.resolve(Text(s).font(.system(size: fs, weight: .semibold, design: .serif)).tracking(0.6)).measure(in: CGSize(width: 2000, height: 100)).width
+        if Double(w) <= avail { break }
+        fs -= 0.5
+    }
+    label(&ctx, s, Double(size.width) / 2, 24, color, size: fs, serif: true)
 }
 
 /// 单遍绘制时收集点按提示所需的文字与节点位置，以及节拍信息

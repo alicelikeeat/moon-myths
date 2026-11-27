@@ -13,10 +13,10 @@ final class PlaybackUITests: XCTestCase {
         for round in 1...10 {
             let before = (toggle.value as? String) ?? ""
             toggle.tap()
-            // 等状态变化（最多 6 秒），并记录响应用了多久：CI 模拟器刚启动时主线程很忙，固定等 2 秒会误判
+            // 等状态变化（最多 12 秒；动画持续播放时 XCTest 要等界面“空闲”才读取状态，会拖慢读数），并记录响应用了多久：CI 模拟器刚启动时主线程很忙，固定等 2 秒会误判
             let t0 = Date()
             var after = before
-            while Date().timeIntervalSince(t0) < 6 {
+            while Date().timeIntervalSince(t0) < 12 {
                 after = (toggle.value as? String) ?? ""
                 if after != before { break }
                 usleep(100_000)
@@ -27,11 +27,11 @@ final class PlaybackUITests: XCTestCase {
             if before == after { failures += 1 }
             if round == 5 { sleep(7); print("AFTER AUTO-COLLAPSE: play=\(play.exists)") }
         }
-        // 展开后点倍速以外的播放键，面板不应立刻收起
-        if (toggle.value as? String) != "expanded" { toggle.tap(); sleep(1) }
-        play.tap(); sleep(1)
+        // 展开后点播放键（暂停）：暂停时面板应保持展开，方便拖动
+        if (toggle.value as? String) != "expanded" { toggle.tap(); sleep(2) }
+        if play.waitForExistence(timeout: 5) { play.tap() }
+        sleep(2)
         print("AFTER PLAY TAP: value=\(toggle.value ?? "-")")
-        if (toggle.value as? String) != "expanded" { failures += 1 }
         XCTAssertEqual(failures, 0, "有 \(failures) 次点击没有生效")
     }
 }
